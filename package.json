@@ -2,6 +2,7 @@
   "name": "fit-anmeldesystem-client",
   "version": "0.0.1",
   "license": "MIT",
+  "author": "Simon Kepplinger <simon.kepplinger@gmail.com>",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
