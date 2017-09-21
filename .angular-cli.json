@@ -54,8 +54,17 @@
       "config": "./karma.conf.js"
     }
   },
+  "spec": {
+    "class": false,
+    "component": false,
+    "directive": false,
+    "module": false,
+    "pipe": false,
+    "service": false
+  },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
   }
 }
