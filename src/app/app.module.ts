@@ -5,18 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
-import { FooterComponent } from './components/shared-components/footer/footer.component';
+import { SharedModule } from './components/shared-components/shared.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
-    FooterComponent
+    MainComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
