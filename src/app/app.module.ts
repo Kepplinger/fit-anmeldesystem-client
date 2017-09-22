@@ -8,11 +8,13 @@ import { MainComponent } from './components/main/main.component';
 import { SharedModule } from './components/shared-components/shared.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
+import { RegistrationLockedComponent } from './components/main/registration-locked/registration-locked.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    RegistrationLockedComponent
   ],
   imports: [
     BrowserModule,
