@@ -9,6 +9,8 @@ import { AccountManagmentComponent } from './account-management.component';
     CommonModule,
     AccountRoutingModule
   ],
-  declarations: [AccountManagmentComponent]
+  declarations: [
+    AccountManagmentComponent
+  ]
 })
 export class AccountManagementModule { }

@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { FitRegistrationRoutingModule } from './fit-registration-routing.module';
 import { FitRegistrationComponent } from './fit-registration.component';
-import { VerificationComponent } from './verification/verification.component';
+import { FitVerificationComponent } from './fit-verification/fit-verification.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FitRegistrationRoutingModule
   ],
-  declarations: [FitRegistrationComponent, VerificationComponent]
+  declarations: [
+    FitRegistrationComponent,
+    FitVerificationComponent
+  ]
 })
-export class FitRegistrationModule { }
+export class FitRegistrationModule {
+}

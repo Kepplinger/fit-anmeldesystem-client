@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: 'app/components/admin-tool/admin-tool.module#AdminToolModule'
   },
   {
-    path: 'account',
+    path: 'konto',
     loadChildren: 'app/components/account-management/account-management.module#AccountManagementModule'
   }
 ];
