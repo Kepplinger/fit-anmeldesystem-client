@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
-import { FooterComponent } from './components/main/footer/footer.component';
+import { FooterComponent } from './components/shared-components/footer/footer.component';
 
 @NgModule({
   declarations: [
