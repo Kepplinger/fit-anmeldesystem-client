@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FitRegistrationRoutingModule } from './fit-registration-routing.module';
 import { FitRegistrationComponent } from './fit-registration.component';
-import { FitVerificationComponent } from './fit-verification/fit-verification.component';
+import { CodeRequestComponent } from './code-request/code-request.component';
 
 @NgModule({
   imports: [
@@ -12,7 +12,7 @@ import { FitVerificationComponent } from './fit-verification/fit-verification.co
   ],
   declarations: [
     FitRegistrationComponent,
-    FitVerificationComponent
+    CodeRequestComponent
   ]
 })
 export class FitRegistrationModule {
