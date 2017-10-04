@@ -1,4 +1,4 @@
-import { EntityObject } from './entity-object';
+import { EntityObject } from './contracts/entity-object';
 
 export class Adress extends EntityObject {
   public city: string;

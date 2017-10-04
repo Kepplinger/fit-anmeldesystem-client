@@ -1,4 +1,4 @@
-import { EntityObject } from './entity-object';
+import { EntityObject } from './contracts/entity-object';
 
 export class Detail extends EntityObject {
   public description: string;

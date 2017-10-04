@@ -1,4 +1,4 @@
-import { EntityObject } from './entity-object';
+import { EntityObject } from './contracts/entity-object';
 import { Area } from './area';
 
 export class Location extends EntityObject {

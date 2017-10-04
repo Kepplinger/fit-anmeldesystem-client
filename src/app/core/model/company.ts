@@ -1,4 +1,4 @@
-import { EntityObject } from './entity-object';
+import { EntityObject } from './contracts/entity-object';
 import { Adress } from './adress';
 import { Contact } from './contact';
 
