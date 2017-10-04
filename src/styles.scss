@@ -4,11 +4,3 @@ $fa-font-path: '~font-awesome/fonts' !default;
 @import "~font-awesome/scss/font-awesome";
 @import "./app/styles/fit-styles";
 @import "./app/styles/fit-variables";
-
-.logo-img {
-  object-fit: contain;
-}
-
-.flex-filler {
-  flex: 1;
-}
