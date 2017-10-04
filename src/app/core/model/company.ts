@@ -1,8 +1,8 @@
-import {EntityObject} from "./entity-object";
-import {Adress} from "./adress";
-import {Contact} from "./contact";
+import { EntityObject } from './entity-object';
+import { Adress } from './adress';
+import { Contact } from './contact';
 
-export class Company extends EntityObject{
+export class Company extends EntityObject {
   public name: string;
   public shortDescription: string;
   public address: Adress;
