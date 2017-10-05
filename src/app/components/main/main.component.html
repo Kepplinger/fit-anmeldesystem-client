@@ -1,3 +1,48 @@
-<h2 class="text-bold">Anmeldung zum Firmeninformationstag</h2>
-<!-- TODO Obligatorischer Beschreibungstext? -->
-<fit-registration-locked></fit-registration-locked>
+<div>
+  <h2 class="text-bold">Anmeldung zum Firmeninformationstag</h2>
+  <!-- TODO Obligatorischer Beschreibungstext? -->
+
+  <fit-registration-locked *ngIf="!registrationAllowed"></fit-registration-locked>
+
+  <div *ngIf="registrationAllowed">
+
+    <p class="text-justify">
+      Zur Anmeldung am FIT wird ein spezieller Code benötigt. Dieser Code ist in den schriftlichen Einladungen der
+      Schule enthalten. Sollten Sie jedoch ihren Code verloren haben, ist das überhaupt kein Problem. Ein neuer Code
+      kann jederzeit beantragt werden, welchen Sie dann nach einer Verifizierung ihrer Daten erhalten.
+    </p>
+
+    <div class="small-container">
+
+      <h2 class="text-bold">Anmeldung</h2>
+
+      <div class="vertical-border pb-4 pt-1 mb-4">
+        <div class="form-group">
+
+          <label class="d-flex text-bold" for="codeInput">
+            Code Eingabe:
+            <a class="ml-auto" href="#">Code vergessen?</a>
+          </label>
+
+          <input type="text" class="form-control" id="codeInput" placeholder="8-stelliger Code">
+        </div>
+
+        <button class="btn btn-lg btn-block btn-primary"
+                [routerLink]="['/fit/anmelden']">
+          Anmelden
+        </button>
+      </div>
+
+      <h3>Sie haben keinen Code?</h3>
+      <div>
+        <button class="btn btn-lg btn-block btn-outline-secondary"
+                [routerLink]="['/fit/code-beantragen']">
+          Neuen Code beantragen
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

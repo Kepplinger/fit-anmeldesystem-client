@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FitRegistrationComponent } from './fit-registration.component';
-import { FitVerificationComponent } from './fit-verification/fit-verification.component';
+import { CodeRequestComponent } from './code-request/code-request.component';
 
 const routes: Routes = [
   {
-    path: 'anmelden',
-    component: FitRegistrationComponent
-  },
-  {
-    path: 'verification',
-    component: FitVerificationComponent
+    path: '',
+    children: [
+      {
+        path: 'anmelden',
+        component: FitRegistrationComponent
+      },
+      {
+        path: 'code-beantragen',
+        component: CodeRequestComponent
+      }
+    ]
   }
 ];
 

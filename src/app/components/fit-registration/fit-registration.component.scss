@@ -1,0 +1,19 @@
+@import "../../styles/fit-variables";
+
+.step-header {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.border-top {
+  border-top: $main-border;
+}
+
+.border-bottom {
+  border-bottom: $main-border;
+}
+
+.step-container{
+  cursor:pointer;
+
+}

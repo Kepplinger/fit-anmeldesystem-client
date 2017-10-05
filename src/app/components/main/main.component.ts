@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  public registrationAllowed: boolean = true;
 
-  ngOnInit() {
+  public constructor() {
+  }
+
+  public ngOnInit() {
   }
 
 }
