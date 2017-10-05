@@ -53,9 +53,15 @@
       <i class="fa fa-arrow-left"></i>
       Zurück
     </button>
+
     <div class="flex-filler"></div>
     <button (click)="nextPage()" *ngIf="currentPage!=4" class="btn btn-outline-dark">
       Weiter
+      <i class="fa fa-arrow-right"></i>
+    </button>
+
+    <button  *ngIf="currentPage==4" class="btn btn-success">
+      Anmelden
       <i class="fa fa-arrow-right"></i>
     </button>
   </div>
