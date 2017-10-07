@@ -14,7 +14,7 @@ export class FitRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = 1;
-    var progbar = document.getElementById("progBar").style.width="0%";
+    var progbar = document.getElementById("progBar").style.width="25%";
 
   }
 
@@ -27,12 +27,15 @@ export class FitRegistrationComponent implements OnInit {
     }
     if(this.currentPage==2){
       this.setProgress('50%');
+      this.unMuteTwo();
     }
     if(this.currentPage==3){
       this.setProgress('75%');
+      this.unMuteThree();
     }
     if(this.currentPage==4){
       this.setProgress('100%');
+      this.unMuteFour();
     }
 
   }
@@ -48,6 +51,15 @@ export class FitRegistrationComponent implements OnInit {
   {
     var progbar = document.getElementById("progBar").style.width=amount;
 
+  }
+  public unMuteTwo(){
+    var container = document.getElementById("stepTwo").className = "step-container mx-4 my-2";
+  }
+  public unMuteThree(){
+    var container = document.getElementById("stepThree").className = "step-container mx-4 my-2";
+  }
+  public unMuteFour(){
+    var container = document.getElementById("stepFour").className = "step-container mx-4 my-2";
   }
 
 }
