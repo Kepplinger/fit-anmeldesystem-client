@@ -14,11 +14,27 @@ export class FitRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = 1;
+    var progbar = document.getElementById("progBar").style.width="0%";
 
   }
 
+
   public setCurrentPage(id:number){
     this.currentPage=id;
+
+    if(this.currentPage==1) {
+      this.setProgress('25%');
+    }
+    if(this.currentPage==2){
+      this.setProgress('50%');
+    }
+    if(this.currentPage==3){
+      this.setProgress('75%');
+    }
+    if(this.currentPage==4){
+      this.setProgress('100%');
+    }
+
   }
 
   public nextPage(){
@@ -26,6 +42,12 @@ export class FitRegistrationComponent implements OnInit {
   }
   public previousPage(){
     this.currentPage-=1;
+  }
+
+  public setProgress(amount: string)
+  {
+    var progbar = document.getElementById("progBar").style.width=amount;
+
   }
 
 }
