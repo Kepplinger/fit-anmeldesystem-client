@@ -1,4 +1,9 @@
 .checkbox, .radio {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   label {
     cursor: pointer !important;
   }
