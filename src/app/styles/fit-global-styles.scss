@@ -31,3 +31,17 @@ html, body {
 .btn {
   cursor: pointer;
 }
+
+.no-outline-button {
+  cursor: pointer;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}

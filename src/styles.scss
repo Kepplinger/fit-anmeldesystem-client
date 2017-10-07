@@ -3,6 +3,6 @@ $fa-font-path: '~font-awesome/fonts' !default;
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/scss/font-awesome";
 
-@import "./app/styles/fit-styles";
+@import "app/styles/fit-global-styles";
 @import "./app/styles/fit-variables";
 @import "./app/styles/fit-boxes";
