@@ -10,7 +10,7 @@
     <i class="fa fa-2x fa-long-arrow-right my-auto"></i>
 
     <!--step 2-->
-    <div class="step-container mx-4 my-2" (click)="setCurrentPage(2)">
+    <div class="step-container mx-4 my-2" (click)="setCurrentPage(2)" >
       <div class="step-header">Schritt 2</div>
       <div>Details zur Firma</div>
     </div>
@@ -35,9 +35,8 @@
 
   <!--progress bar-->
   <div class="progress mx-4">
-    <div class="progress-bar progress-bar-striped bg-info"
-         role="progressbar"
-         style="width: 75%">
+    <div id="progBar"class="progress-bar progress-bar-striped bg-info"
+         role="progressbar" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" style="width: 0%;">
     </div>
   </div>
 
@@ -53,9 +52,15 @@
       <i class="fa fa-arrow-left"></i>
       Zurück
     </button>
+
     <div class="flex-filler"></div>
     <button (click)="nextPage()" *ngIf="currentPage!=4" class="btn btn-outline-dark">
       Weiter
+      <i class="fa fa-arrow-right"></i>
+    </button>
+
+    <button  *ngIf="currentPage==4" class="btn btn-success">
+      Anmelden
       <i class="fa fa-arrow-right"></i>
     </button>
   </div>
