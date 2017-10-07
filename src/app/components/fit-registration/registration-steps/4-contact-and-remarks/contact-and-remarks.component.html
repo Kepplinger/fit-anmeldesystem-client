@@ -1,3 +1,60 @@
-<p>
-  contact-and-remarks works!
-</p>
+<h2 class="text-bold">Kontakt & Anmerkungen</h2>
+<p>Bitte geben Sie hier die Daten der Kontaktperson an, mit der das FIT-Organisationsteam Sie für Rückfragen<br>
+  erreichen kann. An diese Emailadresse wird auch die Anmeldebestätigung versandt.</p>
+
+<h4 class="text-bold">Kontaktperson</h4>
+
+<form>
+  <div class="form-group row">
+    <label for="firstName" class="col-md-3 col-form-label">Vorname</label>
+    <div class="col-md-9">
+      <input class="form-control"
+             type="text"
+             id="firstName">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="lastName" class="col-md-3 col-form-label">Nachname</label>
+    <div class="col-md-9">
+      <input class="form-control"
+             type="text"
+             id="lastName">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="email" class="col-md-3 col-form-label">Email</label>
+    <div class="col-md-9">
+      <input class="form-control"
+             type="text"
+             id="email">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer</label>
+    <div class="col-md-9">
+      <input class="form-control"
+             type="text"
+             id="phoneNumber">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="notes" class="col-md-3 col-form-label">Anmerkungen:</label>
+    <div class="col-md-9">
+      <textarea class="form-control" id="notes" rows="4"></textarea>
+    </div>
+  </div>
+
+  <div class="checkbox" (click)="checkAgb()">
+    <label>
+      <input type="checkbox">
+      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+      Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre
+      verwendet werden dürfen
+    </label>
+  </div>
+
+</form>

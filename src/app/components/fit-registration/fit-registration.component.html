@@ -35,9 +35,8 @@
 
   <!--progress bar-->
   <div class="progress mx-4">
-    <div class="progress-bar progress-bar-striped bg-info"
-         role="progressbar"
-         style="width: 75%">
+    <div id="progBar" class="progress-bar progress-bar-striped bg-info"
+         role="progressbar" [style.width]="progressValue">
     </div>
   </div>
 
@@ -56,6 +55,11 @@
     <div class="flex-filler"></div>
     <button (click)="nextPage()" *ngIf="currentPage!=4" class="btn btn-outline-dark">
       Weiter
+      <i class="fa fa-arrow-right"></i>
+    </button>
+
+    <button *ngIf="currentPage==4" class="btn btn-success">
+      Anmelden
       <i class="fa fa-arrow-right"></i>
     </button>
   </div>
