@@ -1,8 +1,16 @@
-import { EntityObject } from './base-entity/entity-object';
-
-export class Address extends EntityObject {
+export class Address {
+  public id: number;
   public city: string;
   public postalCode: string;
   public street: string;
-  public number: string;
+
+  public constructor(city?: string,
+                     postalCode?: string,
+                     street?: string,
+                     id?: number) {
+    this.id = id;
+    this.city = city;
+    this.postalCode = postalCode;
+    this.street = street;
+  }
 }

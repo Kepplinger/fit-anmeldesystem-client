@@ -3,6 +3,8 @@ import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
 import { BookingDAO } from './dao/booking-dao.service';
+import { AppConfig } from './app-configs/app-configs.service';
+import { HttpAccess } from './http/http-access.service';
 
 @NgModule({
   imports: [
@@ -11,7 +13,9 @@ import { BookingDAO } from './dao/booking-dao.service';
   ],
   declarations: [],
   providers: [
-    BookingDAO
+    BookingDAO,
+    AppConfig,
+    HttpAccess
   ]
 })
 export class CoreModule {
