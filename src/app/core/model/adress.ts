@@ -1,6 +1,6 @@
-import { EntityObject } from './contracts/entity-object';
+import { EntityObject } from './base-entity/entity-object';
 
-export class Adress extends EntityObject {
+export class Address extends EntityObject {
   public city: string;
   public postalCode: string;
   public street: string;

@@ -1,4 +1,4 @@
-import { EntityObject } from './contracts/entity-object';
+import { EntityObject } from './base-entity/entity-object';
 import { Person } from './person';
 
 export class Contact extends EntityObject {

@@ -9,11 +9,9 @@ import { FitRegistrationStep } from '../../core/model/enums/fit-registration-ste
 export class FitRegistrationComponent implements OnInit {
 
   public currentPage: FitRegistrationStep;
-  public progressValue: string;
 
   public constructor() {
     this.currentPage = 1;
-    this.progressValue = '0%'
   }
 
   public ngOnInit() {
@@ -21,7 +19,6 @@ export class FitRegistrationComponent implements OnInit {
 
   public setCurrentPage(page: number) {
     this.currentPage = page;
-    this.progressValue = page / 4 * 100 + '%';
   }
 
   public nextPage() {
@@ -30,5 +27,10 @@ export class FitRegistrationComponent implements OnInit {
 
   public previousPage() {
     this.currentPage -= 1;
+  }
+
+  public submitForm(): void {
+
+
   }
 }

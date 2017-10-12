@@ -1,4 +1,4 @@
-export enum FitRegistrationStep{
+export enum FitRegistrationStep {
   GeneralData = 1,
   DetailedData = 2,
   FitAppearance = 3,

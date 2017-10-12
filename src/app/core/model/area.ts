@@ -1,4 +1,4 @@
-import { EntityObject } from './contracts/entity-object';
+import { EntityObject } from './base-entity/entity-object';
 import { Event } from './event';
 
 export class Area extends EntityObject {

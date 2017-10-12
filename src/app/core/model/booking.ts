@@ -1,4 +1,4 @@
-import { EntityObject } from './contracts/entity-object';
+import { EntityObject } from './base-entity/entity-object';
 import { Event } from './event';
 import { Company } from './company';
 import { Location } from './location';
@@ -12,7 +12,5 @@ export class Booking extends EntityObject {
   public presentation: Presentation;
   public category: Category;
   public isAccepted: boolean;
-
-
 }
 

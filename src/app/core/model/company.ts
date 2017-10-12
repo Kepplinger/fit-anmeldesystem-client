@@ -1,11 +1,11 @@
-import { EntityObject } from './contracts/entity-object';
-import { Adress } from './adress';
+import { EntityObject } from './base-entity/entity-object';
+import { Address } from './adress';
 import { Contact } from './contact';
 
 export class Company extends EntityObject {
   public name: string;
   public shortDescription: string;
-  public address: Adress;
+  public address: Address;
   public contact: Contact;
   public phoneNumber: string;
   public email: string;

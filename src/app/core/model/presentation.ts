@@ -1,4 +1,4 @@
-import { EntityObject } from './contracts/entity-object';
+import { EntityObject } from './base-entity/entity-object';
 
 export class Presentation extends EntityObject {
   public roomNumber: string;
