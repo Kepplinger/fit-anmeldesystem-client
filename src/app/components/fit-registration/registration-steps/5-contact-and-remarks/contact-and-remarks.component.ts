@@ -7,21 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactAndRemarksComponent implements OnInit {
 
-  public agbChecked: boolean;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.agbChecked=false;
+  public constructor() {
   }
 
-  public checkAgb(){
-    if(this.agbChecked==true){
-      this.agbChecked=false;
-    }
-    else {
-      this.agbChecked=true;
-    }
+  public ngOnInit() {
   }
 
 }

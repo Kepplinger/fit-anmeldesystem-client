@@ -1,8 +1,21 @@
-import { EntityObject } from './contracts/entity-object';
+import { Moment } from 'moment';
 
-export class Event extends EntityObject {
-  public date: Date;
-  public registrationStart: Date;
-  public registrationEnd: Date;
+export class Event {
+  public id: number;
+  public date: Moment;
+  public registrationStart: Moment;
+  public registrationEnd: Moment;
   public isLocked: boolean;
+
+  public constructor(date?: Moment,
+                     registrationStart?: Moment,
+                     registrationEnd?: Moment,
+                     isLocked?: boolean,
+                     id?: number) {
+    this.id = id;
+    this.date = date;
+    this.registrationStart = registrationStart;
+    this.registrationEnd = registrationEnd;
+    this.isLocked = isLocked;
+  }
 }

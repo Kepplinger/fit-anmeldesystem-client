@@ -1,5 +1,10 @@
-import { EntityObject } from './contracts/entity-object';
-
-export class Detail extends EntityObject {
+export class Detail {
+  public id: number;
   public description: string;
+
+  public constructor(description?: string,
+                     id?: number) {
+    this.id = id;
+    this.description = description;
+  }
 }

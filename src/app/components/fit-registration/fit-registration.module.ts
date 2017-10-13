@@ -7,7 +7,8 @@ import { CodeRequestComponent } from './code-request/code-request.component';
 import { GeneralDataComponent } from './registration-steps/1-general-data/general-data.component';
 import { DetailedDataComponent } from './registration-steps/2-detailed-data/detailed-data.component';
 import { FitAppearanceComponent } from './registration-steps/3-fit-appearance/fit-appearance.component';
-import { ContactAndRemarksComponent } from './registration-steps/4-contact-and-remarks/contact-and-remarks.component';
+import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-remarks/contact-and-remarks.component';
+import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ContactAndRemarksComponent } from './registration-steps/4-contact-and-r
     GeneralDataComponent,
     DetailedDataComponent,
     FitAppearanceComponent,
-    ContactAndRemarksComponent
+    ContactAndRemarksComponent,
+    SubmissionSuccessComponent
   ]
 })
 export class FitRegistrationModule {
