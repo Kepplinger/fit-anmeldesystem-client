@@ -54,7 +54,7 @@
 .radio label input[type="radio"] + .cr > .cr-icon {
   transform: scale(3) rotateZ(-20deg);
   opacity: 0;
-  transition: all .25s ease-in;
+  transition: all .15s ease-in;
 }
 
 .checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,

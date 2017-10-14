@@ -9,6 +9,7 @@ import { DetailedDataComponent } from './registration-steps/2-detailed-data/deta
 import { FitAppearanceComponent } from './registration-steps/3-fit-appearance/fit-appearance.component';
 import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-remarks/contact-and-remarks.component';
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
+import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { SubmissionSuccessComponent } from './submission-success/submission-succ
     GeneralDataComponent,
     DetailedDataComponent,
     FitAppearanceComponent,
+    PackagesAndLocationComponent,
     ContactAndRemarksComponent,
     SubmissionSuccessComponent
   ]
