@@ -1,42 +1,127 @@
-<h4 class="text-bold">Wählen Sie Ihr FIT-Paket</h4>
+<div class="mb-4">
+  <h2 class="text-bold">Pakete und Standort</h2>
+  <p>Entscheiden Sie sich für eines unserer drei FIT-Pakete und wählen Sie dann ihren gewünschten Standort aus.</p>
+</div>
 
-<div class="d-flex">
+<div>
+  <h5 class="text-bold m-0">Wählen Sie Ihr FIT-Paket</h5>
 
-  <div class="checkbox mx-2">
-    <label>
-      <input type="checkbox">
-      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-      Standard
-    </label>
-  </div>
+  <div class="card-deck">
 
-  <div class="checkbox mx-2">
-    <label>
-      <input type="checkbox">
-      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-      Premium
-    </label>
-  </div>
+    <!--basic package-->
+    <div class="pointer card text-white bg-info m-3 disabled">
+      <div class="card-header text-center">
+        <div class="stars">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star-o"></i>
+          <i class="fa fa-star-o"></i>
+        </div>
+        Grundpaket
+      </div>
 
-  <div>
-    <div class="checkbox mx-2">
-      <label>
-        <input type="checkbox">
-        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-        Enterprise
-      </label>
+      <ul class="list-group list-group-flush flex-filler">
+        <li class="list-group-item">
+          Stand am FIT
+        </li>
+        <li class="list-group-item">
+          Kategorie B Platz
+        </li>
+        <li class="list-group-item h-100">
+          Eintrag im Flyer
+        </li>
+      </ul>
+
+      <div class="card-footer d-flex">
+        <span class="flex-filler  my-auto">
+          <i class="fa fa-2x fa-check-square-o"></i>
+        </span>
+        <span class="package-price">200 €</span>
+      </div>
+    </div>
+
+    <!--sponsor package-->
+    <div class="pointer card text-white bg-sponsor m-3"
+         [ngClass]="{'disabled': isPackageSelected(4)}"
+         (click)="togglePackage(2)">
+      <div class="card-header text-center">
+        <div class="stars">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star-o"></i>
+        </div>
+        Sponsorpaket
+      </div>
+
+      <ul class="list-group list-group-flush flex-filler">
+        <li class="list-group-item text-bold">
+          erweitert Grundpaket
+        </li>
+        <li class="list-group-item">
+          Kategorie A Platz
+        </li>
+        <li class="list-group-item h-100">
+          Logo auf: Plakat, Homepage, Flyer
+        </li>
+      </ul>
+
+      <div class="card-footer d-flex">
+        <span class="flex-filler  my-auto">
+          <i class="fa fa-2x"
+             [ngClass]="{'fa-square-o': !isPackageSelected(6),
+                         'fa-check-square-o': isPackageSelected(6)}">
+          </i>
+        </span>
+        <span class="mt-auto mb-1 mr-1">+ 200 € =</span>
+        <span class="package-price">400 €</span>
+      </div>
+    </div>
+
+    <!--lecture package-->
+    <div class="pointer card text-white bg-danger m-3"
+         (click)="togglePackage(4)">
+      <div class="card-header text-center">
+        <div class="stars">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+        Vortragspaket
+      </div>
+
+      <ul class="list-group list-group-flush flex-filler">
+        <li class="list-group-item text-bold">
+          erweitert Sponsorpaket
+        </li>
+        <li class="list-group-item h-100">
+          Antrag für einen Vortrag:
+          <ul>
+            <li>vor vielen Klassen</li>
+            <li>eigener Raum</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="card-footer d-flex">
+        <span class="flex-filler my-auto">
+          <i class="fa fa-2x"
+             [ngClass]="{'fa-square-o': !isPackageSelected(4),
+                         'fa-check-square-o': isPackageSelected(4)}">
+          </i>
+        </span>
+        <span class="mt-auto mb-1 mr-1">+ 200 € = </span>
+        <span class="package-price">600 €</span>
+      </div>
     </div>
   </div>
-
 </div>
 
-<h4 class="text-bold">Wählen Sie Ihren Standplatz</h4>
+<div>
+  <h5 class="text-bold">Wählen Sie Ihren Standplatz</h5>
 
-<div class="my-3">
-  <button class="btn btn-primary">
-    Standplatz wählen
-  </button>
-  Platz 177 gewählt
+  <div class="my-3">
+    <button class="btn btn-primary">
+      Standplatz wählen
+    </button>
+    Platz 177 gewählt
+  </div>
 </div>
-
-<h3 class="text-bold">Die Kosten für Ihre Teilnahme am FIT belaufen sich auf: XY€ </h3>
