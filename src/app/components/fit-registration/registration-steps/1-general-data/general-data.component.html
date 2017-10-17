@@ -3,12 +3,15 @@
   <p>Diese allgemeinen Angaben zu Ihrer Firma helfen unseren Schülern, Kontakt mit Ihnen aufzunehmen.</p>
 </div>
 
-<form>
+<form [formGroup]="fitFormGroup">
+
   <div class="form-group row">
     <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
     <div class="col-md-9">
       <input class="form-control"
              type="text"
+             formControlName="companyName"
+             (keyup)="formChanged()"
              id="companyName">
     </div>
   </div>
@@ -18,6 +21,8 @@
     <div class="col-md-9">
       <input class="form-control"
              type="text"
+             formControlName="street"
+             (keyup)="formChanged()"
              id="street">
     </div>
   </div>
@@ -27,6 +32,8 @@
     <div class="col-md-9">
       <input class="form-control"
              type="text"
+             formControlName="zipCode"
+             (keyup)="formChanged()"
              id="zipCode">
     </div>
   </div>
@@ -36,6 +43,8 @@
     <div class="col-md-9">
       <input class="form-control"
              type="text"
+             formControlName="location"
+             (keyup)="formChanged()"
              id="location">
     </div>
   </div>
@@ -45,6 +54,8 @@
     <div class="col-md-9">
       <input class="form-control"
              type="tel"
+             formControlName="phone"
+             (keyup)="formChanged()"
              id="phone">
     </div>
   </div>
@@ -54,6 +65,8 @@
     <div class="col-md-9">
       <input class="form-control"
              type="email"
+             formControlName="email"
+             (keyup)="formChanged()"
              id="email">
     </div>
   </div>
@@ -63,6 +76,8 @@
     <div class="col-md-9">
       <input class="form-control"
              type="url"
+             formControlName="homepage"
+             (keyup)="formChanged()"
              id="homepage">
     </div>
   </div>
@@ -73,6 +88,8 @@
       <input class="form-control"
              id="logo"
              type="text"
+             formControlName="logo"
+             (keyup)="formChanged()"
              placeholder="Logo auswählen..."
              disabled>
       <span class="input-group-btn">

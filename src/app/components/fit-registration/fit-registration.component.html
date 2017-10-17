@@ -30,7 +30,7 @@
 
     <!--step 4-->
     <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentPage < 4}"
+         [ngClass]="{'text-muted': currentStep < 4}"
          (click)="setCurrentPage(Step.PackagesAndLocation)">
       <div class="step-header">Schritt 4</div>
       <div class="step-sub-text">Pakete & Standort</div>
@@ -40,7 +40,7 @@
 
     <!--step 4-->
     <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentPage < Step.ContactAndRemarks}"
+         [ngClass]="{'text-muted': currentStep < Step.ContactAndRemarks}"
          (click)="setCurrentPage(Step.ContactAndRemarks)">
       <div class="step-header">Schritt 5</div>
       <div class="step-sub-text">Kontak & Anmerkungen</div>
@@ -51,20 +51,24 @@
   <!--progress bar-->
   <div class="progress mx-4">
     <div id="progBar" class="progress-bar progress-bar-striped bg-info"
-         role="progressbar" [style.width]="currentPage / 5 * 100 + '%'">
+         role="progressbar" [style.width]="currentStep / 5 * 100 + '%'">
     </div>
   </div>
 
+  <!--main container-->
   <div class="py-3 m-4 border-top">
-    <fit-general-data *ngIf="currentPage ==  Step.GeneralData"></fit-general-data>
-    <fit-detailed-data *ngIf="currentPage == Step.DetailedData"></fit-detailed-data>
-    <fit-fit-appearance *ngIf="currentPage == Step.FitAppearance"></fit-fit-appearance>
-    <fit-packages-and-location *ngIf="currentPage == Step.PackagesAndLocation"></fit-packages-and-location>
-    <fit-contact-and-remarks *ngIf="currentPage == Step.ContactAndRemarks"></fit-contact-and-remarks>
+    <fit-general-data *ngIf="currentStep ==  Step.GeneralData"
+                      [fitFormGroup]="fitFormGroup.controls['generalData']">
+    </fit-general-data>
+    <fit-detailed-data *ngIf="currentStep == Step.DetailedData"></fit-detailed-data>
+    <fit-fit-appearance *ngIf="currentStep == Step.FitAppearance"></fit-fit-appearance>
+    <fit-packages-and-location *ngIf="currentStep == Step.PackagesAndLocation"></fit-packages-and-location>
+    <fit-contact-and-remarks *ngIf="currentStep == Step.ContactAndRemarks"></fit-contact-and-remarks>
   </div>
 
+  <!--navigation buttons-->
   <div class="d-flex mx-4">
-    <button *ngIf="currentPage != Step.GeneralData"
+    <button *ngIf="currentStep != Step.GeneralData"
             class="btn btn-dark"
             (click)="previousPage()">
       <i class="fa fa-arrow-left"></i>
@@ -72,19 +76,23 @@
     </button>
 
     <div class="flex-filler"></div>
-    <button *ngIf="currentPage != Step.ContactAndRemarks"
+    <button *ngIf="currentStep != Step.ContactAndRemarks"
             class="btn btn-dark"
             (click)="nextPage()">
       Weiter
       <i class="fa fa-arrow-right"></i>
     </button>
 
-    <button *ngIf="currentPage == Step.ContactAndRemarks"
+    <button *ngIf="currentStep == Step.ContactAndRemarks"
             class="btn btn-success"
             (click)="submitForm()">
       Anmelden
       <i class="fa fa-arrow-right"></i>
     </button>
+  </div>
+
+  <div>
+    {{ fitFormGroup.value | json }}
   </div>
 
 </div>

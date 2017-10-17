@@ -33,7 +33,7 @@
 
       <div class="card-footer d-flex">
         <span class="flex-filler  my-auto">
-          <i class="fa fa-2x fa-check-square-o"></i>
+          <i class="fa fa-2x fa-check-square"></i>
         </span>
         <span class="package-price">200 €</span>
       </div>
@@ -68,7 +68,8 @@
         <span class="flex-filler  my-auto">
           <i class="fa fa-2x"
              [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack + Package.LecturePack),
-                         'fa-check-square-o': isPackageSelected(Package.SponsorPack + Package.LecturePack)}">
+                         'fa-check-square-o': isPackageSelected(Package.SponsorPack) && !isPackageSelected(Package.LecturePack),
+                         'fa-check-square': isPackageSelected(Package.SponsorPack) && isPackageSelected(Package.LecturePack)}">
           </i>
         </span>
         <span class="mt-auto mb-1 mr-1">+ 200 € =</span>
@@ -173,8 +174,8 @@
 
   <table>
     <tr>
-      <td class="text-right" width="15%">200,00 €</td>
-      <td width="90%">Grundpaket</td>
+      <td class="text-right" width="13%">200,00 €</td>
+      <td width="97%">Grundpaket</td>
     </tr>
 
     <tr *ngIf="isPackageSelected(Package.SponsorPack)">

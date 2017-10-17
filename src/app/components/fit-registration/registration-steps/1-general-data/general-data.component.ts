@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'fit-general-data',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralDataComponent implements OnInit {
 
-  public constructor() { }
+  @Input()
+  public fitFormGroup: FormGroup;
+
+  @Input()
+  public fitFormGroupChange = new EventEmitter<FormGroup>();
+
+  public constructor() {
+  }
 
   public ngOnInit() {
+    console.log(this.fitFormGroup);
+  }
+
+  public formChanged() {
+    this.fitFormGroupChange.emit(this.fitFormGroup);
   }
 
 }

@@ -10,6 +10,7 @@ import { Address } from '../../core/model/adress';
 import { Contact } from '../../core/model/contact';
 import { Person } from 'app/core/model/person';
 import { DetailValue } from '../../core/model/detail-value';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -21,26 +22,41 @@ export class FitRegistrationComponent implements OnInit {
   // necessary for template-usage
   Step = FitRegistrationStep;
 
-  public currentPage: FitRegistrationStep;
+  public currentStep: FitRegistrationStep;
+  public fitFormGroup: FormGroup;
 
   public constructor(private router: Router,
-                     private bookingDAO: BookingDAO) {
-    this.currentPage = FitRegistrationStep.PackagesAndLocation;
+                     private bookingDAO: BookingDAO,
+                     private fb: FormBuilder) {
+    this.currentStep = FitRegistrationStep.GeneralData;
+
+    this.fitFormGroup = fb.group({
+      generalData: fb.group({
+        companyName: ['', Validators.required],
+        street: ['', Validators.required],
+        zipCode: ['', Validators.required],
+        location: ['', Validators.required],
+        phone: ['', Validators.required],
+        email: ['', Validators.required],
+        homepage: ['', Validators.required],
+        logo: ['', Validators.required],
+      })
+    });
   }
 
   public ngOnInit() {
   }
 
-  public setCurrentPage(page: number) {
-    this.currentPage = page;
+  public setCurrentPage(step: FitRegistrationStep) {
+    this.currentStep = step;
   }
 
   public nextPage() {
-    this.currentPage += 1;
+    this.currentStep += 1;
   }
 
   public previousPage() {
-    this.currentPage -= 1;
+    this.currentStep -= 1;
   }
 
   public async submitForm(): Promise<void> {

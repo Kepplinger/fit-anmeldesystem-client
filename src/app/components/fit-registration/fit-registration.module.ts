@@ -10,11 +10,14 @@ import { FitAppearanceComponent } from './registration-steps/3-fit-appearance/fi
 import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-remarks/contact-and-remarks.component';
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    FitRegistrationRoutingModule
+    FitRegistrationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     FitRegistrationComponent,
