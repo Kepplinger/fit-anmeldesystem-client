@@ -51,6 +51,27 @@
   }
 }
 
+.sub-text {
+  font-size: 0.7em;
+}
+
 .bg-sponsor {
   background-color: #dea700;
+}
+
+#presentation {
+  cursor: pointer;
+}
+
+table {
+  font-size: 18px;
+  width: 100%;
+}
+
+td, th {
+  padding: 1px 5px;
+}
+
+.border-top {
+  border-top: solid 2px black;
 }

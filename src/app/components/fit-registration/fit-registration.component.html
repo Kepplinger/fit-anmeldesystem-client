@@ -2,7 +2,8 @@
   <div class="d-inline-flex mx-4">
 
     <!--step 1-->
-    <div class="step-container mx-3 my-2" (click)="setCurrentPage(1)">
+    <div class="step-container mx-3 my-2"
+         (click)="setCurrentPage(Step.GeneralData)">
       <div class="step-header">Schritt 1</div>
       <div class="step-sub-text">Allgemeines zur Firma</div>
     </div>
@@ -10,7 +11,8 @@
     <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
 
     <!--step 2-->
-    <div class="step-container mx-3 my-2" (click)="setCurrentPage(2)">
+    <div class="step-container mx-3 my-2"
+         (click)="setCurrentPage(Step.DetailedData)">
       <div class="step-header">Schritt 2</div>
       <div class="step-sub-text">Details zur Firma</div>
     </div>
@@ -18,7 +20,8 @@
     <i class="fa fa-1-5x fa-long-arrow-right my-auto "></i>
 
     <!--step 3-->
-    <div class="step-container mx-3 my-2" (click)="setCurrentPage(3)">
+    <div class="step-container mx-3 my-2"
+         (click)="setCurrentPage(Step.FitAppearance)">
       <div class="step-header">Schritt 3</div>
       <div class="step-sub-text">Ihr Auftreten</div>
     </div>
@@ -28,7 +31,7 @@
     <!--step 4-->
     <div class="step-container mx-3 my-2"
          [ngClass]="{'text-muted': currentPage < 4}"
-         (click)="setCurrentPage(4)">
+         (click)="setCurrentPage(Step.PackagesAndLocation)">
       <div class="step-header">Schritt 4</div>
       <div class="step-sub-text">Pakete & Standort</div>
     </div>
@@ -37,8 +40,8 @@
 
     <!--step 4-->
     <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentPage < 5}"
-         (click)="setCurrentPage(5)">
+         [ngClass]="{'text-muted': currentPage < Step.ContactAndRemarks}"
+         (click)="setCurrentPage(Step.ContactAndRemarks)">
       <div class="step-header">Schritt 5</div>
       <div class="step-sub-text">Kontak & Anmerkungen</div>
     </div>
@@ -53,15 +56,15 @@
   </div>
 
   <div class="py-3 m-4 border-top">
-    <fit-general-data *ngIf="currentPage ==  1"></fit-general-data>
-    <fit-detailed-data *ngIf="currentPage == 2"></fit-detailed-data>
-    <fit-fit-appearance *ngIf="currentPage == 3"></fit-fit-appearance>
-    <fit-packages-and-location *ngIf="currentPage == 4"></fit-packages-and-location>
-    <fit-contact-and-remarks *ngIf="currentPage == 5"></fit-contact-and-remarks>
+    <fit-general-data *ngIf="currentPage ==  Step.GeneralData"></fit-general-data>
+    <fit-detailed-data *ngIf="currentPage == Step.DetailedData"></fit-detailed-data>
+    <fit-fit-appearance *ngIf="currentPage == Step.FitAppearance"></fit-fit-appearance>
+    <fit-packages-and-location *ngIf="currentPage == Step.PackagesAndLocation"></fit-packages-and-location>
+    <fit-contact-and-remarks *ngIf="currentPage == Step.ContactAndRemarks"></fit-contact-and-remarks>
   </div>
 
   <div class="d-flex mx-4">
-    <button *ngIf="currentPage!=1"
+    <button *ngIf="currentPage != Step.GeneralData"
             class="btn btn-dark"
             (click)="previousPage()">
       <i class="fa fa-arrow-left"></i>
@@ -69,14 +72,14 @@
     </button>
 
     <div class="flex-filler"></div>
-    <button *ngIf="currentPage!=5"
+    <button *ngIf="currentPage != Step.ContactAndRemarks"
             class="btn btn-dark"
             (click)="nextPage()">
       Weiter
       <i class="fa fa-arrow-right"></i>
     </button>
 
-    <button *ngIf="currentPage==5"
+    <button *ngIf="currentPage == Step.ContactAndRemarks"
             class="btn btn-success"
             (click)="submitForm()">
       Anmelden

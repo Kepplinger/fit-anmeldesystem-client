@@ -5,13 +5,10 @@ import { FitRegistrationStep } from '../../core/model/enums/fit-registration-ste
 import { BookingDAO } from '../../core/dao/booking-dao.service';
 import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
-import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
-import { Category } from '../../core/model/category';
 import { Address } from '../../core/model/adress';
 import { Contact } from '../../core/model/contact';
 import { Person } from 'app/core/model/person';
-import { Area } from '../../core/model/area';
 import { DetailValue } from '../../core/model/detail-value';
 
 @Component({
@@ -21,11 +18,14 @@ import { DetailValue } from '../../core/model/detail-value';
 })
 export class FitRegistrationComponent implements OnInit {
 
+  // necessary for template-usage
+  Step = FitRegistrationStep;
+
   public currentPage: FitRegistrationStep;
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO) {
-    this.currentPage = 1;
+    this.currentPage = FitRegistrationStep.PackagesAndLocation;
   }
 
   public ngOnInit() {

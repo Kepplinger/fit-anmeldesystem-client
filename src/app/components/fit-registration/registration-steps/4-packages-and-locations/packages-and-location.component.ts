@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FitPackage } from '../../../../core/model/enums/fit-package';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -7,14 +8,20 @@ import { Component } from '@angular/core';
 })
 export class PackagesAndLocationComponent {
 
-  public selectedPackage: number = 1;
+  // necessary for template-usage
+  Package = FitPackage;
+
+  public selectedPackage: number = FitPackage.BasicPack;
 
   public constructor() {
   }
 
   public togglePackage(packageNumber: number): void {
-    console.log(this.selectedPackage);
     this.selectedPackage ^= packageNumber;
+
+    if (this.isPackageSelected(FitPackage.LecturePack) && !this.isPackageSelected(FitPackage.SponsorPack)) {
+      this.selectedPackage |= FitPackage.SponsorPack ;
+    }
   }
 
   public isPackageSelected(packageNumber: number): boolean {
