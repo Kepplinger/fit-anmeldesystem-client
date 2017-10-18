@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { PickedFile } from 'angular-file-picker';
 
 @Component({
   selector: 'fit-general-data',
@@ -10,6 +11,7 @@ export class GeneralDataComponent implements OnInit {
 
   @Input()
   public fitFormGroup: FormGroup;
+  public logo: PickedFile;
 
   @Input()
   public fitFormGroupChange = new EventEmitter<FormGroup>();
@@ -23,6 +25,11 @@ export class GeneralDataComponent implements OnInit {
 
   public formChanged() {
     this.fitFormGroupChange.emit(this.fitFormGroup);
+  }
+
+  public filePicked(file: PickedFile): void {
+    this.logo = file;
+    this.fitFormGroup.controls['logo'].setValue(this.logo.dataURL);
   }
 
 }

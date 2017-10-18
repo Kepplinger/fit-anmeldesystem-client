@@ -11,13 +11,15 @@ import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-r
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FilePickerModule } from 'angular-file-picker';
 
 @NgModule({
   imports: [
     CommonModule,
     FitRegistrationRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilePickerModule
   ],
   declarations: [
     FitRegistrationComponent,

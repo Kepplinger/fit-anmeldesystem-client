@@ -1,3 +1,16 @@
 #logo {
   cursor: pointer;
 }
+
+.img {
+  .logo {
+    width: 200px;
+  }
+}
+
+.input-group-btn {
+  .btn {
+    border-bottom-right-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+  }
+}

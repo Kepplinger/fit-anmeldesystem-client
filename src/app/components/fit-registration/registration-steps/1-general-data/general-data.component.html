@@ -84,12 +84,13 @@
 
   <div class="form-group row">
     <label for="logo" class="col-md-3 col-form-label">Logo (ca. 700x500):</label>
-    <div class="input-group col-md-9">
+    <div class="input-group col-md-9"
+         ngFilePicker
+         (filePick)="filePicked($event)">
       <input class="form-control"
              id="logo"
              type="text"
-             formControlName="logo"
-             (keyup)="formChanged()"
+             [value]="logo?.name"
              placeholder="Logo auswählen..."
              disabled>
       <span class="input-group-btn">
@@ -97,5 +98,9 @@
       </span>
     </div>
   </div>
+
+  <img [src]="logo?.dataURL"
+       class="logo"
+       height="80" width="60">
 
 </form>
