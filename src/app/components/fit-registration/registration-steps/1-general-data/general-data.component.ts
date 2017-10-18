@@ -13,10 +13,12 @@ export class GeneralDataComponent implements OnInit {
 
   @Input()
   public fitFormGroup: FormGroup;
-  public logo: PickedFile;
 
   @Input()
   public fitFormGroupChange = new EventEmitter<FormGroup>();
+
+  public logo: PickedFile;
+  public isDrag: boolean = false;
 
   public constructor() {
   }

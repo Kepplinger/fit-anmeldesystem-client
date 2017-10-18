@@ -2,10 +2,30 @@
   cursor: pointer;
 }
 
-.img {
-  .logo {
-    width: 200px;
+.logo-display {
+  object-fit: contain;
+}
+
+.drop-zone {
+  position: relative;
+  background-color: #F9F9F9;
+  border: dashed 2px grey;
+  border-radius: .50rem;
+  color: grey;
+  font-size: 1.25rem;
+  user-select: none;
+  cursor: default;
+  transition: all 0.25s;
+
+  .drop-zone-text {
+    pointer-events: none;
   }
+}
+
+.is-drag {
+  background-color: #efefef;
+  border: dashed 2px dodgerblue;
+  color: dodgerblue;
 }
 
 .input-group-btn {

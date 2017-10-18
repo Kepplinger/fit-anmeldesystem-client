@@ -17,14 +17,26 @@ export class FileDropzoneDirective implements OnInit {
   @Output()
   public fileDrop = new EventEmitter<PickedFile | FilePickerError>();
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  // @Output()
+  // public dragEnter = new EventEmitter<void>();
+  //
+  // @Output()
+  // public dragLeave = new EventEmitter<void>();
+
+  public constructor(private el: ElementRef, private renderer: Renderer2) {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.renderer.listen(this.el.nativeElement, 'dragenter', (event: DragEvent) => {
       event.stopPropagation();
       event.preventDefault();
+      // this.dragEnter.emit();
     });
+
+    this.renderer.listen(this.el.nativeElement, 'dragleave', () => {
+      // this.dragLeave.emit();
+    });
+
 
     this.renderer.listen(this.el.nativeElement, 'dragover', (event: DragEvent) => {
       event.stopPropagation();
@@ -45,8 +57,6 @@ export class FileDropzoneDirective implements OnInit {
   private handleFiles(files: FileList) {
 
     let file = files[0];
-
-    console.log(file.type);
 
     if (!file.type.match(this.accept)) {
       this.fileDrop.emit(FilePickerError.InvalidFileType);
