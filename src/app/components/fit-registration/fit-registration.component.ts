@@ -28,7 +28,7 @@ export class FitRegistrationComponent implements OnInit {
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private fb: FormBuilder) {
-    this.currentStep = FitRegistrationStep.FitAppearance;
+    this.currentStep = FitRegistrationStep.DetailedData;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({

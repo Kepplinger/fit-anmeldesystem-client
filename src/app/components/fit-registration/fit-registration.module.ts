@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TagInputModule } from 'ngx-chips';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FitRegistrationRoutingModule } from './fit-registration-routing.module';
 import { FitRegistrationComponent } from './fit-registration.component';
@@ -10,8 +12,8 @@ import { FitAppearanceComponent } from './registration-steps/3-fit-appearance/fi
 import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-remarks/contact-and-remarks.component';
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
+import { TagInputComponent } from './registration-steps/2-detailed-data/tag-input/tag-input.component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
     FitRegistrationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FilePickerModule
+    FilePickerModule,
+    TagInputModule
   ],
   declarations: [
     FitRegistrationComponent,
@@ -29,7 +32,8 @@ import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
     FitAppearanceComponent,
     PackagesAndLocationComponent,
     ContactAndRemarksComponent,
-    SubmissionSuccessComponent
+    SubmissionSuccessComponent,
+    TagInputComponent
   ]
 })
 export class FitRegistrationModule {

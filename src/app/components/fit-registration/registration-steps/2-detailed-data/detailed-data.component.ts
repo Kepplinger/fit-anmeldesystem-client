@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,8 @@ export class DetailedDataComponent implements OnInit {
   @Input()
   public fitFormGroup: FormGroup;
 
-  public constructor() { }
+  public constructor() {
+  }
 
   public ngOnInit() {
   }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FitPackage } from '../../../../core/model/enums/fit-package';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -10,6 +11,9 @@ export class PackagesAndLocationComponent {
 
   // necessary for template-usage
   Package = FitPackage;
+
+  @Input()
+  public fitFormGroup: FormGroup;
 
   public selectedPackage: number = FitPackage.BasicPack;
 
