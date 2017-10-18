@@ -85,7 +85,9 @@
   <div class="form-group row">
     <label for="logo" class="col-md-3 col-form-label">Logo (ca. 700x500):</label>
     <div class="input-group col-md-9"
-         ngFilePicker
+         fitFilePicker
+         [accept]="'image/*'"
+         [maxSize]="2000000"
          (filePick)="filePicked($event)">
       <input class="form-control"
              id="logo"
@@ -99,8 +101,19 @@
     </div>
   </div>
 
-  <img [src]="logo?.dataURL"
-       class="logo"
-       height="80" width="60">
+  <div class="d-flex">
+    <div class="flex-filler"></div>
+
+    <img [src]="logo?.dataURL"
+         class="logo"
+         height="80" width="60">
+
+    <div fitFileDropzone
+         [maxSize]="2000000"
+         (fileDrop)="filePicked($event)"
+         style="height: 100px; width: 500px; background-color: red">
+      Drop a file in this zone.
+    </div>
+  </div>
 
 </form>

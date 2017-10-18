@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { PickedFile } from 'angular-file-picker';
+import { PickedFile } from '../../../../libs/file-picker/picked-file';
+
 
 @Component({
   selector: 'fit-general-data',
@@ -28,8 +29,12 @@ export class GeneralDataComponent implements OnInit {
   }
 
   public filePicked(file: PickedFile): void {
-    this.logo = file;
-    this.fitFormGroup.controls['logo'].setValue(this.logo.dataURL);
+    if (file.size <= 2000000) {
+      this.logo = file;
+      this.fitFormGroup.controls['logo'].setValue(this.logo.dataURL);
+    } else {
+      console.log('too big');
+    }
   }
 
 }
