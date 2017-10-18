@@ -1,5 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { PickedFile } from './picked-file';
+import { FilePickerError } from './file-picker-error';
 
 
 @Directive({
@@ -23,7 +24,7 @@ export class FilePickerDirective implements OnInit {
   }
 
   @Output()
-  public filePick = new EventEmitter<PickedFile>();
+  public filePick = new EventEmitter<PickedFile | FilePickerError>();
 
   private _multiple: boolean;
   private input: any;
@@ -71,7 +72,9 @@ export class FilePickerDirective implements OnInit {
 
   private readFile(file: File) {
 
-    if ((this.maxSize > 0 && file.size < this.maxSize) || this.maxSize <= 0) {
+    if (this.maxSize > 0 && file.size > this.maxSize) {
+      this.filePick.emit(FilePickerError.FileTooBig);
+    } else {
       const reader = new FileReader();
 
       reader.onload = (loaded: ProgressEvent) => {
@@ -83,8 +86,6 @@ export class FilePickerDirective implements OnInit {
       };
 
       reader.readAsDataURL(file);
-    } else {
-      console.log('ahhhh');
     }
   }
 }

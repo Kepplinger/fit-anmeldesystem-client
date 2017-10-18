@@ -109,6 +109,7 @@
          height="80" width="60">
 
     <div fitFileDropzone
+         [accept]="'image\/.'"
          [maxSize]="2000000"
          (fileDrop)="filePicked($event)"
          style="height: 100px; width: 500px; background-color: red">

@@ -1,6 +1,7 @@
 import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 
 import { PickedFile } from './picked-file';
+import { FilePickerError } from './file-picker-error';
 
 @Directive({
   selector: '[fitFileDropzone]'
@@ -8,10 +9,13 @@ import { PickedFile } from './picked-file';
 export class FileDropzoneDirective implements OnInit {
 
   @Input()
+  public accept = '';
+
+  @Input()
   public maxSize = 0;
 
   @Output()
-  public fileDrop = new EventEmitter<PickedFile>();
+  public fileDrop = new EventEmitter<PickedFile | FilePickerError>();
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
   }
@@ -42,7 +46,14 @@ export class FileDropzoneDirective implements OnInit {
 
     let file = files[0];
 
-    if ((this.maxSize > 0 && file.size < this.maxSize) || this.maxSize <= 0) {
+    console.log(file.type);
+
+    if (!file.type.match(this.accept)) {
+      this.fileDrop.emit(FilePickerError.InvalidFileType);
+    } else if (this.maxSize > 0 && file.size > this.maxSize) {
+      this.fileDrop.emit(FilePickerError.FileTooBig);
+    } else {
+
       const reader = new FileReader();
 
       reader.onload = (loaded: ProgressEvent) => {
@@ -53,9 +64,6 @@ export class FileDropzoneDirective implements OnInit {
       };
 
       reader.readAsDataURL(file);
-
-    } else {
-      console.log('ahhhh');
     }
   }
 }
