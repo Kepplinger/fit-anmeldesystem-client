@@ -1,6 +1,7 @@
 export class Detail {
   public id: number;
   public description: string;
+  public timestamp: string;
 
   public constructor(description?: string,
                      id?: number) {

@@ -10,7 +10,7 @@ import { Address } from '../../core/model/adress';
 import { Contact } from '../../core/model/contact';
 import { Person } from 'app/core/model/person';
 import { DetailValue } from '../../core/model/detail-value';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -28,7 +28,7 @@ export class FitRegistrationComponent implements OnInit {
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private fb: FormBuilder) {
-    this.currentStep = FitRegistrationStep.GeneralData;
+    this.currentStep = FitRegistrationStep.FitAppearance;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -40,7 +40,18 @@ export class FitRegistrationComponent implements OnInit {
         email: ['', Validators.required],
         homepage: ['', Validators.required],
         logo: ['', Validators.required],
-      })
+      }),
+      detailedData: fb.group({
+        branch: ['', Validators.required],
+        description: ['', Validators.required],
+        officesAut: ['', Validators.required],
+        officesInt: ['', Validators.required],
+        desiredBranches: [''],
+        providing: ['']
+      }),
+      fitAppearance: fb.group({}),
+      packagesAndLocation: fb.group({}),
+      contactAndRemarks: fb.group({})
     });
   }
 

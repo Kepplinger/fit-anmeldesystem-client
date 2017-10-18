@@ -24,7 +24,6 @@ export class GeneralDataComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log(this.fitFormGroup);
   }
 
   public formChanged() {
@@ -40,6 +39,8 @@ export class GeneralDataComponent implements OnInit {
       console.log('too big');
     } else if (file === FilePickerError.InvalidFileType) {
       console.log('invalid file type');
+    } else if (file === FilePickerError.UndefinedInput) {
+      console.log('undefined input');
     }
   }
 

@@ -6,6 +6,7 @@ export class Location {
   public area: Area;
   public xCoordinate: number;
   public yCoordinate: number;
+  public timestamp: string;
 
   public constructor(number?: number,
                      area?: Area,

@@ -1,4 +1,5 @@
 import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { isUndefined } from 'util';
 
 import { PickedFile } from './picked-file';
 import { FilePickerError } from './file-picker-error';
@@ -17,12 +18,6 @@ export class FileDropzoneDirective implements OnInit {
   @Output()
   public fileDrop = new EventEmitter<PickedFile | FilePickerError>();
 
-  // @Output()
-  // public dragEnter = new EventEmitter<void>();
-  //
-  // @Output()
-  // public dragLeave = new EventEmitter<void>();
-
   public constructor(private el: ElementRef, private renderer: Renderer2) {
   }
 
@@ -30,13 +25,7 @@ export class FileDropzoneDirective implements OnInit {
     this.renderer.listen(this.el.nativeElement, 'dragenter', (event: DragEvent) => {
       event.stopPropagation();
       event.preventDefault();
-      // this.dragEnter.emit();
     });
-
-    this.renderer.listen(this.el.nativeElement, 'dragleave', () => {
-      // this.dragLeave.emit();
-    });
-
 
     this.renderer.listen(this.el.nativeElement, 'dragover', (event: DragEvent) => {
       event.stopPropagation();
@@ -58,7 +47,9 @@ export class FileDropzoneDirective implements OnInit {
 
     let file = files[0];
 
-    if (!file.type.match(this.accept)) {
+    if (isUndefined(file)) {
+      this.fileDrop.emit(FilePickerError.UndefinedInput);
+    } else if (!file.type.match(this.accept)) {
       this.fileDrop.emit(FilePickerError.InvalidFileType);
     } else if (this.maxSize > 0 && file.size > this.maxSize) {
       this.fileDrop.emit(FilePickerError.FileTooBig);

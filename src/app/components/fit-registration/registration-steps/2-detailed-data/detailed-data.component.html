@@ -4,7 +4,7 @@
     Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
 </div>
 
-<form>
+<form [formGroup]="fitFormGroup">
 
   <!--general-->
   <div class="mb-4">
@@ -13,13 +13,16 @@
     <div class="form-group d-flex align-items-center">
       <label for="branch" class="my-0 mr-3">Branche:</label>
       <input class="form-control"
-             type="text"
+             formControlName="branch"
              id="branch">
     </div>
 
     <div class="form-group">
       <label for="description" class="mb-1">Beschreibung Ihres Tätigkeitsfeldes (ca. 20 Sätze):</label>
-      <textarea class="form-control" id="description" rows="4"></textarea>
+      <textarea class="form-control"
+                formControlName="description"
+                id="description"
+                rows="4"></textarea>
     </div>
   </div>
 
@@ -31,7 +34,7 @@
       <label for="officesAut" class="col-md-3 col-form-label">Standorte Österreich:</label>
       <div class="col-md-9">
         <input class="form-control"
-               type="text"
+               formControlName="officesAut"
                id="officesAut">
       </div>
     </div>
@@ -40,7 +43,7 @@
       <label for="officesInt" class="col-md-3 col-form-label">Standorte International:</label>
       <div class="col-md-9">
         <input class="form-control"
-               type="text"
+               formControlName="officesInt"
                id="officesInt">
       </div>
     </div>

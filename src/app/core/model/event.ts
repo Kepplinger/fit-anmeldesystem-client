@@ -6,6 +6,7 @@ export class Event {
   public registrationStart: Moment;
   public registrationEnd: Moment;
   public isLocked: boolean;
+  public timestamp: string;
 
   public constructor(date?: Moment,
                      registrationStart?: Moment,

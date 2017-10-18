@@ -2,6 +2,7 @@ export class DetailValue {
   public id: number;
   public detailId: number;
   public value: string;
+  public timestamp: string;
 
   public constructor(detailId?: number,
                      value?: string,

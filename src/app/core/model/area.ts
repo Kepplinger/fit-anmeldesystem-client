@@ -5,6 +5,7 @@ export class Area {
   public designation: string;
   public graphicUrl: string;
   public eventId: number;
+  public timestamp: string;
 
   public constructor(designation?: string,
                      graphicUrl?: string,
