@@ -42,8 +42,9 @@
     </div>
 
     <!--sponsor package-->
-    <div class="pointer card text-white bg-sponsor m-3"
-         [ngClass]="{'disabled': isPackageSelected(Package.LecturePack)}"
+    <div class="pointer card text-white bg-danger  m-3"
+         [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
+                      'enabled':!isPackageSelected(Package.SponsorPack)}"
          (click)="togglePackage(Package.SponsorPack)">
       <div class="card-header text-center">
         <div class="stars">
@@ -80,8 +81,11 @@
     </div>
 
     <!--lecture package-->
-    <div class="pointer card text-white bg-danger m-3"
+    <div class="pointer card text-white bg-sponsor m-3"
+         [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
+                      'enabled':!isPackageSelected(Package.LecturePack)}"
          (click)="togglePackage(Package.LecturePack)">
+
       <div class="card-header text-center">
         <div class="stars">
           <i class="fa fa-star"></i>
