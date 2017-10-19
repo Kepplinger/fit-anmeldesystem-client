@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'fit-contact-and-remarks',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-and-remarks.component.scss']
 })
 export class ContactAndRemarksComponent implements OnInit {
+
+  @Input()
+  public fitFormGroup: FormGroup;
 
   public constructor() {
   }

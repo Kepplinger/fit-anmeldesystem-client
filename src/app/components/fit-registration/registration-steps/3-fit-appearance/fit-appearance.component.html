@@ -3,48 +3,118 @@
   <p>Diese Angaben helfen uns, Ihr Auftreten am FIT so optimal wie möglich zu gestalten.</p>
 </div>
 
-<h4 class="text-bold">Sie benötigen...</h4>
+<div class="mb-4">
+  <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
 
-<div class="d-flex">
+  <table cellpadding="5" width="60%">
+    <tr>
+      <th colspan="3" class="pt-3">1. Vertreter/in</th>
+    </tr>
 
-  <div class="checkbox mx-2">
-    <label>
-      <input type="checkbox">
-      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-      WLAN
-    </label>
-  </div>
+    <tr>
+      <td>
+        <label for="representiveName">Name:</label>
+      </td>
+      <td>
+        <input class="form-control"
+               type="text"
+               id="representiveName">
+      </td>
+      <td rowspan="2">
+        <img src="../../../../../assets/contact.png"
+             class="img-fluid contact-image"
+             alt="Bild kann nicht angezeigt werden"
+             width="60" height="80">
+      </td>
+    </tr>
 
-  <div class="checkbox mx-2">
-    <label>
-      <input type="checkbox">
-      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-      Strom
-    </label>
-  </div>
+    <tr>
+      <td>
+        <label for="representiveEmail">E-Mail:</label>
+      </td>
+      <td>
+        <input class="form-control"
+               type="text"
+               id="representiveEmail">
+      </td>
+    </tr>
 
-  <div class="checkbox mx-2">
-    <label>
-      <input type="checkbox">
-      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-      Tische
-    </label>
-  </div>
+    <tr>
+      <th colspan="3" class="pt-3">2. Vertreter/in</th>
+    </tr>
 
-  <div class="checkbox mx-2">
-    <label>
-      <input type="checkbox">
-      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-      Sessel
-    </label>
-  </div>
+    <tr>
+      <td>
+        <label for="representive2Name">Name:</label>
+      </td>
+      <td>
+        <input class="form-control"
+               type="text"
+               id="representive2Name">
+      </td>
+      <td rowspan="2">
+        <img src="../../../../../assets/contact.png"
+             class="img-fluid bg-danger contact-image"
+             alt="Bild kann nicht angezeigt werden"
+             width="60" height="80">
+      </td>
+    </tr>
 
+    <tr>
+      <td>
+        <label for="representive2Email">E-Mail:</label>
+      </td>
+      <td>
+        <input class="form-control"
+               type="text"
+               id="representive2Email">
+      </td>
+    </tr>
+  </table>
 </div>
 
-<div class="form-group">
-  <label for="otherNotes" class="mb-1">Sonstige Anmerkungen:</label>
-  <textarea class="form-control"
-            id="otherNotes"
-            rows="3">
+<div class="d-flex">
+  <div class="mr-4">
+    <div class="text-bold mb-2">Sie benötigen...</div>
+
+    <div class="checkbox mx-2">
+      <label>
+        <input type="checkbox">
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+        WLAN
+      </label>
+    </div>
+
+    <div class="checkbox mx-2">
+      <label>
+        <input type="checkbox">
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+        Strom
+      </label>
+    </div>
+
+    <div class="checkbox mx-2">
+      <label>
+        <input type="checkbox">
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+        keine Tische
+      </label>
+    </div>
+
+    <div class="checkbox mx-2">
+      <label>
+        <input type="checkbox">
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+        keine Sessel
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group flex-filler">
+    <label for="otherNotes" class="text-bold mb-1">Sonstige Anmerkungen (z.B. eigener Messestand):</label>
+    <textarea class="form-control"
+              id="otherNotes"
+              rows="5">
   </textarea>
+  </div>
 </div>

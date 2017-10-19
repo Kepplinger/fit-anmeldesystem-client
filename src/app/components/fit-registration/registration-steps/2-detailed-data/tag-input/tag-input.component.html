@@ -1,0 +1,20 @@
+<tag-input [(ngModel)]='items'
+           [placeholder]="'Standort hinzufügen'"
+           [secondaryPlaceholder]="'Mit Enter bestätigen'"
+           [ripple]="false"
+           [ngModelOptions]="{standalone: true}"
+           [theme]="'fit-tag-input-theme'"
+           (onFocus)="focus = true"
+           (onBlur)="focus = false"
+           [ngClass]="{'tag-input-focused': focus}">
+  <ng-template let-item="item" let-index="index">
+    <div class="d-flex align-middle" style="height: 1em">
+      <div (click)="input.removeItem(item, index)">
+        <i class="fa fa-times mr-1"></i>
+      </div>
+      <div class="pb-3">
+        {{ item.value }}
+      </div>
+    </div>
+  </ng-template>
+</tag-input>

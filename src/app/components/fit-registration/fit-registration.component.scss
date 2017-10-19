@@ -1,18 +1,18 @@
 @import "../../styles/fit-variables";
 
 .step-header {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: bold;
 }
 
-.border-top {
-  border-top: $main-border;
-}
-
-.border-bottom {
-  border-bottom: $main-border;
+.step-sub-text {
+  font-size: 12px;
 }
 
 .step-container {
   cursor: pointer;
+}
+
+.fa-1-5x {
+  font-size: 1.5rem;
 }

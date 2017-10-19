@@ -5,14 +5,12 @@ import { FitRegistrationStep } from '../../core/model/enums/fit-registration-ste
 import { BookingDAO } from '../../core/dao/booking-dao.service';
 import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
-import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
-import { Category } from '../../core/model/category';
 import { Address } from '../../core/model/adress';
 import { Contact } from '../../core/model/contact';
 import { Person } from 'app/core/model/person';
-import { Area } from '../../core/model/area';
 import { DetailValue } from '../../core/model/detail-value';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -21,22 +19,51 @@ import { DetailValue } from '../../core/model/detail-value';
 })
 export class FitRegistrationComponent implements OnInit {
 
-  public currentPage: FitRegistrationStep;
+  // necessary for template-usage
+  Step = FitRegistrationStep;
+
+  public currentStep: FitRegistrationStep;
+  public fitFormGroup: FormGroup;
 
   public constructor(private router: Router,
-                     private bookingDAO: BookingDAO) {
-    this.currentPage = 1;
+                     private bookingDAO: BookingDAO,
+                     private fb: FormBuilder) {
+    this.currentStep = FitRegistrationStep.DetailedData;
+
+    this.fitFormGroup = fb.group({
+      generalData: fb.group({
+        companyName: ['', Validators.required],
+        street: ['', Validators.required],
+        zipCode: ['', Validators.required],
+        location: ['', Validators.required],
+        phone: ['', Validators.required],
+        email: ['', Validators.required],
+        homepage: ['', Validators.required],
+        logo: ['', Validators.required],
+      }),
+      detailedData: fb.group({
+        branch: ['', Validators.required],
+        description: ['', Validators.required],
+        officesAut: ['', Validators.required],
+        officesInt: ['', Validators.required],
+        desiredBranches: [''],
+        providing: ['']
+      }),
+      fitAppearance: fb.group({}),
+      packagesAndLocation: fb.group({}),
+      contactAndRemarks: fb.group({})
+    });
   }
 
   public ngOnInit() {
   }
 
-  public setCurrentPage(page: number) {
-    this.currentPage = page;
+  public setCurrentPage(step: FitRegistrationStep) {
+    this.currentStep = step;
   }
 
   public nextPage() {
-    this.currentPage += 1;
+    this.currentStep += 1;
   }
   public unMuteTwo(){
     var container = document.getElementById("stepTwo").className = "step-container mx-4 my-2";
@@ -49,7 +76,7 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public previousPage() {
-    this.currentPage -= 1;
+    this.currentStep -= 1;
   }
 
   public async submitForm(): Promise<void> {

@@ -4,6 +4,7 @@ export class Presentation {
   public title: string;
   public description: string;
   public isAccepted: boolean;
+  public timestamp: string;
 
   public constructor(roomNumber?: string,
                      title?: string,

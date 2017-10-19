@@ -1,0 +1,46 @@
+@import "~ngx-chips/dist/modules/core/styles/core/_core.scss";
+
+.ng2-tag-input.fit-tag-input-theme {
+  border: solid 1px #dadada !important;
+  border-radius: .25rem;
+  padding: .25em .50em !important;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  ::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: bold;
+  }
+  :-moz-placeholder {
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: bold;
+    opacity: 1;
+  }
+  ::-moz-placeholder {
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: bold;
+    opacity: 1;
+  }
+  :-ms-input-placeholder {
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: bold;
+  }
+}
+
+.ng2-tag-input.fit-tag-input-theme.ng2-tag-input--focused {
+  border: solid 1px #80bdff !important;
+}
+
+.ng2-tag-input.fit-tag-input-theme tag {
+  background-color: transparent;
+  border: solid 1px lightgrey;
+  border-radius: .25rem;
+  padding: 0 .50em .25em !important;
+
+  &:focus, &:active, &:hover {
+    color: inherit !important;
+    background-color: whitesmoke !important;
+  }
+}
+
+.ng2-tag-input.fit-tag-input-theme tag delete-icon {
+}

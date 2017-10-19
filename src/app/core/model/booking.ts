@@ -11,6 +11,7 @@ export class Booking {
   public categoryId: number;
   public details: DetailValue[];
   public isAccepted: boolean;
+  public timestamp: string;
 
   public constructor(eventId?: number,
                      company?: Company,

@@ -12,6 +12,7 @@ export class Company {
   public homepage: string;
   public companySign: string;
   public subjectAreas: string;
+  public timestamp: string;
 
   public constructor(name?: string,
                      shortDescription?: string,

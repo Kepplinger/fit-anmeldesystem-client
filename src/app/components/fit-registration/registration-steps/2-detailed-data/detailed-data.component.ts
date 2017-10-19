@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'fit-detailed-data',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailedDataComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public fitFormGroup: FormGroup;
 
-  ngOnInit() {
+  public constructor() {
+  }
+
+  public ngOnInit() {
   }
 
 }

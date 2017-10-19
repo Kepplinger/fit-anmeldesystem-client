@@ -1,3 +1,6 @@
+@import "./fit-variables";
+@import "./fit-tag-input-theme";
+
 html, body {
   height: 100%;
 }
@@ -44,4 +47,19 @@ html, body {
     outline: none !important;
     box-shadow: none !important;
   }
+}
+
+.border-top {
+  border-top: $main-border;
+}
+
+.border-bottom {
+  border-bottom: $main-border;
+}
+
+.centered-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

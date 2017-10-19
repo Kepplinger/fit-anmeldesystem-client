@@ -1,0 +1,77 @@
+.pointer:not(.disabled) {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: default;
+  filter: brightness(80%);
+}
+
+.card {
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  transform: scale(1, 1);
+  transition-duration: 0.2s;
+
+  .card-header {
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .list-group {
+    font-size: 18px;
+
+    .list-group-item {
+      padding: 8px 20px;
+      background-color: inherit;
+    }
+  }
+
+  .package-price {
+    font-size: 26px;
+    font-weight: bold;
+
+    // TODO consider using
+  }
+
+  .stars {
+    font-size: 0.75rem;
+  }
+
+  .bottom-border {
+    margin: 0 auto;
+    border-bottom: solid 1px;
+  }
+
+  &:hover:not(.disabled) {
+    -webkit-transform: scale(1.03, 1.03);
+    -ms-transform: scale(1.03, 1.03);
+    transform: scale(1.03, 1.03);
+    transition-duration: 0.2s;
+  }
+}
+
+.sub-text {
+  font-size: 0.7em;
+}
+
+.bg-sponsor {
+  background-color: #dea700;
+}
+
+#presentation {
+  cursor: pointer;
+}
+
+table {
+  font-size: 18px;
+  width: 100%;
+}
+
+td, th {
+  padding: 1px 5px;
+}
+
+.border-top {
+  border-top: solid 2px black;
+}

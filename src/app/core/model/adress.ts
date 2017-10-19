@@ -3,6 +3,7 @@ export class Address {
   public city: string;
   public postalCode: string;
   public street: string;
+  public timestamp: string;
 
   public constructor(city?: string,
                      postalCode?: string,
