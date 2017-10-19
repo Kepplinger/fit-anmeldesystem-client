@@ -1,4 +1,4 @@
-<tag-input [(ngModel)]='items'
+<tag-input [(ngModel)]="tags"
            [placeholder]="'Standort hinzufügen'"
            [secondaryPlaceholder]="'Mit Enter bestätigen'"
            [ripple]="false"
@@ -9,7 +9,7 @@
            [ngClass]="{'tag-input-focused': focus}">
   <ng-template let-item="item" let-index="index">
     <div class="d-flex align-middle" style="height: 1em">
-      <div (click)="input.removeItem(item, index)">
+      <div (click)="removeItem(index)">
         <i class="fa fa-times mr-1"></i>
       </div>
       <div class="pb-3">

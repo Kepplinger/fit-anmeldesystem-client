@@ -3,26 +3,26 @@
 .ng2-tag-input.fit-tag-input-theme {
   border: solid 1px #dadada !important;
   border-radius: .25rem;
-  padding: .25em .50em !important;
+  padding: .25em !important;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 
   ::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.38);
-    font-weight: bold;
+    margin: .25em;
   }
   :-moz-placeholder {
     color: rgba(0, 0, 0, 0.38);
-    font-weight: bold;
+    margin: .25em;
     opacity: 1;
   }
   ::-moz-placeholder {
     color: rgba(0, 0, 0, 0.38);
-    font-weight: bold;
+    margin: .25em;
     opacity: 1;
   }
   :-ms-input-placeholder {
     color: rgba(0, 0, 0, 0.38);
-    font-weight: bold;
+    margin: .25em;
   }
 }
 
@@ -31,10 +31,14 @@
 }
 
 .ng2-tag-input.fit-tag-input-theme tag {
-  background-color: transparent;
+  height: auto !important;
+  min-height: 32px;
+  //background-color: transparent;
   border: solid 1px lightgrey;
   border-radius: .25rem;
-  padding: 0 .50em .25em !important;
+  padding: 0 .50em !important;
+  background-color: whitesmoke;
+  margin: .25em;
 
   &:focus, &:active, &:hover {
     color: inherit !important;
