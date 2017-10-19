@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class DetailedDataComponent implements OnInit {
 
+
   @Input()
   public fitFormGroup: FormGroup;
 

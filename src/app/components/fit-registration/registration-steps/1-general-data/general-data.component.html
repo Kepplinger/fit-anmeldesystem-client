@@ -18,15 +18,15 @@
 
   <div class="form-group row">
     <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
-    <div class="col-md-6">
-      <input class="form-control"
+    <div class="col-md-9 d-flex">
+
+      <input class="form-control flex-2-5 mr-3"
              formControlName="street"
              (keyup)="formChanged()"
              id="street"
              placeholder="Straße">
-    </div>
-    <div class="col-md-3">
-      <input class="form-control"
+
+      <input class="form-control flex-1"
              formControlName="streetNumber"
              (keyup)="formChanged()"
              id="streetNumber"
@@ -36,15 +36,15 @@
 
   <div class="form-group row">
     <label for="location" class="col-md-3 col-form-label"></label>
-    <div class="col-md-6">
-      <input class="form-control"
+    <div class="col-md-9 d-flex">
+
+      <input class="form-control flex-2-5 mr-3"
              formControlName="location"
              (keyup)="formChanged()"
              id="location"
              placeholder="Ort">
-    </div>
-    <div class="col-md-3">
-      <input class="form-control"
+
+      <input class="form-control flex-1"
              formControlName="zipCode"
              (keyup)="formChanged()"
              id="zipCode"
@@ -65,27 +65,23 @@
   </div>
 
   <div class="form-group row">
-    <label for="email" class="col-md-3 col-form-label">Webauftritt</label>
-    <div class="col">
-      <input class="form-control"
+    <label for="email" class="col-md-3 col-form-label">Webauftritt:</label>
+    <div class="col-md-9 d-flex">
+      <input class="form-control flex-1 mr-2"
              type="email"
              formControlName="email"
              (keyup)="formChanged()"
              id="email"
              placeholder="Email">
-    </div>
 
-    <div class="col">
-      <input class="form-control"
+      <input class="form-control flex-1 ml-2"
              type="url"
              formControlName="homepage"
              (keyup)="formChanged()"
              id="homepage"
              placeholder="Homepage">
-
     </div>
   </div>
-
 
 
   <div class="form-group row">

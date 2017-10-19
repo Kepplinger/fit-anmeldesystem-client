@@ -11,7 +11,8 @@
   <div class="card-deck">
 
     <!--basic package-->
-    <div class="pointer card text-white bg-info m-3 disabled">
+    <div class="pointer card text-white bg-info m-3 disabled"
+         (click)="togglePackage(Package.BasicPack)">
       <div class="card-header text-center">
         <div class="stars">
           <i class="fa fa-star"></i>
@@ -70,9 +71,8 @@
       <div class="card-footer d-flex">
         <span class="flex-filler  my-auto">
           <i class="fa fa-2x"
-             [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack + Package.LecturePack),
-                         'fa-check-square-o': isPackageSelected(Package.SponsorPack) && !isPackageSelected(Package.LecturePack),
-                         'fa-check-square': isPackageSelected(Package.SponsorPack) && isPackageSelected(Package.LecturePack)}">
+             [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),
+                         'fa-check-square': isPackageSelected(Package.SponsorPack)}">
           </i>
         </span>
         <span class="mt-auto mb-1 mr-1">+ 200 € =</span>
@@ -112,7 +112,7 @@
         <span class="flex-filler my-auto">
           <i class="fa fa-2x"
              [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
-                         'fa-check-square-o': isPackageSelected(Package.LecturePack)}">
+                         'fa-check-square': isPackageSelected(Package.LecturePack)}">
           </i>
         </span>
         <span class="mt-auto mb-1 mr-1">+ 200 € = </span>
@@ -138,6 +138,34 @@
     </button>
 
   </div>
+</div>
+
+
+<div class="mb-4">
+  <h5 class="text-bold mb-2">Kostenübersicht:</h5>
+
+  <table>
+    <tr>
+      <td class="text-right" width="13%">200,00 €</td>
+      <td width="97%">Grundpaket</td>
+    </tr>
+
+    <tr *ngIf="isPackageSelected(Package.SponsorPack)">
+      <td class="text-right">+ 200,00 €</td>
+      <td>Sponsorpaket</td>
+    </tr>
+
+    <tr *ngIf="isPackageSelected(Package.LecturePack)">
+      <td class="text-right">+ 200,00 €</td>
+      <td>Vortragspaket</td>
+    </tr>
+
+    <tr class="border-top">
+      <th class="text-right">= 400,00 €</th>
+      <th>Gesamt</th>
+    </tr>
+  </table>
+
 </div>
 
 <div class="mb-4" *ngIf="isPackageSelected(Package.LecturePack)">
@@ -175,33 +203,3 @@
     </div>
   </div>
 </div>
-
-
-<div class="mb-4">
-  <h5 class="text-bold mb-2">Kostenübersicht:</h5>
-
-  <table>
-    <tr>
-      <td class="text-right" width="13%">200,00 €</td>
-      <td width="97%">Grundpaket</td>
-    </tr>
-
-    <tr *ngIf="isPackageSelected(Package.SponsorPack)">
-      <td class="text-right">+ 200,00 €</td>
-      <td>Sponsorpaket</td>
-    </tr>
-
-    <tr *ngIf="isPackageSelected(Package.LecturePack)">
-      <td class="text-right">+ 200,00 €</td>
-      <td>Vortragspaket</td>
-    </tr>
-
-    <tr class="border-top">
-      <th class="text-right">= 400,00 €</th>
-      <th>Gesamt</th>
-    </tr>
-  </table>
-
-</div>
-
-

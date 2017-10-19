@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'fit-tag-input',

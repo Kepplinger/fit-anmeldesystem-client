@@ -35,10 +35,10 @@
 .checkbox .cr .cr-icon,
 .radio .cr .cr-icon {
   position: absolute;
-  font-size: .8em;
+  font-size: 1em;
   line-height: 0;
   top: 50%;
-  left: 20%;
+  left: 10%;
 }
 
 .radio .cr .cr-icon {
@@ -52,23 +52,18 @@
 
 .checkbox label input[type="checkbox"] + .cr > .cr-icon,
 .radio label input[type="radio"] + .cr > .cr-icon {
-  transform: scale(3) rotateZ(-20deg);
+  transform: scale(3);
   opacity: 0;
   transition: all .15s ease-in;
 }
 
 .checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
 .radio label input[type="radio"]:checked + .cr > .cr-icon {
-  transform: scale(1) rotateZ(0deg);
+  transform: scale(1);
   opacity: 1;
 }
 
 .checkbox label input[type="checkbox"]:disabled + .cr,
 .radio label input[type="radio"]:disabled + .cr {
   opacity: .5;
-}
-
-.checkbox label input[type="checkbox"]:checked ~ label ~ .checkbox,
-.radio label input[type="radio"]:checked ~ label ~ .radio {
-  //TODO proper css selctor
 }

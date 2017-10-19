@@ -34,7 +34,7 @@ export class FitRegistrationComponent implements OnInit {
       generalData: fb.group({
         companyName: ['', Validators.required],
         street: ['', Validators.required],
-        streetNumber:['', Validators.required],
+        streetNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
         location: ['', Validators.required],
         phone: ['', Validators.required],
@@ -45,8 +45,10 @@ export class FitRegistrationComponent implements OnInit {
       detailedData: fb.group({
         branch: ['', Validators.required],
         description: ['', Validators.required],
-        officesAut: ['', Validators.required],
-        officesInt: ['', Validators.required],
+        establishmentsAut: ['', Validators.required],
+        establishmentAutCount: [0, Validators.required],
+        establishmentsInt: [''],
+        establishmentIntCount: [0],
         desiredBranches: [''],
         providing: ['']
       }),
@@ -57,7 +59,6 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.currentStep=1;
   }
 
   public setCurrentPage(step: FitRegistrationStep) {

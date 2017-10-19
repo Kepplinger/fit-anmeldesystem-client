@@ -21,14 +21,17 @@ export class PackagesAndLocationComponent {
   }
 
   public togglePackage(packageNumber: number): void {
-    this.selectedPackage ^= packageNumber;
 
-    if (this.isPackageSelected(FitPackage.LecturePack) && !this.isPackageSelected(FitPackage.SponsorPack)) {
-      this.selectedPackage |= FitPackage.SponsorPack ;
+    if (packageNumber-- === this.selectedPackage) {
+      this.selectedPackage--;
+    } else if (packageNumber++ === this.selectedPackage) {
+      this.selectedPackage++;
+    } else {
+      this.selectedPackage = packageNumber;
     }
   }
 
   public isPackageSelected(packageNumber: number): boolean {
-    return (this.selectedPackage & packageNumber) !== 0;
+    return packageNumber <= this.selectedPackage;
   }
 }

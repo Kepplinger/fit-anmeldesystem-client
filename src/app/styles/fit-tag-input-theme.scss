@@ -7,21 +7,21 @@
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 
   ::-webkit-input-placeholder {
-    color: rgba(0, 0, 0, 0.38);
+    color: rgba(0, 0, 0, .60);
     margin: .25em;
   }
   :-moz-placeholder {
-    color: rgba(0, 0, 0, 0.38);
+    color: rgba(0, 0, 0, .60);
     margin: .25em;
     opacity: 1;
   }
   ::-moz-placeholder {
-    color: rgba(0, 0, 0, 0.38);
+    color: rgba(0, 0, 0, .60);
     margin: .25em;
     opacity: 1;
   }
   :-ms-input-placeholder {
-    color: rgba(0, 0, 0, 0.38);
+    color: rgba(0, 0, 0, .60);
     margin: .25em;
   }
 }
@@ -33,7 +33,6 @@
 .ng2-tag-input.fit-tag-input-theme tag {
   height: auto !important;
   min-height: 32px;
-  //background-color: transparent;
   border: solid 1px lightgrey;
   border-radius: .25rem;
   padding: 0 .50em !important;
@@ -42,9 +41,18 @@
 
   &:focus, &:active, &:hover {
     color: inherit !important;
-    background-color: whitesmoke !important;
+    background-color: lightgrey !important;
   }
 }
 
-.ng2-tag-input.fit-tag-input-theme tag delete-icon {
+.ng2-tag-input.fit-tag-input-theme {
+  form {
+    min-height: 2rem;
+    height: 100%;
+
+    input {
+
+      height: 100%;
+    }
+  }
 }
