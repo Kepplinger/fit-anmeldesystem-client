@@ -56,6 +56,7 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.currentStep=1;
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
@@ -64,15 +65,6 @@ export class FitRegistrationComponent implements OnInit {
 
   public nextPage() {
     this.currentStep += 1;
-  }
-  public unMuteTwo(){
-    var container = document.getElementById("stepTwo").className = "step-container mx-4 my-2";
-  }
-  public unMuteThree(){
-    var container = document.getElementById("stepThree").className = "step-container mx-4 my-2";
-  }
-  public unMuteFour(){
-    var container = document.getElementById("stepFour").className = "step-container mx-4 my-2";
   }
 
   public previousPage() {
