@@ -56,6 +56,7 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.currentStep=1;
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
