@@ -3,8 +3,12 @@
 }
 
 .disabled {
-  cursor: default;
-  filter: brightness(80%);
+  cursor: pointer;
+  filter: brightness(100%);
+
+}
+.enabled{
+  filter: brightness(75%);
 }
 
 .card {
@@ -56,7 +60,7 @@
 }
 
 .bg-sponsor {
-  background-color: #dea700;
+    background-color: #dea700;
 }
 
 #presentation {
@@ -75,3 +79,4 @@ td, th {
 .border-top {
   border-top: solid 2px black;
 }
+

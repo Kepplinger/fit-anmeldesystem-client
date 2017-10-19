@@ -34,6 +34,7 @@ export class FitRegistrationComponent implements OnInit {
       generalData: fb.group({
         companyName: ['', Validators.required],
         street: ['', Validators.required],
+        streetNumber:['', Validators.required],
         zipCode: ['', Validators.required],
         location: ['', Validators.required],
         phone: ['', Validators.required],
