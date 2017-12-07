@@ -1,11 +1,10 @@
-import { Event } from './event';
-
 export class Area {
   public id: number;
+  public timestamp: string;
+
   public designation: string;
   public graphicUrl: string;
   public eventId: number;
-  public timestamp: string;
 
   public constructor(designation?: string,
                      graphicUrl?: string,

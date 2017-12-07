@@ -3,36 +3,49 @@ import { Contact } from './contact';
 
 export class Company {
   public id: number;
-  public name: string;
-  public shortDescription: string;
-  public address: Address;
-  public contact: Contact;
-  public phoneNumber: string;
-  public email: string;
-  public homepage: string;
-  public companySign: string;
-  public subjectAreas: string;
   public timestamp: string;
 
+  public name: string;
+  public branch: string;
+  public address: Address;
+  public contact: Contact;
+  public phone: string;
+  public email: string;
+  public homepage: string;
+  public logo: string;
+  public subjectAreas: string;
+  public establishmentCountInt?: number;
+  public establishmentsInt?: string[];
+  public establishmentCountAut?: number;
+  public establishmentsAut?: string[];
+
   public constructor(name?: string,
-                     shortDescription?: string,
+                     branch?: string,
                      address?: Address,
                      contact?: Contact,
-                     phoneNumber?: string,
+                     phone?: string,
                      email?: string,
                      homepage?: string,
-                     companySign?: string,
+                     logo?: string,
                      subjectAreas?: string,
+                     establishmentCountInt?: number,
+                     establishmentsInt?: string[],
+                     establishmentCountAut?: number,
+                     establishmentsAut?: string[],
                      id?: number) {
     this.id = id;
     this.name = name;
-    this.shortDescription = shortDescription;
+    this.branch = branch;
     this.address = address;
     this.contact = contact;
-    this.phoneNumber = phoneNumber;
+    this.phone = phone;
     this.email = email;
     this.homepage = homepage;
-    this.companySign = companySign;
+    this.logo = logo;
     this.subjectAreas = subjectAreas;
+    this.establishmentCountInt = establishmentCountInt;
+    this.establishmentsInt = establishmentsInt;
+    this.establishmentCountAut = establishmentCountAut;
+    this.establishmentsAut = establishmentsAut;
   }
 }

@@ -1,13 +1,22 @@
-import { Person } from './person';
-
 export class Contact {
   public id: number;
-  public person: Person;
   public timestamp: string;
 
-  public constructor(person?: Person,
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public phone: string;
+
+
+  public constructor(firstName?: string,
+                     lastName?: string,
+                     email?: string,
+                     phone?: string,
                      id?: number) {
-    this.person = person;
     this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phone = phone;
   }
 }

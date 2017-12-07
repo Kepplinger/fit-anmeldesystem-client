@@ -3,13 +3,6 @@ import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
 import { BookingDAO } from '../../core/dao/booking-dao.service';
-import { Booking } from '../../core/model/booking';
-import { Company } from '../../core/model/company';
-import { Presentation } from '../../core/model/presentation';
-import { Address } from '../../core/model/adress';
-import { Contact } from '../../core/model/contact';
-import { Person } from 'app/core/model/person';
-import { DetailValue } from '../../core/model/detail-value';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -76,53 +69,53 @@ export class FitRegistrationComponent implements OnInit {
   public async submitForm(): Promise<void> {
 
     // TODO replace dummy
-    let booking = new Booking(
-      1,
-      new Company(
-        'Comp1',
-        'voi gmiadlich',
-        new Address(
-          'Leonding',
-          '9090',
-          'irgendwo 77',
-        ),
-        new Contact(
-          new Person(
-            'Ors**',
-            'midOhrn',
-            'ohren@ohr.en',
-            'abcd',
-            '06607000'
-          ),
-        ),
-        '06607000',
-        'comp@comp.at',
-        'https://ts-proto-shop.herokuapp.com',
-        'wos is des?',
-        '3?'
-      ),
-      23,
-      new Presentation(
-        '257',
-        'De anzig wohre Presentation',
-        'abcdefgz',
-        true
-      ),
-      2,
-      [
-        new DetailValue(
-          1,
-          'false'
-        ),
-        new DetailValue(
-          2,
-          'true'
-        ),
-      ],
-      true
-    );
+    // let booking = new Booking(
+    //   1,
+    //   new Company(
+    //     'Comp1',
+    //     'voi gmiadlich',
+    //     new Address(
+    //       'Leonding',
+    //       '9090',
+    //       'irgendwo 77',
+    //     ),
+    //     new Contact(
+    //       new Person(
+    //         'Ors**',
+    //         'midOhrn',
+    //         'ohren@ohr.en',
+    //         'abcd',
+    //         '06607000'
+    //       ),
+    //     ),
+    //     '06607000',
+    //     'comp@comp.at',
+    //     'https://ts-proto-shop.herokuapp.com',
+    //     'wos is des?',
+    //     '3?'
+    //   ),
+    //   23,
+    //   new Presentation(
+    //     '257',
+    //     'De anzig wohre Presentation',
+    //     'abcdefgz',
+    //     true
+    //   ),
+    //   2,
+    //   [
+    //     new DetailValue(
+    //       1,
+    //       'false'
+    //     ),
+    //     new DetailValue(
+    //       2,
+    //       'true'
+    //     ),
+    //   ],
+    //   true
+    // );
 
-    await this.bookingDAO.createBooking(booking);
+    // await this.bookingDAO.createBooking(booking);
     this.router.navigateByUrl('fit/anmeldung-erfolgreich');
   }
 }

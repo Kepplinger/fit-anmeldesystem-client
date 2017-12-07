@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpAccess } from '../http/http-access.service';
+import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../app-configs/app-configs.service';
 import { Booking } from '../model/booking';
 import 'rxjs/add/operator/toPromise';
@@ -8,12 +8,10 @@ import 'rxjs/add/operator/toPromise';
 export class BookingDAO {
 
   public constructor(private appConfig: AppConfig,
-                     private http: HttpAccess) {
-
+                     private http: HttpClient) {
   }
 
   public async createBooking(booking: Booking): Promise<void> {
-
     await this.http.post(this.appConfig.serverURL + 'api/booking/create', booking)
       .toPromise();
   }
