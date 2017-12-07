@@ -5,13 +5,13 @@ export class Address {
   public city: string;
   public zipCode: string;
   public street: string;
-  public houseNumber: number;
+  public houseNumber: string;
   public addition: string;
 
   public constructor(city?: string,
                      zipCode?: string,
                      street?: string,
-                     houseNumber?: number,
+                     houseNumber?: string,
                      addition?: string,
                      id?: number) {
     this.id = id;

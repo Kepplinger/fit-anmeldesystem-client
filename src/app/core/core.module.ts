@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
-import { BookingDAO } from './dao/booking-dao.service';
+import { BookingDAO } from './dao/booking.dao';
 import { AppConfig } from './app-configs/app-configs.service';
-import { HttpAccess } from './http/http-access.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BranchDAO } from './dao/branch.dao';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule
+    HttpClientModule
   ],
   declarations: [],
   providers: [
     BookingDAO,
+    BranchDAO,
     AppConfig,
-    HttpAccess
   ]
 })
 export class CoreModule {

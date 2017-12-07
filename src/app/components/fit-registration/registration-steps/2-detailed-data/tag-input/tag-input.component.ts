@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'fit-tag-input',
@@ -8,6 +10,9 @@ import 'rxjs/add/operator/filter';
 })
 export class TagInputComponent implements OnInit {
 
+  @Output()
+  public tagsChanges: EventEmitter<string[]> = new EventEmitter<string[]>();
+
   public tags: string[];
   public focus = false;
 
@@ -15,6 +20,10 @@ export class TagInputComponent implements OnInit {
   }
 
   public ngOnInit() {
+  }
+
+  public updatedTags() {
+    this.tagsChanges.emit(this.tags);
   }
 
   public removeItem(index: number): void {

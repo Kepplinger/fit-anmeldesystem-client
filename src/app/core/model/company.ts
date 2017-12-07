@@ -13,7 +13,6 @@ export class Company {
   public email: string;
   public homepage: string;
   public logo: string;
-  public subjectAreas: string;
   public establishmentCountInt?: number;
   public establishmentsInt?: string[];
   public establishmentCountAut?: number;
@@ -27,7 +26,6 @@ export class Company {
                      email?: string,
                      homepage?: string,
                      logo?: string,
-                     subjectAreas?: string,
                      establishmentCountInt?: number,
                      establishmentsInt?: string[],
                      establishmentCountAut?: number,
@@ -42,7 +40,6 @@ export class Company {
     this.email = email;
     this.homepage = homepage;
     this.logo = logo;
-    this.subjectAreas = subjectAreas;
     this.establishmentCountInt = establishmentCountInt;
     this.establishmentsInt = establishmentsInt;
     this.establishmentCountAut = establishmentCountAut;

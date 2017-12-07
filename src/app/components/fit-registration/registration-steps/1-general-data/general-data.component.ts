@@ -14,9 +14,6 @@ export class GeneralDataComponent implements OnInit {
   @Input()
   public fitFormGroup: FormGroup;
 
-  @Input()
-  public fitFormGroupChange = new EventEmitter<FormGroup>();
-
   public logo: PickedFile;
   public isDrag: boolean = false;
 
@@ -24,10 +21,6 @@ export class GeneralDataComponent implements OnInit {
   }
 
   public ngOnInit() {
-  }
-
-  public formChanged() {
-    this.fitFormGroupChange.emit(this.fitFormGroup);
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {

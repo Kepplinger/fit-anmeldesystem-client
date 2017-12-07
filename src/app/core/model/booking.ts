@@ -1,6 +1,7 @@
 import { Company } from './company';
 import { Presentation } from './presentation';
 import { Branch } from './branch';
+import { Representative } from './representative';
 
 export class Booking {
   public id: number;
@@ -10,6 +11,7 @@ export class Booking {
   public company: Company;
   public locationId: number;
   public presentation: Presentation;
+  public representatives: Representative[];
   public categoryId: number;
 
   public branches: Branch[];
@@ -21,10 +23,10 @@ export class Booking {
   public providesThesis: boolean;
 
   public constructor(eventId?: number,
-                     company?: Company,
                      locationId?: number,
-                     presentation?: Presentation,
                      categoryId?: number,
+                     company?: Company,
+                     presentation?: Presentation,
                      branches?: Branch[],
                      isAccepted?: boolean,
                      remarks?: string,

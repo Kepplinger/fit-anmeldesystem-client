@@ -10,7 +10,6 @@
     <div class="col-md-9">
       <input class="form-control"
              formControlName="companyName"
-             (keyup)="formChanged()"
              id="companyName"
              placeholder="Firmenname">
     </div>
@@ -22,13 +21,11 @@
 
       <input class="form-control flex-2-5 mr-3"
              formControlName="street"
-             (keyup)="formChanged()"
              id="street"
              placeholder="Straße">
 
       <input class="form-control flex-1"
              formControlName="streetNumber"
-             (keyup)="formChanged()"
              id="streetNumber"
              placeholder="Hausnummer">
     </div>
@@ -40,13 +37,11 @@
 
       <input class="form-control flex-2-5 mr-3"
              formControlName="location"
-             (keyup)="formChanged()"
              id="location"
              placeholder="Ort">
 
       <input class="form-control flex-1"
              formControlName="zipCode"
-             (keyup)="formChanged()"
              id="zipCode"
              placeholder="Postleitzahl">
     </div>
@@ -58,7 +53,6 @@
       <input class="form-control"
              type="tel"
              formControlName="phone"
-             (keyup)="formChanged()"
              id="phone"
              placeholder="Telefonnummer">
     </div>
@@ -70,14 +64,12 @@
       <input class="form-control flex-1 mr-2"
              type="email"
              formControlName="email"
-             (keyup)="formChanged()"
              id="email"
              placeholder="Email">
 
       <input class="form-control flex-1 ml-2"
              type="url"
              formControlName="homepage"
-             (keyup)="formChanged()"
              id="homepage"
              placeholder="Homepage">
     </div>

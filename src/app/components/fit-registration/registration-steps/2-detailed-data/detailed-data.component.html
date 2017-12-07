@@ -39,11 +39,13 @@
 
         <label for="establishmentAutCount" class="my-auto mr-1">Anzahl:</label>
         <input class="number-input form-control"
-               formControlName="establishmentAutCount"
+               formControlName="establishmentCountAut"
                [min]="1"
                id="establishmentAutCount" type="number"/>
       </div>
-      <fit-tag-input id="establishmentsAut"></fit-tag-input>
+      <fit-tag-input id="establishmentsAut"
+                     (tagsChanges)="updateEstablishments('establishmentsAut', $event)">
+      </fit-tag-input>
     </div>
 
     <div class="form-group">
@@ -53,11 +55,13 @@
 
         <label for="establishmentIntCount" class="my-auto mr-1">Anzahl:</label>
         <input class="number-input form-control"
-               formControlName="establishmentIntCount"
+               formControlName="establishmentCountInt"
                [min]="1"
                id="establishmentIntCount" type="number"/>
       </div>
-      <fit-tag-input id="establishmentsInt"></fit-tag-input>
+      <fit-tag-input id="establishmentsInt"
+                     (tagsChanges)="updateEstablishments('establishmentsInt', $event)">
+      </fit-tag-input>
     </div>
   </div>
 
@@ -67,29 +71,17 @@
     <div class="col-6">
       <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
 
-      <div class="checkbox mx-2">
+      <div *ngFor="let branch of branches; let index = index"
+           class="checkbox mx-2"
+           formArrayName="desiredBranches">
         <label>
-          <input type="checkbox">
+          <input type="checkbox"
+                 [formControlName]="index">
           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          Informatik / Medientechnik
+          {{branch.name}}
         </label>
       </div>
 
-      <div class="checkbox mx-2">
-        <label>
-          <input type="checkbox">
-          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          Elektronik und Technische Informatik
-        </label>
-      </div>
-
-      <div class="checkbox mx-2">
-        <label>
-          <input type="checkbox">
-          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          Biomedizin- und Gesundheitstechnik
-        </label>
-      </div>
     </div>
 
     <!--provide-->
@@ -98,7 +90,8 @@
 
       <div class="checkbox mx-2">
         <label>
-          <input type="checkbox">
+          <input type="checkbox"
+                 formControlName="providesSummerJob">
           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
           Ferialjobs/Ferialpraktika
         </label>
@@ -106,7 +99,8 @@
 
       <div class="checkbox mx-2">
         <label>
-          <input type="checkbox">
+          <input type="checkbox"
+                 formControlName="providesThesis">
           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
           Diplomarbeiten
         </label>

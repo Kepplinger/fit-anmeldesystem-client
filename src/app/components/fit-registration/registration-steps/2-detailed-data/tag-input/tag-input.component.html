@@ -7,6 +7,8 @@
            [theme]="'fit-tag-input-theme'"
            (onFocus)="focus = true"
            (onBlur)="focus = false"
+           (onAdd)="updatedTags()"
+           (onRemove)="updatedTags()"
            [ngClass]="{'tag-input-focused': focus}">
   <ng-template let-item="item" let-index="index">
     <div class="d-flex align-middle" style="height: 1em">
