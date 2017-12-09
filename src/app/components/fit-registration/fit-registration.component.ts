@@ -31,9 +31,9 @@ export class FitRegistrationComponent implements OnInit {
       generalData: fb.group({
         companyName: ['', Validators.required],
         street: ['', Validators.required],
-        streetNumber: ['', Validators.required],
+        houseNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
-        location: ['', Validators.required],
+        city: ['', Validators.required],
         phone: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],
@@ -59,10 +59,10 @@ export class FitRegistrationComponent implements OnInit {
         package: [],
       }),
       contactAndRemarks: fb.group({
-        firstName: [],
-        lastName: [],
-        email: [],
-        phone: [],
+        firstName: [''],
+        lastName: [''],
+        email: [''],
+        phone: [''],
         remarks: [''],
         termsAccepted: [false]
       })
@@ -116,14 +116,15 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.branch,
       this.getCompanyAddressOfForm(),
       this.getContactOfForm(),
+      this.fitFormGroup.value.generalData.desiredBranches,
       this.fitFormGroup.value.generalData.phone,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
       this.fitFormGroup.value.generalData.logo,
       this.fitFormGroup.value.detailedData.establishmentCountInt,
-      this.fitFormGroup.value.detailedData.establishmentsInt,
+      this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentCountAut,
-      this.fitFormGroup.value.detailedData.establishmentsAut
+      this.fitFormGroup.value.detailedData.establishmentsAut.map(e => e.value)
     )
   }
 

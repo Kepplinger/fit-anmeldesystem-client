@@ -21,12 +21,25 @@ export class DetailedDataComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.branches = await this.branchDAO.getBranches();
-    // this.fitFormGroup.setControl('desiredBranches', new FormArray(this.branches.map(b => new FormControl(b))));
+  }
+
+  public changedBranch(branch: Branch, event: any): void {
+
+    let branchesArray: FormArray = <FormArray>this.fitFormGroup.get('desiredBranches');
+
+    if (event.target.checked) {
+      branchesArray.push(new FormControl(branch));
+    } else {
+      for (let i = 0; i < branchesArray.length; i++) {
+        if (branchesArray.value[i] === branch) {
+          branchesArray.removeAt(i);
+        }
+      }
+    }
   }
 
   public updateEstablishments(controlName: string, names: string[]): void {
-    let establishments = new FormArray(names.map(n => new FormControl(n)));
-    this.fitFormGroup.setControl(controlName, establishments);
+    this.fitFormGroup.setControl(controlName, new FormArray(names.map(n => new FormControl(n))));
   }
 
 }

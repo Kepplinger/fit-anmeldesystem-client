@@ -67,16 +67,15 @@
 
   <div class="row">
 
-    <!--branches-->
+    <!--desiredBranches-->
     <div class="col-6">
       <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
 
       <div *ngFor="let branch of branches; let index = index"
-           class="checkbox mx-2"
-           formArrayName="desiredBranches">
+           class="checkbox mx-2">
         <label>
           <input type="checkbox"
-                 [formControlName]="index">
+                 (change)="changedBranch(branch, $event)">
           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
           {{branch.name}}
         </label>

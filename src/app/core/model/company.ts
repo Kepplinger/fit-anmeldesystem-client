@@ -1,5 +1,6 @@
 import { Address } from './adress';
 import { Contact } from './contact';
+import { Branch } from './branch';
 
 export class Company {
   public id: number;
@@ -9,6 +10,7 @@ export class Company {
   public branch: string;
   public address: Address;
   public contact: Contact;
+  public desiredBranches: Branch[];
   public phone: string;
   public email: string;
   public homepage: string;
@@ -22,6 +24,7 @@ export class Company {
                      branch?: string,
                      address?: Address,
                      contact?: Contact,
+                     desiredBranches?: Branch[],
                      phone?: string,
                      email?: string,
                      homepage?: string,
@@ -34,6 +37,7 @@ export class Company {
     this.id = id;
     this.name = name;
     this.branch = branch;
+    this.desiredBranches = desiredBranches;
     this.address = address;
     this.contact = contact;
     this.phone = phone;
