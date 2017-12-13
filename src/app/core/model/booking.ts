@@ -2,6 +2,7 @@ import { Company } from './company';
 import { Presentation } from './presentation';
 import { Branch } from './branch';
 import { Representative } from './representative';
+import { Resource } from './resource';
 
 export class Booking {
   public id: number;
@@ -13,8 +14,9 @@ export class Booking {
   public presentation: Presentation;
   public representatives: Representative[];
   public categoryId: number;
-
   public branches: Branch[];
+  public resources: Resource[];
+
   public isAccepted: boolean; // TODO add to ERD
   public remarks: string;
   public additionalInfo: string;
@@ -27,7 +29,9 @@ export class Booking {
                      categoryId?: number,
                      company?: Company,
                      presentation?: Presentation,
+                     representatives?: Representative[],
                      branches?: Branch[],
+                     resources?: Resource[],
                      isAccepted?: boolean,
                      remarks?: string,
                      additionalInfo?: string,
@@ -41,7 +45,9 @@ export class Booking {
     this.locationId = locationId;
     this.presentation = presentation;
     this.categoryId = categoryId;
+    this.representatives = representatives;
     this.branches = branches;
+    this.resources = resources;
     this.isAccepted = isAccepted;
     this.remarks = remarks;
     this.additionalInfo = additionalInfo;

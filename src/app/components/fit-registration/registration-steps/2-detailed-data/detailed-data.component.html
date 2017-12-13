@@ -71,11 +71,11 @@
     <div class="col-6">
       <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
 
-      <div *ngFor="let branch of branches; let index = index"
+      <div *ngFor="let branch of branches"
            class="checkbox mx-2">
         <label>
           <input type="checkbox"
-                 (change)="changedBranch(branch, $event)">
+                 (change)="branchChanged(branch, $event)">
           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
           {{branch.name}}
         </label>

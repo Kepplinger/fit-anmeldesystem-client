@@ -8,6 +8,7 @@ import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
 import { Address } from '../../core/model/adress';
 import { Contact } from '../../core/model/contact';
+import { Presentation } from '../../core/model/presentation';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -86,21 +87,23 @@ export class FitRegistrationComponent implements OnInit {
 
   public async submitForm(): Promise<void> {
 
-    let booking: Booking = this.getBookingOfForm();
+    let booking: Booking = this.getBookingFromForm();
     console.log(booking);
 
     await this.bookingDAO.createBooking(booking);
     this.router.navigateByUrl('fit/anmeldung-erfolgreich');
   }
 
-  private getBookingOfForm(): Booking {
+  private getBookingFromForm(): Booking {
     return new Booking(
       1,
       1,
       1,
-      this.getCompanyOfForm(),
+      this.getCompanyFromForm(),
       null,
-      null,
+      this.fitFormGroup.value.fitAppearance.representatives,
+      this.fitFormGroup.value.detailedData.desiredBranches,
+      this.fitFormGroup.value.fitAppearance.resources,
       false,
       this.fitFormGroup.value.contactAndRemarks.remarks,
       this.fitFormGroup.value.fitAppearance.additionalInfo,
@@ -110,13 +113,12 @@ export class FitRegistrationComponent implements OnInit {
     );
   }
 
-  private getCompanyOfForm(): Company {
+  private getCompanyFromForm(): Company {
     return new Company(
       this.fitFormGroup.value.generalData.companyName,
       this.fitFormGroup.value.detailedData.branch,
-      this.getCompanyAddressOfForm(),
-      this.getContactOfForm(),
-      this.fitFormGroup.value.generalData.desiredBranches,
+      this.getCompanyAddressFromForm(),
+      this.getContactFromForm(),
       this.fitFormGroup.value.generalData.phone,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
@@ -128,7 +130,7 @@ export class FitRegistrationComponent implements OnInit {
     )
   }
 
-  private getCompanyAddressOfForm(): Address {
+  private getCompanyAddressFromForm(): Address {
     return new Address(
       this.fitFormGroup.value.generalData.city,
       this.fitFormGroup.value.generalData.zipCode,
@@ -138,7 +140,7 @@ export class FitRegistrationComponent implements OnInit {
     );
   }
 
-  private getContactOfForm(): Contact {
+  private getContactFromForm(): Contact {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
@@ -146,4 +148,11 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.contactAndRemarks.phone
     );
   }
+
+  private getPresentationFromForm(): Presentation {
+    return new Presentation(
+
+    )
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfig } from '../app-configs/app-configs.service';
+import { AppConfig } from '../app-config/app-config.service';
 import { Branch } from '../model/branch';
 
 @Injectable()

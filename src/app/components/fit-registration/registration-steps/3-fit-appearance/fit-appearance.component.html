@@ -9,105 +9,65 @@
     <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
 
     <table cellpadding="5" width="60%">
-      <tr>
-        <th colspan="3" class="pt-3">1. Vertreter/in</th>
-      </tr>
+      <ng-container *ngFor="let representative of representatives; let index = index">
 
-      <tr>
-        <td>
-          <label for="representiveName">Name:</label>
-        </td>
-        <td>
-          <input class="form-control"
-                 type="text"
-                 id="representiveName">
-        </td>
-        <td rowspan="2">
-          <img src="../../../../../assets/contact.png"
-               class="img-fluid contact-image"
-               alt="Bild kann nicht angezeigt werden"
-               width="60" height="80">
-        </td>
-      </tr>
+        <tr>
+          <th colspan="3" class="pt-3">{{index + 1}}. Vertreter/in</th>
+        </tr>
 
-      <tr>
-        <td>
-          <label for="representiveEmail">E-Mail:</label>
-        </td>
-        <td>
-          <input class="form-control"
-                 type="text"
-                 id="representiveEmail">
-        </td>
-      </tr>
+        <tr>
+          <td>
+            <label for="representativeName">Name:</label>
+          </td>
+          <td>
+            <input class="form-control"
+                   type="text"
+                   name="name"
+                   [(ngModel)]="representative.name"
+                   [ngModelOptions]="{standalone: true}"
+                   ngDefaultControl
+                   id="representativeName">
+          </td>
+          <td rowspan="2">
+            <img [src]="representative.imageUrl"
+                 class="img-fluid contact-image"
+                 alt="Bild kann nicht angezeigt werden"
+                 width="60" height="80">
+          </td>
+        </tr>
 
-      <tr>
-        <th colspan="3" class="pt-3">2. Vertreter/in</th>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="representive2Name">Name:</label>
-        </td>
-        <td>
-          <input class="form-control"
-                 type="text"
-                 id="representive2Name">
-        </td>
-        <td rowspan="2">
-          <img src="../../../../../assets/contact.png"
-               class="img-fluid bg-danger contact-image"
-               alt="Bild kann nicht angezeigt werden"
-               width="60" height="80">
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="representive2Email">E-Mail:</label>
-        </td>
-        <td>
-          <input class="form-control"
-                 type="text"
-                 id="representive2Email">
-        </td>
-      </tr>
+        <tr>
+          <td>
+            <label for="representiveEmail">E-Mail:</label>
+          </td>
+          <td>
+            <input class="form-control"
+                   type="text"
+                   [(ngModel)]="representative.email"
+                   [ngModelOptions]="{standalone: true}"
+                   id="representiveEmail">
+          </td>
+        </tr>
+      </ng-container>
     </table>
+    <button class="btn btn-primary my-2"
+            (click)="onRepresentativeAdd()">
+      <i class="fa fa-plus mr-1"></i>
+      Vertreter/in hinzufügen
+    </button>
   </div>
 
   <div class="d-flex">
     <div class="mr-4">
       <div class="text-bold mb-2">Sie benötigen...</div>
 
-      <div class="checkbox mx-2">
+      <div *ngFor="let resource of resources"
+           class="checkbox mx-2">
         <label>
-          <input type="checkbox">
+          <input type="checkbox"
+                 (change)="resourceChanged(resource, $event)">
           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          WLAN
-        </label>
-      </div>
-
-      <div class="checkbox mx-2">
-        <label>
-          <input type="checkbox">
-          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          Strom
-        </label>
-      </div>
-
-      <div class="checkbox mx-2">
-        <label>
-          <input type="checkbox" checked>
-          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          Tische
-        </label>
-      </div>
-
-      <div class="checkbox mx-2">
-        <label>
-          <input type="checkbox" checked>
-          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          Sessel
+          {{resource.name}}
         </label>
       </div>
     </div>

@@ -23,16 +23,16 @@ export class DetailedDataComponent implements OnInit {
     this.branches = await this.branchDAO.getBranches();
   }
 
-  public changedBranch(branch: Branch, event: any): void {
+  public branchChanged(branch: Branch, event: any): void {
 
-    let branchesArray: FormArray = <FormArray>this.fitFormGroup.get('desiredBranches');
+    let brancheArray: FormArray = <FormArray>this.fitFormGroup.get('desiredBranches');
 
     if (event.target.checked) {
-      branchesArray.push(new FormControl(branch));
+      brancheArray.push(new FormControl(branch));
     } else {
-      for (let i = 0; i < branchesArray.length; i++) {
-        if (branchesArray.value[i] === branch) {
-          branchesArray.removeAt(i);
+      for (let i = 0; i < brancheArray.length; i++) {
+        if (brancheArray.value[i] === branch) {
+          brancheArray.removeAt(i);
         }
       }
     }
