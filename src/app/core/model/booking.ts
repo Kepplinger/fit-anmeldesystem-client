@@ -1,5 +1,6 @@
 import { Company } from './company';
 import { Presentation } from './presentation';
+import { Location } from './location';
 import { Branch } from './branch';
 import { Representative } from './representative';
 import { Resource } from './resource';
@@ -9,11 +10,11 @@ export class Booking {
   public timestamp: string;
 
   public eventId: number;
+  public packageId: number;
   public company: Company;
-  public locationId: number;
+  public location: Location;
   public presentation: Presentation;
   public representatives: Representative[];
-  public categoryId: number;
   public branches: Branch[];
   public resources: Resource[];
 
@@ -25,26 +26,26 @@ export class Booking {
   public providesThesis: boolean;
 
   public constructor(eventId?: number,
-                     locationId?: number,
-                     categoryId?: number,
+                     packageId?: number,
+                     location?: Location,
                      company?: Company,
                      presentation?: Presentation,
                      representatives?: Representative[],
                      branches?: Branch[],
                      resources?: Resource[],
-                     isAccepted?: boolean,
                      remarks?: string,
                      additionalInfo?: string,
                      companyDescription?: string,
                      providesSummerJob?: boolean,
                      providesThesis?: boolean,
+                     isAccepted?: boolean,
                      id?: number) {
     this.id = id;
     this.eventId = eventId;
     this.company = company;
-    this.locationId = locationId;
+    this.location = location;
     this.presentation = presentation;
-    this.categoryId = categoryId;
+    this.packageId = packageId;
     this.representatives = representatives;
     this.branches = branches;
     this.resources = resources;

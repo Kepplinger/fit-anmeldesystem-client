@@ -21,5 +21,4 @@ export class BranchDAO {
     // return this.http.get<Branch[]>(this.appConfig.serverURL + 'api/branch')
     //   .toPromise();
   }
-
 }

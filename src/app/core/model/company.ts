@@ -6,10 +6,10 @@ export class Company {
   public id: number;
   public timestamp: string;
 
-  public name: string;
-  public branch: string;
   public address: Address;
   public contact: Contact;
+  public name: string;
+  public branch: string;
   public phone: string;
   public email: string;
   public homepage: string;
@@ -19,10 +19,10 @@ export class Company {
   public establishmentCountAut?: number;
   public establishmentsAut?: string[];
 
-  public constructor(name?: string,
-                     branch?: string,
-                     address?: Address,
+  public constructor(address?: Address,
                      contact?: Contact,
+                     name?: string,
+                     branch?: string,
                      phone?: string,
                      email?: string,
                      homepage?: string,

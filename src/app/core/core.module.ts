@@ -6,6 +6,7 @@ import { AppConfig } from './app-config/app-config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BranchDAO } from './dao/branch.dao';
 import { ResourceDAO } from './dao/resource.dao';
+import { PackageDAO } from './dao/package.dao';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ResourceDAO } from './dao/resource.dao';
     BookingDAO,
     BranchDAO,
     ResourceDAO,
+    PackageDAO,
     AppConfig,
   ]
 })

@@ -22,5 +22,4 @@ export class ResourceDAO {
     // return this.http.get<Resource[]>(this.appConfig.serverURL + 'api/resource')
     //   .toPromise();
   }
-
 }

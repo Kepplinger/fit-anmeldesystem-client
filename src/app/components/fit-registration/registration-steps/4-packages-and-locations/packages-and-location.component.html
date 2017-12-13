@@ -19,7 +19,7 @@
           <i class="fa fa-star-o"></i>
           <i class="fa fa-star-o"></i>
         </div>
-        Grundpaket
+        {{basicPackage.name}}
       </div>
 
       <ul class="list-group list-group-flush flex-filler">
@@ -38,7 +38,7 @@
         <span class="flex-filler  my-auto">
           <i class="fa fa-2x fa-check-square"></i>
         </span>
-        <span class="package-price">200 €</span>
+        <span class="package-price">{{basicPackage.price}} €</span>
       </div>
     </div>
 
@@ -53,12 +53,12 @@
           <i class="fa fa-star"></i>
           <i class="fa fa-star-o"></i>
         </div>
-        Sponsorpaket
+        {{sponsorPackage.name}}
       </div>
 
       <ul class="list-group list-group-flush flex-filler">
         <li class="list-group-item text-bold">
-          erweitert Grundpaket
+          beinhaltet {{basicPackage.name}}
         </li>
         <li class="list-group-item">
           Kategorie A Platz
@@ -75,8 +75,8 @@
                          'fa-check-square': isPackageSelected(Package.SponsorPack)}">
           </i>
         </span>
-        <span class="mt-auto mb-1 mr-1">+ 200 € =</span>
-        <span class="package-price">400 €</span>
+        <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage.price - basicPackage.price}} € =</span>
+        <span class="package-price">{{sponsorPackage.price}} €</span>
       </div>
     </div>
 
@@ -92,12 +92,12 @@
           <i class="fa fa-star"></i>
           <i class="fa fa-star"></i>
         </div>
-        Vortragspaket
+        {{lecturePackage.name}}
       </div>
 
       <ul class="list-group list-group-flush flex-filler">
         <li class="list-group-item text-bold">
-          erweitert Sponsorpaket
+          beinhaltet {{sponsorPackage.name}}
         </li>
         <li class="list-group-item h-100">
           Antrag für einen Vortrag:
@@ -115,8 +115,8 @@
                          'fa-check-square': isPackageSelected(Package.LecturePack)}">
           </i>
         </span>
-        <span class="mt-auto mb-1 mr-1">+ 200 € = </span>
-        <span class="package-price">600 €</span>
+        <span class="mt-auto mb-1 mr-1">+ {{lecturePackage.price - sponsorPackage.price}} € = </span>
+        <span class="package-price">{{lecturePackage.price}} €</span>
       </div>
     </div>
   </div>

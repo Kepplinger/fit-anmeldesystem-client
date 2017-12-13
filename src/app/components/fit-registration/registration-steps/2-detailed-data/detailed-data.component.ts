@@ -25,14 +25,14 @@ export class DetailedDataComponent implements OnInit {
 
   public branchChanged(branch: Branch, event: any): void {
 
-    let brancheArray: FormArray = <FormArray>this.fitFormGroup.get('desiredBranches');
+    let branchArray: FormArray = <FormArray>this.fitFormGroup.get('desiredBranches');
 
     if (event.target.checked) {
-      brancheArray.push(new FormControl(branch));
+      branchArray.push(new FormControl(branch));
     } else {
-      for (let i = 0; i < brancheArray.length; i++) {
-        if (brancheArray.value[i] === branch) {
-          brancheArray.removeAt(i);
+      for (let i = 0; i < branchArray.length; i++) {
+        if (branchArray.value[i] === branch) {
+          branchArray.removeAt(i);
         }
       }
     }

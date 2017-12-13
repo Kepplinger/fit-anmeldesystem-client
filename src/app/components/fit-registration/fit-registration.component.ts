@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
 import { BookingDAO } from '../../core/dao/booking.dao';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
 import { Address } from '../../core/model/adress';
 import { Contact } from '../../core/model/contact';
+import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
+import { Area } from '../../core/model/area';
+import { Package } from '../../core/model/package';
+import { FitPackage } from '../../core/model/enums/fit-package';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -57,7 +61,11 @@ export class FitRegistrationComponent implements OnInit {
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
-        package: [],
+        fitPackage: [],
+        location: [],
+        presentationTtile: [''],
+        presentationDescription: [''],
+        presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
         firstName: [''],
@@ -98,27 +106,27 @@ export class FitRegistrationComponent implements OnInit {
     return new Booking(
       1,
       1,
-      1,
+      this.getLocationFromForm(),
       this.getCompanyFromForm(),
-      null,
+      this.getPresentationFromForm(),
       this.fitFormGroup.value.fitAppearance.representatives,
       this.fitFormGroup.value.detailedData.desiredBranches,
       this.fitFormGroup.value.fitAppearance.resources,
-      false,
       this.fitFormGroup.value.contactAndRemarks.remarks,
       this.fitFormGroup.value.fitAppearance.additionalInfo,
       this.fitFormGroup.value.detailedData.description,
       this.fitFormGroup.value.detailedData.providesSummerJob,
-      this.fitFormGroup.value.detailedData.providesThesis
+      this.fitFormGroup.value.detailedData.providesThesis,
+      false
     );
   }
 
   private getCompanyFromForm(): Company {
     return new Company(
-      this.fitFormGroup.value.generalData.companyName,
-      this.fitFormGroup.value.detailedData.branch,
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
+      this.fitFormGroup.value.generalData.companyName,
+      this.fitFormGroup.value.detailedData.branch,
       this.fitFormGroup.value.generalData.phone,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
@@ -150,9 +158,30 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private getPresentationFromForm(): Presentation {
-    return new Presentation(
 
-    )
+    let fitPackage: Package = this.fitFormGroup.value.packagesAndLocation.fitPackage;
+
+    if (fitPackage != null && fitPackage.discriminator === FitPackage.LecturePack) {
+      return new Presentation(
+        null,
+        this.fitFormGroup.value.packagesAndLocation.presentationTtile,
+        this.fitFormGroup.value.packagesAndLocation.presentationDescription,
+        false,
+        this.fitFormGroup.value.packagesAndLocation.presentationFile,
+      )
+    } else {
+      return null;
+    }
+  }
+
+  private getLocationFromForm(): Location {
+    return new Location(
+      0,
+      new Area(),
+      'A',
+      100,
+      100
+    );
   }
 
 }

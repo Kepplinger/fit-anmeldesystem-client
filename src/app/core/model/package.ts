@@ -4,11 +4,11 @@ export class Package {
 
   public name: string;
   public price: number;
-  public discriminator: string;
+  public discriminator: number;
 
   public constructor(name?: string,
                      price?: number,
-                     discriminator?: string,
+                     discriminator?: number,
                      id?: number) {
     this.id = id;
     this.name = name;
