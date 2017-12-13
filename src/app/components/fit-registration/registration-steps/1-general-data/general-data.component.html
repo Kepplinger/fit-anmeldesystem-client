@@ -1,119 +1,121 @@
-<div class="mb-4">
-  <h2 class="text-bold">Allgemeines zur Firma</h2>
-  <p>Diese allgemeinen Angaben zu Ihrer Firma helfen unseren Schülern, Kontakt mit Ihnen aufzunehmen.</p>
-</div>
-
-<form [formGroup]="fitFormGroup">
-
-  <div class="form-group row">
-    <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
-    <div class="col-md-9">
-      <input class="form-control"
-             formControlName="companyName"
-             id="companyName"
-             placeholder="Firmenname">
-    </div>
+<div *ngIf="isVisible">
+  <div class="mb-4">
+    <h2 class="text-bold">Allgemeines zur Firma</h2>
+    <p>Diese allgemeinen Angaben zu Ihrer Firma helfen unseren Schülern, Kontakt mit Ihnen aufzunehmen.</p>
   </div>
 
-  <div class="form-group row">
-    <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
-    <div class="col-md-9 d-flex">
+  <form [formGroup]="fitFormGroup">
 
-      <input class="form-control flex-2-5 mr-3"
-             formControlName="street"
-             id="street"
-             placeholder="Straße">
-
-      <input class="form-control flex-1"
-             formControlName="houseNumber"
-             id="houseNumber"
-             placeholder="Hausnummer">
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="city" class="col-md-3 col-form-label"></label>
-    <div class="col-md-9 d-flex">
-
-      <input class="form-control flex-2-5 mr-3"
-             formControlName="city"
-             id="city"
-             placeholder="Ort">
-
-      <input class="form-control flex-1"
-             formControlName="zipCode"
-             id="zipCode"
-             placeholder="Postleitzahl">
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="phone" class="col-md-3 col-form-label">Telefonnummer:</label>
-    <div class="col-md-9">
-      <input class="form-control"
-             type="tel"
-             formControlName="phone"
-             id="phone"
-             placeholder="Telefonnummer">
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="email" class="col-md-3 col-form-label">Webauftritt:</label>
-    <div class="col-md-9 d-flex">
-      <input class="form-control flex-1 mr-2"
-             type="email"
-             formControlName="email"
-             id="email"
-             placeholder="Email">
-
-      <input class="form-control flex-1 ml-2"
-             type="url"
-             formControlName="homepage"
-             id="homepage"
-             placeholder="Homepage">
-    </div>
-  </div>
-
-
-  <div class="form-group row">
-    <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
-    <div class="input-group col-md-9"
-         fitFilePicker
-         [accept]="'image/*'"
-         [maxSize]="2000000"
-         (filePick)="filePicked($event)">
-      <input class="form-control"
-             id="logo"
-             type="text"
-             [value]="logo?.name"
-             placeholder="Logo auswählen..."
-             disabled>
-      <span class="input-group-btn">
-        <button class="btn btn-primary" type="button">Druchsuchen</button>
-      </span>
-    </div>
-  </div>
-
-  <div class="row" style="height: 100px; max-height: 100px">
-    <div class="col-md-3">
-      <img *ngIf="logo != undefined && logo.dataURL != undefined"
-           [src]="logo?.dataURL"
-           class="logo-display w-100 h-100">
-    </div>
-    <div class="col-md-9">
-      <div fitFileDropzone
-           [accept]="'image\/.'"
-           [maxSize]="2000000"
-           (fileDrop)="filePicked($event)"
-           (dragenter)="isDrag = true"
-           (dragleave)="isDrag = false"
-           (drop)="isDrag = false"
-           class="drop-zone h-100 w-100"
-           [ngClass]="{'is-drag': isDrag}">
-        <div class="drop-zone-text centered-element">Logo: Drag & Drop</div>
+    <div class="form-group row">
+      <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               formControlName="companyName"
+               id="companyName"
+               placeholder="Firmenname">
       </div>
     </div>
-  </div>
 
-</form>
+    <div class="form-group row">
+      <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
+      <div class="col-md-9 d-flex">
+
+        <input class="form-control flex-2-5 mr-3"
+               formControlName="street"
+               id="street"
+               placeholder="Straße">
+
+        <input class="form-control flex-1"
+               formControlName="houseNumber"
+               id="houseNumber"
+               placeholder="Hausnummer">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="city" class="col-md-3 col-form-label"></label>
+      <div class="col-md-9 d-flex">
+
+        <input class="form-control flex-2-5 mr-3"
+               formControlName="city"
+               id="city"
+               placeholder="Ort">
+
+        <input class="form-control flex-1"
+               formControlName="zipCode"
+               id="zipCode"
+               placeholder="Postleitzahl">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="phone" class="col-md-3 col-form-label">Telefonnummer:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="tel"
+               formControlName="phone"
+               id="phone"
+               placeholder="Telefonnummer">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-md-3 col-form-label">Webauftritt:</label>
+      <div class="col-md-9 d-flex">
+        <input class="form-control flex-1 mr-2"
+               type="email"
+               formControlName="email"
+               id="email"
+               placeholder="Email">
+
+        <input class="form-control flex-1 ml-2"
+               type="url"
+               formControlName="homepage"
+               id="homepage"
+               placeholder="Homepage">
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
+      <div class="input-group col-md-9"
+           fitFilePicker
+           [accept]="'image/*'"
+           [maxSize]="2000000"
+           (filePick)="filePicked($event)">
+        <input class="form-control"
+               id="logo"
+               type="text"
+               [value]="logo?.name"
+               placeholder="Logo auswählen..."
+               disabled>
+        <span class="input-group-btn">
+        <button class="btn btn-primary" type="button">Druchsuchen</button>
+      </span>
+      </div>
+    </div>
+
+    <div class="row" style="height: 100px; max-height: 100px">
+      <div class="col-md-3">
+        <img *ngIf="logo != undefined && logo.dataURL != undefined"
+             [src]="logo?.dataURL"
+             class="logo-display w-100 h-100">
+      </div>
+      <div class="col-md-9">
+        <div fitFileDropzone
+             [accept]="'image\/.'"
+             [maxSize]="2000000"
+             (fileDrop)="filePicked($event)"
+             (dragenter)="isDrag = true"
+             (dragleave)="isDrag = false"
+             (drop)="isDrag = false"
+             class="drop-zone h-100 w-100"
+             [ngClass]="{'is-drag': isDrag}">
+          <div class="drop-zone-text centered-element">Logo: Drag & Drop</div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

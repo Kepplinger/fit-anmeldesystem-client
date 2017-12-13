@@ -59,23 +59,23 @@
 
   <!--main container-->
   <div class="py-3 m-4 border-top">
-    <fit-general-data *ngIf="currentStep == Step.GeneralData"
+    <fit-general-data [isVisible]="currentStep == Step.GeneralData"
                       [fitFormGroup]="fitFormGroup.controls['generalData']">
     </fit-general-data>
 
-    <fit-detailed-data *ngIf="currentStep == Step.DetailedData"
+    <fit-detailed-data [isVisible]="currentStep == Step.DetailedData"
                        [fitFormGroup]="fitFormGroup.controls['detailedData']">
     </fit-detailed-data>
 
-    <fit-fit-appearance *ngIf="currentStep == Step.FitAppearance"
+    <fit-fit-appearance [isVisible]="currentStep == Step.FitAppearance"
                         [fitFormGroup]="fitFormGroup.controls['fitAppearance']">
     </fit-fit-appearance>
 
-    <fit-packages-and-location *ngIf="currentStep == Step.PackagesAndLocation"
+    <fit-packages-and-location [isVisible]="currentStep == Step.PackagesAndLocation"
                                [fitFormGroup]="fitFormGroup.controls['packagesAndLocation']">
     </fit-packages-and-location>
 
-    <fit-contact-and-remarks *ngIf="currentStep == Step.ContactAndRemarks"
+    <fit-contact-and-remarks [isVisible]="currentStep == Step.ContactAndRemarks"
                              [fitFormGroup]="fitFormGroup.controls['contactAndRemarks']">
     </fit-contact-and-remarks>
   </div>

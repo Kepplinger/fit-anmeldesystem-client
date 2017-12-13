@@ -12,6 +12,9 @@ import { FilePickerError } from '../../../../libs/file-picker/file-picker-error'
 export class GeneralDataComponent implements OnInit {
 
   @Input()
+  public isVisible: boolean = false;
+
+  @Input()
   public fitFormGroup: FormGroup;
 
   public logo: PickedFile;

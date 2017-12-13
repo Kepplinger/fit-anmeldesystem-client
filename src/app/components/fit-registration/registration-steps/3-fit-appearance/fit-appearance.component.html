@@ -1,84 +1,86 @@
-<div class="mb-4">
-  <h2 class="text-bold">Ihr Auftreten am FIT</h2>
-  <p>Diese Angaben helfen uns, Ihr Auftreten am FIT so optimal wie möglich zu gestalten.</p>
-</div>
-
-<form [formGroup]="fitFormGroup">
-
+<div *ngIf="isVisible">
   <div class="mb-4">
-    <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
-
-    <table cellpadding="5" width="60%">
-      <ng-container *ngFor="let representative of representatives; let index = index">
-
-        <tr>
-          <th colspan="3" class="pt-3">{{index + 1}}. Vertreter/in</th>
-        </tr>
-
-        <tr>
-          <td>
-            <label for="representativeName">Name:</label>
-          </td>
-          <td>
-            <input class="form-control"
-                   type="text"
-                   name="name"
-                   [(ngModel)]="representative.name"
-                   [ngModelOptions]="{standalone: true}"
-                   ngDefaultControl
-                   id="representativeName">
-          </td>
-          <td rowspan="2">
-            <img [src]="representative.imageUrl"
-                 class="img-fluid contact-image"
-                 alt="Bild kann nicht angezeigt werden"
-                 width="60" height="80">
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <label for="representiveEmail">E-Mail:</label>
-          </td>
-          <td>
-            <input class="form-control"
-                   type="text"
-                   [(ngModel)]="representative.email"
-                   [ngModelOptions]="{standalone: true}"
-                   id="representiveEmail">
-          </td>
-        </tr>
-      </ng-container>
-    </table>
-    <button class="btn btn-primary my-2"
-            (click)="onRepresentativeAdd()">
-      <i class="fa fa-plus mr-1"></i>
-      Vertreter/in hinzufügen
-    </button>
+    <h2 class="text-bold">Ihr Auftreten am FIT</h2>
+    <p>Diese Angaben helfen uns, Ihr Auftreten am FIT so optimal wie möglich zu gestalten.</p>
   </div>
 
-  <div class="d-flex">
-    <div class="mr-4">
-      <div class="text-bold mb-2">Sie benötigen...</div>
+  <form [formGroup]="fitFormGroup">
 
-      <div *ngFor="let resource of resources"
-           class="checkbox mx-2">
-        <label>
-          <input type="checkbox"
-                 (change)="resourceChanged(resource, $event)">
-          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-          {{resource.name}}
-        </label>
+    <div class="mb-4">
+      <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
+
+      <table cellpadding="5" width="60%">
+        <ng-container *ngFor="let representative of representatives; let index = index">
+
+          <tr>
+            <th colspan="3" class="pt-3">{{index + 1}}. Vertreter/in</th>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="representativeName">Name:</label>
+            </td>
+            <td>
+              <input class="form-control"
+                     type="text"
+                     name="name"
+                     [(ngModel)]="representative.name"
+                     [ngModelOptions]="{standalone: true}"
+                     ngDefaultControl
+                     id="representativeName">
+            </td>
+            <td rowspan="2">
+              <img [src]="representative.imageUrl"
+                   class="img-fluid contact-image"
+                   alt="Bild kann nicht angezeigt werden"
+                   width="60" height="80">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label for="representiveEmail">E-Mail:</label>
+            </td>
+            <td>
+              <input class="form-control"
+                     type="text"
+                     [(ngModel)]="representative.email"
+                     [ngModelOptions]="{standalone: true}"
+                     id="representiveEmail">
+            </td>
+          </tr>
+        </ng-container>
+      </table>
+      <button class="btn btn-primary my-2"
+              (click)="onRepresentativeAdd()">
+        <i class="fa fa-plus mr-1"></i>
+        Vertreter/in hinzufügen
+      </button>
+    </div>
+
+    <div class="d-flex">
+      <div class="mr-4">
+        <div class="text-bold mb-2">Sie benötigen...</div>
+
+        <div *ngFor="let resource of resources"
+             class="checkbox mx-2">
+          <label>
+            <input type="checkbox"
+                   (change)="resourceChanged(resource, $event)">
+            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+            {{resource.name}}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group flex-filler">
+        <label for="otherNotes" class="text-bold mb-1">Sonstige Anmerkungen (z.B. eigener Messestand):</label>
+        <textarea class="form-control"
+                  id="otherNotes"
+                  formControlName="additionalInfo"
+                  rows="5">
+  </textarea>
       </div>
     </div>
-
-    <div class="form-group flex-filler">
-      <label for="otherNotes" class="text-bold mb-1">Sonstige Anmerkungen (z.B. eigener Messestand):</label>
-      <textarea class="form-control"
-                id="otherNotes"
-                formControlName="additionalInfo"
-                rows="5">
-  </textarea>
-    </div>
-  </div>
-</form>
+  </form>
+</div>

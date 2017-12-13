@@ -12,6 +12,9 @@ import { Representative } from '../../../../core/model/representative';
 export class FitAppearanceComponent implements OnInit {
 
   @Input()
+  public isVisible: boolean = false;
+
+  @Input()
   public fitFormGroup: FormGroup;
 
   public resources: Resource[] = [];

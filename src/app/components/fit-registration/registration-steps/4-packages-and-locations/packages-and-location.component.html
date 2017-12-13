@@ -1,205 +1,207 @@
-<fit-location-picker-modal></fit-location-picker-modal>
+<div *ngIf="isVisible">
+  <fit-location-picker-modal></fit-location-picker-modal>
 
-<div class="mb-4">
-  <h2 class="text-bold">Pakete und Standort</h2>
-  <p>Entscheiden Sie sich für eines unserer drei FIT-Pakete und wählen Sie dann ihren gewünschten Standort aus.</p>
-</div>
+  <div class="mb-4">
+    <h2 class="text-bold">Pakete und Standort</h2>
+    <p>Entscheiden Sie sich für eines unserer drei FIT-Pakete und wählen Sie dann ihren gewünschten Standort aus.</p>
+  </div>
 
-<div class="mb-4">
-  <h5 class="text-bold m-0">Wählen Sie Ihr FIT-Paket</h5>
+  <div class="mb-4">
+    <h5 class="text-bold m-0">Wählen Sie Ihr FIT-Paket</h5>
 
-  <div class="card-deck">
+    <div class="card-deck">
 
-    <!--basic package-->
-    <div class="pointer card text-white bg-info m-3 disabled"
-         (click)="togglePackage(Package.BasicPack)">
-      <div class="card-header text-center">
-        <div class="stars">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-          <i class="fa fa-star-o"></i>
+      <!--basic package-->
+      <div class="pointer card text-white bg-info m-3 disabled"
+           (click)="togglePackage(Package.BasicPack)">
+        <div class="card-header text-center">
+          <div class="stars">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          {{basicPackage.name}}
         </div>
-        {{basicPackage.name}}
-      </div>
 
-      <ul class="list-group list-group-flush flex-filler">
-        <li class="list-group-item">
-          Stand am FIT
-        </li>
-        <li class="list-group-item">
-          Kategorie B Platz
-        </li>
-        <li class="list-group-item h-100">
-          Eintrag im Flyer
-        </li>
-      </ul>
+        <ul class="list-group list-group-flush flex-filler">
+          <li class="list-group-item">
+            Stand am FIT
+          </li>
+          <li class="list-group-item">
+            Kategorie B Platz
+          </li>
+          <li class="list-group-item h-100">
+            Eintrag im Flyer
+          </li>
+        </ul>
 
-      <div class="card-footer d-flex">
+        <div class="card-footer d-flex">
         <span class="flex-filler  my-auto">
           <i class="fa fa-2x fa-check-square"></i>
         </span>
-        <span class="package-price">{{basicPackage.price}} €</span>
-      </div>
-    </div>
-
-    <!--sponsor package-->
-    <div class="pointer card text-white bg-danger  m-3"
-         [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
-                      'enabled':!isPackageSelected(Package.SponsorPack)}"
-         (click)="togglePackage(Package.SponsorPack)">
-      <div class="card-header text-center">
-        <div class="stars">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
+          <span class="package-price">{{basicPackage.price}} €</span>
         </div>
-        {{sponsorPackage.name}}
       </div>
 
-      <ul class="list-group list-group-flush flex-filler">
-        <li class="list-group-item text-bold">
-          beinhaltet {{basicPackage.name}}
-        </li>
-        <li class="list-group-item">
-          Kategorie A Platz
-        </li>
-        <li class="list-group-item h-100">
-          Logo auf: Plakat, Homepage, Flyer
-        </li>
-      </ul>
+      <!--sponsor package-->
+      <div class="pointer card text-white bg-danger  m-3"
+           [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
+                      'enabled':!isPackageSelected(Package.SponsorPack)}"
+           (click)="togglePackage(Package.SponsorPack)">
+        <div class="card-header text-center">
+          <div class="stars">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+          </div>
+          {{sponsorPackage.name}}
+        </div>
 
-      <div class="card-footer d-flex">
+        <ul class="list-group list-group-flush flex-filler">
+          <li class="list-group-item text-bold">
+            beinhaltet {{basicPackage.name}}
+          </li>
+          <li class="list-group-item">
+            Kategorie A Platz
+          </li>
+          <li class="list-group-item h-100">
+            Logo auf: Plakat, Homepage, Flyer
+          </li>
+        </ul>
+
+        <div class="card-footer d-flex">
         <span class="flex-filler  my-auto">
           <i class="fa fa-2x"
              [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),
                          'fa-check-square': isPackageSelected(Package.SponsorPack)}">
           </i>
         </span>
-        <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage.price - basicPackage.price}} € =</span>
-        <span class="package-price">{{sponsorPackage.price}} €</span>
-      </div>
-    </div>
-
-    <!--lecture package-->
-    <div class="pointer card text-white bg-sponsor m-3"
-         [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
-                      'enabled':!isPackageSelected(Package.LecturePack)}"
-         (click)="togglePackage(Package.LecturePack)">
-
-      <div class="card-header text-center">
-        <div class="stars">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
+          <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage.price - basicPackage.price}} € =</span>
+          <span class="package-price">{{sponsorPackage.price}} €</span>
         </div>
-        {{lecturePackage.name}}
       </div>
 
-      <ul class="list-group list-group-flush flex-filler">
-        <li class="list-group-item text-bold">
-          beinhaltet {{sponsorPackage.name}}
-        </li>
-        <li class="list-group-item h-100">
-          Antrag für einen Vortrag:
-          <ul>
-            <li>vor vielen Klassen</li>
-            <li>eigener Raum</li>
-          </ul>
-        </li>
-      </ul>
+      <!--lecture package-->
+      <div class="pointer card text-white bg-sponsor m-3"
+           [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
+                      'enabled':!isPackageSelected(Package.LecturePack)}"
+           (click)="togglePackage(Package.LecturePack)">
 
-      <div class="card-footer d-flex">
+        <div class="card-header text-center">
+          <div class="stars">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          {{lecturePackage.name}}
+        </div>
+
+        <ul class="list-group list-group-flush flex-filler">
+          <li class="list-group-item text-bold">
+            beinhaltet {{sponsorPackage.name}}
+          </li>
+          <li class="list-group-item h-100">
+            Antrag für einen Vortrag:
+            <ul>
+              <li>vor vielen Klassen</li>
+              <li>eigener Raum</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="card-footer d-flex">
         <span class="flex-filler my-auto">
           <i class="fa fa-2x"
              [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
                          'fa-check-square': isPackageSelected(Package.LecturePack)}">
           </i>
         </span>
-        <span class="mt-auto mb-1 mr-1">+ {{lecturePackage.price - sponsorPackage.price}} € = </span>
-        <span class="package-price">{{lecturePackage.price}} €</span>
+          <span class="mt-auto mb-1 mr-1">+ {{lecturePackage.price - sponsorPackage.price}} € = </span>
+          <span class="package-price">{{lecturePackage.price}} €</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="mb-4">
-  <h5 class="text-bold mb-2">Wählen Sie Ihren Standplatz</h5>
+  <div class="mb-4">
+    <h5 class="text-bold mb-2">Wählen Sie Ihren Standplatz</h5>
 
-  <div class="d-flex">
-    <div class="text-bold my-auto mr-1">
-      Gewählter Platz:
+    <div class="d-flex">
+      <div class="text-bold my-auto mr-1">
+        Gewählter Platz:
+      </div>
+      <div class="my-auto ml-1">
+        keinen
+      </div>
+
+      <button type="button" class="btn btn-primary mx-5" data-toggle="modal" data-target="#locationPickerModal">
+        Standplatz wählen
+      </button>
+
     </div>
-    <div class="my-auto ml-1">
-      keinen
-    </div>
-
-    <button type="button" class="btn btn-primary mx-5" data-toggle="modal" data-target="#locationPickerModal">
-      Standplatz wählen
-    </button>
-
-  </div>
-</div>
-
-
-<div class="mb-4">
-  <h5 class="text-bold mb-2">Kostenübersicht:</h5>
-
-  <table>
-    <tr>
-      <td class="text-right" width="13%">200,00 €</td>
-      <td width="97%">Grundpaket</td>
-    </tr>
-
-    <tr *ngIf="isPackageSelected(Package.SponsorPack)">
-      <td class="text-right">+ 200,00 €</td>
-      <td>Sponsorpaket</td>
-    </tr>
-
-    <tr *ngIf="isPackageSelected(Package.LecturePack)">
-      <td class="text-right">+ 200,00 €</td>
-      <td>Vortragspaket</td>
-    </tr>
-
-    <tr class="border-top">
-      <th class="text-right">= 400,00 €</th>
-      <th>Gesamt</th>
-    </tr>
-  </table>
-
-</div>
-
-<div class="mb-4" *ngIf="isPackageSelected(Package.LecturePack)">
-  <h5 class="text-bold mb-3">
-    Ihr Vortrag
-    <span class="sub-text">(nur beim Vortragspaket notwendig)</span>
-  </h5>
-
-  <div class="form-group d-flex align-items-center">
-    <label for="title" class="my-0 mr-3">Titel:</label>
-    <input class="form-control"
-           type="text"
-           id="title">
   </div>
 
-  <div class="form-group" style="flex: 1">
-    <label for="otherNotes" class="mb-1">Kurzbeschreibung:</label>
-    <textarea class="form-control"
-              id="otherNotes"
-              rows="5">
-  </textarea>
+
+  <div class="mb-4">
+    <h5 class="text-bold mb-2">Kostenübersicht:</h5>
+
+    <table>
+      <tr>
+        <td class="text-right" width="13%">200,00 €</td>
+        <td width="97%">Grundpaket</td>
+      </tr>
+
+      <tr *ngIf="isPackageSelected(Package.SponsorPack)">
+        <td class="text-right">+ 200,00 €</td>
+        <td>Sponsorpaket</td>
+      </tr>
+
+      <tr *ngIf="isPackageSelected(Package.LecturePack)">
+        <td class="text-right">+ 200,00 €</td>
+        <td>Vortragspaket</td>
+      </tr>
+
+      <tr class="border-top">
+        <th class="text-right">= 400,00 €</th>
+        <th>Gesamt</th>
+      </tr>
+    </table>
+
   </div>
 
-  <div class="form-group d-flex align-items-center">
-    <label for="presentation" class="my-0 mr-3">Präsentation: </label>
-    <div class="input-group">
+  <div class="mb-4" *ngIf="isPackageSelected(Package.LecturePack)">
+    <h5 class="text-bold mb-3">
+      Ihr Vortrag
+      <span class="sub-text">(nur beim Vortragspaket notwendig)</span>
+    </h5>
+
+    <div class="form-group d-flex align-items-center">
+      <label for="title" class="my-0 mr-3">Titel:</label>
       <input class="form-control"
-             id="presentation"
              type="text"
-             placeholder="Datei auswählen..."
-             disabled>
-      <span class="input-group-btn">
+             id="title">
+    </div>
+
+    <div class="form-group" style="flex: 1">
+      <label for="otherNotes" class="mb-1">Kurzbeschreibung:</label>
+      <textarea class="form-control"
+                id="otherNotes"
+                rows="5">
+  </textarea>
+    </div>
+
+    <div class="form-group d-flex align-items-center">
+      <label for="presentation" class="my-0 mr-3">Präsentation: </label>
+      <div class="input-group">
+        <input class="form-control"
+               id="presentation"
+               type="text"
+               placeholder="Datei auswählen..."
+               disabled>
+        <span class="input-group-btn">
         <button class="btn btn-primary" type="button">Druchsuchen</button>
       </span>
+      </div>
     </div>
   </div>
 </div>

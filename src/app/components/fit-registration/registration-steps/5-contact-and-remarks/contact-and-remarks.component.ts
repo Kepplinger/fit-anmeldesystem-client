@@ -9,6 +9,9 @@ import { FormGroup } from '@angular/forms';
 export class ContactAndRemarksComponent implements OnInit {
 
   @Input()
+  public isVisible: boolean = false;
+
+  @Input()
   public fitFormGroup: FormGroup;
 
   public constructor() {

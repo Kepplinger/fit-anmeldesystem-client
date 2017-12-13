@@ -15,6 +15,9 @@ export class PackagesAndLocationComponent implements OnInit {
   Package = FitPackage;
 
   @Input()
+  public isVisible: boolean = false;
+
+  @Input()
   public fitFormGroup: FormGroup;
 
   public selectedPackage: number = FitPackage.BasicPack;

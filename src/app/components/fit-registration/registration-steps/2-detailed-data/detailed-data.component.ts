@@ -10,6 +10,8 @@ import { BranchDAO } from '../../../../core/dao/branch.dao';
 })
 export class DetailedDataComponent implements OnInit {
 
+  @Input()
+  public isVisible: boolean = false;
 
   @Input()
   public fitFormGroup: FormGroup;
