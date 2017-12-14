@@ -4,8 +4,9 @@
     <p>Diese allgemeinen Angaben zu Ihrer Firma helfen unseren Schülern, Kontakt mit Ihnen aufzunehmen.</p>
   </div>
 
-  <form [formGroup]="fitFormGroup">
+  <form [formGroup]="stepFormGroup">
 
+    <!--company name-->
     <div class="form-group row">
       <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
       <div class="col-md-9">
@@ -16,6 +17,7 @@
       </div>
     </div>
 
+    <!--street and number-->
     <div class="form-group row">
       <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
       <div class="col-md-9 d-flex">
@@ -32,6 +34,7 @@
       </div>
     </div>
 
+    <!--location and zip-->
     <div class="form-group row">
       <label for="city" class="col-md-3 col-form-label"></label>
       <div class="col-md-9 d-flex">
@@ -48,6 +51,7 @@
       </div>
     </div>
 
+    <!--phone-->
     <div class="form-group row">
       <label for="phone" class="col-md-3 col-form-label">Telefonnummer:</label>
       <div class="col-md-9">
@@ -59,6 +63,7 @@
       </div>
     </div>
 
+    <!--email and web-->
     <div class="form-group row">
       <label for="email" class="col-md-3 col-form-label">Webauftritt:</label>
       <div class="col-md-9 d-flex">
@@ -76,7 +81,20 @@
       </div>
     </div>
 
+    <!--address additions-->
+    <div class="form-group row">
+      <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
+      <div class="col-md-9">
+        <textarea class="form-control"
+                  formControlName="addressAdditions"
+                  id="addressAdditions"
+                  placeholder="Zusatz"
+                  rows="3">
+        </textarea>
+      </div>
+    </div>
 
+    <!--logo-->
     <div class="form-group row">
       <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
       <div class="input-group col-md-9"
@@ -96,6 +114,7 @@
       </div>
     </div>
 
+    <!--image and dropzone-->
     <div class="row" style="height: 100px; max-height: 100px">
       <div class="col-md-3">
         <img *ngIf="logo != undefined && logo.dataURL != undefined"

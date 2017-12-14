@@ -15,7 +15,7 @@ export class FitAppearanceComponent implements OnInit {
   public isVisible: boolean = false;
 
   @Input()
-  public fitFormGroup: FormGroup;
+  public stepFormGroup: FormGroup;
 
   public resources: Resource[] = [];
   public representatives: Representative[] = [];
@@ -33,7 +33,7 @@ export class FitAppearanceComponent implements OnInit {
   }
 
   public addRepresentative(representative: Representative): void {
-    let representativeArray: FormArray = <FormArray>this.fitFormGroup.get('representatives');
+    let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
     this.representatives.push(representative);
     representativeArray.push(new FormControl(representative));
   }
@@ -41,7 +41,7 @@ export class FitAppearanceComponent implements OnInit {
   // TODO possible outsource (because of code duplication)
   public resourceChanged(resource: Resource, event: any): void {
 
-    let resourceArray: FormArray = <FormArray>this.fitFormGroup.get('resources');
+    let resourceArray: FormArray = <FormArray>this.stepFormGroup.get('resources');
 
     if (event.target.checked) {
       resourceArray.push(new FormControl(resource));

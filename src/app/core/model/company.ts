@@ -1,4 +1,4 @@
-import { Address } from './adress';
+import { Address } from './address';
 import { Contact } from './contact';
 import { Branch } from './branch';
 
@@ -13,7 +13,7 @@ export class Company {
   public phone: string;
   public email: string;
   public homepage: string;
-  public logo: string;
+  public logoUrl: string;
   public establishmentCountInt?: number;
   public establishmentsInt?: string[];
   public establishmentCountAut?: number;
@@ -26,7 +26,7 @@ export class Company {
                      phone?: string,
                      email?: string,
                      homepage?: string,
-                     logo?: string,
+                     logoUrl?: string,
                      establishmentCountInt?: number,
                      establishmentsInt?: string[],
                      establishmentCountAut?: number,
@@ -40,7 +40,7 @@ export class Company {
     this.phone = phone;
     this.email = email;
     this.homepage = homepage;
-    this.logo = logo;
+    this.logoUrl = logoUrl;
     this.establishmentCountInt = establishmentCountInt;
     this.establishmentsInt = establishmentsInt;
     this.establishmentCountAut = establishmentCountAut;

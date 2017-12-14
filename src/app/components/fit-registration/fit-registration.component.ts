@@ -6,7 +6,7 @@ import { FitRegistrationStep } from '../../core/model/enums/fit-registration-ste
 import { BookingDAO } from '../../core/dao/booking.dao';
 import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
-import { Address } from '../../core/model/adress';
+import { Address } from '../../core/model/address';
 import { Contact } from '../../core/model/contact';
 import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
@@ -39,6 +39,7 @@ export class FitRegistrationComponent implements OnInit {
         houseNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
         city: ['', Validators.required],
+        addressAdditions: [''],
         phone: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],
@@ -61,9 +62,9 @@ export class FitRegistrationComponent implements OnInit {
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
-        fitPackage: [],
+        fitPackage: [1, Validators.required],
         location: [],
-        presentationTtile: [''],
+        presentationTitle: [''],
         presentationDescription: [''],
         presentationFile: ['']
       }),
@@ -130,7 +131,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.phone,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logo,
+      this.fitFormGroup.value.generalData.logoUrl,
       this.fitFormGroup.value.detailedData.establishmentCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentCountAut,
@@ -144,7 +145,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.zipCode,
       this.fitFormGroup.value.generalData.street,
       this.fitFormGroup.value.generalData.houseNumber,
-      this.fitFormGroup.value.generalData.addition,
+      this.fitFormGroup.value.generalData.addressAdditions,
     );
   }
 
@@ -164,7 +165,7 @@ export class FitRegistrationComponent implements OnInit {
     if (fitPackage != null && fitPackage.discriminator === FitPackage.LecturePack) {
       return new Presentation(
         null,
-        this.fitFormGroup.value.packagesAndLocation.presentationTtile,
+        this.fitFormGroup.value.packagesAndLocation.presentationTitle,
         this.fitFormGroup.value.packagesAndLocation.presentationDescription,
         false,
         this.fitFormGroup.value.packagesAndLocation.presentationFile,

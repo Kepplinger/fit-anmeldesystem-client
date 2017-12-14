@@ -15,7 +15,7 @@ export class GeneralDataComponent implements OnInit {
   public isVisible: boolean = false;
 
   @Input()
-  public fitFormGroup: FormGroup;
+  public stepFormGroup: FormGroup;
 
   public logo: PickedFile;
   public isDrag: boolean = false;
@@ -30,7 +30,7 @@ export class GeneralDataComponent implements OnInit {
 
     if (file instanceof PickedFile) {
       this.logo = file;
-      this.fitFormGroup.controls['logo'].setValue(this.logo.dataURL);
+      this.stepFormGroup.value.logo = this.logo.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
       console.log('too big');
     } else if (file === FilePickerError.InvalidFileType) {

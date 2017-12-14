@@ -12,7 +12,7 @@ export class ContactAndRemarksComponent implements OnInit {
   public isVisible: boolean = false;
 
   @Input()
-  public fitFormGroup: FormGroup;
+  public stepFormGroup: FormGroup;
 
   public constructor() {
   }

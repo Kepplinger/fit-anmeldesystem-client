@@ -18,7 +18,7 @@ export class PackagesAndLocationComponent implements OnInit {
   public isVisible: boolean = false;
 
   @Input()
-  public fitFormGroup: FormGroup;
+  public stepFormGroup: FormGroup;
 
   public selectedPackage: number = FitPackage.BasicPack;
 
@@ -34,7 +34,7 @@ export class PackagesAndLocationComponent implements OnInit {
     this.basicPackage = packages.find(p => p.discriminator === 1);
     this.sponsorPackage = packages.find(p => p.discriminator === 2);
     this.lecturePackage = packages.find(p => p.discriminator === 3);
-    console.log(this.fitFormGroup);
+    this.selectedPackage = this.stepFormGroup.value.fitPackage;
   }
 
   public togglePackage(packageNumber: number): void {
@@ -46,10 +46,21 @@ export class PackagesAndLocationComponent implements OnInit {
       this.selectedPackage = packageNumber;
     }
 
-    this.fitFormGroup.value.fitPackage = this.selectedPackage;
+    this.stepFormGroup.value.fitPackage = this.selectedPackage;
   }
 
-  public isPackageSelected(packageNumber: number): boolean {
-    return packageNumber <= this.selectedPackage;
+  public isPackageSelected(packageType: FitPackage): boolean {
+    return packageType <= this.selectedPackage;
+  }
+
+  public getSelectedPackage(packageType: FitPackage): Package {
+    switch (packageType) {
+      case FitPackage.BasicPack:
+        return this.basicPackage;
+      case FitPackage.SponsorPack:
+        return this.sponsorPackage;
+      case FitPackage.LecturePack:
+        return this.lecturePackage;
+    }
   }
 }
