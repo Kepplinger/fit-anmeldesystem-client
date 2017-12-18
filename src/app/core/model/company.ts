@@ -10,26 +10,26 @@ export class Company {
   public contact: Contact;
   public name: string;
   public branch: string;
-  public phone: string;
+  public phoneNumber: string;
   public email: string;
   public homepage: string;
   public logoUrl: string;
-  public establishmentCountInt?: number;
+  public establishmentsCountInt?: number;
   public establishmentsInt?: string[];
-  public establishmentCountAut?: number;
+  public establishmentsCountAut?: number;
   public establishmentsAut?: string[];
 
   public constructor(address?: Address,
                      contact?: Contact,
                      name?: string,
                      branch?: string,
-                     phone?: string,
+                     phoneNumber?: string,
                      email?: string,
                      homepage?: string,
                      logoUrl?: string,
-                     establishmentCountInt?: number,
+                     establishmentsCountInt?: number,
                      establishmentsInt?: string[],
-                     establishmentCountAut?: number,
+                     establishmentsCountAut?: number,
                      establishmentsAut?: string[],
                      id?: number) {
     this.id = id;
@@ -37,13 +37,13 @@ export class Company {
     this.branch = branch;
     this.address = address;
     this.contact = contact;
-    this.phone = phone;
+    this.phoneNumber = phoneNumber;
     this.email = email;
     this.homepage = homepage;
     this.logoUrl = logoUrl;
-    this.establishmentCountInt = establishmentCountInt;
+    this.establishmentsCountInt = establishmentsCountInt;
     this.establishmentsInt = establishmentsInt;
-    this.establishmentCountAut = establishmentCountAut;
+    this.establishmentsCountAut = establishmentsCountAut;
     this.establishmentsAut = establishmentsAut;
   }
 }

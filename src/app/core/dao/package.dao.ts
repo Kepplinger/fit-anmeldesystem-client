@@ -13,13 +13,13 @@ export class PackageDAO {
 
   public async getPackages(): Promise<Package[]> {
 
-    return [
-      new Package('Grundpaket', 200, 1),
-      new Package('Sponsorpaket', 400, 2),
-      new Package('Vortragspaket', 600, 3),
-    ];
+    // return [
+    //   new Package('Grundpaket', 200, 1),
+    //   new Package('Sponsorpaket', 400, 2),
+    //   new Package('Vortragspaket', 600, 3),
+    // ];
 
-    // return this.http.get<Package[]>(this.appConfig.serverURL + 'api/package')
-    //   .toPromise();
+    return this.http.get<Package[]>(this.appConfig.serverURL + '/package')
+      .toPromise();
   }
 }

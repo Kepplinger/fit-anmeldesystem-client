@@ -46,7 +46,7 @@ export class PackagesAndLocationComponent implements OnInit {
       this.selectedPackage = packageNumber;
     }
 
-    this.stepFormGroup.value.fitPackage = this.selectedPackage;
+    this.stepFormGroup.value.fitPackage = this.getSelectedPackage(this.selectedPackage);
   }
 
   public isPackageSelected(packageType: FitPackage): boolean {

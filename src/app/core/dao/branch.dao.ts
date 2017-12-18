@@ -17,8 +17,7 @@ export class BranchDAO {
       new Branch('Elektronik und Technische Informatik', 2),
       new Branch('Biomedizin- und Gesundheitstechnik', 3)
     ];
-
-    // return this.http.get<Branch[]>(this.appConfig.serverURL + 'api/branch')
+    // return this.http.get<Branch[]>(this.appConfig.serverURL + '/branch')
     //   .toPromise();
   }
 }

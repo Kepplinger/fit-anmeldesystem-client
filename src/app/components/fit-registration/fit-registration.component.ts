@@ -10,9 +10,11 @@ import { Address } from '../../core/model/address';
 import { Contact } from '../../core/model/contact';
 import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
+import { Event } from '../../core/model/event';
 import { Area } from '../../core/model/area';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
+import * as moment from 'moment';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -36,22 +38,22 @@ export class FitRegistrationComponent implements OnInit {
       generalData: fb.group({
         companyName: ['', Validators.required],
         street: ['', Validators.required],
-        houseNumber: ['', Validators.required],
+        streetNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
         city: ['', Validators.required],
         addressAdditions: [''],
-        phone: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],
-        logo: ['', Validators.required],
+        logoUrl: ['', Validators.required],
       }),
       detailedData: fb.group({
         branch: ['', Validators.required],
         description: ['', Validators.required],
         establishmentsAut: this.fb.array([]),
-        establishmentCountAut: [0, Validators.required],
+        establishmentsCountAut: [0, Validators.required],
         establishmentsInt: this.fb.array([]),
-        establishmentCountInt: [0],
+        establishmentsCountInt: [0],
         desiredBranches: this.fb.array([]),
         providesSummerJob: [false],
         providesThesis: [false]
@@ -62,7 +64,7 @@ export class FitRegistrationComponent implements OnInit {
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
-        fitPackage: [1, Validators.required],
+        fitPackage: [null, Validators.required],
         location: [],
         presentationTitle: [''],
         presentationDescription: [''],
@@ -72,7 +74,7 @@ export class FitRegistrationComponent implements OnInit {
         firstName: [''],
         lastName: [''],
         email: [''],
-        phone: [''],
+        phoneNumber: [''],
         remarks: [''],
         termsAccepted: [false]
       })
@@ -105,8 +107,8 @@ export class FitRegistrationComponent implements OnInit {
 
   private getBookingFromForm(): Booking {
     return new Booking(
-      1,
-      1,
+      new Event(moment(), moment(), moment(), false, 1),
+      new Package('', 200, 1, 1),
       this.getLocationFromForm(),
       this.getCompanyFromForm(),
       this.getPresentationFromForm(),
@@ -128,13 +130,14 @@ export class FitRegistrationComponent implements OnInit {
       this.getContactFromForm(),
       this.fitFormGroup.value.generalData.companyName,
       this.fitFormGroup.value.detailedData.branch,
-      this.fitFormGroup.value.generalData.phone,
+      this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logoUrl,
-      this.fitFormGroup.value.detailedData.establishmentCountInt,
+      // this.fitFormGroup.value.generalData.logoUrl,
+      'hallo Andi \\(◠‿◠)',
+      this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
-      this.fitFormGroup.value.detailedData.establishmentCountAut,
+      this.fitFormGroup.value.detailedData.establishmentsCountAut,
       this.fitFormGroup.value.detailedData.establishmentsAut.map(e => e.value)
     )
   }
@@ -144,7 +147,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.city,
       this.fitFormGroup.value.generalData.zipCode,
       this.fitFormGroup.value.generalData.street,
-      this.fitFormGroup.value.generalData.houseNumber,
+      this.fitFormGroup.value.generalData.streetNumber,
       this.fitFormGroup.value.generalData.addressAdditions,
     );
   }
@@ -154,7 +157,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
       this.fitFormGroup.value.contactAndRemarks.email,
-      this.fitFormGroup.value.contactAndRemarks.phone
+      this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );
   }
 
@@ -178,7 +181,7 @@ export class FitRegistrationComponent implements OnInit {
   private getLocationFromForm(): Location {
     return new Location(
       0,
-      new Area(),
+      new Area('', '', 1, 1),
       'A',
       100,
       100

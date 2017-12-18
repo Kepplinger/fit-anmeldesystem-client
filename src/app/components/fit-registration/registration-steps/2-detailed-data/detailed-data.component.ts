@@ -33,6 +33,7 @@ export class DetailedDataComponent implements OnInit {
       this.branchFormArray.push(new FormControl(branch));
     } else {
       let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
+      console.log(index);
 
       if (index !== -1) {
         this.branchFormArray.removeAt(index);
@@ -40,7 +41,6 @@ export class DetailedDataComponent implements OnInit {
     }
   }
 
-  // TODO do bist grod
   public isBranchSelected(branch: Branch): boolean {
     return FormArrayUtils.indexOf(this.branchFormArray, branch) !== -1;
   }

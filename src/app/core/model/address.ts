@@ -5,20 +5,20 @@ export class Address {
   public city: string;
   public zipCode: string;
   public street: string;
-  public houseNumber: string;
+  public streetNumber: string;
   public addition: string;
 
   public constructor(city?: string,
                      zipCode?: string,
                      street?: string,
-                     houseNumber?: string,
+                     streetNumber?: string,
                      addition?: string,
                      id?: number) {
     this.id = id;
     this.city = city;
     this.zipCode = zipCode;
     this.street = street;
-    this.houseNumber = houseNumber;
+    this.streetNumber = streetNumber;
     this.addition = addition;
   }
 }

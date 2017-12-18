@@ -12,14 +12,14 @@ export class ResourceDAO {
 
   public async getResources(): Promise<Resource[]> {
 
-    return [
-      new Resource('WLAN', '', 1),
-      new Resource('Strom', '', 2),
-      new Resource('Tische', '', 3),
-      new Resource('Sessel', '', 4)
-    ];
+    // return [
+    //   new Resource('WLAN', '', 1),
+    //   new Resource('Strom', '', 2),
+    //   new Resource('Tische', '', 3),
+    //   new Resource('Sessel', '', 4)
+    // ];
 
-    // return this.http.get<Resource[]>(this.appConfig.serverURL + 'api/resource')
-    //   .toPromise();
+    return this.http.get<Resource[]>(this.appConfig.serverURL + '/resource')
+      .toPromise();
   }
 }

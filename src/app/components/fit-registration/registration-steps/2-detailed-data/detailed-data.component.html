@@ -41,7 +41,7 @@
 
           <label for="establishmentAutCount" class="my-auto mr-1">Anzahl:</label>
           <input class="number-input form-control"
-                 formControlName="establishmentCountAut"
+                 formControlName="establishmentsCountAut"
                  [min]="1"
                  id="establishmentAutCount" type="number"/>
         </div>
@@ -57,7 +57,7 @@
 
           <label for="establishmentIntCount" class="my-auto mr-1">Anzahl:</label>
           <input class="number-input form-control"
-                 formControlName="establishmentCountInt"
+                 formControlName="establishmentsCountInt"
                  [min]="1"
                  id="establishmentIntCount" type="number"/>
         </div>
@@ -77,7 +77,8 @@
              class="checkbox mx-2">
           <label>
             <input type="checkbox"
-                   (change)="branchChanged(branch, $event)">
+                   (change)="branchChanged(branch, $event)"
+                   [checked]="isBranchSelected(branch)">
             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
             {{branch.name}}
           </label>

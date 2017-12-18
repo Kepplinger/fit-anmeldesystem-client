@@ -13,7 +13,7 @@
 
       <div class="card-deck">
 
-        <!--basic package-->
+        <!--basic fitPackage-->
         <div class="pointer card text-white bg-info m-3 disabled"
              (click)="togglePackage(Package.BasicPack)">
           <div class="card-header text-center">
@@ -41,11 +41,11 @@
         <span class="flex-filler  my-auto">
           <i class="fa fa-2x fa-check-square"></i>
         </span>
-            <span class="package-price">{{basicPackage.price}} €</span>
+            <span class="package-price">{{basicPackage?.price}} €</span>
           </div>
         </div>
 
-        <!--sponsor package-->
+        <!--sponsor fitPackage-->
         <div class="pointer card text-white bg-danger  m-3"
              [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
                       'enabled':!isPackageSelected(Package.SponsorPack)}"
@@ -78,12 +78,12 @@
                          'fa-check-square': isPackageSelected(Package.SponsorPack)}">
           </i>
         </span>
-            <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage.price - basicPackage.price}} € =</span>
-            <span class="package-price">{{sponsorPackage.price}} €</span>
+            <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage?.price - basicPackage?.price}} € =</span>
+            <span class="package-price">{{sponsorPackage?.price}} €</span>
           </div>
         </div>
 
-        <!--lecture package-->
+        <!--lecture fitPackage-->
         <div class="pointer card text-white bg-sponsor m-3"
              [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
                       'enabled':!isPackageSelected(Package.LecturePack)}"
@@ -118,8 +118,8 @@
                          'fa-check-square': isPackageSelected(Package.LecturePack)}">
           </i>
         </span>
-            <span class="mt-auto mb-1 mr-1">+ {{lecturePackage.price - sponsorPackage.price}} € = </span>
-            <span class="package-price">{{lecturePackage.price}} €</span>
+            <span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>
+            <span class="package-price">{{lecturePackage?.price}} €</span>
           </div>
         </div>
       </div>
@@ -143,28 +143,27 @@
       </div>
     </div>
 
-
     <div class="mb-4">
       <h5 class="text-bold mb-2">Kostenübersicht:</h5>
 
       <table>
         <tr>
-          <td class="text-right" width="13%">{{basicPackage.price}},00 €</td>
-          <td width="97%">Grundpaket</td>
+          <td class="text-right" width="13%">{{basicPackage?.price}},00 €</td>
+          <td width="87%">{{basicPackage.name}}</td>
         </tr>
 
         <tr *ngIf="isPackageSelected(Package.SponsorPack)">
-          <td class="text-right">+ {{sponsorPackage.price - basicPackage.price}},00 €</td>
-          <td>Sponsorpaket</td>
+          <td class="text-right">+ {{sponsorPackage?.price - basicPackage?.price}},00 €</td>
+          <td>{{sponsorPackage.name}}</td>
         </tr>
 
         <tr *ngIf="isPackageSelected(Package.LecturePack)">
-          <td class="text-right">+ {{lecturePackage.price - sponsorPackage.price}},00 €</td>
-          <td>Vortragspaket</td>
+          <td class="text-right">+ {{lecturePackage?.price - sponsorPackage?.price}},00 €</td>
+          <td>{{lecturePackage.name}}</td>
         </tr>
 
         <tr class="border-top">
-          <th class="text-right">= {{getSelectedPackage(selectedPackage).price}},00 €</th>
+          <th class="text-right">= {{getSelectedPackage(selectedPackage)?.price}},00 €</th>
           <th>Gesamt</th>
         </tr>
       </table>
