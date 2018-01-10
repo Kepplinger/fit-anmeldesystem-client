@@ -15,6 +15,8 @@ import { PackagesAndLocationComponent } from './registration-steps/4-packages-an
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { TagInputComponent } from './registration-steps/2-detailed-data/tag-input/tag-input.component';
 import { LocationPickerModalComponent } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
+import {CoreModule} from '../../core/core.module';
+import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 
 @NgModule({
   imports: [
@@ -23,7 +25,10 @@ import { LocationPickerModalComponent } from './registration-steps/4-packages-an
     FormsModule,
     ReactiveFormsModule,
     FilePickerModule,
-    TagInputModule
+    TagInputModule,
+    CoreModule,
+    FroalaEditorModule,
+    FroalaViewModule
   ],
   declarations: [
     FitRegistrationComponent,
