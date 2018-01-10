@@ -66,7 +66,8 @@
              class="checkbox mx-2">
           <label>
             <input type="checkbox"
-                   (change)="resourceChanged(resource, $event)">
+                   (change)="resourceChanged(resource, $event)"
+                   [checked]="isResourceSelected(resource)">
             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
             {{resource.name}}
           </label>

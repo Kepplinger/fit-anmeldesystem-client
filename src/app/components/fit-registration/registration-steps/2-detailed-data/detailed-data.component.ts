@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
@@ -17,6 +17,12 @@ export class DetailedDataComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
+  @ViewChild('establishmentIntCount')
+  public establishmentIntCount: ElementRef;
+
+  @ViewChild('establishmentAutCount')
+  public establishmentAutCount: ElementRef;
+
   public branches: Branch[] = [];
   public branchFormArray: FormArray = null;
 
@@ -33,7 +39,6 @@ export class DetailedDataComponent implements OnInit {
       this.branchFormArray.push(new FormControl(branch));
     } else {
       let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
-      console.log(index);
 
       if (index !== -1) {
         this.branchFormArray.removeAt(index);
@@ -47,6 +52,27 @@ export class DetailedDataComponent implements OnInit {
 
   public updateEstablishments(controlName: string, names: string[]): void {
     this.stepFormGroup.setControl(controlName, new FormArray(names.map(n => new FormControl(n))));
+    this.verifyAutEstablishmentsCount();
+    this.verifyIntEstablishmentsCount();
   }
 
+  public verifyAutEstablishmentsCount(): void {
+    let count: number = Math.max(
+      this.stepFormGroup.value.establishmentsAut.length,
+      this.establishmentAutCount.nativeElement.value
+    );
+
+    this.establishmentAutCount.nativeElement.value = count;
+    this.stepFormGroup.controls['establishmentsCountAut'].setValue(count);
+  }
+
+  public verifyIntEstablishmentsCount(): void {
+    let count: number = Math.max(
+      this.stepFormGroup.value.establishmentsInt.length,
+      this.establishmentIntCount.nativeElement.value
+    );
+
+    this.establishmentIntCount.nativeElement.value = count;
+    this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
@@ -8,18 +8,17 @@ import 'rxjs/add/operator/map';
   templateUrl: './tag-input.component.html',
   styleUrls: ['./tag-input.component.scss']
 })
-export class TagInputComponent implements OnInit {
+export class TagInputComponent {
 
   @Output()
   public tagsChanges: EventEmitter<string[]> = new EventEmitter<string[]>();
 
+  @Input()
   public tags: string[];
+
   public focus = false;
 
   public constructor() {
-  }
-
-  public ngOnInit() {
   }
 
   public updatedTags() {

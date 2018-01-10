@@ -3,6 +3,8 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Resource } from '../../../../core/model/resource';
 import { ResourceDAO } from '../../../../core/dao/resource.dao';
 import { Representative } from '../../../../core/model/representative';
+import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
+import { Branch } from '../../../../core/model/branch';
 
 @Component({
   selector: 'fit-fit-appearance',
@@ -17,14 +19,16 @@ export class FitAppearanceComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
-  public resources: Resource[] = [];
   public representatives: Representative[] = [];
+  public resources: Resource[] = [];
+  public resourceFormArray: FormArray = null;
 
   public constructor(private resourceDAO: ResourceDAO) {
   }
 
   public async ngOnInit(): Promise<void> {
     this.resources = await this.resourceDAO.getResources();
+    this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
     this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
   }
 
@@ -40,19 +44,19 @@ export class FitAppearanceComponent implements OnInit {
 
   // TODO possible outsource (because of code duplication)
   public resourceChanged(resource: Resource, event: any): void {
-
-    let resourceArray: FormArray = <FormArray>this.stepFormGroup.get('resources');
-
     if (event.target.checked) {
-      resourceArray.push(new FormControl(resource));
+      this.resourceFormArray.push(new FormControl(resource));
     } else {
-      for (let i = 0; i < resourceArray.length; i++) {
-        if (resourceArray.value[i] === resource) {
-          resourceArray.removeAt(i);
+      for (let i = 0; i < this.resourceFormArray.length; i++) {
+        if (this.resourceFormArray.value[i] === resource) {
+          this.resourceFormArray.removeAt(i);
         }
       }
     }
+  }
 
+  public isResourceSelected(resource: Resource): boolean {
+    return FormArrayUtils.indexOf(this.resourceFormArray, resource) !== -1;
   }
 
 }
