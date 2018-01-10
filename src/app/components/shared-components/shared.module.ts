@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { HintIconComponent } from './hint-icon/hint-icon/hint-icon.component';
 
 @NgModule({
   imports: [
@@ -11,9 +12,11 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HintIconComponent
   ],
   exports: [
+    HintIconComponent,
     HeaderComponent,
     FooterComponent
   ]
