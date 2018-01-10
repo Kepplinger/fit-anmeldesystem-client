@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { RegistrationLockedComponent } from './components/main/registration-locked/registration-locked.component';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   imports: [
@@ -17,7 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     CoreModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ], declarations: [
     AppComponent,
     MainComponent,
