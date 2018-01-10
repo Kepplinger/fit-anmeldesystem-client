@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Booking } from '../model/booking';
 import 'rxjs/add/operator/toPromise';
-import { del } from 'selenium-webdriver/http';
 
 @Injectable()
 export class BookingDAO {
