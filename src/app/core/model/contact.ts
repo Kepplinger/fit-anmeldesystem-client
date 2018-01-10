@@ -4,12 +4,13 @@ export class Contact {
 
   public firstName: string;
   public lastName: string;
+  public gender: string;
   public email: string;
   public phoneNumber: string;
 
-
   public constructor(firstName?: string,
                      lastName?: string,
+                     gender?: string,
                      email?: string,
                      phoneNumber?: string,
                      id?: number) {

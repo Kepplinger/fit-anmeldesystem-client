@@ -40,12 +40,14 @@
           <div class="flex-filler"></div>
 
           <label for="establishmentAutCount" class="my-auto mr-1">Anzahl:</label>
-          <input class="number-input form-control"
-                 formControlName="establishmentsCountAut"
-                 [min]="1"
+          <input #establishmentAutCount
+                 class="number-input form-control"
+                 [value]="stepFormGroup.value.establishmentsCountAut"
+                 (input)="verifyAutEstablishmentsCount()"
                  id="establishmentAutCount" type="number"/>
         </div>
         <fit-tag-input id="establishmentsAut"
+                       [tags]="stepFormGroup.value.establishmentsAut"
                        (tagsChanges)="updateEstablishments('establishmentsAut', $event)">
         </fit-tag-input>
       </div>
@@ -56,12 +58,14 @@
           <div class="flex-filler"></div>
 
           <label for="establishmentIntCount" class="my-auto mr-1">Anzahl:</label>
-          <input class="number-input form-control"
-                 formControlName="establishmentsCountInt"
-                 [min]="1"
+          <input #establishmentIntCount
+                 class="number-input form-control"
+                 [value]="stepFormGroup.value.establishmentsCountInt"
+                 (input)="verifyIntEstablishmentsCount()"
                  id="establishmentIntCount" type="number"/>
         </div>
         <fit-tag-input id="establishmentsInt"
+                       [tags]="stepFormGroup.value.establishmentsInt"
                        (tagsChanges)="updateEstablishments('establishmentsInt', $event)">
         </fit-tag-input>
       </div>
