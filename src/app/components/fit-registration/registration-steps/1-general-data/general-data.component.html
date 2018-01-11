@@ -17,6 +17,18 @@
       </div>
     </div>
 
+    <!--address additions-->
+    <div class="form-group row">
+      <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
+      <div class="col-md-9 d-flex">
+        <input class="form-control flex-1"
+               type="text"
+               formControlName="addressAdditions"
+               id="addressAdditions"
+               placeholder="Zusatz">
+      </div>
+    </div>
+
     <!--street and number-->
     <div class="form-group row">
       <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
@@ -33,6 +45,7 @@
                placeholder="Hausnummer">
       </div>
     </div>
+
 
     <!--location and zip-->
     <div class="form-group row">
@@ -51,18 +64,7 @@
       </div>
     </div>
 
-    <!--address additions-->
-    <div class="form-group row">
-      <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
-      <div class="col-md-9">
-        <textarea class="form-control"
-                  formControlName="addressAdditions"
-                  id="addressAdditions"
-                  placeholder="Zusatz"
-                  rows="3">
-        </textarea>
-      </div>
-    </div>
+
 
     <!--phoneNumber-->
     <div class="form-group row">
@@ -78,21 +80,28 @@
 
     <!--email and web-->
     <div class="form-group row">
-      <label for="email" class="col-md-3 col-form-label">Webauftritt:</label>
+      <label for="email" class="col-md-3 col-form-label">Email:</label>
       <div class="col-md-9 d-flex">
         <input class="form-control flex-1 mr-2"
                type="email"
                formControlName="email"
                id="email"
                placeholder="Email">
+        <fit-hint-icon class=" mr-1 mt-2" [message]="'Diese Email wird für den Fit Folder verwendert.'" ></fit-hint-icon>
+      </div>
+    </div>
 
-        <input class="form-control flex-1 ml-2"
+    <div class="form-group row">
+      <label for="homepage" class="col-md-3 col-form-label">Homepage:</label>
+      <div class="col-md-9 d-flex">
+        <input class="form-control flex-1"
                type="url"
                formControlName="homepage"
                id="homepage"
                placeholder="Homepage">
       </div>
     </div>
+
 
     <!--logo-->
     <div class="form-group row">

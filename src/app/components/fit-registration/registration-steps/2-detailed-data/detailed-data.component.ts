@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
-
+declare let $;
 @Component({
   selector: 'fit-detailed-data',
   templateUrl: './detailed-data.component.html',
@@ -32,6 +32,8 @@ export class DetailedDataComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.branches = await this.branchDAO.getBranches();
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+
+
   }
 
   public branchChanged(branch: Branch, event: any): void {
@@ -75,4 +77,30 @@ export class DetailedDataComponent implements OnInit {
     this.establishmentIntCount.nativeElement.value = count;
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
   }
+
+  public storeFroala():void{
+    var html =   $('#editor').froalaEditor('html.get');
+    //console.log(html.toString());
+    this.stepFormGroup.controls['description'].setValue(html.toString());
+  }
+
+
+
+  public options: Object = {
+    charCounterCount: true,
+    charCounterMax: 1000,
+    quickInsert:false,
+    heightMin: 250,
+    heightMax: 490,
+    enter: $.FroalaEditor.ENTER_BR,
+    tooltips:true,
+    fontSize:'30',
+    placeholderText: 'Bitte Firmenbeschreibung eingeben.......',
+    quickInsertTags:'',
+    inlineMode:true,
+    toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'underline' , '|', 'formatUL', 'formatOL','clearFormatting',  '|','superscript', 'outdent', 'indent']
+    //toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    //toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    //toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+  };
 }
