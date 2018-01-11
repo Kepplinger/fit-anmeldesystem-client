@@ -17,6 +17,8 @@ import { TagInputComponent } from './registration-steps/2-detailed-data/tag-inpu
 import { LocationPickerModalComponent } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
 import {CoreModule} from '../../core/core.module';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
+import {HintIconComponent} from '../shared-components/hint-icon/hint-icon/hint-icon.component';
+import {SharedModule} from '../shared-components/shared.module';
 
 @NgModule({
   imports: [
@@ -28,7 +30,8 @@ import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
     TagInputModule,
     CoreModule,
     FroalaEditorModule,
-    FroalaViewModule
+    FroalaViewModule,
+    SharedModule
   ],
   declarations: [
     FitRegistrationComponent,
@@ -40,8 +43,7 @@ import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
     ContactAndRemarksComponent,
     SubmissionSuccessComponent,
     TagInputComponent,
-    LocationPickerModalComponent
-  ]
+    LocationPickerModalComponent]
 })
 export class FitRegistrationModule {
 }

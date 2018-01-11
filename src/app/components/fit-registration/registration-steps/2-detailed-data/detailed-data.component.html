@@ -21,7 +21,15 @@
 
       </div>
 
-      <div [froalaEditor]="options"></div>
+      <div class="form-group ">
+        <div class="d-flex">
+          <label class="my-auto">Firmenbeschreibung:</label>
+          <div class="flex-filler"></div>
+          <fit-hint-icon class=" mr-1 mt-1" [message]="'Geben Sie bitte hier in etwa 15 Zeilen eine Beschreibung Ihrer Firma ein'" ></fit-hint-icon>
+        </div>
+      </div>
+
+      <div class="my-2" (keypress)="storeFroala()" id="editor" [froalaEditor]="options"></div>
 
     </div>
 

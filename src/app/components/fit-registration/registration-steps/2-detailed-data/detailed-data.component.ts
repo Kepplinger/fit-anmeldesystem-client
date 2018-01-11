@@ -32,6 +32,8 @@ export class DetailedDataComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.branches = await this.branchDAO.getBranches();
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+
+
   }
 
   public branchChanged(branch: Branch, event: any): void {
@@ -76,6 +78,14 @@ export class DetailedDataComponent implements OnInit {
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
   }
 
+  public storeFroala():void{
+    var html =   $('#editor').froalaEditor('html.get');
+    //console.log(html.toString());
+    this.stepFormGroup.controls['description'].setValue(html.toString());
+  }
+
+
+
   public options: Object = {
     charCounterCount: false,
     quickInsert:false,
@@ -83,8 +93,13 @@ export class DetailedDataComponent implements OnInit {
     heightMax: 490,
     enter: $.FroalaEditor.ENTER_BR,
     tableResizingLimit: 20,
+    tooltips:true,
+    fontSize:'30',
     placeholderText: 'Bitte Firmenbeschreibung eingeben.......',
-    toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'underline' , 'clearFormatting', '|','superscript', 'outdent', 'indent']
+    quickInsertTags:'',
+    maxCharacters: 70,
+    inlineMode:false,
+    toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'underline' , '|', 'formatUL', 'formatOL','clearFormatting',  '|','superscript', 'outdent', 'indent']
     //toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     //toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     //toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
