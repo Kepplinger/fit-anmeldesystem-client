@@ -87,18 +87,17 @@ export class DetailedDataComponent implements OnInit {
 
 
   public options: Object = {
-    charCounterCount: false,
+    charCounterCount: true,
+    charCounterMax: 1000,
     quickInsert:false,
     heightMin: 250,
     heightMax: 490,
     enter: $.FroalaEditor.ENTER_BR,
-    tableResizingLimit: 20,
     tooltips:true,
     fontSize:'30',
     placeholderText: 'Bitte Firmenbeschreibung eingeben.......',
     quickInsertTags:'',
-    maxCharacters: 70,
-    inlineMode:false,
+    inlineMode:true,
     toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'underline' , '|', 'formatUL', 'formatOL','clearFormatting',  '|','superscript', 'outdent', 'indent']
     //toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     //toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
