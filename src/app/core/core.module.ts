@@ -7,11 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { BranchDAO } from './dao/branch.dao';
 import { ResourceDAO } from './dao/resource.dao';
 import { PackageDAO } from './dao/package.dao';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [],
   providers: [
