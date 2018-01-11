@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -15,6 +15,7 @@ import { Area } from '../../core/model/area';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import * as moment from 'moment';
+import { Representative } from '../../core/model/representative';
 
 @Component({
   selector: 'fit-fit-registration',

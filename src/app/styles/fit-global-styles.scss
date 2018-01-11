@@ -6,6 +6,43 @@ html, body {
   height: 100%;
 }
 
+.no-outline-button {
+  cursor: pointer;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.icon-button {
+  @extend .no-outline-button;
+  color: #000;
+  opacity: .5;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+    opacity: .75;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+}
+
+
 .img-keep-ratio {
   object-fit: contain;
 }
@@ -34,20 +71,6 @@ html, body {
 
 .btn {
   cursor: pointer;
-}
-
-.no-outline-button {
-  cursor: pointer;
-
-  &:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  &:active {
-    outline: none !important;
-    box-shadow: none !important;
-  }
 }
 
 .border-top {
