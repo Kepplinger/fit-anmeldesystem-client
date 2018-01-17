@@ -37,4 +37,15 @@
   cursor: pointer;
   color: white;
   font-size: 0.9em;
+
+  -webkit-transition: background-color 150ms linear;
+  transition: background-color 150ms linear;
+}
+
+.location-legend-badge {
+  width: 30px;
+}
+
+.selected-location-badge {
+  font-size: 1em;
 }

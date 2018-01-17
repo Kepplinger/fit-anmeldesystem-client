@@ -20,6 +20,12 @@ html, body {
   }
 }
 
+.disabled-element {
+  opacity: .6;
+  pointer-events: none;
+  user-select: none;
+}
+
 .icon-button {
   @extend .no-outline-button;
   color: #000;
@@ -41,7 +47,6 @@ html, body {
     opacity: 1;
   }
 }
-
 
 .img-keep-ratio {
   object-fit: contain;

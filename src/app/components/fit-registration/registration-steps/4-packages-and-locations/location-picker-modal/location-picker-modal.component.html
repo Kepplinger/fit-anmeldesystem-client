@@ -9,6 +9,35 @@
       </div>
       <div class="modal-body">
 
+        <div class="d-flex mb-2">
+
+          <div class="mr-3">
+            <div class="badge badge-secondary location-legend-badge">&nbsp;</div>
+            Belegt
+          </div>
+
+          <div class="mr-3">
+            <div class="badge badge-success location-legend-badge">&nbsp;</div>
+            Ausgewählt
+          </div>
+
+          <div class="mr-3">
+            <div class="badge badge-primary location-legend-badge">&nbsp;</div>
+            Kategorie B
+          </div>
+
+          <div class="mr-3">
+            <div class="badge badge-danger location-legend-badge">&nbsp;</div>
+            Kategorie A
+          </div>
+
+          <div class="flex-filler"></div>
+
+          <fit-hint-icon [message]="'Die Kategorie wird durch das zuvor ausgewählte \'FIt-Paket\' festgelegt.'">
+          </fit-hint-icon>
+          <div class="ml-2 text-bold">Kategorie: {{currentCategory == 'B' ? 'B' : 'A + B'}}</div>
+        </div>
+
         <div id="accordion" role="tablist">
           <div class="card"
                *ngFor="let area of areas"
@@ -30,7 +59,12 @@
 
               <div *ngFor="let location of area.locations"
                    class="fit-location badge badge-primary"
-                   [ngClass]="{'badge-danger': location.isOccupied}"
+                   (click)="selectLocation(location)"
+                   [ngClass]="{'badge-secondary': location.isOccupied,
+                               'badge-danger': location.category == 'A',
+                               'badge-success': location.id == selectedLocation?.id,
+                               'not-allowed': !isLocationAllowed(location)}"
+                   [style.cursor]="getLocationCursor(location)"
                    [style.bottom]="location.yCoordinate + '%'"
                    [style.left]="location.xCoordinate + '%'">
                 {{location.number}}
@@ -40,10 +74,24 @@
           </div>
         </div>
 
+        <div *ngIf="selectedLocation != null">
+          <div class="border-bottom mt-2 d-flex">
+            <h3 class="d-inline mt-2">Standplatz</h3>
+            <span class="badge badge-success selected-location-badge my-auto mx-2">{{selectedLocation.number}}</span>
+            <span class="my-auto">im {{selectedLocation.area.designation}}</span>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-        <button type="button" class="btn btn-primary">Standplatz speichern</button>
+
+        <button type="button"
+                class="btn btn-primary"
+                [ngClass]="{'disabled-element': selectedLocation == null}">
+          Standplatz speichern
+        </button>
+
       </div>
     </div>
   </div>

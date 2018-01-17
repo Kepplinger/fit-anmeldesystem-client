@@ -1,5 +1,6 @@
 <div *ngIf="isVisible">
-  <fit-location-picker-modal></fit-location-picker-modal>
+  <fit-location-picker-modal [currentCategory]="selectedPackage == Package.BasicPack ? 'B' : 'A'">
+  </fit-location-picker-modal>
 
   <div class="mb-4">
     <h2 class="text-bold">Pakete und Standort</h2>

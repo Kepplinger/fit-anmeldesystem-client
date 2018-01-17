@@ -18,7 +18,7 @@ export class LocationPickerModalComponent implements OnInit {
 
   public areas: Area[] = [];
   public selectedAreaId: number;
-  public selectedLocationId: number;
+  public selectedLocation: Location;
 
   public constructor(private areaDAO: AreaDAO) {
   }
@@ -58,11 +58,20 @@ export class LocationPickerModalComponent implements OnInit {
   }
 
   public getLocationCursor(location: Location): string {
-
-    if (location.isOccupied) {
+    if (this.isLocationAllowed(location)) {
+      return 'pointer';
+    } else {
       return 'not-allowed';
     }
+  }
 
-    return 'pointer';
+  public selectLocation(location: Location): void {
+    if (this.isLocationAllowed(location)) {
+      this.selectedLocation = location;
+    }
+  }
+
+  private isLocationAllowed(location: Location): boolean {
+    return !(location.isOccupied || (location.category === 'A' && this.currentCategory === 'B'));
   }
 }
