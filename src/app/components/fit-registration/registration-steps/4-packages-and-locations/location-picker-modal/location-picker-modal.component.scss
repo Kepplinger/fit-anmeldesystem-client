@@ -1,0 +1,40 @@
+.card {
+  border: none;
+  border-radius: 0;
+}
+
+.modal-xl {
+  width: auto;
+  max-width: 920px;
+}
+
+.collapse-head {
+  cursor: pointer;
+  user-select: none;
+  border: solid 1px lightgrey;
+  border-radius: 0;
+  background-color: #e3e3e3;
+
+  &:hover:not(.highlighted) {
+    background-color: #e3e3e3;
+  }
+}
+
+.highlighted {
+  background-color: #007bff;
+  border: none;
+  color: white;
+}
+
+.highlighted-border {
+  border: solid 1px #007bff;
+}
+
+.fit-location {
+  position: absolute;
+  transform: translate(-50%, 50%);
+  user-select: none;
+  cursor: pointer;
+  color: white;
+  font-size: 0.9em;
+}

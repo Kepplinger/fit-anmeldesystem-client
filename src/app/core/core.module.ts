@@ -8,6 +8,7 @@ import { BranchDAO } from './dao/branch.dao';
 import { ResourceDAO } from './dao/resource.dao';
 import { PackageDAO } from './dao/package.dao';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { AreaDAO } from './dao/area.dao';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     BranchDAO,
     ResourceDAO,
     PackageDAO,
+    AreaDAO,
     AppConfig,
   ]
 })

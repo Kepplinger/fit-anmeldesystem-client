@@ -1,8 +1,14 @@
-import { el } from '@angular/platform-browser/testing/src/browser_util';
-
 export class ArrayUtils {
   public static deleteElement(array: any[], element: any): any[] {
     console.log(array.indexOf(element));
     return array.splice(array.indexOf(element), 1);
+  }
+
+  public static getFirstElement(elements: any[]): any {
+    if (elements.length > 0) {
+      return elements[0];
+    } else {
+      return null;
+    }
   }
 }

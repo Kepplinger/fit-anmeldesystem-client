@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-declare let $;
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+declare let $: any;
+
 @Component({
   selector: 'fit-hint-icon',
   templateUrl: './hint-icon.component.html',
@@ -7,20 +9,20 @@ declare let $;
 })
 export class HintIconComponent implements OnInit {
 
+  @ViewChild('hint')
+  public el: ElementRef;
+
   @Input()
   public message: string;
 
-  constructor() { }
+  public constructor() {
+  }
 
-  ngOnInit() {
-    $('[data-toggle="popover"]').popover({
-      placement : 'right',
-      trigger : 'hover',
+  public ngOnInit(): void {
+    $(this.el.nativeElement).popover({
+      placement: 'right',
+      trigger: 'hover',
       content: this.message
     });
   }
-
-
-
-
 }

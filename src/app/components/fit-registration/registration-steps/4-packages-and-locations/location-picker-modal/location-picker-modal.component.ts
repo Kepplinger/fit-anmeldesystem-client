@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Area } from '../../../../../core/model/area';
+import { Location } from '../../../../../core/model/location';
+import { AreaDAO } from '../../../../../core/dao/area.dao';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
+
+declare let $: any;
 
 @Component({
   selector: 'fit-location-picker-modal',
@@ -7,9 +13,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationPickerModalComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public currentCategory: string;
 
-  ngOnInit() {
+  public areas: Area[] = [];
+  public selectedAreaId: number;
+  public selectedLocationId: number;
+
+  public constructor(private areaDAO: AreaDAO) {
   }
 
+  public ngOnInit() {
+    this.areas = this.areaDAO.getAreasFromEvent(1);
+
+    // using setTimeout workaround to prevent jQuery failure
+    setTimeout(() => {
+      let firstArea = ArrayUtils.getFirstElement(this.areas);
+
+      if (firstArea != null) {
+        this.toggleCollapse(firstArea.id)
+      }
+
+      for (let area of this.areas) {
+        let collapseElement = $('#areaCollapse' + area.id);
+        collapseElement.on('shown.bs.collapse',
+          () => {
+            if (area.id !== this.selectedAreaId) {
+              collapseElement.collapse('hide');
+            }
+          });
+      }
+    }, 0);
+  }
+
+  public toggleCollapse(areaId: number): void {
+    this.selectedAreaId = areaId;
+    $('#areaCollapse' + areaId).collapse('show');
+
+    for (let area of this.areas) {
+      if (area.id !== this.selectedAreaId) {
+        $('#areaCollapse' + area.id).collapse('hide');
+      }
+    }
+  }
+
+  public getLocationCursor(location: Location): string {
+
+    if (location.isOccupied) {
+      return 'not-allowed';
+    }
+
+    return 'pointer';
+  }
 }

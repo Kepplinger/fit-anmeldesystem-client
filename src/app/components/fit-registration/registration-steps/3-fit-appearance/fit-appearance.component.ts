@@ -41,7 +41,6 @@ export class FitAppearanceComponent implements OnInit {
   public addRepresentative(representative: Representative): void {
     let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
     this.representatives.push(representative);
-    console.log(this.representatives);
     representativeArray.push(new FormControl(representative));
   }
 

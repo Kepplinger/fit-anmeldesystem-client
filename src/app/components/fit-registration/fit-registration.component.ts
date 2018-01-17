@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -15,7 +15,6 @@ import { Area } from '../../core/model/area';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import * as moment from 'moment';
-import { Representative } from '../../core/model/representative';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -33,7 +32,7 @@ export class FitRegistrationComponent implements OnInit {
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private fb: FormBuilder) {
-    this.currentStep = FitRegistrationStep.GeneralData;
+    this.currentStep = FitRegistrationStep.PackagesAndLocation;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -181,12 +180,12 @@ export class FitRegistrationComponent implements OnInit {
 
   private getLocationFromForm(): Location {
     return new Location(
-      0,
+      '0',
+      false,
       new Area('', '', 1, 1),
       'A',
       100,
       100
     );
   }
-
 }
