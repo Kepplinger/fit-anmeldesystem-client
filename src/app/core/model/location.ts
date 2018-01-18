@@ -1,5 +1,3 @@
-import { Area } from './area';
-
 export class Location {
   public id: number;
   public timestamp: string;
@@ -7,13 +5,13 @@ export class Location {
   public number: string;
   public category: string;
   public isOccupied: boolean;
-  public area: Area;
+  public areaId: number;
   public xCoordinate: number;
   public yCoordinate: number;
 
   public constructor(number?: string,
                      isOccupied?: boolean,
-                     area?: Area,
+                     area?: number,
                      category?: string,
                      xCoordinate?: number,
                      yCoordinate?: number,
@@ -21,7 +19,7 @@ export class Location {
     this.id = id;
     this.isOccupied = isOccupied;
     this.number = number;
-    this.area = area;
+    this.areaId = area;
     this.category = category;
     this.xCoordinate = xCoordinate;
     this.yCoordinate = yCoordinate;

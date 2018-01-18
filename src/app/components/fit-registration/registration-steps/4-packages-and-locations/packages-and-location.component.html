@@ -1,5 +1,7 @@
 <div *ngIf="isVisible">
-  <fit-location-picker-modal [currentCategory]="selectedPackage == Package.BasicPack ? 'B' : 'A'">
+  <fit-location-picker-modal [selectedLocation]="selectedLocation"
+                             (selectedLocationChange)="setLocation($event)"
+                             [currentCategory]="selectedPackage == Package.BasicPack ? 'B' : 'A'">
   </fit-location-picker-modal>
 
   <div class="mb-4">
@@ -133,8 +135,11 @@
         <div class="text-bold my-auto mr-1">
           Gewählter Platz:
         </div>
-        <div class="my-auto ml-1">
-          keinen
+
+        <div [ngSwitch]="selectedLocation != null"
+             class="my-auto ml-1">
+          <div *ngSwitchCase="true">Nr: {{selectedLocation.number}}</div>
+          <div *ngSwitchCase="false">keinen Platz ausgewählt</div>
         </div>
 
         <button type="button" class="btn btn-primary mx-5" data-toggle="modal" data-target="#locationPickerModal">

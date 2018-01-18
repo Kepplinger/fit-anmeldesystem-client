@@ -58,10 +58,11 @@
                    alt="Probleme beim Laden des Bildes"/>
 
               <div *ngFor="let location of area.locations"
-                   class="fit-location badge badge-primary"
+                   class="fit-location badge"
                    (click)="selectLocation(location)"
                    [ngClass]="{'badge-secondary': location.isOccupied,
-                               'badge-danger': location.category == 'A',
+                               'badge-primary': location.category == 'B' && !location.isOccupied && location.id != selectedLocation?.id,
+                               'badge-danger': location.category == 'A' && !location.isOccupied && location.id != selectedLocation?.id,
                                'badge-success': location.id == selectedLocation?.id,
                                'not-allowed': !isLocationAllowed(location)}"
                    [style.cursor]="getLocationCursor(location)"
@@ -74,11 +75,13 @@
           </div>
         </div>
 
-        <div *ngIf="selectedLocation != null">
-          <div class="border-bottom mt-2 d-flex">
-            <h3 class="d-inline mt-2">Standplatz</h3>
-            <span class="badge badge-success selected-location-badge my-auto mx-2">{{selectedLocation.number}}</span>
-            <span class="my-auto">im {{selectedLocation.area.designation}}</span>
+        <div class="location-detail"
+             [ngClass]="{'shown': selectedLocation != null,
+                         'hidden': selectedLocation == null}">
+          <div class="mt-2 d-flex">
+            <h3 class="d-inline mt-2">Gewählter Standplatz:</h3>
+            <span class="badge badge-success selected-location-badge my-auto mx-2">{{selectedLocation?.number}}</span>
+            <span class="my-auto">im {{getAreaOfLocation(selectedLocation)?.designation}}</span>
           </div>
         </div>
 
@@ -88,7 +91,9 @@
 
         <button type="button"
                 class="btn btn-primary"
-                [ngClass]="{'disabled-element': selectedLocation == null}">
+                data-dismiss="modal"
+                (click)="saveLocation()"
+                [ngClass]="{'disabled-element btn-outline-secondary': selectedLocation == null}">
           Standplatz speichern
         </button>
 

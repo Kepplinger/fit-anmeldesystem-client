@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Area } from '../../../../../core/model/area';
 import { Location } from '../../../../../core/model/location';
 import { AreaDAO } from '../../../../../core/dao/area.dao';
@@ -16,9 +16,14 @@ export class LocationPickerModalComponent implements OnInit {
   @Input()
   public currentCategory: string;
 
+  @Input()
+  public selectedLocation: Location;
+
+  @Output()
+  public selectedLocationChange: EventEmitter<Location> = new EventEmitter<Location>();
+
   public areas: Area[] = [];
   public selectedAreaId: number;
-  public selectedLocation: Location;
 
   public constructor(private areaDAO: AreaDAO) {
   }
@@ -65,9 +70,29 @@ export class LocationPickerModalComponent implements OnInit {
     }
   }
 
+  public getLocationBackgroundColor(location: Location): string {
+    if (this.isLocationAllowed(location) && location.id === this.selectedLocation.id) {
+      return 'darkblue';
+    } else {
+      return '';
+    }
+  }
+
   public selectLocation(location: Location): void {
     if (this.isLocationAllowed(location)) {
       this.selectedLocation = location;
+    }
+  }
+
+  public saveLocation(): void {
+    this.selectedLocationChange.emit(this.selectedLocation);
+  }
+
+  public getAreaOfLocation(location: Location): Area {
+    if (location != null) {
+      return this.areas.find(a => a.locations.find(l => l.id === location.id) != null)
+    } else {
+      return null;
     }
   }
 
