@@ -11,7 +11,7 @@ export class Location {
 
   public constructor(number?: string,
                      isOccupied?: boolean,
-                     area?: number,
+                     areaId?: number,
                      category?: string,
                      xCoordinate?: number,
                      yCoordinate?: number,
@@ -19,7 +19,7 @@ export class Location {
     this.id = id;
     this.isOccupied = isOccupied;
     this.number = number;
-    this.areaId = area;
+    this.areaId = areaId;
     this.category = category;
     this.xCoordinate = xCoordinate;
     this.yCoordinate = yCoordinate;

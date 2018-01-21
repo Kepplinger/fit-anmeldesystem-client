@@ -70,14 +70,6 @@ export class LocationPickerModalComponent implements OnInit {
     }
   }
 
-  public getLocationBackgroundColor(location: Location): string {
-    if (this.isLocationAllowed(location) && location.id === this.selectedLocation.id) {
-      return 'darkblue';
-    } else {
-      return '';
-    }
-  }
-
   public selectLocation(location: Location): void {
     if (this.isLocationAllowed(location)) {
       this.selectedLocation = location;

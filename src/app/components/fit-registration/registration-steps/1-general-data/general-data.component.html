@@ -82,7 +82,8 @@
     <div class="form-group row">
       <label for="email" class="col-md-3 col-form-label">
         Email:
-        <fit-hint-icon [message]="'Diese Email wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'"></fit-hint-icon>
+        <fit-hint-icon
+          [message]="'Diese Email wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'"></fit-hint-icon>
       </label>
       <div class="col-md-9 d-flex">
         <input class="form-control flex-1"
@@ -119,9 +120,9 @@
                [value]="logo?.name"
                placeholder="Logo auswählen..."
                disabled>
-        <span class="input-group-btn">
-        <button class="btn btn-primary" type="button">Druchsuchen</button>
-      </span>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">Druchsuchen</button>
+        </div>
       </div>
     </div>
 
