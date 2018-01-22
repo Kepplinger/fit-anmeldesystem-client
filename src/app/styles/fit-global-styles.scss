@@ -61,7 +61,7 @@ html, body {
 }
 
 .tiny-container {
-  max-width: 450px;
+  max-width: 400px;
   width: 100%;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -91,4 +91,10 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.floating-effect {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
+  0 6px 10px 0 rgba(0, 0, 0, .14),
+  0 1px 18px 0 rgba(0, 0, 0, .12);
 }

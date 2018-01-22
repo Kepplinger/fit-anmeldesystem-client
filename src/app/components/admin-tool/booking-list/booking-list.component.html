@@ -1,0 +1,12 @@
+<table class="table">
+
+  <tr>
+    <th>Firma</th>
+    <th>Paket</th>
+  </tr>
+  <tr *ngFor="let booking of bookings">
+    <td>{{booking.company.name}}</td>
+    <td>{{booking.fitPackage.name}}</td>
+  </tr>
+
+</table>

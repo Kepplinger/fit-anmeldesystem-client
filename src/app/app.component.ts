@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ApplicationStateService } from './core/app-services/application-state-service';
+import { FitApplication } from './core/model/enums/fit-application';
+import { RouterService } from './core/app-services/router-service';
 
 @Component({
   selector: 'fit-root',
@@ -6,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  FitApplication = FitApplication;
+
+  public constructor(private applicationStateService: ApplicationStateService,
+                     private routerService: RouterService) {
+  }
+
+  public getApplicationState(): FitApplication {
+    return this.applicationStateService.activatedApplication;
+  }
 
 }

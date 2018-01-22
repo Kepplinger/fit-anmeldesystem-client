@@ -11,6 +11,11 @@ export class BookingDAO {
                      private http: HttpClient) {
   }
 
+  public fetchAllBookings(): Promise<Booking[]> {
+    return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking')
+      .toPromise();
+  }
+
   public async createBooking(booking: Booking): Promise<void> {
 
     let json: any = booking;
@@ -18,7 +23,7 @@ export class BookingDAO {
     json.company.establishmentsAut = this.concatWithDelimiter(json.company.establishmentsAut, ';');
     json.company.establishmentsInt = this.concatWithDelimiter(json.company.establishmentsInt, ';');
 
-    await this.http.post(this.appConfig.serverURL + '/booking', booking)
+    await this.http.post<void>(this.appConfig.serverURL + '/booking', booking)
       .toPromise();
   }
 
