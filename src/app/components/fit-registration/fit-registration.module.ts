@@ -20,8 +20,6 @@ import { SharedModule } from '../shared-components/shared.module';
 import {
   LocationPickerModalComponent
 } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
-import { FitHeaderComponent } from '../shared-components/fit-header/header.component';
-import { FitFooterComponent } from '../shared-components/fit-footer/footer.component';
 
 @NgModule({
   imports: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingDAO } from '../../../core/dao/booking.dao';
-import { Booking } from '../../../core/model/booking';
+import { BookingDAO } from '../../../../core/dao/booking.dao';
+import { Booking } from '../../../../core/model/booking';
 
 @Component({
   selector: 'fit-booking-list',

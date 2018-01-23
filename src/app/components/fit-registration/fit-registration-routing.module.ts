@@ -7,21 +7,16 @@ import { SubmissionSuccessComponent } from './submission-success/submission-succ
 
 const routes: Routes = [
   {
-    path: '',
-    children: [
-      {
-        path: 'anmelden',
-        component: FitRegistrationComponent
-      },
-      {
-        path: 'code-beantragen',
-        component: CodeRequestComponent
-      },
-      {
-        path: 'anmeldung-erfolgreich',
-        component: SubmissionSuccessComponent
-      }
-    ]
+    path: 'anmelden',
+    component: FitRegistrationComponent
+  },
+  {
+    path: 'code-beantragen',
+    component: CodeRequestComponent
+  },
+  {
+    path: 'anmeldung-erfolgreich',
+    component: SubmissionSuccessComponent
   }
 ];
 

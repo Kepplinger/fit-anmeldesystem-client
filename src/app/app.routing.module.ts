@@ -5,7 +5,8 @@ import { MainComponent } from './components/main/main.component';
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    pathMatch: 'full'
   },
   {
     path: 'fit',
