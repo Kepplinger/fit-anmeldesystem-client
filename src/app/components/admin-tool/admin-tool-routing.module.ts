@@ -3,22 +3,32 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminToolComponent } from './admin-tool.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
-    path: 'hallo',
-    component: AdminToolComponent
+    path: '',
+    component: AdminToolComponent,
+    children: [
+      {
+        path: '',
+        component: AdminDashboardComponent,
+        outlet: 'adminOutlet',
+        pathMatch: 'full'
+      },
+      {
+        // 'children' workaround because of internal angular bug
+        path: 'anmeldungen',
+        children: [
+          {
+            path: '',
+            component: BookingListComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      }
+    ]
   },
-  {
-    outlet: 'adminOutlet',
-    path: 'anmeldungen',
-    component: BookingListComponent,
-  },
-      // {
-      //   path: '',
-      //   component: AdminDashboardComponent,
-      //   outlet: 'adminOutlet',
-      // },
   {
     path: 'login',
     component: AdminLoginComponent

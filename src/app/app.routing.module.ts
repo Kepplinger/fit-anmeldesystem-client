@@ -2,11 +2,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainComponent } from './components/main/main.component';
 
-const routes: Routes = [
+const routes2: Routes = [
   {
     path: '',
     component: MainComponent,
-    pathMatch: 'full'
   },
   {
     path: 'fit',
@@ -23,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes2)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
