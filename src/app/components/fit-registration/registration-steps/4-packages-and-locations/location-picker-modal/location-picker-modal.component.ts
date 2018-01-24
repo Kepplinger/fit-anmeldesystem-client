@@ -29,7 +29,7 @@ export class LocationPickerModalComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.areas = this.areaDAO.getAreasFromEvent(1);
+    this.areas = this.areaDAO.fetchAreasFromEvent(1);
 
     // using setTimeout workaround to prevent jQuery failure
     setTimeout(() => {

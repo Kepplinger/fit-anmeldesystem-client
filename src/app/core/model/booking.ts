@@ -6,6 +6,8 @@ import { Branch } from './branch';
 import { Representative } from './representative';
 import { Resource } from './resource';
 import { Package } from './package';
+import { Moment } from 'moment';
+import { Contact } from './contact';
 
 export class Booking {
   public id: number;
@@ -26,6 +28,7 @@ export class Booking {
   public companyDescription: string;
   public providesSummerJob: boolean;
   public providesThesis: boolean;
+  public creationDate: Moment;
 
   public constructor(event?: Event,
                      fitPackage?: Package,
@@ -41,6 +44,7 @@ export class Booking {
                      providesSummerJob?: boolean,
                      providesThesis?: boolean,
                      isAccepted?: boolean,
+                     creationDate?: Moment,
                      id?: number) {
     this.id = id;
     this.event = event;
@@ -57,6 +61,7 @@ export class Booking {
     this.companyDescription = companyDescription;
     this.providesSummerJob = providesSummerJob;
     this.providesThesis = providesThesis;
+    this.creationDate = creationDate;
   }
 }
 

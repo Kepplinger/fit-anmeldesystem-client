@@ -10,6 +10,7 @@ import { PackageDAO } from './dao/package.dao';
 import { AreaDAO } from './dao/area.dao';
 import { ApplicationStateService } from './app-services/application-state-service';
 import { RouterService } from './app-services/router-service';
+import { EventDAO } from './dao/event.dao';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { RouterService } from './app-services/router-service';
     ResourceDAO,
     PackageDAO,
     AreaDAO,
+    EventDAO,
     AppConfig,
     ApplicationStateService,
     RouterService

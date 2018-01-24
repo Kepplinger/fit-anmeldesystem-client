@@ -31,7 +31,7 @@ export class FitAppearanceComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
     this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
-    this.resources = await this.resourceDAO.getResources();
+    this.resources = await this.resourceDAO.fetchResources();
   }
 
   public onRepresentativeAdd(): void {

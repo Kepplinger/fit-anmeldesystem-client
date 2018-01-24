@@ -10,7 +10,7 @@ export class AreaDAO {
                      private appConfig: AppConfig) {
   }
 
-  public getAreasFromEvent(eventId: number): Area[] {
+  public fetchAreasFromEvent(eventId: number): Area[] {
     // return this.http.get<Area[]>(this.appConfig.serverURL + '/area/' + eventId)
     //   .toPromise();
 

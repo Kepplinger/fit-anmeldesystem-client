@@ -11,13 +11,17 @@ export const routes: Routes = [
     component: AdminToolComponent,
     children: [
       {
-        path: '',
-        component: AdminDashboardComponent,
-        outlet: 'adminOutlet',
-        pathMatch: 'full'
+        // 'children' workaround because of internal angular bug
+        path: 'dash',
+        children: [
+          {
+            path: '',
+            component: AdminDashboardComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
       },
       {
-        // 'children' workaround because of internal angular bug
         path: 'anmeldungen',
         children: [
           {

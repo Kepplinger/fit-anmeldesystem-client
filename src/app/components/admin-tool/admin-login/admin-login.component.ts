@@ -14,7 +14,6 @@ export class AdminLoginComponent implements OnInit {
   }
 
   public loginAdmin(): void {
-    this.router.navigate(['admin-tool']);
+    this.router.navigate(['admin-tool/dash']);
   }
-
 }

@@ -32,7 +32,7 @@ export class PackagesAndLocationComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    let packages: Package[] = await this.packageDAO.getPackages();
+    let packages: Package[] = await this.packageDAO.fetchPackages();
     this.basicPackage = packages.find(p => p.discriminator === 1);
     this.sponsorPackage = packages.find(p => p.discriminator === 2);
     this.lecturePackage = packages.find(p => p.discriminator === 3);
