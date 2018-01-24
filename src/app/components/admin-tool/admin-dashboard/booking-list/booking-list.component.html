@@ -1,4 +1,5 @@
-<div class="m-3">
+<div class="m-5">
+  <h1>Anmeldungen</h1>
 
   <table class="table">
 
@@ -9,7 +10,7 @@
       <th>Kontakt - E-Mail</th>
       <th>Paket</th>
     </tr>
-    
+
     <tr *ngFor="let booking of bookings">
       <td>{{booking.company?.name}}</td>
       <td>{{booking.creationDate | date:'medium'}}</td>

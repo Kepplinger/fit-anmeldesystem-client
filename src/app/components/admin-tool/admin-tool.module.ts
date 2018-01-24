@@ -7,6 +7,7 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     AdminLoginComponent,
     AdminHeaderComponent,
     AdminDashboardComponent,
-    BookingListComponent
+    BookingListComponent,
+    CreateFitEventComponent
   ]
 })
 export class AdminToolModule {
