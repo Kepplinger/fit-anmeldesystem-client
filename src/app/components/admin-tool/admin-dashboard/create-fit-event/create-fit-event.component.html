@@ -2,20 +2,26 @@
   <div class="card">
 
     <div class="card-header bg-primary text-light">
-      <h1 class="m-0">Neuen Fit anlegen</h1>
+      <h1 class="m-0 text-bold">Neuen FIT anlegen</h1>
     </div>
 
     <div class="card-body">
 
-      <div>
-        <label>Datum: </label>
+      <div class="d-flex">
+        <span class="input-header">Datum: </span>
+        <fit-date-time-picker></fit-date-time-picker>
       </div>
 
-      <div>
-        <label>Registrierung: </label>
+      <div class="d-flex">
+        <span class="input-header">Registrierung möglich von: </span>
+        <fit-date-time-picker></fit-date-time-picker>
+        <span class="input-header">bis</span>
+        <fit-date-time-picker></fit-date-time-picker>
       </div>
 
     </div>
+
+
   </div>
 
 </div>
