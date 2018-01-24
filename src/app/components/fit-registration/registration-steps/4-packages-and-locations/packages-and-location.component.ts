@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { FormGroup } from '@angular/forms';
+
+import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { Package } from '../../../../core/model/package';
 import { PackageDAO } from '../../../../core/dao/package.dao';
 
@@ -20,6 +21,7 @@ export class PackagesAndLocationComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
+  public selectedLocation: Location;
   public selectedPackage: number = FitPackage.BasicPack;
 
   public basicPackage: Package = new Package();
@@ -30,11 +32,25 @@ export class PackagesAndLocationComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    let packages: Package[] = await this.packageDAO.getPackages();
+    let packages: Package[] = await this.packageDAO.fetchPackages();
     this.basicPackage = packages.find(p => p.discriminator === 1);
     this.sponsorPackage = packages.find(p => p.discriminator === 2);
     this.lecturePackage = packages.find(p => p.discriminator === 3);
-    this.selectedPackage = this.stepFormGroup.value.fitPackage;
+
+    if (this.stepFormGroup.value.fitPackage != null) {
+      this.selectedPackage = this.stepFormGroup.value.fitPackage;
+    } else {
+      this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+    }
+
+    if (this.stepFormGroup.value.location != null) {
+      this.selectedLocation = this.stepFormGroup.value.location;
+    }
+  }
+
+  public setLocation(location: Location): void {
+    this.selectedLocation = location;
+    this.stepFormGroup.controls['location'].setValue(this.selectedLocation);
   }
 
   public togglePackage(packageNumber: number): void {
@@ -46,7 +62,7 @@ export class PackagesAndLocationComponent implements OnInit {
       this.selectedPackage = packageNumber;
     }
 
-    this.stepFormGroup.value.fitPackage = this.getSelectedPackage(this.selectedPackage);
+    this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
   }
 
   public isPackageSelected(packageType: FitPackage): boolean {

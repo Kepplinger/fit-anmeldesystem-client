@@ -2,11 +2,47 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminToolComponent } from './admin-tool.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
-    component: AdminToolComponent
+    component: AdminToolComponent,
+    children: [
+      {
+        // 'children' workaround because of internal angular bug
+        path: 'dash',
+        children: [
+          {
+            path: '',
+            component: AdminDashboardComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'anmeldungen',
+        children: [
+          {
+            path: '',
+            component: BookingListComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'fit-anlegen',
+        children: [
+          {
+            path: '',
+            component: CreateFitEventComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      }
+    ]
   },
   {
     path: 'login',

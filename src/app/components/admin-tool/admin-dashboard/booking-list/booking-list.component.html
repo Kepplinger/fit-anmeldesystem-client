@@ -1,0 +1,23 @@
+<div class="m-5">
+  <h1>Anmeldungen</h1>
+
+  <table class="table">
+
+    <tr>
+      <th>Firma</th>
+      <th>Anmeldezeitpunkt</th>
+      <th>Standplatz</th>
+      <th>Kontakt - E-Mail</th>
+      <th>Paket</th>
+    </tr>
+
+    <tr *ngFor="let booking of bookings">
+      <td>{{booking.company?.name}}</td>
+      <td>{{booking.creationDate | date:'medium'}}</td>
+      <td>{{booking.location?.number}}</td>
+      <td>{{booking.company?.contact?.email}}</td>
+      <td>{{booking.fitPackage?.name}}</td>
+    </tr>
+
+  </table>
+</div>

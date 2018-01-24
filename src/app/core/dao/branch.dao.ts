@@ -10,7 +10,7 @@ export class BranchDAO {
                      private http: HttpClient) {
   }
 
-  public async getBranches(): Promise<Branch[]> {
+  public async fetchBranches(): Promise<Branch[]> {
 
     // return [
     //   new Branch('Informatik / Medientechnik', 1),

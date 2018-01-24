@@ -10,7 +10,7 @@ export class ResourceDAO {
                      private http: HttpClient) {
   }
 
-  public async getResources(): Promise<Resource[]> {
+  public async fetchResources(): Promise<Resource[]> {
 
     // return [
     //   new Resource('WLAN', '', 1),

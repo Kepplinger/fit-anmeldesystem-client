@@ -11,7 +11,7 @@ export class PackageDAO {
                      private http: HttpClient) {
   }
 
-  public async getPackages(): Promise<Package[]> {
+  public async fetchPackages(): Promise<Package[]> {
 
     // return [
     //   new Package('Grundpaket', 200, 1),

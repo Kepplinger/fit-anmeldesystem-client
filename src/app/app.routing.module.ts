@@ -1,11 +1,11 @@
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainComponent } from './components/main/main.component';
 
-const routes: Routes = [
+const routes2: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
   },
   {
     path: 'fit',
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes2)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

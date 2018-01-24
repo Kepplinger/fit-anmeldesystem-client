@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fit-admin-login',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLoginComponent implements OnInit {
 
-  constructor() { }
+  public constructor(private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
+  public loginAdmin(): void {
+    this.router.navigate(['admin-tool/dash']);
+  }
 }

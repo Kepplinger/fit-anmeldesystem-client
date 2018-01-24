@@ -1,0 +1,45 @@
+@import "../../../styles/fit-variables";
+@import "../../../styles/fit-global-styles";
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 200px 200px;
+  grid-gap: 25px;
+
+  .dash {
+    @extend .floating-effect-dark;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+
+    //border: solid 3px lighten($primary-color, 10%);
+    padding: 20px;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+
+    -webkit-transition: background-color 300ms linear, border 100ms linear, transform 150ms ease-in;
+    transition: background-color 300ms linear, border 100ms linear, transform 150ms ease-in;
+
+    &:hover {
+      @extend .floating-effect-dark;
+      border: solid 4px darken($primary-color, 5%);
+      //background-color: lighten($primary-color, 46%);
+      transform: translateY(-3px);
+    }
+
+    .dash-text {
+      margin-top: 5px;
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+
+    .dash-icon {
+      font-size: 6.2em;
+    }
+  }
+}

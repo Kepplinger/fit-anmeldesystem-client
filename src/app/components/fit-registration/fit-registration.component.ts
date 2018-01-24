@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -8,14 +8,11 @@ import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
 import { Address } from '../../core/model/address';
 import { Contact } from '../../core/model/contact';
-import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
 import { Event } from '../../core/model/event';
-import { Area } from '../../core/model/area';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import * as moment from 'moment';
-import { Representative } from '../../core/model/representative';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -33,7 +30,7 @@ export class FitRegistrationComponent implements OnInit {
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private fb: FormBuilder) {
-    this.currentStep = FitRegistrationStep.GeneralData;
+    this.currentStep = FitRegistrationStep.PackagesAndLocation;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -110,7 +107,7 @@ export class FitRegistrationComponent implements OnInit {
     return new Booking(
       new Event(moment(), moment(), moment(), false, 1),
       new Package('', 200, 1, 1),
-      this.getLocationFromForm(),
+      this.fitFormGroup.value.packagesAndLocation.location,
       this.getCompanyFromForm(),
       this.getPresentationFromForm(),
       this.fitFormGroup.value.fitAppearance.representatives,
@@ -134,8 +131,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      // this.fitFormGroup.value.generalData.logoUrl,
-      'hallo Andi \\(◠‿◠)',
+      this.fitFormGroup.value.generalData.logoUrl,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -163,7 +159,6 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private getPresentationFromForm(): Presentation {
-
     let fitPackage: Package = this.fitFormGroup.value.packagesAndLocation.fitPackage;
 
     if (fitPackage != null && fitPackage.discriminator === FitPackage.LecturePack) {
@@ -178,15 +173,4 @@ export class FitRegistrationComponent implements OnInit {
       return null;
     }
   }
-
-  private getLocationFromForm(): Location {
-    return new Location(
-      0,
-      new Area('', '', 1, 1),
-      'A',
-      100,
-      100
-    );
-  }
-
 }

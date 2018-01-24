@@ -66,6 +66,7 @@
         </ng-container>
       </table>
       <button class="btn btn-success my-2 text-bold"
+              *ngIf="representatives.length < 3"
               (click)="onRepresentativeAdd()">
         <i class="fa fa-user-plus mr-1"></i>
         Vertreter/in hinzufügen
