@@ -12,6 +12,7 @@ export class CreateFitEventComponent implements OnInit {
 
   public event: Event = new Event();
   public areas: Area[] = [];
+  public selectedArea: Area = null;
 
   public constructor(private changeDetector: ChangeDetectorRef,
                      private areaDAO: AreaDAO) {
@@ -28,6 +29,10 @@ export class CreateFitEventComponent implements OnInit {
     } else {
       return 0;
     }
+  }
+
+  public selectArea(area: Area): void {
+    this.selectedArea = area;
   }
 
   public onDateChange(): void {

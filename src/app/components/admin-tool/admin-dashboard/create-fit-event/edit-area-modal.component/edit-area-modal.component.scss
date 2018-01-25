@@ -1,0 +1,10 @@
+@import "../../../../../styles/fit-variables";
+
+.area-img {
+  border: solid 2px $primary-color;
+}
+
+.draggable-location {
+  user-select: none;
+  cursor: pointer;
+}

@@ -9,11 +9,14 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 import { DateTimePickerComponent } from './admin-dashboard/date-time-picker.component.ts/date-time-picker.component';
+import { EditAreaModalComponent } from './admin-dashboard/create-fit-event/edit-area-modal.component/edit-area-modal.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 @NgModule({
   imports: [
     CommonModule,
-    AdminToolRoutingModule
+    AdminToolRoutingModule,
+    AngularDraggableModule
   ],
   declarations: [
     AdminToolComponent,
@@ -22,6 +25,7 @@ import { DateTimePickerComponent } from './admin-dashboard/date-time-picker.comp
     AdminDashboardComponent,
     BookingListComponent,
     CreateFitEventComponent,
+    EditAreaModalComponent,
     DateTimePickerComponent
   ]
 })

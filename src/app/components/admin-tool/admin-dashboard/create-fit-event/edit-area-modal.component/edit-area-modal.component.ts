@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Area } from '../../../../../core/model/area';
 
 @Component({
   selector: 'fit-edit-area-modal',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-area-modal.component.scss'],
 })
 export class EditAreaModalComponent {
+
+  @Input()
+  public area: Area;
 
 }

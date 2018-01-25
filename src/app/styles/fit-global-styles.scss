@@ -113,12 +113,17 @@ html, body {
   0 1px 18px 0 rgba(0, 0, 0, .24);
 }
 
+.modal-xl {
+  width: auto;
+  max-width: 920px;
+}
+
 .text-larger {
   font-size: 1.3em;
 }
 
 .text-large {
- font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .text-smaller {
@@ -126,7 +131,7 @@ html, body {
 }
 
 .mb-0-5 {
- margin-bottom: 0.1rem;
+  margin-bottom: 0.1rem;
 }
 
 .flex-2-5 {

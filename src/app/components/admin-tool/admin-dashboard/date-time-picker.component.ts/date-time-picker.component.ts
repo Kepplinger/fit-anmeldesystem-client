@@ -35,7 +35,6 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
   public uniqueId: string = Math.random().toString(36).substr(2, 9);
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log('change');
     // if (changes['minDate'] != null) {
     //   $(this.dateTimePicker.nativeElement).datetimepicker('minDate', this.minDate);
     // }

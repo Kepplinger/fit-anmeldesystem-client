@@ -1,3 +1,5 @@
+<fit-edit-area-modal [area]="selectedArea"></fit-edit-area-modal>
+
 <div class="small-container mt-5">
   <div class="card">
 
@@ -51,7 +53,9 @@
           <img class="area-img"
                [src]="area.graphicUrl"
                alt="Bild konnte nicht geladen werden">
-          <div class="img-overlay">
+          <div class="img-overlay"
+               (click)="selectArea(area)"
+               data-toggle="modal" data-target="#editAreaModal">
             <i class="fa fa-pencil centered-element"></i>
           </div>
         </div>
