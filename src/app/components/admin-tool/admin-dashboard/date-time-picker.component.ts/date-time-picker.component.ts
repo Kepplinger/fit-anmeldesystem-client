@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Moment } from 'moment';
+import moment = require('moment');
 
 declare let $: any;
 
@@ -23,6 +24,9 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
   public maxDate: Moment = null;
 
   @Input()
+  public placeholder: string = '';
+
+  @Input()
   public date: Moment;
 
   @Output()
@@ -31,6 +35,7 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
   public uniqueId: string = Math.random().toString(36).substr(2, 9);
 
   public ngOnChanges(changes: SimpleChanges): void {
+    console.log('change');
     // if (changes['minDate'] != null) {
     //   $(this.dateTimePicker.nativeElement).datetimepicker('minDate', this.minDate);
     // }
@@ -50,7 +55,7 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
     });
 
     $(this.dateTimePicker.nativeElement).on('change.datetimepicker', (event: any) => {
-      this.dateChange.emit(event.date);
+      this.dateChange.emit(moment(event.date));
     });
   }
 }

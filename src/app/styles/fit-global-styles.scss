@@ -94,7 +94,7 @@ html, body {
 }
 
 .fa-1-3x {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .fa-1-5x {
@@ -111,4 +111,28 @@ html, body {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .4),
   0 6px 10px 0 rgba(0, 0, 0, .28),
   0 1px 18px 0 rgba(0, 0, 0, .24);
+}
+
+.text-larger {
+  font-size: 1.3em;
+}
+
+.text-large {
+ font-size: 1.2em;
+}
+
+.text-smaller {
+  font-size: 0.8em;
+}
+
+.mb-0-5 {
+ margin-bottom: 0.1rem;
+}
+
+.flex-2-5 {
+  flex: 2.5;
+}
+
+.flex-1 {
+  flex: 1;
 }

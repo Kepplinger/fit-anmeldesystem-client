@@ -1,12 +1,13 @@
 import { Moment } from 'moment';
+import * as moment from 'moment';
 
 export class Event {
   public id: number;
   public timestamp: string;
 
-  public date: Moment;
-  public registrationStart: Moment;
-  public registrationEnd: Moment;
+  public date: Moment = moment();
+  public registrationStart: Moment = moment();
+  public registrationEnd: Moment = moment();
   public isLocked: boolean;
 
   public constructor(date?: Moment,
