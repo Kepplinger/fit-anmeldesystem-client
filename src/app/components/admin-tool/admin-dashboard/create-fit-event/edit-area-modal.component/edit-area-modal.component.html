@@ -16,21 +16,19 @@
                class="area-img img-fluid"
                alt="Bild konnte nicht geladen werden">
 
-
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true"
+          <div ngDraggable [bounds]="areaBounds" [inBounds]="true" (stopped)="onDragEnd($event)"
                class="badge badge-primary draggable-location position-absolute" style="top: 10px; left: 130px;">127
           </div>
 
-
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true"
+          <div ngDraggable [bounds]="areaBounds" [inBounds]="true"  (stopped)="onDragEnd($event)"
                class="badge badge-primary draggable-location position-absolute" style="top: 210px; left: 230px;">113
           </div>
 
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true"
+          <div ngDraggable [bounds]="areaBounds" [inBounds]="true" (stopped)="onDragEnd($event)"
                class="badge badge-primary draggable-location position-absolute" style="top: 100px; left: 830px;">175
           </div>
 
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true"
+          <div ngDraggable [bounds]="areaBounds" [inBounds]="true" (stopped)="onDragEnd($event)"
                class="badge badge-primary draggable-location position-absolute" style="top: 210px; left: 130px;">106
           </div>
         </div>

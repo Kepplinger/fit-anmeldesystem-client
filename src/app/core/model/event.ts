@@ -5,18 +5,18 @@ export class Event {
   public id: number;
   public timestamp: string;
 
-  public date: Moment = moment();
+  public eventDate: Moment = moment();
   public registrationStart: Moment = moment();
   public registrationEnd: Moment = moment();
   public isLocked: boolean;
 
-  public constructor(date?: Moment,
+  public constructor(eventDate?: Moment,
                      registrationStart?: Moment,
                      registrationEnd?: Moment,
                      isLocked?: boolean,
                      id?: number) {
     this.id = id;
-    this.date = date;
+    this.eventDate = eventDate;
     this.registrationStart = registrationStart;
     this.registrationEnd = registrationEnd;
     this.isLocked = isLocked;

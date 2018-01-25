@@ -30,7 +30,7 @@ export class FitRegistrationComponent implements OnInit {
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private fb: FormBuilder) {
-    this.currentStep = FitRegistrationStep.PackagesAndLocation;
+    this.currentStep = FitRegistrationStep.GeneralData;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -131,7 +131,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logoUrl,
+      this.fitFormGroup.value.generalData.logo,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -153,6 +153,7 @@ export class FitRegistrationComponent implements OnInit {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
+      'M',
       this.fitFormGroup.value.contactAndRemarks.email,
       this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );

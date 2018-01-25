@@ -15,10 +15,10 @@ export class AreaDAO {
     //   .toPromise();
 
     return [
-      new Area('Untergeschoss', '../../../../../../assets/og1.png', eventId, 1),
-      new Area('Erdgeschoss', '../../../../../../assets/eg.png', eventId, 2),
-      new Area('1. Stock', '../../../../../../assets/og1.png', eventId, 3),
-      new Area('2. Stock', '../../../../../../assets/og2.png', eventId, 4)
+      new Area('Untergeschoss', '../../../../../../assets/og1.png', 1),
+      new Area('Erdgeschoss', '../../../../../../assets/eg.png', 2),
+      new Area('1. Stock', '../../../../../../assets/og1.png', 3),
+      new Area('2. Stock', '../../../../../../assets/og2.png', 4)
     ]
   }
 
