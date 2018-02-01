@@ -141,3 +141,10 @@ html, body {
 .flex-1 {
   flex: 1;
 }
+
+.input-group-append {
+  .btn {
+    border-bottom-right-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+  }
+}

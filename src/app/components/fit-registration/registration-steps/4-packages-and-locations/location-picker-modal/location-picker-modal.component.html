@@ -66,7 +66,7 @@
                                'badge-success': location.id == selectedLocation?.id,
                                'not-allowed': !isLocationAllowed(location)}"
                    [style.cursor]="getLocationCursor(location)"
-                   [style.bottom]="location.yCoordinate + '%'"
+                   [style.top]="location.yCoordinate + '%'"
                    [style.left]="location.xCoordinate + '%'">
                 {{location.number}}
               </div>

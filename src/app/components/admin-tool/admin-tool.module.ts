@@ -11,12 +11,16 @@ import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/crea
 import { DateTimePickerComponent } from './admin-dashboard/date-time-picker.component.ts/date-time-picker.component';
 import { EditAreaModalComponent } from './admin-dashboard/create-fit-event/edit-area-modal.component/edit-area-modal.component';
 import { AngularDraggableModule } from 'angular2-draggable';
+import { SharedModule } from '../shared-components/shared.module';
+import { CoreModule } from '../../core/core.module';
+import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 
 @NgModule({
   imports: [
     CommonModule,
     AdminToolRoutingModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    FilePickerModule
   ],
   declarations: [
     AdminToolComponent,

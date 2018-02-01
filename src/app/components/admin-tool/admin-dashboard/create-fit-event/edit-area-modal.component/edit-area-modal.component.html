@@ -11,25 +11,38 @@
 
         <h2 class="text-bold">{{area?.designation}}</h2>
 
-        <div #areaBounds class="position-relative">
+        <div class="form-group d-flex">
+          <label for="areaImg" class="my-auto mr-2">Hintergrundbild:</label>
+          <div class="input-group"
+               fitFilePicker
+               [accept]="'image/*'"
+               (filePick)="filePicked($event)">
+            <input class="form-control"
+                   id="areaImg"
+                   type="text"
+                   [value]="pickedFile?.name"
+                   placeholder="Hintergrundbild auswählen..."
+                   disabled>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">Druchsuchen</button>
+            </div>
+          </div>
+        </div>
+
+        <div #areaBounds class="position-relative d-inline-block">
           <img [src]="area?.graphicUrl"
                class="area-img img-fluid"
                alt="Bild konnte nicht geladen werden">
 
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true" (stopped)="onDragEnd($event)"
-               class="badge badge-primary draggable-location position-absolute" style="top: 10px; left: 130px;">127
-          </div>
-
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true"  (stopped)="onDragEnd($event)"
-               class="badge badge-primary draggable-location position-absolute" style="top: 210px; left: 230px;">113
-          </div>
-
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true" (stopped)="onDragEnd($event)"
-               class="badge badge-primary draggable-location position-absolute" style="top: 100px; left: 830px;">175
-          </div>
-
-          <div ngDraggable [bounds]="areaBounds" [inBounds]="true" (stopped)="onDragEnd($event)"
-               class="badge badge-primary draggable-location position-absolute" style="top: 210px; left: 130px;">106
+          <div *ngFor="let location of area.locations"
+               class="badge badge-primary draggable-location position-absolute"
+               ngDraggable
+               [bounds]="areaBounds"
+               [inBounds]="true"
+               (stopped)="onDragEnd(location, $event)"
+               [style.top]="location.yCoordinate + '%'"
+               [style.left]="location.xCoordinate + '%'">
+            {{location.number}}
           </div>
         </div>
 

@@ -1,6 +1,8 @@
 @import "../../../../../styles/fit-variables";
 
 .area-img {
+  user-select: none;
+  -webkit-user-drag: none;
   border: solid 2px $primary-color;
 }
 
