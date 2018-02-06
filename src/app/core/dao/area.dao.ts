@@ -22,4 +22,14 @@ export class AreaDAO {
     ]
   }
 
+  public updateArea(area: Area): Promise<void> {
+    return this.http.put<void>(this.appConfig.serverURL + '/area', area)
+      .toPromise();
+  }
+
+  public createArea(area: Area): Promise<Area> {
+    return this.http.post<Area>(this.appConfig.serverURL + '/area', area)
+      .toPromise();
+  }
+
 }

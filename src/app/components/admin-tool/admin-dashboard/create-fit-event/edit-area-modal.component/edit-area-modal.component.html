@@ -29,9 +29,9 @@
           </div>
         </div>
 
-        <div #areaBounds class="position-relative d-inline-block">
+        <div #areaBounds class="position-relative d-inline-block floating-effect">
           <img [src]="area?.graphicUrl"
-               class="area-img img-fluid"
+               class="area-img img-fluid blue-border"
                alt="Bild konnte nicht geladen werden">
 
           <div *ngFor="let location of area.locations"
@@ -40,23 +40,81 @@
                [bounds]="areaBounds"
                [inBounds]="true"
                (stopped)="onDragEnd(location, $event)"
+               (mousedown)="selectLocation(location)"
+               [ngClass]="{'badge-danger': location.category == 'A' && location != selectedLocation,
+                           'badge-success': location == selectedLocation}"
                [style.top]="location.yCoordinate + '%'"
                [style.left]="location.xCoordinate + '%'">
             {{location.number}}
           </div>
         </div>
 
+        <div class="d-flex flex-column">
+
+          <div class="location-detail mt-3"
+               [ngClass]="{'shown p-3 blue-border floating-effect': selectedLocation != null,
+                           'hidden': selectedLocation == null}">
+            <h4 class="text-bold" *ngIf="selectedLocation != null">Ausgewählter Platz:
+              <input type="text"
+                     class="form-control location-number-input text-center d-inline text-bold"
+                     title="locationNumber"
+                     [(ngModel)]="selectedLocation.number">
+            </h4>
+
+            <div class="d-flex">
+
+              <div class="text-bold my-auto mr-3">Kategorie:</div>
+
+              <div class="flex-1 my-auto" *ngIf="selectedLocation != null">
+                <div *ngFor="let category of ['A', 'B']"
+                     class="custom-control custom-radio custom-control-inline">
+
+                  <!--suppress HtmlFormInputWithoutLabel -->
+                  <input class="custom-control-input cursor-pointer"
+                         type="radio"
+                         [id]="'cat' + category"
+                         [value]="category"
+                         name="categoryRadio"
+                         [(ngModel)]="selectedLocation.category">
+
+                  <label class="custom-control-label badge badge-primary px-3 my-auto cursor-pointer"
+                         [ngClass]="{'badge-danger': category == 'A'}"
+                         [for]="'cat' + category">
+                    {{category}}
+                  </label>
+
+                </div>
+              </div>
+
+              <button class="btn btn-danger">
+                <i class="fa fa-times"></i>
+                Platz löschen
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn-success text-bold location-add-button mt-3 mx-auto"
+                  (click)="addNewLocation()">
+            <i class="fa fa-plus"></i>
+            Neuen Platz hinzufügen
+          </button>
+
+        </div>
+
       </div>
+
+
       <div class="modal-footer">
         <button type="button"
-                class="btn btn-secondary"
+                class="btn btn-outline-dark"
                 data-dismiss="modal">
           Verwerfen
         </button>
 
         <button type="button"
                 class="btn btn-primary"
-                data-dismiss="modal">
+                data-dismiss="modal"
+                (click)="updateArea()">
           Speichern
         </button>
 

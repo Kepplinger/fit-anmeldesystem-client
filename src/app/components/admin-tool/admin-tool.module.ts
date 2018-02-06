@@ -14,13 +14,15 @@ import { AngularDraggableModule } from 'angular2-draggable';
 import { SharedModule } from '../shared-components/shared.module';
 import { CoreModule } from '../../core/core.module';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     AdminToolRoutingModule,
     AngularDraggableModule,
-    FilePickerModule
+    FilePickerModule,
+    FormsModule
   ],
   declarations: [
     AdminToolComponent,

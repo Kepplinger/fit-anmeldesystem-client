@@ -1,4 +1,8 @@
-<fit-edit-area-modal [area]="selectedArea"></fit-edit-area-modal>
+<fit-edit-area-modal [inputArea]="selectedArea"
+                     (modalHidden)="isModalShown = false"
+                     (areaChanged)="updateArea($event)"
+                     *ngIf="isModalShown">
+</fit-edit-area-modal>
 
 <div class="small-container mt-5">
   <div class="card">
@@ -54,8 +58,7 @@
                [src]="area.graphicUrl"
                alt="Bild konnte nicht geladen werden">
           <div class="img-overlay"
-               (click)="selectArea(area)"
-               data-toggle="modal" data-target="#editAreaModal">
+               (click)="selectArea(area)">
             <i class="fa fa-pencil centered-element"></i>
           </div>
         </div>
