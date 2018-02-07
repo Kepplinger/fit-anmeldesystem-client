@@ -11,6 +11,12 @@
   font-size: 1.2em;
 }
 
+.event-save-btn {
+  @extend .floating-effect;
+  min-width: 200px;
+  font-size: 1.2em;
+}
+
 .area-container {
 
   .area-img-container {

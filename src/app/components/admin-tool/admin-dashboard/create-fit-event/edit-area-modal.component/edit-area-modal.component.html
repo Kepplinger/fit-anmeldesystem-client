@@ -46,19 +46,18 @@
             Es ist noch kein Bild ausgewählt
           </div>
 
-
-          <div *ngFor="let location of area.locations"
+          <div *ngFor="let drag of draggableLocations"
                class="badge badge-primary draggable-location position-absolute"
                ngDraggable
                [bounds]="areaBounds"
                [inBounds]="true"
-               (stopped)="onDragEnd(location, $event)"
-               (mousedown)="selectLocation(location)"
-               [ngClass]="{'badge-danger': location.category == 'A' && location != selectedLocation,
-                           'badge-success': location == selectedLocation}"
-               [style.top]="location.yCoordinate + '%'"
-               [style.left]="location.xCoordinate + '%'">
-            {{location.number}}
+               (stopped)="onDragEnd(drag.location, $event)"
+               (mousedown)="selectLocation(drag.location)"
+               [ngClass]="{'badge-danger': drag.location.category == 'A' && drag.location != selectedLocation,
+                           'badge-success': drag.location == selectedLocation}"
+               [style.top]="drag.top + '%'"
+               [style.left]="drag.left + '%'">
+            {{drag.location.number}}
           </div>
         </div>
 
@@ -100,7 +99,7 @@
               </div>
 
               <button class="btn btn-danger"
-                      (click)="removeLocaiton(selectedLocation)">
+                      (click)="removeLocation(selectedLocation)">
                 <i class="fa fa-times"></i>
                 Platz löschen
               </button>

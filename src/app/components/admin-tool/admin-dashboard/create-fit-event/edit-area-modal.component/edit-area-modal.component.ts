@@ -32,6 +32,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
 
   public area: Area;
   public selectedLocation: Location = null;
+  public draggableLocations: any[] = [];
   public pickedFile: PickedFile = new PickedFile();
 
   public constructor(private changeDetector: ChangeDetectorRef) {
@@ -45,8 +46,9 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['inputArea'] && this.inputArea != null) {
-
       this.area = AreaHelper.clone(this.inputArea);
+      this.draggableLocations = this.mapLocationsToDraggables();
+      console.log(this.draggableLocations);
 
       if (this.area.graphicUrl != null) {
         let splittedURL = this.area.graphicUrl.split('/');
@@ -57,12 +59,9 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   }
 
   public onDragEnd(location: Location, event: any) {
-    // location.xCoordinate = $(event).position().left / $(this.areaBounds.nativeElement).width();
-    // location.yCoordinate = $(event).position().top  / $(this.areaBounds.nativeElement).height();
-
-    console.log('==============================');
-    console.log($(event).position().left / $(this.areaBounds.nativeElement).width() * 100 + '%');
-    console.log($(event).position().top / $(this.areaBounds.nativeElement).height() * 100 + '%');
+    location.xCoordinate = $(event).position().left / $(this.areaBounds.nativeElement).width() * 100;
+    location.yCoordinate = $(event).position().top / $(this.areaBounds.nativeElement).height() * 100;
+    console.log(location.xCoordinate + ' | ' + location.yCoordinate);
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {
@@ -72,11 +71,11 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
       this.area.graphicUrl = file.dataURL;
       this.changeDetector.detectChanges();
     } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
+      console.error('Image too big');
     } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
+      console.error('Invalid file type');
     } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
+      console.error('Undefined file input');
     }
   }
 
@@ -88,9 +87,10 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
     let location = new Location('----', false, 'B', 50, 50);
     this.selectedLocation = location;
     this.area.locations.push(location);
+    this.draggableLocations = this.mapLocationsToDraggables();
   }
 
-  public removeLocaiton(location: Location): void {
+  public removeLocation(location: Location): void {
     ArrayUtils.deleteElement(this.area.locations, location);
     if (this.selectedLocation === location) {
       this.selectedLocation = null;
@@ -98,8 +98,17 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   }
 
   public updateArea(): void {
-    console.log(this.area.designation);
     this.areaChanged.emit(this.area);
   }
 
+  private mapLocationsToDraggables(): any[] {
+    return this.area.locations.map(
+      (location: Location) => {
+        return {
+          location: location,
+          top: location.yCoordinate,
+          left: location.xCoordinate
+        }
+      });
+  }
 }

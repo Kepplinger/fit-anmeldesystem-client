@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Event } from '../../../../core/model/event';
 import { Area } from '../../../../core/model/area';
+import { EventDAO } from '../../../../core/dao/event.dao';
 
 declare let $: any;
 
@@ -16,7 +17,8 @@ export class CreateFitEventComponent implements OnInit {
 
   public isModalShown: boolean = false;
 
-  public constructor(private changeDetector: ChangeDetectorRef) {
+  public constructor(private changeDetector: ChangeDetectorRef,
+                     private eventDAO: EventDAO) {
   }
 
   public ngOnInit(): void {
@@ -33,7 +35,6 @@ export class CreateFitEventComponent implements OnInit {
 
   public selectArea(area: Area): void {
     this.isModalShown = true;
-    console.log(this.isModalShown);
     setTimeout(() => {
       $('#editAreaModal').modal('show');
     }, 0);
@@ -53,5 +54,9 @@ export class CreateFitEventComponent implements OnInit {
 
   public addNewArea(): void {
     this.event.areas.push(new Area('----'));
+  }
+
+  public async persistEvent(): Promise<void> {
+    console.log(await this.eventDAO.persistEvent(this.event));
   }
 }

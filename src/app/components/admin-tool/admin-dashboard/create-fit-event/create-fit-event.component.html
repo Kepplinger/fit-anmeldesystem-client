@@ -8,8 +8,14 @@
   <div class="card">
 
     <div class="card-header floating-effect  p-0">
-      <div class="card-header bg-primary text-light">
+      <div class="card-header bg-primary text-light d-flex">
         <h1 class="m-0 text-bold">Neuen FIT anlegen</h1>
+        <div class="flex-1"></div>
+        <button class="btn btn-success event-save-btn text-bold"
+        (click)="persistEvent()">
+          <i class="fa fa-download"></i>
+          Speichern
+        </button>
       </div>
 
       <div class="card-body d-flex">
