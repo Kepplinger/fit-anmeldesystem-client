@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Event } from '../../../../core/model/event';
 import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
+import { ToastrService } from 'ngx-toastr';
 
 declare let $: any;
 
@@ -15,9 +16,11 @@ export class CreateFitEventComponent implements OnInit {
   public event: Event = new Event();
   public selectedArea: Area = null;
 
+  public isLoading: boolean = false;
   public isModalShown: boolean = false;
 
   public constructor(private changeDetector: ChangeDetectorRef,
+                     private toastr: ToastrService,
                      private eventDAO: EventDAO) {
   }
 
@@ -57,6 +60,9 @@ export class CreateFitEventComponent implements OnInit {
   }
 
   public async persistEvent(): Promise<void> {
+    this.isLoading = true;
     console.log(await this.eventDAO.persistEvent(this.event));
+    this.isLoading = false;
+    this.toastr.info('Request finished', 'Event speichern!');
   }
 }

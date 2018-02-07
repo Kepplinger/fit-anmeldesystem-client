@@ -5,7 +5,7 @@
 </fit-edit-area-modal>
 
 <div class="small-container mt-5">
-  <div class="card">
+  <div class="card" [ngClass]="{'disabled-element': isLoading}">
 
     <div class="card-header floating-effect  p-0">
       <div class="card-header bg-primary text-light d-flex">
@@ -72,6 +72,9 @@
                (click)="selectArea(area)">
             <i class="fa fa-pencil centered-element"></i>
           </div>
+        </div>
+        <div class="mb-auto">
+          <i class="fa fa-times text-danger icon-button"></i>
         </div>
       </div>
 

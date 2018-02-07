@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 $fa-font-path: '~font-awesome/fonts' !default;
 @import "~bootstrap/scss/bootstrap.scss";
+@import "~ngx-toastr/toastr-bs4-alert";
 @import "app/styles/fit-global-styles";
 @import "./app/styles/fit-variables";
 @import "./app/styles/fit-boxes";

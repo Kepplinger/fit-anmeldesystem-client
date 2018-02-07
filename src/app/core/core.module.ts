@@ -12,6 +12,9 @@ import { ApplicationStateService } from './app-services/application-state-servic
 import { RouterService } from './app-services/router-service';
 import { EventDAO } from './dao/event.dao';
 import { LocationDao } from './dao/location.dao';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [

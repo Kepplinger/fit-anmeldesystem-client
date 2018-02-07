@@ -29,7 +29,7 @@ html, body {
 .icon-button {
   @extend .no-outline-button;
   color: #000;
-  opacity: .5;
+  opacity: .75;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
   padding: 0;
@@ -40,7 +40,7 @@ html, body {
 
   &:hover {
     cursor: pointer;
-    opacity: .75;
+    opacity: .9;
   }
 
   &:active {

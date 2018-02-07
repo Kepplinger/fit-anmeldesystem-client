@@ -9,14 +9,16 @@ import { AppRoutingModule } from './app.routing.module';
 import { RegistrationLockedComponent } from './components/main/registration-locked/registration-locked.component';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    CoreModule,
+    FormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    CoreModule,
     SharedModule
   ], declarations: [
     AppComponent,
