@@ -7,6 +7,7 @@ import { Location } from '../../../../../core/model/location';
 import { PickedFile } from '../../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../../libs/file-picker/file-picker-error';
 import { AreaHelper } from '../../../../../core/model/helper/area-helper';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
 
 declare let $: any;
 
@@ -45,11 +46,13 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['inputArea'] && this.inputArea != null) {
 
-      let splittedURL = this.inputArea.graphicUrl.split('/');
-
-      this.pickedFile.dataURL = this.inputArea.graphicUrl;
-      this.pickedFile.name = splittedURL[splittedURL.length - 1];
       this.area = AreaHelper.clone(this.inputArea);
+
+      if (this.area.graphicUrl != null) {
+        let splittedURL = this.area.graphicUrl.split('/');
+        this.pickedFile.dataURL = this.area.graphicUrl;
+        this.pickedFile.name = splittedURL[splittedURL.length - 1];
+      }
     }
   }
 
@@ -87,7 +90,15 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
     this.area.locations.push(location);
   }
 
+  public removeLocaiton(location: Location): void {
+    ArrayUtils.deleteElement(this.area.locations, location);
+    if (this.selectedLocation === location) {
+      this.selectedLocation = null;
+    }
+  }
+
   public updateArea(): void {
+    console.log(this.area.designation);
     this.areaChanged.emit(this.area);
   }
 

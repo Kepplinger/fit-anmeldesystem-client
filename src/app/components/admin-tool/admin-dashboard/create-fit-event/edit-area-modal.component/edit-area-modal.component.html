@@ -9,18 +9,24 @@
       </div>
       <div class="modal-body" *ngIf="area != null">
 
-        <h2 class="text-bold">{{area?.designation}}</h2>
+        <div class="form-row row mb-2">
+          <label for="areaDesigantion" class="col-form-label col-2">Bezeichnung:</label>
+          <input type="text"
+                 class="form-control col-10 px-2"
+                 id="areaDesigantion"
+                 [(ngModel)]="area.designation">
+        </div>
 
-        <div class="form-group d-flex">
-          <label for="areaImg" class="my-auto mr-2">Hintergrundbild:</label>
-          <div class="input-group"
+        <div class="form-group form-row row">
+          <label for="areaImg" class="col-form-label col-2">Hintergrundbild:</label>
+          <div class="input-group col-10 px-0"
                fitFilePicker
                [accept]="'image/*'"
                (filePick)="filePicked($event)">
             <input class="form-control"
                    id="areaImg"
                    type="text"
-                   [value]="pickedFile?.name"
+                   [value]="pickedFile.name != null ? pickedFile.name : 'Bitte wählen Sie ein Bild aus'"
                    placeholder="Hintergrundbild auswählen..."
                    disabled>
             <div class="input-group-append">
@@ -29,10 +35,17 @@
           </div>
         </div>
 
-        <div #areaBounds class="position-relative d-inline-block floating-effect">
+        <div #areaBounds class="position-relative d-inline-block floating-effect w-100">
           <img [src]="area?.graphicUrl"
+               *ngIf="area.graphicUrl != null"
                class="area-img img-fluid blue-border"
                alt="Bild konnte nicht geladen werden">
+
+          <div *ngIf="area.graphicUrl == null"
+               class="area-img-placeholder blue-border text-center pt-3">
+            Es ist noch kein Bild ausgewählt
+          </div>
+
 
           <div *ngFor="let location of area.locations"
                class="badge badge-primary draggable-location position-absolute"
@@ -86,7 +99,8 @@
                 </div>
               </div>
 
-              <button class="btn btn-danger">
+              <button class="btn btn-danger"
+                      (click)="removeLocaiton(selectedLocation)">
                 <i class="fa fa-times"></i>
                 Platz löschen
               </button>

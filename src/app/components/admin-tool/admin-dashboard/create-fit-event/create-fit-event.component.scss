@@ -14,14 +14,14 @@
 .area-container {
 
   .area-img-container {
-    width: 200px;
+    width: 220px;
     position: relative;
+    border: solid 2px $primary-color;
 
     .area-img {
       @extend .img-keep-ratio;
       @extend .floating-effect;
       max-width: 100%;
-      border: solid 2px $primary-color;
       border-radius: 0.25rem;
     }
 

@@ -105,7 +105,7 @@ export class FitRegistrationComponent implements OnInit {
 
   private getBookingFromForm(): Booking {
     return new Booking(
-      new Event(moment(), moment(), moment(), false, 1),
+      new Event(moment(), moment(), moment(), [], false, 1),
       new Package('', 200, 1, 1),
       this.fitFormGroup.value.packagesAndLocation.location,
       this.getCompanyFromForm(),
