@@ -17,6 +17,7 @@ import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-val
 import { AppConfig } from '../../core/app-config/app-config.service';
 import { ArrayUtils } from '../../core/utils/array-utils';
 import { FolderInfo } from '../../core/model/folder-info';
+import { EventDAO } from '../../core/dao/event.dao';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -30,9 +31,11 @@ export class FitRegistrationComponent implements OnInit {
 
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
+  public event: Event;
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
+                     private eventDAO: EventDAO,
                      private appConfig: AppConfig,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
@@ -86,6 +89,7 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public ngOnInit() {
+    // this.event = this.eventDAO.
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
@@ -166,7 +170,7 @@ export class FitRegistrationComponent implements OnInit {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
-      'M',
+      this.fitFormGroup.value.contactAndRemarks.gender,
       this.fitFormGroup.value.contactAndRemarks.email,
       this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );

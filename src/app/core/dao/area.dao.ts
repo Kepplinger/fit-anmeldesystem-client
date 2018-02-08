@@ -10,16 +10,9 @@ export class AreaDAO {
                      private appConfig: AppConfig) {
   }
 
-  public fetchAreasFromEvent(eventId: number): Area[] {
-    // return this.http.get<Area[]>(this.appConfig.serverURL + '/area/' + eventId)
-    //   .toPromise();
-
-    return [
-      new Area('Untergeschoss', '../../../../../../assets/og1.png', 1),
-      new Area('Erdgeschoss', '../../../../../../assets/eg.png', 2),
-      new Area('1. Stock', '../../../../../../assets/og1.png', 3),
-      new Area('2. Stock', '../../../../../../assets/og2.png', 4)
-    ]
+  public fetchAreasFromEvent(eventId: number): Promise<Area[]> {
+    return this.http.get<Area[]>(this.appConfig.serverURL + '/area/' + eventId)
+      .toPromise();
   }
 
   public updateArea(area: Area): Promise<void> {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RegistrationDao } from '../../../core/dao/registration.dao';
 
 @Component({
   selector: 'fit-code-lost',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./code-lost.component.scss']
 })
 export class CodeLostComponent {
+
+  public companyMail: string = '';
+
+  public constructor(private registrationDAO: RegistrationDao) {
+  }
 }
