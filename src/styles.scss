@@ -1,9 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 $fa-font-path: '~font-awesome/fonts' !default;
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~font-awesome/css/font-awesome.css";
-@import "~froala-editor/css/froala_editor.pkgd.min.css";
-@import "~froala-editor/css/froala_editor.min.css";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~ngx-toastr/toastr";
 @import "app/styles/fit-global-styles";
 @import "./app/styles/fit-variables";
 @import "./app/styles/fit-boxes";

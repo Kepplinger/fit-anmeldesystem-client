@@ -79,7 +79,6 @@ export class FilePickerDirective implements OnInit {
 
       reader.onload = (loaded: ProgressEvent) => {
         const fileReader = loaded.target as FileReader;
-        console.log(file);
         const pickedFile = new PickedFile(file.lastModifiedDate, file.name, file.size, file.type, fileReader.result);
 
         this.filePick.emit(pickedFile);

@@ -19,13 +19,20 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "fit",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+        "../node_modules/froala-editor/css/froala_editor.min.css",
+        "../node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/popper.js/dist/umd/popper.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+        "../node_modules/moment/min/moment.min.js",
+        "../node_modules/moment/locale/de-at.js",
+        "../node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

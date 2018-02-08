@@ -30,10 +30,8 @@ export class DetailedDataComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.branches = await this.branchDAO.getBranches();
+    this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
-
-
   }
 
   public branchChanged(branch: Branch, event: any): void {

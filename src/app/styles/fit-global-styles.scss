@@ -6,6 +6,48 @@ html, body {
   height: 100%;
 }
 
+.no-outline-button {
+  cursor: pointer;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.disabled-element {
+  opacity: .6;
+  pointer-events: none;
+  user-select: none;
+}
+
+.icon-button {
+  @extend .no-outline-button;
+  color: #000;
+  opacity: .75;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+    opacity: .9;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+}
+
 .img-keep-ratio {
   object-fit: contain;
 }
@@ -19,7 +61,14 @@ html, body {
 }
 
 .tiny-container {
-  max-width: 450px;
+  max-width: 400px;
+  width: 100%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.smaller-container {
+  max-width: 600px;
   width: 100%;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -36,20 +85,6 @@ html, body {
   cursor: pointer;
 }
 
-.no-outline-button {
-  cursor: pointer;
-
-  &:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  &:active {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
-
 .border-top {
   border-top: $main-border;
 }
@@ -63,4 +98,64 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fa-1-3x {
+  font-size: 1.3rem;
+}
+
+.fa-1-5x {
+  font-size: 1.5rem;
+}
+
+.floating-effect {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
+  0 6px 10px 0 rgba(0, 0, 0, .14),
+  0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.floating-effect-dark {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .4),
+  0 6px 10px 0 rgba(0, 0, 0, .28),
+  0 1px 18px 0 rgba(0, 0, 0, .24);
+}
+
+.modal-xl {
+  width: auto;
+  max-width: 920px;
+}
+
+.text-larger {
+  font-size: 1.3em;
+}
+
+.text-large {
+  font-size: 1.2em;
+}
+
+.text-smaller {
+  font-size: 0.8em;
+}
+
+.mb-0-5 {
+  margin-bottom: 0.1rem;
+}
+
+.flex-2-5 {
+  flex: 2.5;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.input-group-append {
+  .btn {
+    border-bottom-right-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+  }
 }

@@ -46,25 +46,23 @@
       </div>
     </div>
 
-
     <!--location and zip-->
     <div class="form-group row">
       <label for="city" class="col-md-3 col-form-label"></label>
       <div class="col-md-9 d-flex">
 
-        <input class="form-control flex-2-5 mr-3"
+        <input class="form-control flex-1 mr-3"
+               formControlName="zipCode"
+               id="zipCode"
+               placeholder="Postleitzahl">
+
+        <input class="form-control flex-2-5"
                formControlName="city"
                id="city"
                placeholder="Ort">
 
-        <input class="form-control flex-1"
-               formControlName="zipCode"
-               id="zipCode"
-               placeholder="Postleitzahl">
       </div>
     </div>
-
-
 
     <!--phoneNumber-->
     <div class="form-group row">
@@ -80,14 +78,17 @@
 
     <!--email and web-->
     <div class="form-group row">
-      <label for="email" class="col-md-3 col-form-label">Email:</label>
+      <label for="email" class="col-md-3 col-form-label">
+        Email:
+        <fit-hint-icon
+          [message]="'Diese Email wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'"></fit-hint-icon>
+      </label>
       <div class="col-md-9 d-flex">
-        <input class="form-control flex-1 mr-2"
+        <input class="form-control flex-1"
                type="email"
                formControlName="email"
                id="email"
                placeholder="Email">
-        <fit-hint-icon class=" mr-1 mt-2" [message]="'Diese Email wird für den Fit Folder verwendert.'" ></fit-hint-icon>
       </div>
     </div>
 
@@ -117,9 +118,9 @@
                [value]="logo?.name"
                placeholder="Logo auswählen..."
                disabled>
-        <span class="input-group-btn">
-        <button class="btn btn-primary" type="button">Druchsuchen</button>
-      </span>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">Druchsuchen</button>
+        </div>
       </div>
     </div>
 

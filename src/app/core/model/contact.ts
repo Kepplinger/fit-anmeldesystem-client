@@ -17,6 +17,7 @@ export class Contact {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.gender = gender;
     this.email = email;
     this.phoneNumber = phoneNumber;
   }

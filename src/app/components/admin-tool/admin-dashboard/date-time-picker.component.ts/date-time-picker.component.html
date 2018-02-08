@@ -1,0 +1,23 @@
+<div class="form-group">
+  <div #dateTimePicker
+       [id]="'dateTimePicker' + uniqueId"
+       class="input-group date"
+       data-target-input="nearest">
+
+    <input type="text"
+           class="form-control datetimepicker-input"
+           title="dateTime"
+           [placeholder]="placeholder"
+           [attr.data-target]="'#dateTimePicker' + uniqueId"
+           data-toggle="datetimepicker"/>
+
+    <div class="input-group-append">
+      <div class="input-group-text date-time-picker-btn"
+           [attr.data-target]="'#dateTimePicker' + uniqueId"
+           data-toggle="datetimepicker">
+        <i class="fa fa-calendar"></i>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,7 +1,7 @@
-<div>
+<div class="container p-3">
   <h2 class="text-bold">Anmeldung zum Firmeninformationstag</h2>
-  <!-- TODO Obligatorischer Beschreibungstext? -->
 
+  <!-- TODO Obligatorischer Beschreibungstext? -->
   <fit-registration-locked *ngIf="!registrationAllowed"></fit-registration-locked>
 
   <div *ngIf="registrationAllowed">
@@ -21,10 +21,14 @@
 
           <label class="d-flex text-bold" for="codeInput">
             Code Eingabe:
-            <a class="ml-auto" href="#">Code vergessen?</a>
+            <a class="ml-auto"
+               [routerLink]="['/fit/code-vergessen']">Code vergessen?</a>
           </label>
 
-          <input type="text" class="form-control" id="codeInput" placeholder="8-stelliger Code">
+          <input type="text"
+                 class="form-control"
+                 id="codeInput"
+                 placeholder="12-stelliger Code">
         </div>
 
         <button class="btn btn-lg btn-block btn-primary"
@@ -35,14 +39,13 @@
 
       <h3>Sie haben keinen Code?</h3>
       <div>
-        <button class="btn btn-lg btn-block btn-outline-secondary"
+        <button class="btn btn-lg btn-block btn-dark"
                 [routerLink]="['/fit/code-beantragen']">
           Neuen Code beantragen
         </button>
       </div>
 
     </div>
-
   </div>
 
 </div>

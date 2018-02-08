@@ -8,13 +8,14 @@ import { Booking } from '../../core/model/booking';
 import { Company } from '../../core/model/company';
 import { Address } from '../../core/model/address';
 import { Contact } from '../../core/model/contact';
-import { Location } from '../../core/model/location';
 import { Presentation } from '../../core/model/presentation';
 import { Event } from '../../core/model/event';
-import { Area } from '../../core/model/area';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import * as moment from 'moment';
+import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
+import { AppConfig } from '../../core/app-config/app-config.service';
+import { ArrayUtils } from '../../core/utils/array-utils';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -31,6 +32,7 @@ export class FitRegistrationComponent implements OnInit {
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
+                     private appConfig: AppConfig,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
 
@@ -71,6 +73,7 @@ export class FitRegistrationComponent implements OnInit {
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
+        gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
         firstName: [''],
         lastName: [''],
         email: [''],
@@ -107,9 +110,9 @@ export class FitRegistrationComponent implements OnInit {
 
   private getBookingFromForm(): Booking {
     return new Booking(
-      new Event(moment(), moment(), moment(), false, 1),
+      new Event(moment(), moment(), moment(), [], false, 1),
       new Package('', 200, 1, 1),
-      this.getLocationFromForm(),
+      this.fitFormGroup.value.packagesAndLocation.location,
       this.getCompanyFromForm(),
       this.getPresentationFromForm(),
       this.fitFormGroup.value.fitAppearance.representatives,
@@ -133,8 +136,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      // this.fitFormGroup.value.generalData.logoUrl,
-      'hallo Andi \\(◠‿◠)',
+      this.fitFormGroup.value.generalData.logo,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -156,13 +158,13 @@ export class FitRegistrationComponent implements OnInit {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
+      'M',
       this.fitFormGroup.value.contactAndRemarks.email,
       this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );
   }
 
   private getPresentationFromForm(): Presentation {
-
     let fitPackage: Package = this.fitFormGroup.value.packagesAndLocation.fitPackage;
 
     if (fitPackage != null && fitPackage.discriminator === FitPackage.LecturePack) {
@@ -177,15 +179,4 @@ export class FitRegistrationComponent implements OnInit {
       return null;
     }
   }
-
-  private getLocationFromForm(): Location {
-    return new Location(
-      0,
-      new Area('', '', 1, 1),
-      'A',
-      100,
-      100
-    );
-  }
-
 }

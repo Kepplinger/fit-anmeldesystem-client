@@ -1,24 +1,22 @@
-import { Area } from './area';
-
 export class Location {
   public id: number;
   public timestamp: string;
 
-  public number: number;
+  public number: string;
   public category: string;
-  public area: Area;
+  public isOccupied: boolean;
   public xCoordinate: number;
   public yCoordinate: number;
 
-  public constructor(number?: number,
-                     area?: Area,
+  public constructor(number?: string,
+                     isOccupied?: boolean,
                      category?: string,
                      xCoordinate?: number,
                      yCoordinate?: number,
                      id?: number) {
     this.id = id;
+    this.isOccupied = isOccupied;
     this.number = number;
-    this.area = area;
     this.category = category;
     this.xCoordinate = xCoordinate;
     this.yCoordinate = yCoordinate;
