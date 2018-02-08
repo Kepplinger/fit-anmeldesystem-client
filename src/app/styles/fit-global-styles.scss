@@ -2,8 +2,13 @@
 @import "./fit-tag-input-theme";
 @import "./fit-animations";
 
-html, body {
+html {
   height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .no-outline-button {

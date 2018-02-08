@@ -15,7 +15,7 @@ import { LocationDao } from './dao/location.dao';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-import { RegistrationDao } from './dao/registration.dao';
+import { AuthenticationDao } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { CompanyDAO } from './dao/company.dao';
     PackageDAO,
     CompanyDAO,
     LocationDao,
-    RegistrationDao,
+    AuthenticationDao,
     AreaDAO,
     EventDAO,
     AppConfig,

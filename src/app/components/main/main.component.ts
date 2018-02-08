@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationDao } from '../../core/dao/authentication.dao';
 
 @Component({
   selector: 'fit-main',
@@ -9,10 +10,13 @@ export class MainComponent implements OnInit {
 
   public registrationAllowed: boolean = true;
 
-  public constructor() {
+  public constructor(private authenticationDAO: AuthenticationDao) {
   }
 
   public ngOnInit() {
   }
 
+  public loginToBooking(): void {
+    // this.authenticationDAO.loginBooking('abc');
+  }
 }

@@ -20,8 +20,8 @@ export class BookingDAO {
 
     let json: any = booking;
 
-    json.company.establishmentsAut = this.concatWithDelimiter(json.company.establishmentsAut, ';');
-    json.company.establishmentsInt = this.concatWithDelimiter(json.company.establishmentsInt, ';');
+    json.company.folderInfo.establishmentsAut = this.concatWithDelimiter(json.company.folderInfo.establishmentsAut, ';');
+    json.company.folderInfo.establishmentsInt = this.concatWithDelimiter(json.company.folderInfo.establishmentsInt, ';');
 
     await this.http.post<void>(this.appConfig.serverURL + '/booking', booking)
       .toPromise();
