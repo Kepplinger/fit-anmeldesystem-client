@@ -159,3 +159,17 @@ html, body {
     border-top-right-radius: .25rem !important;
   }
 }
+
+.valid-message {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.8em;
+  color: $success;
+}
+
+.invalid-message {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: $danger;
+}

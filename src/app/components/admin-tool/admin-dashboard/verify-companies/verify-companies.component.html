@@ -1,14 +1,24 @@
 <div class="m-5">
-  <h1>Anmeldungen</h1>
+  <h1>Nicht bestätigte Firmen</h1>
 
   <table class="table">
 
     <tr>
       <th>Firmenname</th>
+      <th>Straße</th>
+      <th>Ort</th>
+      <th>Kontaktperson</th>
+      <th>Email</th>
+      <th>Telefon</th>
     </tr>
 
     <tr *ngFor="let company of companies">
       <td>{{company.name}}</td>
+      <td>{{company.address.street + ' ' + company.address.streetNumber}}</td>
+      <td>{{company.address.zipCode + ' ' + company.address.city}}</td>
+      <td>{{company.contact.firstName + ' ' + company.contact.lastName}}</td>
+      <td>{{company.contact.email}}</td>
+      <td>{{company.contact.phoneNumber}}</td>
     </tr>
 
   </table>
