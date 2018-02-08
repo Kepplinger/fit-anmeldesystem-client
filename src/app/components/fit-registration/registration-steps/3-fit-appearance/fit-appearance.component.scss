@@ -15,3 +15,13 @@ table {
     opacity: 0.5;
   }
 }
+.error {
+  border-color:red;
+  color: red;
+}
+.error-msg {
+  display: block;
+  font-size: 75%;
+  bottom: -2em;
+  color: red;
+}

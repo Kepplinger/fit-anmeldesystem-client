@@ -43,7 +43,7 @@ export class FitRegistrationComponent implements OnInit {
         streetNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
         city: ['', Validators.required],
-        addressAdditions: [''],
+        addressAdditions: ['',Validators.required],
         phoneNumber: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],
@@ -62,7 +62,7 @@ export class FitRegistrationComponent implements OnInit {
       }),
       fitAppearance: fb.group({
         representatives: this.fb.array([]),
-        additionalInfo: [''],
+        additionalInfo: ['',Validators.required],
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
@@ -74,12 +74,12 @@ export class FitRegistrationComponent implements OnInit {
       }),
       contactAndRemarks: fb.group({
         gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
-        firstName: [''],
-        lastName: [''],
-        email: [''],
-        phoneNumber: [''],
+        firstName: ['',Validators.required],
+        lastName: ['',Validators.required],
+        email: ['',Validators.required],
+        phoneNumber: ['',Validators.required],
         remarks: [''],
-        termsAccepted: [false]
+        termsAccepted: [false,Validators.requiredTrue]
       })
     });
   }
