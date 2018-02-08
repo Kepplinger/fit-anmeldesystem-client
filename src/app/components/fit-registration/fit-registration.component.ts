@@ -13,6 +13,9 @@ import { Event } from '../../core/model/event';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import * as moment from 'moment';
+import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
+import { AppConfig } from '../../core/app-config/app-config.service';
+import { ArrayUtils } from '../../core/utils/array-utils';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -29,6 +32,7 @@ export class FitRegistrationComponent implements OnInit {
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
+                     private appConfig: AppConfig,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
 
@@ -69,6 +73,7 @@ export class FitRegistrationComponent implements OnInit {
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
+        gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
         firstName: [''],
         lastName: [''],
         email: [''],

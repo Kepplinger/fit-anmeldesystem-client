@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AppConfig } from '../../../../core/app-config/app-config.service';
+import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
 
 @Component({
   selector: 'fit-contact-and-remarks',
@@ -14,10 +16,17 @@ export class ContactAndRemarksComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
-  public constructor() {
+  public genders: DisplayedValue[];
+
+  public constructor(private appConfig: AppConfig) {
+    this.genders = appConfig.genders;
   }
 
   public ngOnInit() {
+  }
+
+  public isEmpty(formControlName: string): boolean {
+    return this.stepFormGroup.controls[formControlName].value == null;
   }
 
 }

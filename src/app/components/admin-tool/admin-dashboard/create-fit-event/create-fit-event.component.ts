@@ -3,6 +3,8 @@ import { Event } from '../../../../core/model/event';
 import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '../../../../core/model/location';
+import { ArrayUtils } from '../../../../core/utils/array-utils';
 
 declare let $: any;
 
@@ -57,6 +59,13 @@ export class CreateFitEventComponent implements OnInit {
 
   public addNewArea(): void {
     this.event.areas.push(new Area('----'));
+  }
+
+  public removeArea(area: Area): void {
+    ArrayUtils.deleteElement(this.event.areas, area);
+    if (this.selectedArea === area) {
+      this.selectedArea = null;
+    }
   }
 
   public async persistEvent(): Promise<void> {
