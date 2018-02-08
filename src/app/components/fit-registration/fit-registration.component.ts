@@ -88,8 +88,8 @@ export class FitRegistrationComponent implements OnInit {
     });
   }
 
-  public ngOnInit() {
-    // this.event = this.eventDAO.
+  public async ngOnInit(): Promise<void> {
+    this.event = await this.eventDAO.getCurrentEvent();
   }
 
   public setCurrentPage(step: FitRegistrationStep) {

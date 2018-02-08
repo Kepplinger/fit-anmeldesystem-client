@@ -16,6 +16,11 @@ export class CompanyDAO {
       .toPromise();
   }
 
+  public async fetchPendingCompanies(): Promise<Company[]> {
+    return this.http.get<Company[]>(this.appConfig.serverURL + '/company/pending')
+      .toPromise();
+  }
+
   public async persistCompany(company: Company): Promise<Company> {
     return this.http.post<Company>(this.appConfig.serverURL + '/company', company)
       .toPromise();

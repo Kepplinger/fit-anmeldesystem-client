@@ -20,7 +20,7 @@ export class EventDAO {
       .toPromise();
   }
 
-  public async getCurrentEvent(even: Event): Promise<Event> {
+  public async getCurrentEvent(): Promise<Event> {
     return this.http.get<Event>(this.appConfig.serverURL + '/event/current')
       .toPromise();
   }

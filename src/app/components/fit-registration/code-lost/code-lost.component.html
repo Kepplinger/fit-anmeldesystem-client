@@ -1,15 +1,34 @@
 <div class="tiny-container mt-5">
 
-  <div class="my-3">
-    <input type="text"
-           placeholder="E-Mail"
-           title="email"
-           [(ngModel)]="companyMail"
-           class="form-control">
+  <h2 class="text-bold">Code zurücksetzten</h2>
+  <p>Geben Sie in das untere Textfeld Ihre registrierte E-Mail Adresse ein, und wir schicken Ihnen dann den neuen Code
+    per Mail.</p>
+
+  <div class="mx-5">
+    <div class="my-3 position-relative">
+      <input type="text"
+             placeholder="E-Mail"
+             title="email"
+             [ngClass]="{'is-valid': isExisting && !isLoading,
+                         'is-invalid': !isExisting && !isLoading}"
+             (keydown)="onEmailChange()"
+             [(ngModel)]="companyMail"
+             class="form-control">
+
+      <div class="position-absolute input-loading-icon">
+        <i *ngIf="isLoading"
+           class="fa fa-spin fa-spinner fa-1-3x"></i>
+        <i *ngIf="!isLoading && isExisting"
+           class="fa fa-check fa-1-3x text-success"></i>
+        <i *ngIf="!isLoading && !isExisting"
+           class="fa fa-times fa-1-3x text-danger"></i>
+      </div>
+    </div>
+
+    <button class="btn btn-primary w-100 text-bold"
+            [disabled]="!isExisting"
+            (click)="sendMail()">
+      Neuen Code schicken lassen
+    </button>
   </div>
-
-  <button class="btn btn-primary w-100 text-bold">
-    Neuen Code schicken lassen
-  </button>
-
 </div>

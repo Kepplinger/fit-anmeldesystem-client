@@ -8,14 +8,14 @@ export class Company {
 
   public address: Address;
   public contact: Contact;
-  public fitInfo: FolderInfo;
+  public folderInfo: FolderInfo;
 
   public name: string;
   public isPending: boolean;
 
   public constructor(address?: Address,
                      contact?: Contact,
-                     fitInfo?: FolderInfo,
+                     folderInfo?: FolderInfo,
                      name?: string,
                      isPending?: boolean,
                      id?: number,
@@ -24,7 +24,7 @@ export class Company {
     this.timestamp = timestamp;
     this.address = address;
     this.contact = contact;
-    this.fitInfo = fitInfo;
+    this.folderInfo = folderInfo;
     this.name = name;
     this.isPending = isPending;
   }

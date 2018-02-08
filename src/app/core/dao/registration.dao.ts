@@ -10,7 +10,13 @@ export class RegistrationDao {
   }
 
   public async verifyCompanyMail(companyMail: string): Promise<boolean> {
-    return this.http.post<boolean>(this.appConfig.serverURL + '/registration', companyMail)
+    return this.http.post<any>(this.appConfig.serverURL + '/registration', {email: companyMail})
+      .map((data: any) => data.existing)
+      .toPromise();
+  }
+
+  public async sendMail(companyMail: string): Promise<void> {
+    return this.http.post<void>(this.appConfig.serverURL + '/registration/mail/code', {email: companyMail})
       .toPromise();
   }
 }
