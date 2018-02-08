@@ -10,6 +10,32 @@
 
   <form [formGroup]="stepFormGroup">
 
+    <!--gender-->
+    <div class="form-row row mb-3">
+      <div class="col-md-3">
+        Geschlecht:
+      </div>
+
+      <div class="col-md-9 px-3">
+        <div *ngFor="let gender of genders"
+             class="custom-control custom-radio custom-control-inline">
+          <!--suppress HtmlFormInputWithoutLabel -->
+          <input class="custom-control-input cursor-pointer"
+                 type="radio"
+                 [id]="'cat' + gender.value"
+                 [value]="gender.value"
+                 formControlName="gender">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 [for]="'cat' + gender.value">
+            {{gender.display}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <!--first name-->
     <div class="form-group row">
       <label for="firstName" class="col-md-3 col-form-label">Vorname:</label>
       <div class="col-md-9">
@@ -20,6 +46,7 @@
       </div>
     </div>
 
+    <!--last name-->
     <div class="form-group row">
       <label for="lastName" class="col-md-3 col-form-label">Nachname:</label>
       <div class="col-md-9">
@@ -30,6 +57,7 @@
       </div>
     </div>
 
+    <!--email-->
     <div class="form-group row">
       <label for="email" class="col-md-3 col-form-label">Email:</label>
       <div class="col-md-9">
@@ -40,6 +68,7 @@
       </div>
     </div>
 
+    <!--phone-->
     <div class="form-group row">
       <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
       <div class="col-md-9">

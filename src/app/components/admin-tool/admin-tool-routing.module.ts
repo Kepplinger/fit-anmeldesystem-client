@@ -41,6 +41,16 @@ export const routes: Routes = [
             outlet: 'adminOutlet'
           }
         ]
+      },
+      {
+        path: 'firmen-bestaetigen',
+        children: [
+          {
+            path: '',
+            component: CreateFitEventComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
       }
     ]
   },

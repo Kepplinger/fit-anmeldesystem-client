@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainComponent } from './components/main/main.component';
 
-const routes2: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: MainComponent,
@@ -22,7 +22,7 @@ const routes2: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes2)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

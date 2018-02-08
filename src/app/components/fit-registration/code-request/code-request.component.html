@@ -1,3 +1,126 @@
-<p>
-  fit-code-request works!
-</p>
+<div class="smaller-container mt-5">
+
+  <form [formGroup]="formGroup">
+
+    <h4>Firma</h4>
+    <!--company name-->
+    <div class="form-group row">
+      <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               formControlName="companyName"
+               id="companyName"
+               placeholder="Firmenname">
+      </div>
+    </div>
+
+    <!--street and number-->
+    <div class="form-group row">
+      <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
+      <div class="col-md-9 d-flex">
+
+        <input class="form-control flex-2-5 mr-3"
+               formControlName="street"
+               id="street"
+               placeholder="Straße">
+
+        <input class="form-control flex-1"
+               formControlName="streetNumber"
+               id="streetNumber"
+               placeholder="Hausnummer">
+      </div>
+    </div>
+
+    <!--location and zip-->
+    <div class="form-group row">
+      <label for="city" class="col-md-3 col-form-label"></label>
+      <div class="col-md-9 d-flex">
+
+        <input class="form-control flex-1 mr-3"
+               formControlName="zipCode"
+               id="zipCode"
+               placeholder="Postleitzahl">
+
+        <input class="form-control flex-2-5"
+               formControlName="city"
+               id="city"
+               placeholder="Ort">
+
+      </div>
+    </div>
+
+    <h4>Kontaktperson</h4>
+
+    <!--gender-->
+    <div class="form-row row mb-3">
+      <div class="col-md-3">
+        Geschlecht:
+      </div>
+
+      <div class="col-md-9 px-3">
+        <div *ngFor="let gender of genders"
+             class="custom-control custom-radio custom-control-inline">
+          <!--suppress HtmlFormInputWithoutLabel -->
+          <input class="custom-control-input cursor-pointer"
+                 type="radio"
+                 [id]="'cat' + gender.value"
+                 [value]="gender.value"
+                 formControlName="gender">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 [for]="'cat' + gender.value">
+            {{gender.display}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!--first name-->
+    <div class="form-group row">
+      <label for="firstName" class="col-md-3 col-form-label">Vorname:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="firstName"
+               id="firstName">
+      </div>
+    </div>
+
+    <!--last name-->
+    <div class="form-group row">
+      <label for="lastName" class="col-md-3 col-form-label">Nachname:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="lastName"
+               id="lastName">
+      </div>
+    </div>
+
+    <!--email-->
+    <div class="form-group row">
+      <label for="email" class="col-md-3 col-form-label">Email:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="email"
+               id="email">
+      </div>
+    </div>
+
+    <!--phone-->
+    <div class="form-group row">
+      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="phoneNumber"
+               id="phoneNumber">
+      </div>
+    </div>
+
+    <button class="btn btn-block btn-lg text-bold btn-primary">Abschicken</button>
+  </form>
+
+
+</div>

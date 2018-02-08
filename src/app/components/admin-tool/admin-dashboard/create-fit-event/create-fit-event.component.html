@@ -1,9 +1,21 @@
+<fit-edit-area-modal [inputArea]="selectedArea"
+                     (modalHidden)="isModalShown = false"
+                     (areaChanged)="updateArea($event)"
+                     *ngIf="isModalShown">
+</fit-edit-area-modal>
+
 <div class="small-container mt-5">
-  <div class="card">
+  <div class="card" [ngClass]="{'disabled-element': isLoading}">
 
     <div class="card-header floating-effect  p-0">
-      <div class="card-header bg-primary text-light">
+      <div class="card-header bg-primary text-light d-flex">
         <h1 class="m-0 text-bold">Neuen FIT anlegen</h1>
+        <div class="flex-1"></div>
+        <button class="btn btn-success event-save-btn text-bold"
+        (click)="persistEvent()">
+          <i class="fa fa-download"></i>
+          Speichern
+        </button>
       </div>
 
       <div class="card-body d-flex">
@@ -11,7 +23,7 @@
         <div class="mr-4">
           <span class="input-header">Der FIT findet statt am: </span>
           <fit-date-time-picker [placeholder]="'Datum des FIT'"
-                                [(date)]="event.date"
+                                [(date)]="event.eventDate"
                                 (dateChange)="onDateChange()">
           </fit-date-time-picker>
         </div>
@@ -41,23 +53,40 @@
 
       <h2 class="text-bold">Etagen</h2>
 
-      <div *ngFor="let area of areas" class="d-flex area-container border-top py-3 px-2">
+      <div *ngFor="let area of event.areas" class="d-flex area-container border-top py-3 px-2">
         <div class="my-auto">
           <div class="text-bold text-larger" title="area">{{area.designation}}</div>
           <div class="text-smaller">Plätze: {{area.locations?.length}}</div>
         </div>
         <div class="flex-1"></div>
         <div class="area-img-container">
-          <img class="area-img"
+          <img *ngIf="area.graphicUrl != null"
+               class="area-img"
                [src]="area.graphicUrl"
                alt="Bild konnte nicht geladen werden">
-          <div class="img-overlay">
+          <div *ngIf="area.graphicUrl == null"
+               class="p-3 blue-border text-center">
+            Zum Bearbeiten klicken
+          </div>
+          <div class="img-overlay"
+               (click)="selectArea(area)">
             <i class="fa fa-pencil centered-element"></i>
           </div>
         </div>
+        <div class="ml-2 mb-auto">
+          <i class="fa fa-1-3x fa-times text-danger icon-button"
+             (click)="removeArea(area)"></i>
+        </div>
+      </div>
+
+      <div class="mt-2 w-100 d-flex">
+        <button class="btn btn-success text-bold mx-auto"
+                (click)="addNewArea()">
+          <i class="fa fa-plus"></i>
+          Neues Geschoss hinzufügen
+        </button>
       </div>
 
     </div>
   </div>
-
 </div>

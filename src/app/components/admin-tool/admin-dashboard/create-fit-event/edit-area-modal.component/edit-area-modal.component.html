@@ -1,0 +1,137 @@
+<div class="modal fade" id="editAreaModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-bold">Etage bearbeiten</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="area != null">
+
+        <div class="form-row row mb-2">
+          <label for="areaDesigantion" class="col-form-label col-2">Bezeichnung:</label>
+          <input type="text"
+                 class="form-control col-10 px-2"
+                 id="areaDesigantion"
+                 [(ngModel)]="area.designation">
+        </div>
+
+        <div class="form-group form-row row">
+          <label for="areaImg" class="col-form-label col-2">Hintergrundbild:</label>
+          <div class="input-group col-10 px-0"
+               fitFilePicker
+               [accept]="'image/*'"
+               (filePick)="filePicked($event)">
+            <input class="form-control"
+                   id="areaImg"
+                   type="text"
+                   [value]="pickedFile.name != null ? pickedFile.name : 'Bitte wählen Sie ein Bild aus'"
+                   placeholder="Hintergrundbild auswählen..."
+                   disabled>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">Druchsuchen</button>
+            </div>
+          </div>
+        </div>
+
+        <div #areaBounds class="position-relative d-inline-block floating-effect w-100">
+          <img [src]="area?.graphicUrl"
+               *ngIf="area.graphicUrl != null"
+               class="area-img img-fluid blue-border"
+               alt="Bild konnte nicht geladen werden">
+
+          <div *ngIf="area.graphicUrl == null"
+               class="area-img-placeholder blue-border text-center pt-3">
+            Es ist noch kein Bild ausgewählt
+          </div>
+
+          <div *ngFor="let drag of draggableLocations"
+               class="badge badge-primary draggable-location position-absolute"
+               ngDraggable
+               [bounds]="areaBounds"
+               [inBounds]="true"
+               (stopped)="onDragEnd(drag.location, $event)"
+               (mousedown)="selectLocation(drag.location)"
+               [ngClass]="{'badge-danger': drag.location.category == 'A' && drag.location != selectedLocation,
+                           'badge-success': drag.location == selectedLocation}"
+               [style.top]="drag.top + '%'"
+               [style.left]="drag.left + '%'">
+            {{drag.location.number}}
+          </div>
+        </div>
+
+        <div class="d-flex flex-column">
+
+          <div class="location-detail mt-3"
+               [ngClass]="{'shown p-3 blue-border floating-effect': selectedLocation != null,
+                           'hidden': selectedLocation == null}">
+            <h4 class="text-bold" *ngIf="selectedLocation != null">Ausgewählter Platz:
+              <input type="text"
+                     class="form-control location-number-input text-center d-inline text-bold"
+                     title="locationNumber"
+                     [(ngModel)]="selectedLocation.number">
+            </h4>
+
+            <div class="d-flex">
+
+              <div class="text-bold my-auto mr-3">Kategorie:</div>
+
+              <div class="flex-1 my-auto" *ngIf="selectedLocation != null">
+                <div *ngFor="let category of ['A', 'B']"
+                     class="custom-control custom-radio custom-control-inline">
+
+                  <!--suppress HtmlFormInputWithoutLabel -->
+                  <input class="custom-control-input cursor-pointer"
+                         type="radio"
+                         [id]="'cat' + category"
+                         [value]="category"
+                         name="categoryRadio"
+                         [(ngModel)]="selectedLocation.category">
+
+                  <label class="custom-control-label badge badge-primary px-3 my-auto cursor-pointer"
+                         [ngClass]="{'badge-danger': category == 'A'}"
+                         [for]="'cat' + category">
+                    {{category}}
+                  </label>
+
+                </div>
+              </div>
+
+              <button class="btn btn-danger"
+                      (click)="removeLocation(selectedLocation)">
+                <i class="fa fa-times"></i>
+                Platz löschen
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn-success text-bold location-add-button mt-3 mx-auto"
+                  (click)="addNewLocation()">
+            <i class="fa fa-plus"></i>
+            Neuen Platz hinzufügen
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-dark"
+                data-dismiss="modal">
+          Verwerfen
+        </button>
+
+        <button type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                (click)="updateArea()">
+          Speichern
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

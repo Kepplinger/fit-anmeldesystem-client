@@ -13,6 +13,9 @@ import { Event } from '../../core/model/event';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import * as moment from 'moment';
+import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
+import { AppConfig } from '../../core/app-config/app-config.service';
+import { ArrayUtils } from '../../core/utils/array-utils';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -29,8 +32,9 @@ export class FitRegistrationComponent implements OnInit {
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
+                     private appConfig: AppConfig,
                      private fb: FormBuilder) {
-    this.currentStep = FitRegistrationStep.PackagesAndLocation;
+    this.currentStep = FitRegistrationStep.GeneralData;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -69,6 +73,7 @@ export class FitRegistrationComponent implements OnInit {
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
+        gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
         firstName: [''],
         lastName: [''],
         email: [''],
@@ -105,7 +110,7 @@ export class FitRegistrationComponent implements OnInit {
 
   private getBookingFromForm(): Booking {
     return new Booking(
-      new Event(moment(), moment(), moment(), false, 1),
+      new Event(moment(), moment(), moment(), [], false, 1),
       new Package('', 200, 1, 1),
       this.fitFormGroup.value.packagesAndLocation.location,
       this.getCompanyFromForm(),
@@ -131,7 +136,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logoUrl,
+      this.fitFormGroup.value.generalData.logo,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -153,6 +158,7 @@ export class FitRegistrationComponent implements OnInit {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
+      'M',
       this.fitFormGroup.value.contactAndRemarks.email,
       this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );

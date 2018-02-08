@@ -1,11 +1,8 @@
+@import "../../../../../styles/fit-global-styles";
+
 .card {
   border: none;
   border-radius: 0;
-}
-
-.modal-xl {
-  width: auto;
-  max-width: 920px;
 }
 
 .collapse-head {
@@ -32,7 +29,7 @@
 
 .fit-location {
   position: absolute;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   user-select: none;
   cursor: pointer;
   color: white;

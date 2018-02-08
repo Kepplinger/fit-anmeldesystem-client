@@ -4,15 +4,15 @@ export class Representative {
 
   public name: string;
   public email: string;
-  public imageUrl: string;
+  public image: string;
 
   public constructor(name?: string,
                      email?: string,
-                     imageUrl?: string,
+                     image?: string,
                      id?: number) {
     this.id = id;
     this.name = name;
     this.email = email;
-    this.imageUrl = imageUrl;
+    this.image = image;
   }
 }

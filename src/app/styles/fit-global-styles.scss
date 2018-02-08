@@ -29,7 +29,7 @@ html, body {
 .icon-button {
   @extend .no-outline-button;
   color: #000;
-  opacity: .5;
+  opacity: .75;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
   padding: 0;
@@ -40,7 +40,7 @@ html, body {
 
   &:hover {
     cursor: pointer;
-    opacity: .75;
+    opacity: .9;
   }
 
   &:active {
@@ -62,6 +62,13 @@ html, body {
 
 .tiny-container {
   max-width: 400px;
+  width: 100%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.smaller-container {
+  max-width: 600px;
   width: 100%;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -93,6 +100,10 @@ html, body {
   transform: translate(-50%, -50%);
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .fa-1-3x {
   font-size: 1.3rem;
 }
@@ -113,12 +124,17 @@ html, body {
   0 1px 18px 0 rgba(0, 0, 0, .24);
 }
 
+.modal-xl {
+  width: auto;
+  max-width: 920px;
+}
+
 .text-larger {
   font-size: 1.3em;
 }
 
 .text-large {
- font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .text-smaller {
@@ -126,7 +142,7 @@ html, body {
 }
 
 .mb-0-5 {
- margin-bottom: 0.1rem;
+  margin-bottom: 0.1rem;
 }
 
 .flex-2-5 {
@@ -135,4 +151,11 @@ html, body {
 
 .flex-1 {
   flex: 1;
+}
+
+.input-group-append {
+  .btn {
+    border-bottom-right-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+  }
 }

@@ -11,6 +11,10 @@ import { AreaDAO } from './dao/area.dao';
 import { ApplicationStateService } from './app-services/application-state-service';
 import { RouterService } from './app-services/router-service';
 import { EventDAO } from './dao/event.dao';
+import { LocationDao } from './dao/location.dao';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -23,6 +27,7 @@ import { EventDAO } from './dao/event.dao';
     BranchDAO,
     ResourceDAO,
     PackageDAO,
+    LocationDao,
     AreaDAO,
     EventDAO,
     AppConfig,

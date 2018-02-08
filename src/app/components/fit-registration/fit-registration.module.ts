@@ -20,6 +20,7 @@ import { SharedModule } from '../shared-components/shared.module';
 import {
   LocationPickerModalComponent
 } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
+import { CodeLostComponent } from './code-lost/code-lost.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {
   declarations: [
     FitRegistrationComponent,
     CodeRequestComponent,
+    CodeLostComponent,
     GeneralDataComponent,
     DetailedDataComponent,
     FitAppearanceComponent,
