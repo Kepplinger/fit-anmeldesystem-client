@@ -43,7 +43,7 @@ export class FitRegistrationComponent implements OnInit {
         streetNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
         city: ['', Validators.required],
-        addressAdditions: [''],
+        addressAdditions: ['',Validators.required],
         phoneNumber: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],

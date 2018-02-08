@@ -13,19 +13,27 @@
         <input class="form-control"
                formControlName="companyName"
                id="companyName"
-               placeholder="Firmenname">
+               placeholder="Firmenname"
+               [ngClass]="{'error': hasErrors('companyName') && isHoovered('companyName')}">
+        <div *ngIf="hasErrors('companyName') && isHoovered('companyName')" class="error-msg">
+          <div *ngIf="isRequired('companyName')">Firmenname ist required.</div>
+        </div>
       </div>
     </div>
 
     <!--address additions-->
     <div class="form-group row">
       <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
-      <div class="col-md-9 d-flex">
+      <div class="col-md-9">
         <input class="form-control flex-1"
                type="text"
                formControlName="addressAdditions"
                id="addressAdditions"
-               placeholder="Zusatz">
+               placeholder="Zusatz"
+               [ngClass]="{'error': hasErrors('addressAdditions') && isHoovered('addressAdditions')}">
+        <div *ngIf="hasErrors('addressAdditions') && isHoovered('addressAdditions')" class="error-msg">
+          <div *ngIf="isRequired('addressAdditions')">Addresse ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -37,12 +45,21 @@
         <input class="form-control flex-2-5 mr-3"
                formControlName="street"
                id="street"
-               placeholder="Straße">
+               placeholder="Straße"
+               [ngClass]="{'error': hasErrors('street') && isHoovered('street')}">
 
         <input class="form-control flex-1"
                formControlName="streetNumber"
                id="streetNumber"
-               placeholder="Hausnummer">
+               placeholder="Hausnummer"
+               [ngClass]="{'error': hasErrors('streetNumber') && isHoovered('streetNumber')}">
+
+        <div *ngIf="hasErrors('street') && isHoovered('street')" class="error-msg">
+          <div *ngIf="isRequired('street')">Straßenname ist required.</div>
+        </div>
+        <div *ngIf="hasErrors('streetNumber') && isHoovered('streetNumber')" class="error-msg">
+          <div *ngIf="isRequired('streetNumber')">Straßennummer ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -54,13 +71,21 @@
         <input class="form-control flex-1 mr-3"
                formControlName="zipCode"
                id="zipCode"
-               placeholder="Postleitzahl">
+               placeholder="Postleitzahl"
+               [ngClass]="{'error': hasErrors('zipCode') && isHoovered('zipCode')}">
 
         <input class="form-control flex-2-5"
                formControlName="city"
                id="city"
-               placeholder="Ort">
+               placeholder="Ort"
+               [ngClass]="{'error': hasErrors('city') && isHoovered('city')}">
 
+        <div *ngIf="hasErrors('zipCode') && isHoovered('zipCode')" class="error-msg">
+          <div *ngIf="isRequired('zipCode')">Postleitzahl ist required.</div>
+        </div>
+        <div *ngIf="hasErrors('city') && isHoovered('city')" class="error-msg">
+          <div *ngIf="isRequired('city')">Ort ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -72,7 +97,11 @@
                type="tel"
                formControlName="phoneNumber"
                id="phoneNumber"
-               placeholder="Telefonnummer">
+               placeholder="Telefonnummer"
+               [ngClass]="{'error': hasErrors('phoneNumber') && isHoovered('phoneNumber')}">
+        <div *ngIf="hasErrors('phoneNumber') && isHoovered('phoneNumber')" class="error-msg">
+          <div *ngIf="isRequired('phoneNumber')">Telefonnummer ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -83,23 +112,32 @@
         <fit-hint-icon
           [message]="'Diese Email wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'"></fit-hint-icon>
       </label>
-      <div class="col-md-9 d-flex">
-        <input class="form-control flex-1"
+      <div class="col-md-9">
+        <input class="form-control"
                type="email"
                formControlName="email"
                id="email"
-               placeholder="Email">
+               placeholder="Email"
+               [ngClass]="{'error': hasErrors('email') && isHoovered('email')}">
+        <div *ngIf="hasErrors('email') && isHoovered('email')" class="error-msg">
+          <div *ngIf="isRequired('email')">Email ist required.</div>
+        </div>
       </div>
+
     </div>
 
     <div class="form-group row">
       <label for="homepage" class="col-md-3 col-form-label">Homepage:</label>
-      <div class="col-md-9 d-flex">
-        <input class="form-control flex-1"
+      <div class="col-md-9 ">
+        <input class="form-control "
                type="url"
                formControlName="homepage"
                id="homepage"
-               placeholder="Homepage">
+               placeholder="Homepage"
+               [ngClass]="{'error': hasErrors('homepage') && isHoovered('homepage')}">
+        <div *ngIf="hasErrors('homepage') && isHoovered('homepage')" class="error-msg">
+          <div *ngIf="isRequired('homepage')">Homepage ist required.</div>
+        </div>
       </div>
     </div>
 

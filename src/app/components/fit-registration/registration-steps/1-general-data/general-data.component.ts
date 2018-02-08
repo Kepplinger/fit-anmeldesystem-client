@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormGroup, ValidationErrors} from '@angular/forms';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
+import {FormValidationHelper} from '../../../../core/app-helper/form-validation-helper';
 
 
 @Component({
@@ -38,6 +39,19 @@ export class GeneralDataComponent implements OnInit {
     } else if (file === FilePickerError.UndefinedInput) {
       console.log('undefined input');
     }
+  }
+
+  public isRequired(formName: string):boolean{
+    return FormValidationHelper.isRequired(formName,this.stepFormGroup);
+  }
+
+
+  public hasErrors(formName:string):ValidationErrors{
+    return FormValidationHelper.hasError(formName,this.stepFormGroup);
+  }
+
+  public isHoovered(formName:string):boolean{
+    return FormValidationHelper.isHoovered(formName,this.stepFormGroup);
   }
 
 }
