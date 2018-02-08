@@ -1,5 +1,6 @@
 import { Address } from './address';
 import { Contact } from './contact';
+import { FolderInfo } from './folder-info';
 
 export class Company {
   public id: number;
@@ -7,42 +8,24 @@ export class Company {
 
   public address: Address;
   public contact: Contact;
+  public fitInfo: FolderInfo;
+
   public name: string;
-  public branch: string;
-  public phoneNumber: string;
-  public email: string;
-  public homepage: string;
-  public logo: string;
-  public establishmentsCountInt?: number;
-  public establishmentsInt?: string[];
-  public establishmentsCountAut?: number;
-  public establishmentsAut?: string[];
+  public isPending: boolean;
 
   public constructor(address?: Address,
                      contact?: Contact,
+                     fitInfo?: FolderInfo,
                      name?: string,
-                     branch?: string,
-                     phoneNumber?: string,
-                     email?: string,
-                     homepage?: string,
-                     logo?: string,
-                     establishmentsCountInt?: number,
-                     establishmentsInt?: string[],
-                     establishmentsCountAut?: number,
-                     establishmentsAut?: string[],
-                     id?: number) {
+                     isPending?: boolean,
+                     id?: number,
+                     timestamp?: string) {
     this.id = id;
-    this.name = name;
-    this.branch = branch;
+    this.timestamp = timestamp;
     this.address = address;
     this.contact = contact;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
-    this.homepage = homepage;
-    this.logo = logo;
-    this.establishmentsCountInt = establishmentsCountInt;
-    this.establishmentsInt = establishmentsInt;
-    this.establishmentsCountAut = establishmentsCountAut;
-    this.establishmentsAut = establishmentsAut;
+    this.fitInfo = fitInfo;
+    this.name = name;
+    this.isPending = isPending;
   }
 }

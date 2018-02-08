@@ -3,6 +3,7 @@
   <form [formGroup]="formGroup">
 
     <h4>Firma</h4>
+
     <!--company name-->
     <div class="form-group row">
       <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
@@ -81,6 +82,7 @@
       <div class="col-md-9">
         <input class="form-control"
                type="text"
+               placeholder="Vorname"
                formControlName="firstName"
                id="firstName">
       </div>
@@ -92,6 +94,7 @@
       <div class="col-md-9">
         <input class="form-control"
                type="text"
+               placeholder="Nachname"
                formControlName="lastName"
                id="lastName">
       </div>
@@ -103,6 +106,7 @@
       <div class="col-md-9">
         <input class="form-control"
                type="text"
+               placeholder="E-Mail"
                formControlName="email"
                id="email">
       </div>
@@ -114,6 +118,7 @@
       <div class="col-md-9">
         <input class="form-control"
                type="text"
+               placeholder="Telefonnummer"
                formControlName="phoneNumber"
                id="phoneNumber">
       </div>
@@ -121,6 +126,4 @@
 
     <button class="btn btn-block btn-lg text-bold btn-primary">Abschicken</button>
   </form>
-
-
 </div>

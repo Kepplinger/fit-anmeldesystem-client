@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
 import { AppConfig } from '../../core/app-config/app-config.service';
 import { ArrayUtils } from '../../core/utils/array-utils';
+import { FolderInfo } from '../../core/model/folder-info';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -131,7 +132,14 @@ export class FitRegistrationComponent implements OnInit {
     return new Company(
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
+      this.getFolderInfoFromForm(),
       this.fitFormGroup.value.generalData.companyName,
+      false
+    )
+  }
+
+  private getFolderInfoFromForm(): FolderInfo {
+    return new FolderInfo(
       this.fitFormGroup.value.detailedData.branch,
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
