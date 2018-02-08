@@ -1,8 +1,9 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
+import {FormValidationHelper} from '../../../../core/app-helper/form-validation-helper';
 declare let $;
 @Component({
   selector: 'fit-detailed-data',
@@ -101,4 +102,17 @@ export class DetailedDataComponent implements OnInit {
     //toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     //toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
   };
+
+  public isRequired(formName: string):boolean{
+    return FormValidationHelper.isRequired(formName,this.stepFormGroup);
+  }
+
+
+  public hasErrors(formName:string):ValidationErrors{
+    return FormValidationHelper.hasError(formName,this.stepFormGroup);
+  }
+
+  public isHoovered(formName:string):boolean{
+    return FormValidationHelper.isHoovered(formName,this.stepFormGroup);
+  }
 }
