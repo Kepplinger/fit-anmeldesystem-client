@@ -8,15 +8,15 @@
 
     <!--company name-->
     <div class="form-group row">
-      <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
+      <label for="companyName" class="col-md-3 col-form-label">Firmenname: *</label>
       <div class="col-md-9">
         <input class="form-control"
                formControlName="companyName"
                id="companyName"
                placeholder="Firmenname"
-               [ngClass]="{'error': hasErrors('companyName') && isHoovered('companyName')}">
-        <div *ngIf="hasErrors('companyName') && isHoovered('companyName')" class="error-msg">
-          <div *ngIf="isRequired('companyName')">Firmenname ist required.</div>
+               [ngClass]="{'is-invalid': isInvalid('companyName')}">
+        <div *ngIf="isInvalid('companyName')" class="invalid-message">
+          <div *ngIf="isRequired('companyName')">Firmenname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -30,9 +30,9 @@
                formControlName="addressAdditions"
                id="addressAdditions"
                placeholder="Zusatz"
-               [ngClass]="{'error': hasErrors('addressAdditions') && isHoovered('addressAdditions')}">
-        <div *ngIf="hasErrors('addressAdditions') && isHoovered('addressAdditions')" class="error-msg">
-          <div *ngIf="isRequired('addressAdditions')">Addresse ist required.</div>
+               [ngClass]="{'is-invalid': isInvalid('addressAdditions')}">
+        <div *ngIf="isInvalid('addressAdditions')" class="invalid-message">
+          <div *ngIf="isRequired('addressAdditions')">Addresse darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -46,19 +46,19 @@
                formControlName="street"
                id="street"
                placeholder="Straße"
-               [ngClass]="{'error': hasErrors('street') && isHoovered('street')}">
+               [ngClass]="{'is-invalid': isInvalid('street')}">
 
         <input class="form-control flex-1"
                formControlName="streetNumber"
                id="streetNumber"
                placeholder="Hausnummer"
-               [ngClass]="{'error': hasErrors('streetNumber') && isHoovered('streetNumber')}">
+               [ngClass]="{'is-invalid': isInvalid('streetNumber')}">
 
-        <div *ngIf="hasErrors('street') && isHoovered('street')" class="error-msg">
-          <div *ngIf="isRequired('street')">Straßenname ist required.</div>
+        <div *ngIf="isInvalid('street')" class="invalid-message">
+          <div *ngIf="isRequired('street')">Straßenname darf nicht leer sein!</div>
         </div>
-        <div *ngIf="hasErrors('streetNumber') && isHoovered('streetNumber')" class="error-msg">
-          <div *ngIf="isRequired('streetNumber')">Straßennummer ist required.</div>
+        <div *ngIf="isInvalid('streetNumber')" class="invalid-message">
+          <div *ngIf="isRequired('streetNumber')">Straßennummer darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -72,19 +72,19 @@
                formControlName="zipCode"
                id="zipCode"
                placeholder="Postleitzahl"
-               [ngClass]="{'error': hasErrors('zipCode') && isHoovered('zipCode')}">
+               [ngClass]="{'is-invalid': isInvalid('zipCode')}">
 
         <input class="form-control flex-2-5"
                formControlName="city"
                id="city"
                placeholder="Ort"
-               [ngClass]="{'error': hasErrors('city') && isHoovered('city')}">
+               [ngClass]="{'is-invalid': isInvalid('city')}">
 
-        <div *ngIf="hasErrors('zipCode') && isHoovered('zipCode')" class="error-msg">
-          <div *ngIf="isRequired('zipCode')">Postleitzahl ist required.</div>
+        <div *ngIf="isInvalid('zipCode')" class="invalid-message">
+          <div *ngIf="isRequired('zipCode')">Postleitzahl darf nicht leer sein!</div>
         </div>
-        <div *ngIf="hasErrors('city') && isHoovered('city')" class="error-msg">
-          <div *ngIf="isRequired('city')">Ort ist required.</div>
+        <div *ngIf="isInvalid('city')" class="invalid-message">
+          <div *ngIf="isRequired('city')">Ort darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -98,9 +98,9 @@
                formControlName="phoneNumber"
                id="phoneNumber"
                placeholder="Telefonnummer"
-               [ngClass]="{'error': hasErrors('phoneNumber') && isHoovered('phoneNumber')}">
-        <div *ngIf="hasErrors('phoneNumber') && isHoovered('phoneNumber')" class="error-msg">
-          <div *ngIf="isRequired('phoneNumber')">Telefonnummer ist required.</div>
+               [ngClass]="{'is-invalid': isInvalid('phoneNumber') && isTouched('phoneNumber')}">
+        <div *ngIf="isInvalid('phoneNumber') && isTouched('phoneNumber')" class="invalid-message">
+          <div *ngIf="isRequired('phoneNumber')">Telefonnummer darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -118,9 +118,9 @@
                formControlName="email"
                id="email"
                placeholder="Email"
-               [ngClass]="{'error': hasErrors('email') && isHoovered('email')}">
-        <div *ngIf="hasErrors('email') && isHoovered('email')" class="error-msg">
-          <div *ngIf="isRequired('email')">Email ist required.</div>
+               [ngClass]="{'is-invalid': isInvalid('email') && isTouched('email')}">
+        <div *ngIf="isInvalid('email') && isTouched('email')" class="invalid-message">
+          <div *ngIf="isRequired('email')">Email darf nicht leer sein!</div>
         </div>
       </div>
 
@@ -134,13 +134,12 @@
                formControlName="homepage"
                id="homepage"
                placeholder="Homepage"
-               [ngClass]="{'error': hasErrors('homepage') && isHoovered('homepage')}">
-        <div *ngIf="hasErrors('homepage') && isHoovered('homepage')" class="error-msg">
-          <div *ngIf="isRequired('homepage')">Homepage ist required.</div>
+               [ngClass]="{'is-invalid': isInvalid('homepage') && isTouched('homepage')}">
+        <div *ngIf="isInvalid('homepage') && isTouched('homepage')" class="invalid-message">
+          <div *ngIf="isRequired('homepage')">Homepage darf nicht leer sein!</div>
         </div>
       </div>
     </div>
-
 
     <!--logo-->
     <div class="form-group row">

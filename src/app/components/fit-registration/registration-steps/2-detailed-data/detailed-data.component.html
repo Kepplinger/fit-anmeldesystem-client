@@ -2,8 +2,7 @@
   <div class="mb-4">
     <h2 class="text-bold">Details zur Firma</h2>
     <p>Diese detaillierteren Angaben zu Ihrer Firma helfen unseren Besuchern, die passenden Firmen zu finden. Bitte
-      seien
-      Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
+      seien Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
   </div>
 
   <form [formGroup]="stepFormGroup">
@@ -18,17 +17,18 @@
                formControlName="branch"
                id="branch"
                placeholder="Tätigkeitsfeld der Firma"
-               [ngClass]="{'error': hasErrors('branch') && isHoovered('branch')}">
+               [ngClass]="{'is-invalid': isInvalid('branch')}">
 
-        <div *ngIf="hasErrors('branch') && isHoovered('branch')" class="error-msg">
-          <div *ngIf="isRequired('branch')">Branche ist required.</div>
+        <div *ngIf="isInvalid('branch')" class="invalid-message">
+          <div *ngIf="isRequired('branch')">Branche darf nicht leer sein!</div>
         </div>
       </div>
 
       <div>
         <label class="my-auto">Firmenbeschreibung:</label>
         <fit-hint-icon
-          [message]="'Beschreiben Sie hier bitte Ihre Firma in etwa 15 Zeilen. Diese Beschreibung wird dann im FIT-Folder verwendet.'"></fit-hint-icon>
+          [message]="'Beschreiben Sie hier bitte Ihre Firma in etwa 15 Zeilen. Diese Beschreibung wird dann im FIT-Folder verwendet.'">
+        </fit-hint-icon>
       </div>
 
       <div class="my-2" (keypress)="storeFroala()" id="editor" [froalaEditor]="options"></div>
@@ -39,7 +39,8 @@
     <div class="mb-4">
       <h5 class="text-bold mb-3">Ihre Niederlassungen
         <fit-hint-icon
-          [message]="'Geben Sie hier bitte die Orte Ihrer Niederlassungen ein (z.B. Linz, Wien, etc.). Sollte Ihr Unternehmen sehr viele Standplätze besitzen, dann können Sie auch einfach nur die Anzahl angeben.'"></fit-hint-icon>
+          [message]="'Geben Sie hier bitte die Orte Ihrer Niederlassungen ein (z.B. Linz, Wien, etc.). Sollte Ihr Unternehmen sehr viele Standplätze besitzen, dann können Sie auch einfach nur die Anzahl angeben.'">
+        </fit-hint-icon>
       </h5>
 
       <div class="form-group ">
