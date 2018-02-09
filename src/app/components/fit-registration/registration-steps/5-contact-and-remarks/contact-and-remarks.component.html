@@ -42,7 +42,12 @@
         <input class="form-control"
                type="text"
                formControlName="firstName"
-               id="firstName">
+               id="firstName"
+               [ngClass]="{'error': hasErrors('firstName') && isHoovered('firstName')}">
+
+        <div *ngIf="hasErrors('firstName') && isHoovered('firstName')" class="error-msg">
+          <div *ngIf="isRequired('firstName')">Vorname ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -53,7 +58,12 @@
         <input class="form-control"
                type="text"
                formControlName="lastName"
-               id="lastName">
+               id="lastName"
+               [ngClass]="{'error': hasErrors('lastName') && isHoovered('lastName')}">
+
+        <div *ngIf="hasErrors('lastName') && isHoovered('lastName')" class="error-msg">
+          <div *ngIf="isRequired('lastName')">Nachname ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -64,7 +74,12 @@
         <input class="form-control"
                type="text"
                formControlName="email"
-               id="email">
+               id="email"
+               [ngClass]="{'error': hasErrors('email') && isHoovered('email')}">
+
+        <div *ngIf="hasErrors('email') && isHoovered('email')" class="error-msg">
+          <div *ngIf="isRequired('email')">Email ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -75,7 +90,12 @@
         <input class="form-control"
                type="text"
                formControlName="phoneNumber"
-               id="phoneNumber">
+               id="phoneNumber"
+               [ngClass]="{'error': hasErrors('phoneNumber') && isHoovered('phoneNumber')}">
+
+        <div *ngIf="hasErrors('phoneNumber') && isHoovered('phoneNumber')" class="error-msg">
+          <div *ngIf="isRequired('phoneNumber')">Telefonnummer ist required.</div>
+        </div>
       </div>
     </div>
 
@@ -90,15 +110,19 @@
       </div>
     </div>
 
-    <div class="checkbox">
-      <label>
+    <div class="checkbox" >
+      <label [ngClass]="{'error': hasErrors('termsAccepted') && isHoovered('termsAccepted')}">
         <input type="checkbox"
-               formControlName="termsAccepted">
-        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+               formControlName="termsAccepted"
+               >
+
+        <span class="cr"><i class="cr-icon fa fa-check" ></i></span>
         Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre
-        verwendet
-        werden dürfen
+        verwendet werden dürfen
       </label>
+      <div *ngIf="hasErrors('termsAccepted') && isHoovered('termsAccepted')" class="error-msg">
+        <div *ngIf="isRequired('termsAccepted')">Agb´s müssen akzeptiert werden.</div>
+      </div>
     </div>
   </form>
 </div>

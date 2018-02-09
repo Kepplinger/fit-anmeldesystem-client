@@ -30,3 +30,14 @@
   color: #0069d9;
 }
 
+.error {
+  border-color:red;
+  color: red;
+}
+.error-msg {
+  display: block;
+  font-size: 75%;
+  bottom: -2em;
+  color: red;
+}
+
