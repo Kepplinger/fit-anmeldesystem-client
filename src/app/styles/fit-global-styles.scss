@@ -166,15 +166,20 @@ body {
 }
 
 .valid-message {
-  width: 100%;
   margin-top: 0.25rem;
-  font-size: 0.8em;
+  font-size: 0.75em;
   color: $success;
 }
 
 .invalid-message {
-  width: 100%;
   margin-top: 0.25rem;
-  font-size: 80%;
+  font-size: 0.75em;
   color: $danger;
+}
+
+.invalid-message-container {
+  width: 100%;
+  margin-top: 1px;
+  min-height: 18px;
+  max-height: 18px;
 }

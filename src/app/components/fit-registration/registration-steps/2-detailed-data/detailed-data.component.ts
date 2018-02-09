@@ -100,12 +100,11 @@ export class DetailedDataComponent implements OnInit {
 
   public storeFroala(): void {
     let html = $('#editor').froalaEditor('html.get');
-    // console.log(html.toString());
     this.stepFormGroup.controls['description'].setValue(html.toString());
   }
 
   public isRequired(formName: string): boolean {
-    return FormValidationHelper.isRequired(formName, this.stepFormGroup);
+    return FormValidationHelper.isRequired(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {

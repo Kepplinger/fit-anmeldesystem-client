@@ -31,7 +31,7 @@ export class ContactAndRemarksComponent implements OnInit {
   }
 
   public isRequired(formName: string): boolean {
-    return FormValidationHelper.isRequired(formName, this.stepFormGroup);
+    return FormValidationHelper.isRequired(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {

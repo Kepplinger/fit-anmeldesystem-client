@@ -12,15 +12,17 @@
       <h5 class="text-bold mb-3">Allgemein</h5>
 
       <div class="form-group d-flex align-items-center">
-        <label for="branch" class="my-0 mr-3">Branche:</label>
-        <input class="form-control"
-               formControlName="branch"
-               id="branch"
-               placeholder="Tätigkeitsfeld der Firma"
-               [ngClass]="{'is-invalid': isInvalid('branch')}">
+        <label for="branch" class="my-0 mr-3">Branche:*</label>
+        <div class="w-100">
+          <input class="form-control"
+                 formControlName="branch"
+                 id="branch"
+                 placeholder="Tätigkeitsfeld der Firma"
+                 [ngClass]="{'is-invalid': isInvalid('branch')}">
 
-        <div *ngIf="isInvalid('branch')" class="invalid-message">
-          <div *ngIf="isRequired('branch')">Branche darf nicht leer sein!</div>
+          <div class="invalid-message invalid-message-container">
+            <div *ngIf="isRequired('branch')">Branche darf nicht leer sein!</div>
+          </div>
         </div>
       </div>
 

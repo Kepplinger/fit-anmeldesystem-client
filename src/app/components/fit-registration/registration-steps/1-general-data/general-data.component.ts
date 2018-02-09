@@ -10,7 +10,7 @@ import { FormValidationHelper } from '../../../../core/app-helper/form-validatio
   templateUrl: './general-data.component.html',
   styleUrls: ['./general-data.component.scss']
 })
-export class GeneralDataComponent implements OnInit {
+export class GeneralDataComponent {
 
   @Input()
   public isVisible: boolean = false;
@@ -20,12 +20,6 @@ export class GeneralDataComponent implements OnInit {
 
   public logo: PickedFile;
   public isDrag: boolean = false;
-
-  public constructor() {
-  }
-
-  public ngOnInit() {
-  }
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
@@ -41,7 +35,7 @@ export class GeneralDataComponent implements OnInit {
   }
 
   public isRequired(formName: string): boolean {
-    return FormValidationHelper.isRequired(formName, this.stepFormGroup);
+    return FormValidationHelper.isRequired(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {
