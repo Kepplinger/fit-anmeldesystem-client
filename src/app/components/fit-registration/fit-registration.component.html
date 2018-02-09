@@ -1,4 +1,4 @@
-<div class="d-table small-container">
+<div class="d-table small-container mt-2 mb-4">
   <div class="d-inline-flex mx-4">
 
     <!--step 1-->
@@ -72,7 +72,8 @@
     </fit-fit-appearance>
 
     <fit-packages-and-location [isVisible]="currentStep == Step.PackagesAndLocation"
-                               [stepFormGroup]="fitFormGroup.controls['packagesAndLocation']">
+                               [stepFormGroup]="fitFormGroup.controls['packagesAndLocation']"
+                               [event]="event">
     </fit-packages-and-location>
 
     <fit-contact-and-remarks [isVisible]="currentStep == Step.ContactAndRemarks"
@@ -105,8 +106,8 @@
     </button>
   </div>
 
-  <div style="overflow: hidden; max-width: inherit">
-    <pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>
-  </div>
+  <!--<div style="overflow: hidden; max-width: inherit">-->
+    <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
+  <!--</div>-->
 
 </div>

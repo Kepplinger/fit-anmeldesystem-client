@@ -2,8 +2,7 @@
   <div class="mb-4">
     <h2 class="text-bold">Kontakt und Anmerkungen</h2>
     <p>Bitte geben Sie hier die Daten der Kontaktperson an, mit der das FIT-Organisationsteam Sie für Rückfragen
-      erreichen
-      kann. An diese Emailadresse wird auch die Anmeldebestätigung versandt.</p>
+      erreichen kann. An diese Emailadresse wird auch die Anmeldebestätigung versandt.</p>
   </div>
 
   <h5 class="text-bold">Kontaktperson</h5>
@@ -11,7 +10,7 @@
   <form [formGroup]="stepFormGroup">
 
     <!--gender-->
-    <div class="form-row row mb-3">
+    <div class="form-row row my-3">
       <div class="col-md-3">
         Geschlecht:
       </div>
@@ -43,10 +42,10 @@
                type="text"
                formControlName="firstName"
                id="firstName"
-               [ngClass]="{'error': hasErrors('firstName') && isHoovered('firstName')}">
+               [ngClass]="{'is-invalid': isInvalid('firstName')}">
 
-        <div *ngIf="hasErrors('firstName') && isHoovered('firstName')" class="error-msg">
-          <div *ngIf="isRequired('firstName')">Vorname ist required.</div>
+        <div *ngIf="isInvalid('firstName')" class="invalid-message">
+          <div *ngIf="isRequired('firstName')">Vorname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -59,10 +58,10 @@
                type="text"
                formControlName="lastName"
                id="lastName"
-               [ngClass]="{'error': hasErrors('lastName') && isHoovered('lastName')}">
+               [ngClass]="{'is-invalid': isInvalid('lastName')}">
 
-        <div *ngIf="hasErrors('lastName') && isHoovered('lastName')" class="error-msg">
-          <div *ngIf="isRequired('lastName')">Nachname ist required.</div>
+        <div *ngIf="isInvalid('lastName')" class="invalid-message">
+          <div *ngIf="isRequired('lastName')">Nachname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -75,10 +74,10 @@
                type="text"
                formControlName="email"
                id="email"
-               [ngClass]="{'error': hasErrors('email') && isHoovered('email')}">
+               [ngClass]="{'is-invalid': isInvalid('email')}">
 
-        <div *ngIf="hasErrors('email') && isHoovered('email')" class="error-msg">
-          <div *ngIf="isRequired('email')">Email ist required.</div>
+        <div *ngIf="isInvalid('email')" class="invalid-message">
+          <div *ngIf="isRequired('email')">Email darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -91,10 +90,10 @@
                type="text"
                formControlName="phoneNumber"
                id="phoneNumber"
-               [ngClass]="{'error': hasErrors('phoneNumber') && isHoovered('phoneNumber')}">
+               [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
 
-        <div *ngIf="hasErrors('phoneNumber') && isHoovered('phoneNumber')" class="error-msg">
-          <div *ngIf="isRequired('phoneNumber')">Telefonnummer ist required.</div>
+        <div *ngIf="isInvalid('phoneNumber')" class="invalid-message">
+          <div *ngIf="isRequired('phoneNumber')">Telefonnummer darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -111,16 +110,15 @@
     </div>
 
     <div class="checkbox" >
-      <label [ngClass]="{'error': hasErrors('termsAccepted') && isHoovered('termsAccepted')}">
+      <label [ngClass]="{'is-invalid': isInvalid('termsAccepted')}">
         <input type="checkbox"
-               formControlName="termsAccepted"
-               >
+               formControlName="termsAccepted">
 
         <span class="cr"><i class="cr-icon fa fa-check" ></i></span>
         Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre
         verwendet werden dürfen
       </label>
-      <div *ngIf="hasErrors('termsAccepted') && isHoovered('termsAccepted')" class="error-msg">
+      <div *ngIf="isInvalid('termsAccepted')" class="invalid-message">
         <div *ngIf="isRequired('termsAccepted')">Agb´s müssen akzeptiert werden.</div>
       </div>
     </div>

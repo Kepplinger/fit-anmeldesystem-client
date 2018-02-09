@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Moment } from 'moment';
-import moment = require('moment');
+import * as moment from 'moment';
 
 declare let $: any;
 

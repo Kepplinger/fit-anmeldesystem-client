@@ -1,5 +1,6 @@
 <div *ngIf="isVisible">
   <fit-location-picker-modal [selectedLocation]="selectedLocation"
+                             [event]="event"
                              (selectedLocationChange)="setLocation($event)"
                              [currentCategory]="selectedPackage == Package.BasicPack ? 'B' : 'A'">
   </fit-location-picker-modal>
@@ -25,7 +26,7 @@
               <i class="fa fa-star-o"></i>
               <i class="fa fa-star-o"></i>
             </div>
-            {{basicPackage.name}}
+            {{basicPackage?.name}}
           </div>
 
           <ul class="list-group list-group-flush flex-filler">
@@ -59,12 +60,12 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star-o"></i>
             </div>
-            {{sponsorPackage.name}}
+            {{sponsorPackage?.name}}
           </div>
 
           <ul class="list-group list-group-flush flex-filler">
             <li class="list-group-item text-bold">
-              beinhaltet {{basicPackage.name}}
+              beinhaltet {{basicPackage?.name}}
             </li>
             <li class="list-group-item">
               Kategorie A Platz
@@ -98,12 +99,12 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </div>
-            {{lecturePackage.name}}
+            {{lecturePackage?.name}}
           </div>
 
           <ul class="list-group list-group-flush flex-filler">
             <li class="list-group-item text-bold">
-              beinhaltet {{sponsorPackage.name}}
+              beinhaltet {{sponsorPackage?.name}}
             </li>
             <li class="list-group-item h-100">
               Antrag für einen Vortrag:
@@ -155,17 +156,17 @@
       <table>
         <tr>
           <td class="text-right" width="13%">{{basicPackage?.price}},00 €</td>
-          <td width="87%">{{basicPackage.name}}</td>
+          <td width="87%">{{basicPackage?.name}}</td>
         </tr>
 
         <tr *ngIf="isPackageSelected(Package.SponsorPack)">
           <td class="text-right">+ {{sponsorPackage?.price - basicPackage?.price}},00 €</td>
-          <td>{{sponsorPackage.name}}</td>
+          <td>{{sponsorPackage?.name}}</td>
         </tr>
 
         <tr *ngIf="isPackageSelected(Package.LecturePack)">
           <td class="text-right">+ {{lecturePackage?.price - sponsorPackage?.price}},00 €</td>
-          <td>{{lecturePackage.name}}</td>
+          <td>{{lecturePackage?.name}}</td>
         </tr>
 
         <tr class="border-top">
@@ -179,7 +180,7 @@
     <div class="mb-4" *ngIf="isPackageSelected(Package.LecturePack)">
       <h5 class="text-bold mb-3">
         Ihr Vortrag
-        <span class="sub-text">(nur beim {{lecturePackage.name}} notwendig)</span>
+        <span class="sub-text">(nur beim {{lecturePackage?.name}} notwendig)</span>
       </h5>
 
 
@@ -209,8 +210,8 @@
                  placeholder="Datei auswählen..."
                  disabled>
           <span class="input-group-btn">
-        <button class="btn btn-primary" type="button">Druchsuchen</button>
-      </span>
+            <button class="btn btn-primary" type="button">Druchsuchen</button>
+          </span>
         </div>
       </div>
     </div>

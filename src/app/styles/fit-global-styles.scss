@@ -2,8 +2,13 @@
 @import "./fit-tag-input-theme";
 @import "./fit-animations";
 
-html, body {
+html {
   height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .no-outline-button {
@@ -105,11 +110,11 @@ html, body {
 }
 
 .fa-1-3x {
-  font-size: 1.3rem;
+  font-size: 1.3rem !important;
 }
 
 .fa-1-5x {
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 .floating-effect {
@@ -158,4 +163,18 @@ html, body {
     border-bottom-right-radius: .25rem !important;
     border-top-right-radius: .25rem !important;
   }
+}
+
+.valid-message {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.8em;
+  color: $success;
+}
+
+.invalid-message {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: $danger;
 }

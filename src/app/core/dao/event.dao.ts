@@ -19,4 +19,9 @@ export class EventDAO {
     return this.http.post<Event>(this.appConfig.serverURL + '/event', event)
       .toPromise();
   }
+
+  public async getCurrentEvent(): Promise<Event> {
+    return this.http.get<Event>(this.appConfig.serverURL + '/event/current')
+      .toPromise();
+  }
 }

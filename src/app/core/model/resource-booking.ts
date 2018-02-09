@@ -9,7 +9,6 @@ export class ResourceBooking {
   public booking: Booking;
   public amount: number;
 
-
   public constructor(resource?: Resource,
                      booking?: Booking,
                      amount?: number,

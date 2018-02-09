@@ -16,6 +16,8 @@ import * as moment from 'moment';
 import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
 import { AppConfig } from '../../core/app-config/app-config.service';
 import { ArrayUtils } from '../../core/utils/array-utils';
+import { FolderInfo } from '../../core/model/folder-info';
+import { EventDAO } from '../../core/dao/event.dao';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -29,9 +31,11 @@ export class FitRegistrationComponent implements OnInit {
 
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
+  public event: Event;
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
+                     private eventDAO: EventDAO,
                      private appConfig: AppConfig,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
@@ -43,7 +47,7 @@ export class FitRegistrationComponent implements OnInit {
         streetNumber: ['', Validators.required],
         zipCode: ['', Validators.required],
         city: ['', Validators.required],
-        addressAdditions: ['',Validators.required],
+        addressAdditions: ['', Validators.required],
         phoneNumber: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],
@@ -62,7 +66,7 @@ export class FitRegistrationComponent implements OnInit {
       }),
       fitAppearance: fb.group({
         representatives: this.fb.array([]),
-        additionalInfo: ['',Validators.required],
+        additionalInfo: ['', Validators.required],
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
@@ -74,17 +78,18 @@ export class FitRegistrationComponent implements OnInit {
       }),
       contactAndRemarks: fb.group({
         gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
-        firstName: ['',Validators.required],
-        lastName: ['',Validators.required],
-        email: ['',Validators.required],
-        phoneNumber: ['',Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
         remarks: [''],
-        termsAccepted: [false,Validators.requiredTrue]
+        termsAccepted: [false, Validators.requiredTrue]
       })
     });
   }
 
-  public ngOnInit() {
+  public async ngOnInit(): Promise<void> {
+    this.event = await this.eventDAO.getCurrentEvent();
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
@@ -110,8 +115,8 @@ export class FitRegistrationComponent implements OnInit {
 
   private getBookingFromForm(): Booking {
     return new Booking(
-      new Event(moment(), moment(), moment(), [], false, 1),
-      new Package('', 200, 1, 1),
+      this.event,
+      this.fitFormGroup.value.packagesAndLocation.fitPackage,
       this.fitFormGroup.value.packagesAndLocation.location,
       this.getCompanyFromForm(),
       this.getPresentationFromForm(),
@@ -131,7 +136,14 @@ export class FitRegistrationComponent implements OnInit {
     return new Company(
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
+      this.getFolderInfoFromForm(),
       this.fitFormGroup.value.generalData.companyName,
+      false
+    )
+  }
+
+  private getFolderInfoFromForm(): FolderInfo {
+    return new FolderInfo(
       this.fitFormGroup.value.detailedData.branch,
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
@@ -158,7 +170,7 @@ export class FitRegistrationComponent implements OnInit {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
-      'M',
+      this.fitFormGroup.value.contactAndRemarks.gender,
       this.fitFormGroup.value.contactAndRemarks.email,
       this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );
