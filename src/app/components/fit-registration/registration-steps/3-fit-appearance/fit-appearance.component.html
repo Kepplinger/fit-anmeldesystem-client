@@ -28,16 +28,18 @@
 
           <tr>
             <td width="15%">
-              <label for="representativeName">Name:</label>
+              <label for="representativeName">Name:*</label>
             </td>
             <td width="85%">
               <input class="form-control"
+                     id="representativeName"
                      type="text"
                      name="name"
                      [(ngModel)]="representative.name"
                      [ngModelOptions]="{standalone: true}"
                      ngDefaultControl
-                     id="representativeName">
+                     (blur)="onRepresentativeTouch(representative, 'name')"
+                     [ngClass]="{'is-invalid': isRequired(representative, 'name')}">
             </td>
             <td rowspan="2">
               <img [src]="representative.image"
@@ -48,19 +50,28 @@
                    [accept]="'image/*'"
                    [maxSize]="2000000"
                    (filePick)="onImagePick($event, representative)"/>
+              <div class="invalid-message invalid-message-container"></div>
             </td>
           </tr>
 
           <tr>
             <td>
-              <label for="representiveEmail">E-Mail:</label>
+              <label for="representiveEmail">E-Mail:*</label>
+              <div class="invalid-message invalid-message-container"></div>
             </td>
             <td>
               <input class="form-control"
                      type="text"
                      [(ngModel)]="representative.email"
                      [ngModelOptions]="{standalone: true}"
-                     id="representiveEmail">
+                     id="representiveEmail"
+                     (blur)="onRepresentativeTouch(representative, 'email')"
+                     [ngClass]="{'is-invalid': isRequired(representative, 'email')}">
+
+              <div class="invalid-message invalid-message-container">
+                <span *ngIf="isRequired(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
+                <span *ngIf="isRequired(representative, 'email')">E-Mail darf nicht leer sein!</span>
+              </div>
             </td>
           </tr>
         </ng-container>

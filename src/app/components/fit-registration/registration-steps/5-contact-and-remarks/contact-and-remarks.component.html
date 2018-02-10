@@ -12,7 +12,7 @@
     <!--gender-->
     <div class="form-row row my-3">
       <div class="col-md-3">
-        Geschlecht:
+        Geschlecht:*
       </div>
 
       <div class="col-md-9 px-3">
@@ -35,8 +35,8 @@
 
 
     <!--first name-->
-    <div class="form-group row">
-      <label for="firstName" class="col-md-3 col-form-label">Vorname:</label>
+    <div class="form-group row mb-0">
+      <label for="firstName" class="col-md-3 col-form-label">Vorname:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
@@ -51,8 +51,8 @@
     </div>
 
     <!--last name-->
-    <div class="form-group row">
-      <label for="lastName" class="col-md-3 col-form-label">Nachname:</label>
+    <div class="form-group row mb-0">
+      <label for="lastName" class="col-md-3 col-form-label">Nachname:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
@@ -67,8 +67,8 @@
     </div>
 
     <!--email-->
-    <div class="form-group row">
-      <label for="email" class="col-md-3 col-form-label">Email:</label>
+    <div class="form-group row mb-0">
+      <label for="email" class="col-md-3 col-form-label">Email:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
@@ -83,8 +83,8 @@
     </div>
 
     <!--phone-->
-    <div class="form-group row">
-      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+    <div class="form-group row mb-0">
+      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
@@ -116,10 +116,10 @@
 
         <span class="cr"><i class="cr-icon fa fa-check" ></i></span>
         Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre
-        verwendet werden dürfen
+        verwendet werden dürfen.
       </label>
       <div class="invalid-message invalid-message-container">
-        <div *ngIf="isRequired('termsAccepted')">Agb´s müssen akzeptiert werden.</div>
+        <div *ngIf="isRequired('termsAccepted')">Zustimmung muss gegeben werden.</div>
       </div>
     </div>
   </form>
