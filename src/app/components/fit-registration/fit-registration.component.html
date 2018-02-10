@@ -1,51 +1,63 @@
 <div class="d-table small-container mt-2 mb-4">
-  <div class="d-inline-flex mx-4">
+  <div class="d-inline-flex mx-4 w-100">
 
     <!--step 1-->
-    <div class="step-container mx-3 my-2"
+    <div class="step-container flex-1 my-3"
          (click)="setCurrentPage(Step.GeneralData)">
-      <div class="step-header">Schritt 1</div>
-      <div class="step-sub-text">Allgemeines zur Firma</div>
+      <div class="step-header justify-content-center d-flex">
+        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+          <span class="position-absolute centered-element step-number">1</span>
+        </i>
+        <div class="my-auto">Allgemeines zur Firma</div>
+      </div>
     </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
 
     <!--step 2-->
-    <div class="step-container mx-3 my-2"
+    <div class="step-container flex-1 my-3"
          [ngClass]="{'text-muted': currentStep < 2}"
          (click)="setCurrentPage(Step.DetailedData)">
-      <div class="step-header">Schritt 2</div>
-      <div class="step-sub-text">Details zur Firma</div>
+      <div class="step-header justify-content-center d-flex">
+        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+          <span class="position-absolute centered-element step-number">2</span>
+        </i>
+        <div class="my-auto">Details zur Firma</div>
+      </div>
     </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto "></i>
 
     <!--step 3-->
-    <div class="step-container mx-3 my-2"
+    <div class="step-container flex-1 my-3"
          [ngClass]="{'text-muted': currentStep < 3}"
          (click)="setCurrentPage(Step.FitAppearance)">
-      <div class="step-header">Schritt 3</div>
-      <div class="step-sub-text">Ihr Auftreten</div>
+      <div class="step-header justify-content-center d-flex">
+        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+          <span class="position-absolute centered-element step-number">3</span>
+        </i>
+        <div class="my-auto">Ihr Auftreten</div>
+      </div>
     </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
 
     <!--step 4-->
-    <div class="step-container mx-3 my-2"
+    <div class="step-container flex-1 my-3"
          [ngClass]="{'text-muted': currentStep < 4}"
          (click)="setCurrentPage(Step.PackagesAndLocation)">
-      <div class="step-header">Schritt 4</div>
-      <div class="step-sub-text">Pakete & Standort</div>
+      <div class="step-header justify-content-center d-flex">
+        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+          <span class="position-absolute centered-element step-number">4</span>
+        </i>
+        <div class="my-auto">Pakete & Standort</div>
+      </div>
     </div>
 
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
-
     <!--step 5-->
-    <div class="step-container mx-3 my-2"
+    <div class="step-container flex-1 my-3"
          [ngClass]="{'text-muted': currentStep < Step.ContactAndRemarks}"
          (click)="setCurrentPage(Step.ContactAndRemarks)">
-      <div class="step-header">Schritt 5</div>
-      <div class="step-sub-text">Kontak & Anmerkungen</div>
+      <div class="step-header justify-content-center d-flex">
+        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+          <span class="position-absolute centered-element step-number">5</span>
+        </i>
+        <div class="my-auto">Kontak & Anmerkungen</div>
+      </div>
     </div>
 
   </div>
@@ -109,7 +121,7 @@
   </div>
 
   <!--<div style="overflow: hidden; max-width: inherit">-->
-    <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
+  <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
   <!--</div>-->
 
 </div>
