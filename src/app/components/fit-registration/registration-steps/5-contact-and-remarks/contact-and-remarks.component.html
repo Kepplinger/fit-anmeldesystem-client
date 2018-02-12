@@ -21,12 +21,13 @@
           <!--suppress HtmlFormInputWithoutLabel -->
           <input class="custom-control-input cursor-pointer"
                  type="radio"
-                 [id]="'cat' + gender.value"
+                 [id]="'gender' + gender.value"
                  [value]="gender.value"
                  formControlName="gender">
 
           <label class="custom-control-label my-auto cursor-pointer"
-                 [for]="'cat' + gender.value">
+                 [for]="'gender' + gender.value"
+                 [id]="'genderLabel' + gender.value">
             {{gender.display}}
           </label>
         </div>
@@ -109,12 +110,12 @@
       </div>
     </div>
 
-    <div class="checkbox" >
-      <label [ngClass]="{'is-invalid': isInvalid('termsAccepted')}">
+    <div class="checkbox">
+      <label [ngClass]="{'is-invalid': isInvalid('termsAccepted')}"
+             id="acceptTerms">
         <input type="checkbox"
                formControlName="termsAccepted">
-
-        <span class="cr"><i class="cr-icon fa fa-check" ></i></span>
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
         Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre
         verwendet werden dürfen.
       </label>

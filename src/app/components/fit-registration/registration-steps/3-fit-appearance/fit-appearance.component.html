@@ -28,18 +28,19 @@
 
           <tr>
             <td width="15%">
-              <label for="representativeName">Name:*</label>
+              <label [for]="'representativeName' + index">Name:*</label>
             </td>
             <td width="85%">
               <input class="form-control"
-                     id="representativeName"
+                     [id]="'representativeName' + index"
                      type="text"
                      name="name"
                      [(ngModel)]="representative.name"
                      [ngModelOptions]="{standalone: true}"
                      ngDefaultControl
                      (blur)="onRepresentativeTouch(representative, 'name')"
-                     [ngClass]="{'is-invalid': isRequired(representative, 'name')}">
+                     [ngClass]="{'is-invalid': isRequired(representative, 'name')}"
+                     title="representativeName">
             </td>
             <td rowspan="2">
               <img [src]="representative.image"
@@ -56,17 +57,18 @@
 
           <tr>
             <td>
-              <label for="representiveEmail">E-Mail:*</label>
+              <label [for]="'representativeEmail' + index">E-Mail:*</label>
               <div class="invalid-message invalid-message-container"></div>
             </td>
             <td>
               <input class="form-control"
                      type="text"
+                     [id]="'representativeEmail' + index"
                      [(ngModel)]="representative.email"
                      [ngModelOptions]="{standalone: true}"
-                     id="representiveEmail"
                      (blur)="onRepresentativeTouch(representative, 'email')"
-                     [ngClass]="{'is-invalid': isRequired(representative, 'email')}">
+                     [ngClass]="{'is-invalid': isRequired(representative, 'email')}"
+                     title="representativeEmail">
 
               <div class="invalid-message invalid-message-container">
                 <span *ngIf="isRequired(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
@@ -76,8 +78,9 @@
           </tr>
         </ng-container>
       </table>
-      <button class="btn btn-success my-2 text-bold"
-              *ngIf="representatives.length < 3"
+      <button *ngIf="representatives.length < 3"
+              class="btn btn-success my-2 text-bold"
+              id="btnAddRepresentative"
               (click)="onRepresentativeAdd()">
         <i class="fa fa-user-plus mr-1"></i>
         Vertreter/in hinzufügen

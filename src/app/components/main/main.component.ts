@@ -9,6 +9,7 @@ import { AuthenticationDao } from '../../core/dao/authentication.dao';
 export class MainComponent implements OnInit {
 
   public registrationAllowed: boolean = true;
+  public authenticationToken: string = '';
 
   public constructor(private authenticationDAO: AuthenticationDao) {
   }
@@ -17,6 +18,6 @@ export class MainComponent implements OnInit {
   }
 
   public loginToBooking(): void {
-    // this.authenticationDAO.loginBooking('abc');
+    this.authenticationDAO.loginBooking(this.authenticationToken);
   }
 }

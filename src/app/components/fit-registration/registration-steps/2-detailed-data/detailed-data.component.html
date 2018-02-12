@@ -37,7 +37,7 @@
         </fit-hint-icon>
       </div>
 
-      <div class="my-2" (keypress)="storeFroala()" id="editor" [froalaEditor]="options"></div>
+      <div class="my-2" (keypress)="storeFroala()" id="description" [froalaEditor]="options"></div>
 
     </div>
 
@@ -100,9 +100,9 @@
       <div class="col-6">
         <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
 
-        <div *ngFor="let branch of branches"
+        <div *ngFor="let branch of branches; let index = index"
              class="checkbox mx-2">
-          <label>
+          <label [id]="'checkboxBranch' + index">
             <input type="checkbox"
                    (change)="branchChanged(branch, $event)"
                    [checked]="isBranchSelected(branch)">
@@ -118,7 +118,7 @@
         <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
 
         <div class="checkbox mx-2">
-          <label>
+          <label id="providesSummerJob">
             <input type="checkbox"
                    formControlName="providesSummerJob">
             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
@@ -127,7 +127,7 @@
         </div>
 
         <div class="checkbox mx-2">
-          <label>
+          <label id="providesThesis">
             <input type="checkbox"
                    formControlName="providesThesis">
             <span class="cr"><i class="cr-icon fa fa-check"></i></span>

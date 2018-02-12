@@ -99,6 +99,7 @@
   <div class="d-flex mx-4">
     <button *ngIf="currentStep != Step.GeneralData"
             class="btn btn-dark"
+            id="btnPrevious"
             (click)="previousPage()">
       <i class="fa fa-arrow-left"></i>
       Zurück
@@ -107,12 +108,14 @@
     <div class="flex-filler"></div>
     <button *ngIf="currentStep != Step.ContactAndRemarks"
             class="btn btn-dark"
+            id="btnNext"
             (click)="nextPage()">
       Weiter
       <i class="fa fa-arrow-right"></i>
     </button>
 
     <button *ngIf="currentStep == Step.ContactAndRemarks"
+            id="btnSubmitBooking"
             class="btn btn-success"
             (click)="submitForm()">
       Anmelden

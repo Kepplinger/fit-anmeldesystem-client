@@ -99,7 +99,7 @@ export class DetailedDataComponent implements OnInit {
   }
 
   public storeFroala(): void {
-    let html = $('#editor').froalaEditor('html.get');
+    let html = $('#description').froalaEditor('html.get');
     this.stepFormGroup.controls['description'].setValue(html.toString());
   }
 

@@ -1,11 +1,8 @@
 import { browser, element, by } from 'protractor';
 
-export class FitAnmeldesystemPage {
-  navigateTo() {
-    return browser.get('/');
-  }
+export class Helper {
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  static navigateTo(url: string) {
+    return browser.get(url);
   }
 }

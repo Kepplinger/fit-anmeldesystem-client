@@ -21,7 +21,7 @@
 
           <label class="d-flex text-bold" for="codeInput">
             Code Eingabe:
-            <a class="ml-auto"
+            <a class="ml-auto cursor-pointer"
                [routerLink]="['/fit/code-vergessen']">Code vergessen?</a>
           </label>
 
@@ -33,6 +33,7 @@
 
         <button class="btn btn-lg btn-block btn-primary"
                 [routerLink]="['/fit/anmelden']"
+                [(ngModel)]="authenticationToken"
                 (click)="loginToBooking()">
           Anmelden
         </button>

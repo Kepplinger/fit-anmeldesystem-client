@@ -148,7 +148,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.generalData.phoneNumber,
       this.fitFormGroup.value.generalData.email,
       this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logo,
+      this.fitFormGroup.value.generalData.logo != null ? 'a' : 'b', // TODO replace
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
