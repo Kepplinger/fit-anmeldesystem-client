@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.1",
+    "alertifyjs": "^1.11.0",
     "angular-froala-wysiwyg": "^2.7.3",
     "angular2-draggable": "^1.1.0-beta.0",
     "bootstrap": "^4.0.0",

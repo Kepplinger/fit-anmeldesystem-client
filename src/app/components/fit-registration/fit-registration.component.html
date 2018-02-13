@@ -1,11 +1,11 @@
 <div class="d-table small-container mt-2 mb-4">
-  <div class="d-inline-flex mx-4 w-100">
+  <div class="d-inline-flex px-4 w-100">
 
     <!--step 1-->
     <div class="step-container flex-1 my-3"
          (click)="setCurrentPage(Step.GeneralData)">
       <div class="step-header justify-content-center d-flex">
-        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+        <i class="fa fa-circle fa-2x position-relative mr-1 my-auto">
           <span class="position-absolute centered-element step-number">1</span>
         </i>
         <div class="my-auto">Allgemeines zur Firma</div>
@@ -17,7 +17,7 @@
          [ngClass]="{'text-muted': currentStep < 2}"
          (click)="setCurrentPage(Step.DetailedData)">
       <div class="step-header justify-content-center d-flex">
-        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+        <i class="fa fa-circle fa-2x position-relative mr-1 my-auto">
           <span class="position-absolute centered-element step-number">2</span>
         </i>
         <div class="my-auto">Details zur Firma</div>
@@ -29,7 +29,7 @@
          [ngClass]="{'text-muted': currentStep < 3}"
          (click)="setCurrentPage(Step.FitAppearance)">
       <div class="step-header justify-content-center d-flex">
-        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+        <i class="fa fa-circle fa-2x position-relative mr-1 my-auto">
           <span class="position-absolute centered-element step-number">3</span>
         </i>
         <div class="my-auto">Ihr Auftreten</div>
@@ -41,7 +41,7 @@
          [ngClass]="{'text-muted': currentStep < 4}"
          (click)="setCurrentPage(Step.PackagesAndLocation)">
       <div class="step-header justify-content-center d-flex">
-        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+        <i class="fa fa-circle fa-2x position-relative mr-1 my-auto">
           <span class="position-absolute centered-element step-number">4</span>
         </i>
         <div class="my-auto">Pakete & Standort</div>
@@ -53,10 +53,10 @@
          [ngClass]="{'text-muted': currentStep < Step.ContactAndRemarks}"
          (click)="setCurrentPage(Step.ContactAndRemarks)">
       <div class="step-header justify-content-center d-flex">
-        <i class="fa fa-circle fa-1-3x position-relative mr-1 my-auto">
+        <i class="fa fa-circle fa-2x position-relative mr-1 my-auto">
           <span class="position-absolute centered-element step-number">5</span>
         </i>
-        <div class="my-auto">Kontak & Anmerkungen</div>
+        <div class="my-auto">Kontakt & Anmerkungen</div>
       </div>
     </div>
 

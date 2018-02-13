@@ -8,15 +8,14 @@ import { BranchDAO } from './dao/branch.dao';
 import { ResourceDAO } from './dao/resource.dao';
 import { PackageDAO } from './dao/package.dao';
 import { AreaDAO } from './dao/area.dao';
-import { ApplicationStateService } from './app-services/application-state-service';
-import { RouterService } from './app-services/router-service';
+import { ApplicationStateService } from './app-services/application-state.service';
+import { RouterService } from './app-services/router.service';
 import { EventDAO } from './dao/event.dao';
 import { LocationDao } from './dao/location.dao';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
 import { AuthenticationDao } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
+import { BookingRegistrationService } from './app-services/booking-registration.service';
+import { ModalWindowService } from './app-services/modal-window.service';
 
 @NgModule({
   imports: [
@@ -36,6 +35,8 @@ import { CompanyDAO } from './dao/company.dao';
     EventDAO,
     AppConfig,
     ApplicationStateService,
+    BookingRegistrationService,
+    ModalWindowService,
     RouterService
   ]
 })

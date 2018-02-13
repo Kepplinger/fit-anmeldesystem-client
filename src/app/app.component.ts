@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ApplicationStateService } from './core/app-services/application-state-service';
+import { ApplicationStateService } from './core/app-services/application-state.service';
 import { FitApplication } from './core/model/enums/fit-application';
-import { RouterService } from './core/app-services/router-service';
+import { RouterService } from './core/app-services/router.service';
 
 @Component({
   selector: 'fit-root',

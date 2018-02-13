@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
-import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class AuthenticationDao {
@@ -26,16 +27,9 @@ export class AuthenticationDao {
     return this.http.post<any>(this.appConfig.serverURL + '/authentication/booking/token', {token: token})
       .catch((error: HttpErrorResponse) => {
         if (error.status === 400) {
-          console.log(error);
+          return Observable.of(error.error);
         } else {
-          return Observable.of('');
-        }
-      })
-      .map((data: any) => {
-        if (data.booking != null) {
-          console.log('booking');
-        } else {
-          console.log('company');
+          return Observable.of(null);
         }
       })
       .toPromise();

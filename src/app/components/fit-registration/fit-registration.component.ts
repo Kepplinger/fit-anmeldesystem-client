@@ -12,12 +12,12 @@ import { Presentation } from '../../core/model/presentation';
 import { Event } from '../../core/model/event';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
-import * as moment from 'moment';
-import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
 import { AppConfig } from '../../core/app-config/app-config.service';
 import { ArrayUtils } from '../../core/utils/array-utils';
 import { FolderInfo } from '../../core/model/folder-info';
 import { EventDAO } from '../../core/dao/event.dao';
+import { ModalWindowService } from '../../core/app-services/modal-window.service';
+import { BookingRegistrationService } from '../../core/app-services/booking-registration.service';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -33,21 +33,26 @@ export class FitRegistrationComponent implements OnInit {
   public fitFormGroup: FormGroup;
   public event: Event;
 
+  private booking: Booking = new Booking();
+
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private eventDAO: EventDAO,
                      private appConfig: AppConfig,
+                     private bookingRegistrationService: BookingRegistrationService,
+                     private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
+    this.booking = this.bookingRegistrationService.booking;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
-        companyName: ['', Validators.required],
-        street: ['', Validators.required],
-        streetNumber: ['', Validators.required],
-        zipCode: ['', Validators.required],
-        city: ['', Validators.required],
-        addressAdditions: ['', Validators.required],
+        companyName: [this.booking.company.name, Validators.required],
+        street: [this.booking.company.address.street, Validators.required],
+        streetNumber: [this.booking.company.address.streetNumber, Validators.required],
+        zipCode: [this.booking.company.address.zipCode, Validators.required],
+        city: [this.booking.company.address.city, Validators.required],
+        addressAdditions: [this.booking.company.address.addition, Validators.required],
         phoneNumber: ['', Validators.required],
         email: ['', Validators.required],
         homepage: ['', Validators.required],
@@ -77,11 +82,11 @@ export class FitRegistrationComponent implements OnInit {
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
-        gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
+        gender: [this.booking.company.contact.gender],
+        firstName: [this.booking.company.contact.firstName, Validators.required],
+        lastName: [this.booking.company.contact.lastName, Validators.required],
+        email: [this.booking.company.contact.email, Validators.required],
+        phoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
         termsAccepted: [false, Validators.requiredTrue]
       })
@@ -89,7 +94,21 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.event = await this.eventDAO.getCurrentEvent();
+    await this.eventDAO.getCurrentEvent().then(
+      (event: Event) => {
+        this.event = event;
+      }
+    );
+
+    await this.modalWindowService.confirm(
+      'Anmeldung von letzten Mal übernehemen?',
+      'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
+      {
+        closableByDimmer: false,
+        movable: false,
+        labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
+      }
+    );
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
