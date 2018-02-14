@@ -32,6 +32,13 @@ export class FitRegistrationComponent implements OnInit {
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
   public event: Event;
+  public steps: FitRegistrationStep[] = [
+    FitRegistrationStep.GeneralData,
+    FitRegistrationStep.DetailedData,
+    FitRegistrationStep.FitAppearance,
+    FitRegistrationStep.PackagesAndLocation,
+    FitRegistrationStep.ContactAndRemarks
+  ];
 
   private booking: Booking = new Booking();
 
@@ -43,7 +50,9 @@ export class FitRegistrationComponent implements OnInit {
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
+
     this.booking = this.bookingRegistrationService.booking;
+    this.booking = new Booking(); // TODO remove
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({

@@ -27,5 +27,13 @@ export class Company {
     this.folderInfo = folderInfo;
     this.name = name;
     this.isPending = isPending;
+
+    if (this.address == null) {
+      this.address = new Address();
+    }
+
+    if (this.contact == null) {
+      this.contact = new Contact();
+    }
   }
 }
