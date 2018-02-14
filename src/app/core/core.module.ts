@@ -16,6 +16,7 @@ import { AuthenticationDao } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
 import { BookingRegistrationService } from './app-services/booking-registration.service';
 import { ModalWindowService } from './app-services/modal-window.service';
+import { BookingTransferService } from './app-services/booking-transfer.service';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { ModalWindowService } from './app-services/modal-window.service';
     ApplicationStateService,
     BookingRegistrationService,
     ModalWindowService,
+    BookingTransferService,
     RouterService
   ]
 })

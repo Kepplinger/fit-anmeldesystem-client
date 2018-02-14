@@ -52,7 +52,6 @@ export class FitRegistrationComponent implements OnInit {
     this.currentStep = FitRegistrationStep.GeneralData;
 
     this.booking = this.bookingRegistrationService.booking;
-    this.booking = new Booking(); // TODO remove
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -63,7 +62,7 @@ export class FitRegistrationComponent implements OnInit {
         city: [this.booking.company.address.city, Validators.required],
         addressAdditions: [this.booking.company.address.addition, Validators.required],
         phoneNumber: ['', Validators.required],
-        email: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
         logoUrl: ['', Validators.required],
       }),
@@ -109,7 +108,7 @@ export class FitRegistrationComponent implements OnInit {
       }
     );
 
-    await this.modalWindowService.confirm(
+    let useOldBooking = await this.modalWindowService.confirm(
       'Anmeldung von letzten Mal übernehemen?',
       'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
       {
@@ -118,6 +117,12 @@ export class FitRegistrationComponent implements OnInit {
         labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
       }
     );
+
+    console.log(useOldBooking);
+
+    if (useOldBooking) {
+      this.fillFormWithBooking()
+    }
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
@@ -217,6 +222,50 @@ export class FitRegistrationComponent implements OnInit {
       )
     } else {
       return null;
+    }
+  }
+
+  private fillFormWithBooking(): void {
+    this.fitFormGroup.patchValue({
+      generalData: {
+        phoneNumber: this.booking.company.folderInfo.phoneNumber,
+        email: this.booking.company.folderInfo.email,
+        homepage: this.booking.company.folderInfo.homepage,
+        // logoUrl: this.booking.company.folderInfo.logo
+      },
+      detailedData: {
+        branch: this.booking.company.folderInfo.branch,
+        description: this.booking.companyDescription,
+        // establishmentsAut: this.booking.company.folderInfo.establishmentsAut,
+        // establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
+        // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
+        // establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+        // desiredBranches: this.booking.branches,
+        providesSummerJob: this.booking.providesSummerJob,
+        providesThesis: this.booking.providesThesis,
+      },
+      fitAppearance: {
+        // representatives: this.booking.representatives,
+        additionalInfo: this.booking.additionalInfo,
+        // resources: this.booking.resources
+      },
+      packagesAndLocation: {
+        fitPackage: this.booking.fitPackage,
+        location: this.booking.location,
+      },
+      contactAndRemarks: {
+        remarks: this.booking.remarks
+      }
+    });
+
+    if (this.booking.presentation != null) {
+      this.fitFormGroup.patchValue({
+        packagesAndLocation: {
+          presentationTitle: this.booking.presentation.title,
+          presentationDescription: this.booking.presentation.description,
+          // presentationFile: this.booking.presentation.fileUrl
+        }
+      });
     }
   }
 }

@@ -103,8 +103,8 @@ export class DetailedDataComponent implements OnInit {
     this.stepFormGroup.controls['description'].setValue(html.toString());
   }
 
-  public isRequired(formName: string): boolean {
-    return FormValidationHelper.isRequired(formName, this.stepFormGroup) && this.isInvalid(formName);
+  public isEmpty(formName: string): boolean {
+    return FormValidationHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {

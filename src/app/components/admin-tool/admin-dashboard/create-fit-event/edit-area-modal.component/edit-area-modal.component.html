@@ -14,6 +14,7 @@
           <input type="text"
                  class="form-control col-10 px-2"
                  id="areaDesigantion"
+                 (focus)="selectAll($event)"
                  [(ngModel)]="area.designation">
         </div>
 
@@ -70,6 +71,7 @@
               <input type="text"
                      class="form-control location-number-input text-center d-inline text-bold"
                      title="locationNumber"
+                     (focus)="selectAll($event)"
                      [(ngModel)]="selectedLocation.number">
             </h4>
 

@@ -5,9 +5,10 @@ import { Company } from '../model/company';
 @Injectable()
 export class BookingRegistrationService {
 
-  public booking: Booking = null;
+  public booking: Booking;
 
   public constructor() {
+    console.log('hallo');
   }
 
   public setBooking(booking: Booking): void {
@@ -17,5 +18,6 @@ export class BookingRegistrationService {
   public setCompany(company: Company): void {
     this.booking = new Booking();
     this.booking.company = company;
+    console.log(this.booking);
   }
 }

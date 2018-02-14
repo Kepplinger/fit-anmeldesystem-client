@@ -33,10 +33,11 @@ export class MainComponent implements OnInit {
       this.toastr.error(response.errorMessage);
       this.hasFailed = true;
     } else {
+      console.log(response);
       if (response.booking != null) {
         this.bookingRegistrationService.setBooking(response.booking);
       } else if (response.company != null) {
-        this.bookingRegistrationService.setBooking(response.company);
+        this.bookingRegistrationService.setCompany(response.company);
       }
       this.router.navigate(['fit', 'anmelden']);
     }

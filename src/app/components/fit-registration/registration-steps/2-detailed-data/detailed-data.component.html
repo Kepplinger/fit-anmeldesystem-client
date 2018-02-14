@@ -25,7 +25,7 @@
                  [ngClass]="{'is-invalid': isInvalid('branch')}">
 
           <div class="invalid-message invalid-message-container">
-            <div *ngIf="isRequired('branch')">Branche darf nicht leer sein!</div>
+            <div *ngIf="isEmpty('branch')">Branche darf nicht leer sein!</div>
           </div>
         </div>
       </div>

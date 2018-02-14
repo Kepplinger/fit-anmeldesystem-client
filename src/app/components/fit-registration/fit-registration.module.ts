@@ -30,7 +30,6 @@ import { CodeLostComponent } from './code-lost/code-lost.component';
     ReactiveFormsModule,
     FilePickerModule,
     TagInputModule,
-    CoreModule,
     FroalaEditorModule,
     FroalaViewModule,
     SharedModule

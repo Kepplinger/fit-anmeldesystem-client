@@ -39,7 +39,7 @@
                      [ngModelOptions]="{standalone: true}"
                      ngDefaultControl
                      (blur)="onRepresentativeTouch(representative, 'name')"
-                     [ngClass]="{'is-invalid': isRequired(representative, 'name')}"
+                     [ngClass]="{'is-invalid': isEmpty(representative, 'name')}"
                      title="representativeName">
             </td>
             <td rowspan="2">
@@ -67,12 +67,12 @@
                      [(ngModel)]="representative.email"
                      [ngModelOptions]="{standalone: true}"
                      (blur)="onRepresentativeTouch(representative, 'email')"
-                     [ngClass]="{'is-invalid': isRequired(representative, 'email')}"
+                     [ngClass]="{'is-invalid': isEmpty(representative, 'email')}"
                      title="representativeEmail">
 
               <div class="invalid-message invalid-message-container">
-                <span *ngIf="isRequired(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
-                <span *ngIf="isRequired(representative, 'email')">E-Mail darf nicht leer sein!</span>
+                <span *ngIf="isEmpty(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
+                <span *ngIf="isEmpty(representative, 'email')">E-Mail darf nicht leer sein!</span>
               </div>
             </td>
           </tr>

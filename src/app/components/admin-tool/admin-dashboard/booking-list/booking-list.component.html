@@ -9,6 +9,7 @@
       <th>Standplatz</th>
       <th>Kontakt - E-Mail</th>
       <th>Paket</th>
+      <th></th>
     </tr>
 
     <tr *ngFor="let booking of bookings">
@@ -17,6 +18,12 @@
       <td>{{booking.location?.number}}</td>
       <td>{{booking.company?.contact?.email}}</td>
       <td>{{booking.fitPackage?.name}}</td>
+      <td>
+        <div class="icon-button"
+        (click)="routeToBookingDetail(booking)">
+          <i class="fa fa-pencil fa-2x"></i>
+        </div>
+      </td>
     </tr>
 
   </table>

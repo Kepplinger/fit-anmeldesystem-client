@@ -101,7 +101,7 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
-  public isRequired(representative: Representative, attribute: string): boolean {
+  public isEmpty(representative: Representative, attribute: string): boolean {
 
     let input = '';
 

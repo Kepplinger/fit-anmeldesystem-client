@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { FormValidationHelper } from '../../../../core/app-helper/form-validation-helper';
-
 
 @Component({
   selector: 'fit-general-data',
@@ -34,8 +33,12 @@ export class GeneralDataComponent {
     }
   }
 
-  public isRequired(formName: string): boolean {
-    return FormValidationHelper.isRequired(formName, this.stepFormGroup) && this.isInvalid(formName);
+  public isEmpty(formName: string): boolean {
+    return FormValidationHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
+  }
+
+  public isNoMail(formName: string): boolean {
+    return FormValidationHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {

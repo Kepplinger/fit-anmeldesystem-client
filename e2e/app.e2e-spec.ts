@@ -8,7 +8,12 @@ describe('log-file-explorer-client App', function () {
   });
 
   it('should post booking', async () => {
-    Helper.navigateTo('/fit/anmelden');
+    Helper.navigateTo('/');
+
+    element(by.id('codeInput')).sendKeys('FirmenToken1');
+    element(by.id('btnFitRegister')).click();
+    browser.waitForAngular();
+    element(by.css('.ajs-button.ajs-ok')).click();
 
     // step 1
     element(by.id('companyName')).sendKeys('Keppi GmbH');
@@ -87,10 +92,10 @@ describe('log-file-explorer-client App', function () {
 
     // step 5
     element(by.id('genderLabelF')).click();
-    element(by.id('firstName')).sendKeys('Simon');
-    element(by.id('lastName')).sendKeys('Kepplinger');
-    element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
-    element(by.id('phoneNumber')).sendKeys('0660 5791261');
+    // element(by.id('firstName')).sendKeys('Simon');
+    // element(by.id('lastName')).sendKeys('Kepplinger');
+    // element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
+    // element(by.id('phoneNumber')).sendKeys('0660 5791261');
     element(by.id('remarks')).sendKeys('Erstellt mit Protractor');
 
     element(by.id('acceptTerms')).element(by.css('.cr')).click();

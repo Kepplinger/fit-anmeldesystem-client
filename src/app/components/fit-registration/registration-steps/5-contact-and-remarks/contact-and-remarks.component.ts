@@ -26,12 +26,12 @@ export class ContactAndRemarksComponent implements OnInit {
   public ngOnInit() {
   }
 
-  public isEmpty(formControlName: string): boolean {
-    return this.stepFormGroup.controls[formControlName].value == null;
+  public isNoMail(formName: string): boolean {
+    return FormValidationHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
-  public isRequired(formName: string): boolean {
-    return FormValidationHelper.isRequired(formName, this.stepFormGroup) && this.isInvalid(formName);
+  public isEmpty(formName: string): boolean {
+    return FormValidationHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {
