@@ -14,7 +14,6 @@ import { DateTimePickerComponent } from './admin-dashboard/date-time-picker.comp
 import { EditAreaModalComponent } from './admin-dashboard/create-fit-event/edit-area-modal.component/edit-area-modal.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
-import { BookingTransferService } from '../../core/app-services/booking-transfer.service';
 import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
 
 @NgModule({

@@ -8,7 +8,6 @@ export class BookingRegistrationService {
   public booking: Booking;
 
   public constructor() {
-    console.log('hallo');
   }
 
   public setBooking(booking: Booking): void {

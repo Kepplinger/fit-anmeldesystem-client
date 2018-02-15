@@ -25,12 +25,12 @@ export class BookingListComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.bookings = await this.bookingDAO.fetchAllBookings();
-    this.events = await this.eventDAO.fetchEvents();
+    // this.events = await this.eventDAO.fetchEvents();
   }
 
   public routeToBookingDetail(booking: Booking) {
     this.bookingTransferService.addBooking(booking);
-    this.router.navigate(['anmeldung', booking.id]);
+    this.router.navigate(['/admin-tool', 'anmeldung', booking.id]);
   }
 
 }

@@ -4,6 +4,7 @@ export class ArrayUtils {
   }
 
   public static getFirstElement(elements: any[]): any {
+    console.log(elements.length);
     if (elements.length > 0) {
       return elements[0];
     } else {

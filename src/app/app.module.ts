@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,10 @@ import { RegistrationLockedComponent } from './components/main/registration-lock
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de-AT';
+
+registerLocaleData(localeDe, 'de-AT');
 
 @NgModule({
   imports: [
@@ -25,7 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
     MainComponent,
     RegistrationLockedComponent
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'de-AT'}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
