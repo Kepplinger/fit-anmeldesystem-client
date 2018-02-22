@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularDraggableModule } from 'angular2-draggable';
 
 import { AdminToolRoutingModule } from './admin-tool-routing.module';
@@ -22,7 +22,8 @@ import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-
     AdminToolRoutingModule,
     AngularDraggableModule,
     FilePickerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AdminToolComponent,

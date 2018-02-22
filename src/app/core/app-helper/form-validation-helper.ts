@@ -22,10 +22,10 @@ export class FormValidationHelper {
   }
 
   public static hasError(formName: string, formGroup: FormGroup): ValidationErrors {
-    return formGroup.controls[formName].errors;
+    return formGroup.get(formName).errors;
   }
 
   public static isTouched(formName: string, formGroup: FormGroup): boolean {
-    return formGroup.controls[formName].touched;
+    return formGroup.get(formName).touched;
   }
 }

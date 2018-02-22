@@ -1,3 +1,159 @@
-<div *ngIf="booking != null">
-  {{booking.company.name}}
+<div class="small-container my-4">
+
+  <h2>Anmeldung vom bearbeiten</h2>
+
+  <div>
+    <form [formGroup]="bookingFormGroup">
+
+      <!--company name-->
+      <div class="form-group row mb-1">
+        <label for="companyName" class="col-md-3 col-form-label">Firmenname:*</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 formControlName="companyName"
+                 id="companyName"
+                 placeholder="Firmenname"
+                 [ngClass]="{'is-invalid': isInvalid('companyName')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('companyName')">Firmenname darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--address additions-->
+      <div class="form-group row mb-1">
+        <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:*</label>
+        <div class="col-md-9">
+          <input class="form-control flex-1"
+                 type="text"
+                 formControlName="addressAdditions"
+                 id="addressAdditions"
+                 placeholder="Zusatz"
+                 [ngClass]="{'is-invalid': isInvalid('addressAdditions')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('addressAdditions')">Adresszusatz darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--street and number-->
+      <div class="form-group row mb-1">
+        <label for="street" class="col-md-3 col-form-label">Anschrift:*</label>
+        <div class="col-md-9">
+          <div class="d-flex">
+            <input class="form-control flex-2-5 mr-3"
+                   formControlName="street"
+                   id="street"
+                   placeholder="Straße"
+                   [ngClass]="{'is-invalid': isInvalid('street')}">
+
+            <input class="form-control flex-1"
+                   formControlName="streetNumber"
+                   id="streetNumber"
+                   placeholder="Hausnummer"
+                   [ngClass]="{'is-invalid': isInvalid('streetNumber')}">
+          </div>
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('street')" class="mr-2">Straße darf nicht leer sein!</span>
+            <span *ngIf="isEmpty('streetNumber')">Hausnummer darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--location and zip-->
+      <div class="form-group row mb-1">
+        <label for="city" class="col-md-3 col-form-label"></label>
+        <div class="col-md-9">
+          <div class="d-flex">
+            <input class="form-control flex-1 mr-3"
+                   formControlName="zipCode"
+                   id="zipCode"
+                   placeholder="Postleitzahl"
+                   [ngClass]="{'is-invalid': isInvalid('zipCode')}">
+
+            <input class="form-control flex-2-5"
+                   formControlName="city"
+                   id="city"
+                   placeholder="Ort"
+                   [ngClass]="{'is-invalid': isInvalid('city')}">
+          </div>
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('zipCode')" class="mr-2">Postleitzahl darf nicht leer sein!</span>
+            <span *ngIf="isEmpty('city')">Ort darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--phoneNumber-->
+      <div class="form-group row mb-1">
+        <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="tel"
+                 formControlName="phoneNumber"
+                 id="phoneNumber"
+                 placeholder="Telefonnummer"
+                 [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--email and web-->
+      <div class="form-group row mb-1">
+        <label for="email" class="col-md-3 col-form-label">
+          Email:*
+        </label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="email"
+                 formControlName="email"
+                 id="email"
+                 placeholder="Email"
+                 [ngClass]="{'is-invalid': isInvalid('email')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('email')" class="mr-2">E-Mail darf nicht leer sein!</span>
+            <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group row mb-1">
+        <label for="homepage" class="col-md-3 col-form-label">Homepage:*</label>
+        <div class="col-md-9 ">
+          <input class="form-control "
+                 type="url"
+                 formControlName="homepage"
+                 id="homepage"
+                 placeholder="Homepage"
+                 [ngClass]="{'is-invalid': isInvalid('homepage')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('homepage')">Homepage darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--logo-->
+      <div class="form-group row mb-3">
+        <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
+        <div class="input-group col-md-9"
+             fitFilePicker
+             [accept]="'image/*'"
+             [maxSize]="2000000"
+             (filePick)="filePicked($event)">
+          <input class="form-control"
+                 id="logo"
+                 type="text"
+                 [value]="logo?.name"
+                 placeholder="Logo auswählen..."
+                 disabled>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Druchsuchen</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

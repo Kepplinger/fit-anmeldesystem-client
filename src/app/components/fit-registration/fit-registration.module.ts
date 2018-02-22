@@ -44,7 +44,8 @@ import { CodeLostComponent } from './code-lost/code-lost.component';
     ContactAndRemarksComponent,
     SubmissionSuccessComponent,
     TagInputComponent,
-    LocationPickerModalComponent]
+    LocationPickerModalComponent
+  ]
 })
 export class FitRegistrationModule {
 }
