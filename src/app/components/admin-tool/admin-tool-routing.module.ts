@@ -45,6 +45,16 @@ export const routes: Routes = [
         ]
       },
       {
+        path: 'fit-bearbeiten',
+        children: [
+          {
+            path: '',
+            component: CreateFitEventComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
         path: 'firmen-bestaetigen',
         children: [
           {
