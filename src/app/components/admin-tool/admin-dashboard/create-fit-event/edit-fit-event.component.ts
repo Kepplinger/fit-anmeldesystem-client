@@ -9,10 +9,10 @@ declare let $: any;
 
 @Component({
   selector: 'fit-create-fit-event',
-  templateUrl: './create-fit-event.component.html',
-  styleUrls: ['./create-fit-event.component.scss']
+  templateUrl: './edit-fit-event.component.html',
+  styleUrls: ['./edit-fit-event.component.scss']
 })
-export class CreateFitEventComponent implements OnInit {
+export class EditFitEventComponent implements OnInit {
 
   public event: Event = new Event();
   public selectedArea: Area = null;

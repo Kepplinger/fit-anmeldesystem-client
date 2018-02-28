@@ -4,7 +4,7 @@ import { AdminToolComponent } from './admin-tool.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
+import { EditFitEventComponent } from './admin-dashboard/create-fit-event/edit-fit-event.component';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
 import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
 
@@ -39,7 +39,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: CreateFitEventComponent,
+            component: EditFitEventComponent,
             outlet: 'adminOutlet'
           }
         ]
