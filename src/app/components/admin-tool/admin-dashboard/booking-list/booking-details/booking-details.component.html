@@ -1,88 +1,151 @@
-<div class="small-container my-4">
+<div class="small-container my-5">
 
-  <h2>Anmeldung vom bearbeiten</h2>
+  <h2>Anmeldung von {{booking?.company.name}} bearbeiten</h2>
 
-  <div>
+  <div class="mt-4">
     <form [formGroup]="bookingFormGroup">
 
       <!--company name-->
       <div class="form-group row mb-1">
-        <label for="companyName" class="col-md-3 col-form-label">Firmenname:*</label>
+        <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
         <div class="col-md-9">
           <input class="form-control"
                  formControlName="companyName"
                  id="companyName"
-                 placeholder="Firmenname"
-                 [ngClass]="{'is-invalid': isInvalid('companyName')}">
-          <div class="invalid-message invalid-message-container">
-            <span *ngIf="isEmpty('companyName')">Firmenname darf nicht leer sein!</span>
-          </div>
+                 readonly>
+        </div>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
 
       <!--address additions-->
       <div class="form-group row mb-1">
-        <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:*</label>
+        <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
         <div class="col-md-9">
           <input class="form-control flex-1"
                  type="text"
                  formControlName="addressAdditions"
                  id="addressAdditions"
-                 placeholder="Zusatz"
-                 [ngClass]="{'is-invalid': isInvalid('addressAdditions')}">
-          <div class="invalid-message invalid-message-container">
-            <span *ngIf="isEmpty('addressAdditions')">Adresszusatz darf nicht leer sein!</span>
-          </div>
+                 readonly>
+        </div>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
 
       <!--street and number-->
       <div class="form-group row mb-1">
-        <label for="street" class="col-md-3 col-form-label">Anschrift:*</label>
+        <label class="col-md-3 col-form-label">Anschrift:</label>
         <div class="col-md-9">
           <div class="d-flex">
             <input class="form-control flex-2-5 mr-3"
                    formControlName="street"
                    id="street"
-                   placeholder="Straße"
-                   [ngClass]="{'is-invalid': isInvalid('street')}">
+                   title="streetNumber"
+                   readonly>
 
             <input class="form-control flex-1"
                    formControlName="streetNumber"
                    id="streetNumber"
-                   placeholder="Hausnummer"
-                   [ngClass]="{'is-invalid': isInvalid('streetNumber')}">
+                   title="streetNumber"
+                   readonly>
           </div>
           <div class="invalid-message invalid-message-container">
-            <span *ngIf="isEmpty('street')" class="mr-2">Straße darf nicht leer sein!</span>
-            <span *ngIf="isEmpty('streetNumber')">Hausnummer darf nicht leer sein!</span>
           </div>
         </div>
       </div>
 
       <!--location and zip-->
       <div class="form-group row mb-1">
-        <label for="city" class="col-md-3 col-form-label"></label>
+        <label class="col-md-3 col-form-label"></label>
         <div class="col-md-9">
           <div class="d-flex">
             <input class="form-control flex-1 mr-3"
                    formControlName="zipCode"
                    id="zipCode"
-                   placeholder="Postleitzahl"
-                   [ngClass]="{'is-invalid': isInvalid('zipCode')}">
+                   title="zipCode"
+                   readonly>
 
             <input class="form-control flex-2-5"
                    formControlName="city"
                    id="city"
-                   placeholder="Ort"
-                   [ngClass]="{'is-invalid': isInvalid('city')}">
+                   title="city"
+                   readonly>
           </div>
           <div class="invalid-message invalid-message-container">
-            <span *ngIf="isEmpty('zipCode')" class="mr-2">Postleitzahl darf nicht leer sein!</span>
-            <span *ngIf="isEmpty('city')">Ort darf nicht leer sein!</span>
           </div>
         </div>
       </div>
+
+      <h3>Firmenkontakt</h3>
+
+      <!--gender-->
+      <div class="form-group row mb-0">
+        <label for="gender" class="col-md-3 col-form-label">Anrede:</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="gender"
+                 id="gender"
+                 readonly>
+          <div class="invalid-message invalid-message-container">
+          </div>
+        </div>
+      </div>
+
+      <!--location and zip-->
+      <div class="form-group row mb-1">
+        <label for="city" class="col-md-3 col-form-label">Name:</label>
+        <div class="col-md-9">
+          <div class="d-flex">
+            <input class="form-control flex-1 mr-3"
+                   type="text"
+                   formControlName="firstName"
+                   id="firstName"
+                   title="firstName"
+                   readonly>
+
+            <input class="form-control flex-1"
+                   type="text"
+                   formControlName="lastName"
+                   id="lastName"
+                   title="lastName"
+                   readonly>
+          </div>
+          <div class="invalid-message invalid-message-container">
+          </div>
+        </div>
+      </div>
+
+      <!--email-->
+      <div class="form-group row mb-0">
+        <label for="contactEmail" class="col-md-3 col-form-label">Email:</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="contactEmail"
+                 id="contactEmail"
+                 readonly>
+          <div class="invalid-message invalid-message-container">
+          </div>
+        </div>
+      </div>
+
+      <!--phone-->
+      <div class="form-group row mb-0">
+        <label for="contactPhoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="contactPhoneNumber"
+                 id="contactPhoneNumber"
+                 readonly>
+
+          <div class="invalid-message invalid-message-container">
+          </div>
+        </div>
+      </div>
+
+      <h3>Folder Daten</h3>
 
       <!--phoneNumber-->
       <div class="form-group row mb-1">
@@ -117,7 +180,6 @@
             <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
           </div>
         </div>
-
       </div>
 
       <div class="form-group row mb-1">
@@ -131,6 +193,116 @@
                  [ngClass]="{'is-invalid': isInvalid('homepage')}">
           <div class="invalid-message invalid-message-container">
             <span *ngIf="isEmpty('homepage')">Homepage darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-1">
+        <label for="branch" class="col-md-3 col-form-label">Branche:*</label>
+        <div class="col-md-9 ">
+          <input class="form-control"
+                 formControlName="branch"
+                 id="branch"
+                 placeholder="Tätigkeitsfeld der Firma"
+                 [ngClass]="{'is-invalid': isInvalid('branch')}">
+          <div class="invalid-message invalid-message-container">
+            <div *ngIf="isEmpty('branch')">Branche darf nicht leer sein!</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="my-auto">Firmenbeschreibung:</label>
+      </div>
+
+      <div class="my-2" (keypress)="storeFroala()" id="description" [froalaEditor]="options"></div>
+
+      <!--establishments-->
+      <div class="mb-4">
+        <h5 class="text-bold mb-3">Ihre Niederlassungen
+        </h5>
+
+        <div class="form-group ">
+          <div class="d-flex mb-1">
+            <label for="establishmentsAut" class="my-auto">
+              Standorte Österreich:
+            </label>
+
+            <div class="flex-filler"></div>
+
+            <label for="establishmentAutCount" class="my-auto mr-1">Anzahl:</label>
+            <input #establishmentAutCount
+                   class="number-input form-control"
+                   [value]="bookingFormGroup.value.establishmentsCountAut"
+                   (input)="verifyAutEstablishmentsCount()"
+                   id="establishmentAutCount" type="number"/>
+          </div>
+          <fit-tag-input id="establishmentsAut"
+                         [tags]="bookingFormGroup.value.establishmentsAut"
+                         (tagsChanges)="updateEstablishments('establishmentsAut', $event)">
+          </fit-tag-input>
+        </div>
+
+        <div class="form-group">
+          <div class="d-flex mb-1">
+            <label for="establishmentsInt" class="my-auto">
+              Standorte International:
+            </label>
+
+            <div class="flex-filler"></div>
+
+            <label for="establishmentIntCount" class="my-auto mr-1">Anzahl:</label>
+            <input #establishmentIntCount
+                   class="number-input form-control"
+                   [value]="bookingFormGroup.value.establishmentsCountInt"
+                   (input)="verifyIntEstablishmentsCount()"
+                   id="establishmentIntCount" type="number"/>
+          </div>
+          <fit-tag-input id="establishmentsInt"
+                         [tags]="bookingFormGroup.value.establishmentsInt"
+                         (tagsChanges)="updateEstablishments('establishmentsInt', $event)">
+          </fit-tag-input>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <!--desiredBranches-->
+        <!--<div class="col-6">-->
+          <!--<h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>-->
+
+          <!--<div *ngFor="let branch of branches; let index = index"-->
+               <!--class="checkbox mx-2">-->
+            <!--<label [id]="'checkboxBranch' + index">-->
+              <!--<input type="checkbox"-->
+                     <!--(change)="branchChanged(branch, $event)"-->
+                     <!--[checked]="isBranchSelected(branch)">-->
+              <!--<span class="cr"><i class="cr-icon fa fa-check"></i></span>-->
+              <!--{{branch.name}}-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--provide-->
+        <div class="col-6">
+          <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
+
+          <div class="checkbox mx-2">
+            <label id="providesSummerJob">
+              <input type="checkbox"
+                     formControlName="providesSummerJob">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              Ferialjobs/Ferialpraktika
+            </label>
+          </div>
+
+          <div class="checkbox mx-2">
+            <label id="providesThesis">
+              <input type="checkbox"
+                     formControlName="providesThesis">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              Diplomarbeiten
+            </label>
           </div>
         </div>
       </div>
@@ -152,6 +324,17 @@
           <div class="input-group-append">
             <button class="btn btn-primary" type="button">Druchsuchen</button>
           </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="remarks" class="col-md-3 col-form-label">Anmerkungen:</label>
+        <div class="col-md-9">
+      <textarea class="form-control"
+                id="remarks"
+                rows="4"
+                formControlName="remarks">
+      </textarea>
         </div>
       </div>
     </form>

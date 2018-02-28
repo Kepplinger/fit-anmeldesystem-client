@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TagInputModule } from 'ngx-chips';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FitRegistrationRoutingModule } from './fit-registration-routing.module';
@@ -13,13 +12,12 @@ import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-r
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
-import { TagInputComponent } from './registration-steps/2-detailed-data/tag-input/tag-input.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
 import {
   LocationPickerModalComponent
 } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
 import { CodeLostComponent } from './code-lost/code-lost.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   imports: [
@@ -28,7 +26,6 @@ import { CodeLostComponent } from './code-lost/code-lost.component';
     FormsModule,
     ReactiveFormsModule,
     FilePickerModule,
-    TagInputModule,
     FroalaEditorModule,
     FroalaViewModule,
     SharedModule
@@ -43,7 +40,6 @@ import { CodeLostComponent } from './code-lost/code-lost.component';
     PackagesAndLocationComponent,
     ContactAndRemarksComponent,
     SubmissionSuccessComponent,
-    TagInputComponent,
     LocationPickerModalComponent
   ]
 })

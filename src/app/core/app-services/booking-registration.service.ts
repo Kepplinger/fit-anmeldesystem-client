@@ -3,7 +3,7 @@ import { Booking } from '../model/booking';
 import { Company } from '../model/company';
 
 @Injectable()
-export class BookingRegistrationService {
+export class FitRegistrationService {
 
   public booking: Booking;
 
@@ -17,6 +17,5 @@ export class BookingRegistrationService {
   public setCompany(company: Company): void {
     this.booking = new Booking();
     this.booking.company = company;
-    console.log(this.booking);
   }
 }

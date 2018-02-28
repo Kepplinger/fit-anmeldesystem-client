@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationDao } from '../../../core/dao/authentication.dao';
+import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
 import { Subject } from 'rxjs/Subject';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class CodeLostComponent {
 
   private emailChanged: Subject<string> = new Subject<string>();
 
-  public constructor(private registrationDAO: AuthenticationDao,
+  public constructor(private registrationDAO: AuthenticationDAO,
                      private toastr: ToastrService,
                      private router: Router) {
     this.emailChanged.debounceTime(1000).subscribe(

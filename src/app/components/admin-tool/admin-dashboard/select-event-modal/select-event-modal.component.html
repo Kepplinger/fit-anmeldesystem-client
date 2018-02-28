@@ -9,16 +9,30 @@
       </div>
       <div class="modal-body">
 
-        <div *ngFor="let event of events">
-
-        </div>
+        <table class="table">
+          <tr>
+            <th>Datum</th>
+            <th>Anmelde-Start</th>
+            <th>Anmelde-Ende</th>
+            <th>Geschoße</th>
+          </tr>
+          <tr *ngFor="let event of events"
+              (click)="selectEvent(event)"
+              class="event-row"
+              [ngClass]="{'selected-row': selectedEvent.id == event.id}">
+            <td>{{event.eventDate | date:'longDate'}}</td>
+            <td>{{event.registrationStart | date:'longDate'}}</td>
+            <td>{{event.registrationEnd | date:'longDate'}}</td>
+            <td>{{event.areas.length}}</td>
+          </tr>
+        </table>
 
         <div class="d-flex">
           <button class="btn btn-outline-dark text-bold ml-auto"
                   (click)="createNewFitEvent()"
                   data-dismiss="modal">
             <i class="fa fa-plus"></i>
-            <span>Komplett neuen Fit erstellen</span>
+            <span>Neuen Fit erstellen</span>
           </button>
 
           <button class="btn btn-primary text-bold ml-2"

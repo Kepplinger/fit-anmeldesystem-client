@@ -12,16 +12,17 @@ import { ApplicationStateService } from './app-services/application-state.servic
 import { RouterService } from './app-services/router.service';
 import { EventDAO } from './dao/event.dao';
 import { LocationDao } from './dao/location.dao';
-import { AuthenticationDao } from './dao/authentication.dao';
+import { AuthenticationDAO } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
-import { BookingRegistrationService } from './app-services/booking-registration.service';
+import { FitRegistrationService } from './app-services/booking-registration.service';
 import { ModalWindowService } from './app-services/modal-window.service';
 import { BookingTransferService } from './app-services/booking-transfer.service';
+import { EventService } from './app-services/event.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   declarations: [],
   providers: [
@@ -31,15 +32,16 @@ import { BookingTransferService } from './app-services/booking-transfer.service'
     PackageDAO,
     CompanyDAO,
     LocationDao,
-    AuthenticationDao,
+    AuthenticationDAO,
     AreaDAO,
     EventDAO,
     AppConfig,
     ApplicationStateService,
-    BookingRegistrationService,
+    FitRegistrationService,
     ModalWindowService,
     BookingTransferService,
-    RouterService
+    RouterService,
+    EventService
   ]
 })
 export class CoreModule {

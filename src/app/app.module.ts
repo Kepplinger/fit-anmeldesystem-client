@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de-AT';
-import { EventService } from './core/app-services/event.service';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -30,10 +30,7 @@ registerLocaleData(localeDe, 'de-AT');
     MainComponent,
     RegistrationLockedComponent
   ],
-  providers: [
-    {provide: LOCALE_ID, useValue: 'de-AT'},
-    EventService
-  ],
+  providers: [{provide: LOCALE_ID, useValue: 'de-AT'}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

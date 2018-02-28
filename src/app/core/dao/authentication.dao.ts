@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
 @Injectable()
-export class AuthenticationDao {
+export class AuthenticationDAO {
 
   public constructor(private appConfig: AppConfig,
                      private http: HttpClient) {
@@ -23,8 +23,8 @@ export class AuthenticationDao {
       .toPromise();
   }
 
-  public async loginBooking(token: string): Promise<any> {
-    return this.http.post<any>(this.appConfig.serverURL + '/authentication/booking/token', {token: token})
+  public async loginCompany(token: string): Promise<any> {
+    return this.http.post<any>(this.appConfig.serverURL + '/authentication/company/token', {token: token})
       .catch((error: HttpErrorResponse) => {
         if (error.status === 400) {
           return Observable.of(error.error);

@@ -17,7 +17,7 @@ import { ArrayUtils } from '../../core/utils/array-utils';
 import { FolderInfo } from '../../core/model/folder-info';
 import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
-import { BookingRegistrationService } from '../../core/app-services/booking-registration.service';
+import { FitRegistrationService } from '../../core/app-services/booking-registration.service';
 import { EventService } from '../../core/app-services/event.service';
 
 @Component({
@@ -48,7 +48,7 @@ export class FitRegistrationComponent implements OnInit {
                      private eventDAO: EventDAO,
                      private eventService: EventService,
                      private appConfig: AppConfig,
-                     private bookingRegistrationService: BookingRegistrationService,
+                     private bookingRegistrationService: FitRegistrationService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
@@ -115,8 +115,6 @@ export class FitRegistrationComponent implements OnInit {
         labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
       }
     );
-
-    console.log(useOldBooking);
 
     if (useOldBooking) {
       this.fillFormWithBooking()

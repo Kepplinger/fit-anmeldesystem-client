@@ -16,6 +16,8 @@ import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
 import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
 import { SelectEventModalComponent } from './admin-dashboard/select-event-modal/select-event-modal.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { SharedModule } from '../shared-components/shared.module';
 
 @NgModule({
   imports: [
@@ -24,7 +26,10 @@ import { SelectEventModalComponent } from './admin-dashboard/select-event-modal/
     AngularDraggableModule,
     FilePickerModule,
     FormsModule,
-    ReactiveFormsModule
+    FroalaEditorModule,
+    FroalaViewModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
   declarations: [
     AdminToolComponent,

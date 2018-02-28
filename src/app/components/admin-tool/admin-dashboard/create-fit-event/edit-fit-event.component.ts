@@ -78,7 +78,7 @@ export class EditFitEventComponent implements OnInit {
 
   public async persistEvent(): Promise<void> {
     this.isLoading = true;
-    console.log(await this.eventDAO.persistEvent(this.event));
+    await this.eventDAO.persistEvent(this.event);
     this.isLoading = false;
     this.toastr.info('Request finished', 'Event speichern!');
   }

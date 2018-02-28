@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Booking } from '../../../../../core/model/booking';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { FormValidationHelper } from '../../../../../core/app-helper/form-validation-helper';
+import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
+import { AppConfig } from '../../../../../core/app-config/app-config.service';
 
 @Component({
   selector: 'fit-booking-detail',
@@ -17,6 +19,8 @@ export class BookingDetailsComponent implements OnInit {
 
   public constructor(private bookingTransferService: BookingTransferService,
                      private activatedRoute: ActivatedRoute,
+                     private appConfig: AppConfig,
+                     private router: Router,
                      private fb: FormBuilder) {
     this.bookingFormGroup = this.fb.group({
       companyName: ['', Validators.required],
@@ -61,6 +65,11 @@ export class BookingDetailsComponent implements OnInit {
       (params: Params) => {
         if (params.id != null) {
           this.booking = this.bookingTransferService.getBooking(Number(params.id));
+          if (this.booking == null) {
+            this.router.navigate(['/admin-tool', 'dash'])
+          } else {
+            this.fillFormWithBooking();
+          }
         }
       });
   }
@@ -79,6 +88,49 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   private fillFormWithBooking() {
+    console.log(this.booking.company.folderInfo.establishmentsAut);
 
+    this.bookingFormGroup.patchValue({
+      companyName: this.booking.company.name,
+      street: this.booking.company.address.street,
+      streetNumber: this.booking.company.address.streetNumber,
+      zipCode: this.booking.company.address.zipCode,
+      city: this.booking.company.address.city,
+      addressAdditions: this.booking.company.address.addition,
+      phoneNumber: this.booking.company.folderInfo.phoneNumber,
+      email: this.booking.company.folderInfo.email,
+      homepage: this.booking.company.folderInfo.homepage,
+      logoUrl: this.booking.company.folderInfo.logo,
+      branch: this.booking.company.folderInfo.branch,
+      description: this.booking.companyDescription,
+      // establishmentsAut: this.booking.company.folderInfo.establishmentsAut,
+      establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
+      // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
+      establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+      desiredBranches: this.booking.branches,
+      providesSummerJob: this.booking.providesSummerJob,
+      providesThesis: this.booking.providesThesis,
+      // representatives: this.booking.representatives,
+      additionalInfo: this.booking.additionalInfo,
+      // resources: this.booking.resources,
+      fitPackage: this.booking.fitPackage,
+      location: this.booking.location,
+      remarks: this.booking.remarks,
+      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).display,
+      firstName: this.booking.company.contact.firstName,
+      lastName: this.booking.company.contact.lastName,
+      contactEmail: this.booking.company.contact.email,
+      contactPhoneNumber: this.booking.company.contact.phoneNumber,
+    });
+
+    // if (this.booking.presentation != null) {
+    //   this.fitFormGroup.patchValue({
+    //     packagesAndLocation: {
+    //       presentationTitle: this.booking.presentation.title,
+    //       presentationDescription: this.booking.presentation.description,
+    //       // presentationFile: this.booking.presentation.fileUrl
+    //     }
+    //   });
+    // }
   }
 }
