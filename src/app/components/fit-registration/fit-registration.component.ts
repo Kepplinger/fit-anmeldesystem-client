@@ -17,7 +17,7 @@ import { ArrayUtils } from '../../core/utils/array-utils';
 import { FolderInfo } from '../../core/model/folder-info';
 import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
-import { FitRegistrationService } from '../../core/app-services/booking-registration.service';
+import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 import { EventService } from '../../core/app-services/event.service';
 
 @Component({

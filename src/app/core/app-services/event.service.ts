@@ -9,7 +9,7 @@ export class EventService {
 
   public currentEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event());
   public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event());
-  public events: Event[];
+  public events: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
 
   public constructor(private eventDAO: EventDAO) {
     this.fetchEvents();
@@ -18,7 +18,7 @@ export class EventService {
   private async fetchEvents(): Promise<void> {
     this.eventDAO.fetchEvents().then(
       (events: Event[]) => {
-        this.events = events;
+        this.events.next(events);
       }
     );
 

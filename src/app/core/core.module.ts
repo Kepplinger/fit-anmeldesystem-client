@@ -14,7 +14,7 @@ import { EventDAO } from './dao/event.dao';
 import { LocationDao } from './dao/location.dao';
 import { AuthenticationDAO } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
-import { FitRegistrationService } from './app-services/booking-registration.service';
+import { FitRegistrationService } from './app-services/fit-registration.service';
 import { ModalWindowService } from './app-services/modal-window.service';
 import { BookingTransferService } from './app-services/booking-transfer.service';
 import { EventService } from './app-services/event.service';

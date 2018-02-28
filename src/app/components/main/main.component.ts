@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationDAO } from '../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { FitRegistrationService } from '../../core/app-services/booking-registration.service';
+import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 
 @Component({
   selector: 'fit-main',

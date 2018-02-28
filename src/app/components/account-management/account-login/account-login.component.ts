@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 
 @Component({
   selector: 'fit-account-login',
@@ -15,6 +16,7 @@ export class AccountLoginComponent {
 
   public constructor(private authenticationDAO: AuthenticationDAO,
                      private toastr: ToastrService,
+                     private accountManagementService: AccountManagementService,
                      private router: Router) {
   }
 
@@ -26,13 +28,12 @@ export class AccountLoginComponent {
       this.toastr.error(response.errorMessage);
       this.hasFailed = true;
     } else {
-      console.log(response);
       if (response.booking != null) {
-        // this.bookingRegistrationService.setBooking(response.booking);
+        this.accountManagementService.setBooking(response.booking);
       } else if (response.company != null) {
-        // this.bookingRegistrationService.setCompany(response.company);
+        this.accountManagementService.setCompany(response.company);
       }
-      this.router.navigate(['fit', 'anmelden']);
+      this.router.navigate(['/konto']);
     }
   }
 }

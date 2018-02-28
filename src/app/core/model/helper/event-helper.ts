@@ -20,4 +20,21 @@ export class EventHelper {
       return null;
     }
   }
+
+  public static parseJsonToEventList(eventJson: any[]): Event[] {
+
+    if (eventJson != null) {
+      let events: Event[] = [];
+
+      eventJson.forEach(
+        (data: any) => {
+          events.push(EventHelper.parseJsonToEvent(data));
+        }
+      );
+
+      return events;
+    } else {
+      return null;
+    }
+  }
 }
