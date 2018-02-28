@@ -1,4 +1,5 @@
 @import "./fit-variables";
+@import "./fit-utility-extensions";
 @import "./fit-tag-input-theme";
 @import "./fit-animations";
 
@@ -61,10 +62,6 @@ body {
   flex: 1;
 }
 
-.text-bold {
-  font-weight: bold;
-}
-
 .tiny-container {
   max-width: 400px;
   width: 100%;
@@ -109,14 +106,6 @@ body {
   cursor: pointer;
 }
 
-.fa-1-3x {
-  font-size: 1.3rem !important;
-}
-
-.fa-1-5x {
-  font-size: 1.5rem !important;
-}
-
 .floating-effect {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
   0 6px 10px 0 rgba(0, 0, 0, .14),
@@ -129,11 +118,6 @@ body {
   0 1px 18px 0 rgba(0, 0, 0, .24);
 }
 
-.modal-xl {
-  width: auto;
-  max-width: 920px;
-}
-
 .text-larger {
   font-size: 1.3em;
 }
@@ -144,18 +128,6 @@ body {
 
 .text-smaller {
   font-size: 0.8em;
-}
-
-.mb-0-5 {
-  margin-bottom: 0.1rem;
-}
-
-.flex-2-5 {
-  flex: 2.5;
-}
-
-.flex-1 {
-  flex: 1;
 }
 
 .input-group-append {
@@ -183,7 +155,6 @@ body {
   min-height: 18px;
   max-height: 18px;
 }
-
 
 .input-loading-icon {
   right: 10px;

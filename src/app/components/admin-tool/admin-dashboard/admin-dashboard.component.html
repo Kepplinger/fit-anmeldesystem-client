@@ -1,6 +1,8 @@
 <div class="container p-5">
 
-  <div class="dashboard-grid mt-5">
+  <h2 class="text-center mt-4">Fit am {{event?.eventDate | date:'medium'}}</h2>
+
+  <div class="dashboard-grid mt-4">
 
     <div class="dash"
          [routerLink]="['/admin-tool','fit-bearbeiten']">

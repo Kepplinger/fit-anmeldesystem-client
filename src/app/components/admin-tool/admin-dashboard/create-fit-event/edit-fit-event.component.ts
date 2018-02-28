@@ -4,6 +4,8 @@ import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
 import { ToastrService } from 'ngx-toastr';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { EventService } from '../../../../core/app-services/event.service';
+import { Router } from '@angular/router';
 
 declare let $: any;
 
@@ -22,7 +24,14 @@ export class EditFitEventComponent implements OnInit {
 
   public constructor(private changeDetector: ChangeDetectorRef,
                      private toastr: ToastrService,
+                     private router: Router,
+                     private eventService: EventService,
                      private eventDAO: EventDAO) {
+    this.event = this.eventService.selectedEvent.getValue();
+
+    if (this.event == null) {
+      this.router.navigate(['/admin-tool', 'dash']);
+    }
   }
 
   public ngOnInit(): void {

@@ -18,6 +18,7 @@ import { FolderInfo } from '../../core/model/folder-info';
 import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
 import { BookingRegistrationService } from '../../core/app-services/booking-registration.service';
+import { EventService } from '../../core/app-services/event.service';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -45,6 +46,7 @@ export class FitRegistrationComponent implements OnInit {
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
                      private eventDAO: EventDAO,
+                     private eventService: EventService,
                      private appConfig: AppConfig,
                      private bookingRegistrationService: BookingRegistrationService,
                      private modalWindowService: ModalWindowService,
@@ -102,11 +104,7 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    await this.eventDAO.getCurrentEvent().then(
-      (event: Event) => {
-        this.event = event;
-      }
-    );
+    this.event = this.eventService.currentEvent.getValue();
 
     let useOldBooking = await this.modalWindowService.confirm(
       'Anmeldung von letzten Mal übernehemen?',

@@ -49,7 +49,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: CreateFitEventComponent,
+            component: EditFitEventComponent,
             outlet: 'adminOutlet'
           }
         ]

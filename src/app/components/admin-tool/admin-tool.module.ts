@@ -36,7 +36,8 @@ import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-
     EditAreaModalComponent,
     DateTimePickerComponent,
     VerifyCompaniesComponent
-  ]
+  ],
+  providers: []
 })
 export class AdminToolModule {
 }
