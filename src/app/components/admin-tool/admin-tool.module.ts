@@ -15,6 +15,7 @@ import { EditAreaModalComponent } from './admin-dashboard/create-fit-event/edit-
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
 import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
+import { SelectEventModalComponent } from './admin-dashboard/select-event-modal/select-event-modal.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-
     BookingDetailsComponent,
     EditFitEventComponent,
     EditAreaModalComponent,
+    SelectEventModalComponent,
     DateTimePickerComponent,
     VerifyCompaniesComponent
   ],

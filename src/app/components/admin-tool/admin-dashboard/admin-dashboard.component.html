@@ -1,6 +1,19 @@
+<fit-select-event-modal></fit-select-event-modal>
+
 <div class="container p-5">
 
-  <h2 class="text-center mt-4">Fit am {{event?.eventDate | date:'medium'}}</h2>
+  <div class="d-flex justify-content-center align-items-center">
+    <h2>Fit am {{event?.eventDate | date:'longDate'}}</h2>
+
+    <button type="button"
+            id="btnEventModal"
+            class="btn btn-link"
+            data-toggle="modal"
+            data-target="#selectEventModal">
+      <i class="fa fa-pencil"></i>
+      <span>FIT ändern</span>
+    </button>
+  </div>
 
   <div class="dashboard-grid mt-4">
 
