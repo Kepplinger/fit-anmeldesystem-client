@@ -7,6 +7,7 @@ import { AccountLoginComponent } from './account-login/account-login.component';
 import { FormsModule } from '@angular/forms';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { AccountOverviewComponent } from './account-overview/account-overview.component';
+import { AccountHeaderComponent } from './account-header/account-header.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { AccountOverviewComponent } from './account-overview/account-overview.co
   declarations: [
     AccountManagmentComponent,
     AccountOverviewComponent,
-    AccountLoginComponent
+    AccountLoginComponent,
+    AccountHeaderComponent
   ],
   providers: [
     AccountManagementService
