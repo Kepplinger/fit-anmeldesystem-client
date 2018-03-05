@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-management-routing.module';
 import { AccountManagmentComponent } from './account-management.component';
 import { AccountLoginComponent } from './account-login/account-login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { AccountOverviewComponent } from './account-overview/account-overview.component';
 import { AccountHeaderComponent } from './account-header/account-header.component';
@@ -13,7 +13,8 @@ import { AccountHeaderComponent } from './account-header/account-header.componen
   imports: [
     FormsModule,
     CommonModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AccountManagmentComponent,
