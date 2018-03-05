@@ -152,17 +152,17 @@
       <span>Daten bearbeiten</span>
     </button>
 
-    <button class="btn btn-primary text-bold ml-auto"
+    <button class="btn btn-danger text-bold ml-auto"
             *ngIf="isEditing"
-            (click)="updateCompany()">
-      <i class="fa fa-pencil"></i>
+            (click)="cancel()">
+      <i class="fa fa-times"></i>
       <span>Abbrechen</span>
     </button>
 
-    <button class="btn btn-primary text-bold ml-2"
+    <button class="btn btn-success text-bold ml-2"
             *ngIf="isEditing"
-            (click)="cancel()">
-      <i class="fa fa-pencil"></i>
+            (click)="updateCompany()">
+      <i class="fa fa-download"></i>
       <span>Speichern</span>
     </button>
   </div>

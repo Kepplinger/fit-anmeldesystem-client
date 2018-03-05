@@ -5,6 +5,9 @@ import { DisplayedValue } from '../../../core/app-helper/helper-model/displayed-
 import { DisplayedValueMapper } from '../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../core/app-config/app-config.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Address } from '../../../core/model/address';
+import { Contact } from '../../../core/model/contact';
+import { CompanyDAO } from '../../../core/dao/company.dao';
 
 @Component({
   selector: 'fit-account-overview',
@@ -19,6 +22,7 @@ export class AccountOverviewComponent implements OnInit {
 
   public constructor(private accountManagementService: AccountManagementService,
                      private fb: FormBuilder,
+                     private companyDAO: CompanyDAO,
                      private appConfig: AppConfig) {
     this.companyFormGroup = this.fb.group({
       companyName: ['', Validators.required],
@@ -66,6 +70,8 @@ export class AccountOverviewComponent implements OnInit {
 
   public updateCompany(): void {
     this.isEditing = false;
+    this.updateCompanyFromForm();
+    this.companyDAO.updateCompany(this.company);
   }
 
   public cancel(): void {
@@ -74,4 +80,29 @@ export class AccountOverviewComponent implements OnInit {
     this.fillFormWithBooking();
   }
 
+  private updateCompanyFromForm(): void {
+    this.company.name = this.companyFormGroup.value.companyName;
+    this.company.address = this.getCompanyAddressFromForm();
+    this.company.contact = this.getContactFromForm();
+  }
+
+  private getCompanyAddressFromForm(): Address {
+    return new Address(
+      this.companyFormGroup.value.city,
+      this.companyFormGroup.value.zipCode,
+      this.companyFormGroup.value.street,
+      this.companyFormGroup.value.streetNumber,
+      this.companyFormGroup.value.addressAdditions,
+    );
+  }
+
+  private getContactFromForm(): Contact {
+    return new Contact(
+      this.companyFormGroup.value.firstName,
+      this.companyFormGroup.value.lastName,
+      this.companyFormGroup.value.gender,
+      this.companyFormGroup.value.contactEmail,
+      this.companyFormGroup.value.contactPhoneNumber
+    );
+  }
 }

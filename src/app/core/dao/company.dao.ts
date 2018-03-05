@@ -25,4 +25,9 @@ export class CompanyDAO {
     return this.http.post<Company>(this.appConfig.serverURL + '/company', company)
       .toPromise();
   }
+
+  public async updateCompany(company: Company): Promise<Company> {
+    return this.http.put<Company>(this.appConfig.serverURL + '/company', company)
+      .toPromise();
+  }
 }
