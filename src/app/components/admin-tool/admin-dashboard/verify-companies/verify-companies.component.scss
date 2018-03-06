@@ -1,0 +1,14 @@
+@import "../../../../styles/fit-global-styles";
+
+.selected-company {
+  background-color: lighten($primary, 30%);
+  opacity: 1;
+}
+
+.back-btn {
+  height: 30px;
+}
+
+.table {
+  overflow-x: scroll;
+}

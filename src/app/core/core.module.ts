@@ -18,6 +18,7 @@ import { FitRegistrationService } from './app-services/fit-registration.service'
 import { ModalWindowService } from './app-services/modal-window.service';
 import { BookingTransferService } from './app-services/booking-transfer.service';
 import { EventService } from './app-services/event.service';
+import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { EventService } from './app-services/event.service';
     ResourceDAO,
     PackageDAO,
     CompanyDAO,
+    ChangeProtocolDAO,
     LocationDao,
     AuthenticationDAO,
     AreaDAO,

@@ -7,6 +7,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { EditFitEventComponent } from './admin-dashboard/create-fit-event/edit-fit-event.component';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
 import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
+import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,16 @@ export const routes: Routes = [
           {
             path: '',
             component: VerifyCompaniesComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'aenderungsprotokoll',
+        children: [
+          {
+            path: '',
+            component: ChangelogComponent,
             outlet: 'adminOutlet'
           }
         ]

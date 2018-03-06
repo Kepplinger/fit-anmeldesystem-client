@@ -18,6 +18,7 @@ import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-
 import { SelectEventModalComponent } from './admin-dashboard/select-event-modal/select-event-modal.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
+import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { SharedModule } from '../shared-components/shared.module';
     EditAreaModalComponent,
     SelectEventModalComponent,
     DateTimePickerComponent,
+    ChangelogComponent,
     VerifyCompaniesComponent
   ],
   providers: []
