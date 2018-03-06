@@ -77,15 +77,26 @@
     <h3>Firmenkontakt</h3>
 
     <!--gender-->
-    <div class="form-group row mb-0">
-      <label for="gender" class="col-md-3 col-form-label">Anrede:</label>
-      <div class="col-md-9">
-        <input class="form-control"
-               type="text"
-               formControlName="gender"
-               id="gender"
-               [readonly]="!isEditing">
-        <div class="invalid-message invalid-message-container">
+    <div class="form-row row my-3">
+      <div class="col-md-3">
+        Anrede:*
+      </div>
+
+      <div class="col-md-9 px-3">
+        <div *ngFor="let gender of genders"
+             class="custom-control custom-radio custom-control-inline">
+          <!--suppress HtmlFormInputWithoutLabel -->
+          <input class="custom-control-input cursor-pointer"
+                 type="radio"
+                 [id]="'gender' + gender.value"
+                 [value]="gender.value"
+                 formControlName="gender">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 [for]="'gender' + gender.value"
+                 [id]="'genderLabel' + gender.value">
+            {{gender.display}}
+          </label>
         </div>
       </div>
     </div>

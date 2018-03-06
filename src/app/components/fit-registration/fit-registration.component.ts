@@ -13,7 +13,6 @@ import { Event } from '../../core/model/event';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import { AppConfig } from '../../core/app-config/app-config.service';
-import { ArrayUtils } from '../../core/utils/array-utils';
 import { FolderInfo } from '../../core/model/folder-info';
 import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
@@ -63,13 +62,18 @@ export class FitRegistrationComponent implements OnInit {
         zipCode: [this.booking.company.address.zipCode, Validators.required],
         city: [this.booking.company.address.city, Validators.required],
         addressAdditions: [this.booking.company.address.addition, Validators.required],
+        gender: [{value: this.booking.company.contact.gender, disabled: true}],
+        firstName: [this.booking.company.contact.firstName, Validators.required],
+        lastName: [this.booking.company.contact.lastName, Validators.required],
+        contactEmail: [this.booking.company.contact.email, Validators.required],
+        contactPhoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
+      }),
+      detailedData: fb.group({
+        branch: ['', Validators.required],
         phoneNumber: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
         logoUrl: ['', Validators.required],
-      }),
-      detailedData: fb.group({
-        branch: ['', Validators.required],
         description: ['', Validators.required],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],

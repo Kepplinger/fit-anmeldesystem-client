@@ -20,6 +20,8 @@ export class AccountOverviewComponent implements OnInit {
   public companyFormGroup: FormGroup;
   public isEditing: boolean = false;
 
+  public genders: DisplayedValue[];
+
   public constructor(private accountManagementService: AccountManagementService,
                      private fb: FormBuilder,
                      private companyDAO: CompanyDAO,
@@ -31,22 +33,20 @@ export class AccountOverviewComponent implements OnInit {
       zipCode: ['', Validators.required],
       city: ['', Validators.required],
       addressAdditions: ['', Validators.required],
-      gender: [''],
+      gender: [{value: 'M', disabled: !this.isEditing}],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       contactEmail: ['', Validators.required],
       contactPhoneNumber: ['', Validators.required],
     });
+
+    this.genders = this.appConfig.genders;
   }
 
   public ngOnInit(): void {
     this.company = this.accountManagementService.getCompany();
     this.fillFormWithBooking();
   }
-
-  // public getMappedGenderOfContact(): string {
-  //   return DisplayedValueMapper.mapToDisplayValue(this.company.contact.gender, this.appConfig.genders).display;
-  // }
 
   private fillFormWithBooking() {
     this.companyFormGroup.patchValue({
@@ -56,7 +56,7 @@ export class AccountOverviewComponent implements OnInit {
       zipCode: this.company.address.zipCode,
       city: this.company.address.city,
       addressAdditions: this.company.address.addition,
-      gender: DisplayedValueMapper.mapToDisplayValue(this.company.contact.gender, this.appConfig.genders).display,
+      gender: this.company.contact.gender,
       firstName: this.company.contact.firstName,
       lastName: this.company.contact.lastName,
       contactEmail: this.company.contact.email,
@@ -66,17 +66,19 @@ export class AccountOverviewComponent implements OnInit {
 
   public enableEditing(): void {
     this.isEditing = true;
+    this.companyFormGroup.controls['gender'].enable();
   }
 
   public updateCompany(): void {
     this.isEditing = false;
+    this.companyFormGroup.controls['gender'].disable();
     this.updateCompanyFromForm();
     this.companyDAO.updateCompany(this.company);
   }
 
   public cancel(): void {
-    console.log(this.company);
     this.isEditing = false;
+    this.companyFormGroup.controls['gender'].disable();
     this.fillFormWithBooking();
   }
 

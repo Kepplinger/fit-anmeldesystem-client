@@ -19,7 +19,7 @@
         <div [ngSwitch]="step">
           <div *ngSwitchCase="Step.GeneralData"
                class="my-auto">
-            Allgemeines zur Firma
+            Firma Stammdaten
           </div>
           <div *ngSwitchCase="Step.DetailedData"
                class="my-auto">
@@ -35,7 +35,7 @@
           </div>
           <div *ngSwitchCase="Step.ContactAndRemarks"
                class="my-auto">
-            Kontakt & Anmerkungen
+            FIT-Kontakt
           </div>
         </div>
 
@@ -72,9 +72,11 @@
     <fit-contact-and-remarks [isVisible]="currentStep == Step.ContactAndRemarks"
                              [stepFormGroup]="fitFormGroup.controls['contactAndRemarks']">
     </fit-contact-and-remarks>
-  </div>
 
-  <div class="text-smaller text-muted">* Pflichtfeld</div>
+    <div class="d-flex">
+      <div class="ml-auto text-smaller text-muted">* Pflichtfeld</div>
+    </div>
+  </div>
 
   <!--navigation buttons-->
   <div class="d-flex mx-4">

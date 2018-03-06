@@ -4,6 +4,8 @@ import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { FormValidationHelper } from '../../../../core/app-helper/form-validation-helper';
+import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
+import { PickedFile } from '../../../../libs/file-picker/picked-file';
 
 declare let $;
 
@@ -28,7 +30,9 @@ export class DetailedDataComponent implements OnInit {
 
   public branches: Branch[] = [];
   public branchFormArray: FormArray = null;
-  public options: Object;
+  public isDrag: boolean = false;
+  public logo: PickedFile;
+  public options: any;
 
   public constructor(private branchDAO: BranchDAO) {
     this.options = {
@@ -54,6 +58,19 @@ export class DetailedDataComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+  }
+
+  public filePicked(file: PickedFile | FilePickerError): void {
+    if (file instanceof PickedFile) {
+      this.logo = file;
+      this.stepFormGroup.value.logo = this.logo.dataURL;
+    } else if (file === FilePickerError.FileTooBig) {
+      console.log('too big');
+    } else if (file === FilePickerError.InvalidFileType) {
+      console.log('invalid file type');
+    } else if (file === FilePickerError.UndefinedInput) {
+      console.log('undefined input');
+    }
   }
 
   public branchChanged(branch: Branch, event: any): void {
@@ -105,6 +122,10 @@ export class DetailedDataComponent implements OnInit {
 
   public isEmpty(formName: string): boolean {
     return FormValidationHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
+  }
+
+  public isNoMail(formName: string): boolean {
+    return FormValidationHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {

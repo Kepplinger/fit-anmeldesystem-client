@@ -1,23 +1,121 @@
 <div *ngIf="isVisible">
   <div class="mb-4">
     <h2 class="text-bold">Details zur Firma</h2>
-    <p>Diese detaillierteren Angaben zu Ihrer Firma helfen unseren Besuchern, die passenden Firmen zu finden. Bitte
-      seien Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
+    <p>Diese detaillierteren Angaben zu Ihrer Firma helfen unseren Besuchern, die passenden Firmen zu finden und Kontakt
+      aufzunehmen. Bitte seien Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
   </div>
 
   <form [formGroup]="stepFormGroup">
 
     <!--general-->
     <div class="mb-4">
-      <h5 class="text-bold mb-3">Allgemein</h5>
+      <h5 class="text-bold mb-3">Allgemeine Infos</h5>
 
-      <div class="form-group d-flex align-items-center">
-        <div>
-          <label for="branch" class="my-0 mr-3">Branche:*</label>
-          <div class="invalid-message invalid-message-container"></div> <!--placeholder for spacing-->
+      <!--phoneNumber-->
+      <div class="form-group row mb-1">
+        <label for="phoneNumber" class="col-md-3 col-form-label">
+          Telefonnummer:*
+          <fit-hint-icon
+            [message]="'Diese Telefonnummer wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'">
+          </fit-hint-icon>
+        </label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="tel"
+                 formControlName="phoneNumber"
+                 id="phoneNumber"
+                 placeholder="Telefonnummer"
+                 [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</span>
+          </div>
         </div>
+      </div>
 
-        <div class="w-100">
+      <!--email and web-->
+      <div class="form-group row mb-1">
+        <label for="email" class="col-md-3 col-form-label">
+          Email:*
+          <fit-hint-icon
+            [message]="'Diese Email wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'">
+          </fit-hint-icon>
+        </label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="email"
+                 formControlName="email"
+                 id="email"
+                 placeholder="Email"
+                 [ngClass]="{'is-invalid': isInvalid('email')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('email')" class="mr-2">E-Mail darf nicht leer sein!</span>
+            <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-1">
+        <label for="homepage" class="col-md-3 col-form-label">Homepage:*</label>
+        <div class="col-md-9 ">
+          <input class="form-control "
+                 type="url"
+                 formControlName="homepage"
+                 id="homepage"
+                 placeholder="Homepage"
+                 [ngClass]="{'is-invalid': isInvalid('homepage')}">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('homepage')">Homepage darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--logo-->
+      <div class="form-group row mb-3">
+        <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
+        <div class="input-group col-md-9"
+             fitFilePicker
+             [accept]="'image/*'"
+             [maxSize]="2000000"
+             (filePick)="filePicked($event)">
+          <input class="form-control"
+                 id="logo"
+                 type="text"
+                 [value]="logo?.name"
+                 placeholder="Logo auswählen..."
+                 disabled>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Druchsuchen</button>
+          </div>
+        </div>
+      </div>
+
+      <!--image and dropzone-->
+      <div class="row mb-2" style="height: 100px; max-height: 100px">
+        <div class="col-md-3">
+          <img *ngIf="logo != undefined && logo.dataURL != undefined"
+               [src]="logo?.dataURL"
+               class="logo-display w-100 h-100">
+        </div>
+        <div class="col-md-9">
+          <div fitFileDropzone
+               [accept]="'image\/.'"
+               [maxSize]="2000000"
+               (fileDrop)="filePicked($event)"
+               (dragenter)="isDrag = true"
+               (dragleave)="isDrag = false"
+               (drop)="isDrag = false"
+               class="drop-zone h-100 w-100"
+               [ngClass]="{'is-drag': isDrag}">
+            <div class="drop-zone-text centered-element">Logo: Drag & Drop</div>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="text-bold mb-3">Tätigkeitsbereich</h5>
+
+      <div class="form-group row mb-1">
+        <label for="branch" class="col-md-3 col-form-label">Branche:*</label>
+        <div class="col-md-9">
           <input class="form-control"
                  formControlName="branch"
                  id="branch"
