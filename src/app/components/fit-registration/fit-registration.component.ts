@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -18,6 +18,7 @@ import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
 import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 import { EventService } from '../../core/app-services/event.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -40,6 +41,8 @@ export class FitRegistrationComponent implements OnInit {
     FitRegistrationStep.ContactAndRemarks
   ];
 
+  public isFormTouched: boolean = false;
+
   private booking: Booking = new Booking();
 
   public constructor(private router: Router,
@@ -47,6 +50,7 @@ export class FitRegistrationComponent implements OnInit {
                      private eventDAO: EventDAO,
                      private eventService: EventService,
                      private appConfig: AppConfig,
+                     private toastr: ToastrService,
                      private bookingRegistrationService: FitRegistrationService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
@@ -110,18 +114,20 @@ export class FitRegistrationComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.event = this.eventService.currentEvent.getValue();
 
-    let useOldBooking = await this.modalWindowService.confirm(
-      'Anmeldung von letzten Mal übernehemen?',
-      'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
-      {
-        closableByDimmer: false,
-        movable: false,
-        labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
-      }
-    );
+    if (this.booking.id != null) {
+      let useOldBooking = await this.modalWindowService.confirm(
+        'Anmeldung von letzten Mal übernehemen?',
+        'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
+        {
+          closableByDimmer: false,
+          movable: false,
+          labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
+        }
+      );
 
-    if (useOldBooking) {
-      this.fillFormWithBooking()
+      if (useOldBooking) {
+        this.fillFormWithBooking()
+      }
     }
   }
 
@@ -139,11 +145,15 @@ export class FitRegistrationComponent implements OnInit {
 
   public async submitForm(): Promise<void> {
 
-    let booking: Booking = this.getBookingFromForm();
-    console.log(booking);
-
-    await this.bookingDAO.createBooking(booking);
-    this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+    if (this.fitFormGroup.valid) {
+      let booking: Booking = this.getBookingFromForm();
+      await this.bookingDAO.createBooking(booking);
+      this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+    } else {
+      this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
+      this.isFormTouched = true;
+      this.validateAllFormFields(this.fitFormGroup);
+    }
   }
 
   private getBookingFromForm(): Booking {
@@ -178,10 +188,10 @@ export class FitRegistrationComponent implements OnInit {
   private getFolderInfoFromForm(): FolderInfo {
     return new FolderInfo(
       this.fitFormGroup.value.detailedData.branch,
-      this.fitFormGroup.value.generalData.phoneNumber,
-      this.fitFormGroup.value.generalData.email,
-      this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logo != null ? 'a' : 'b', // TODO replace
+      this.fitFormGroup.value.detailedData.phoneNumber,
+      this.fitFormGroup.value.detailedData.email,
+      this.fitFormGroup.value.detailedData.homepage,
+      this.fitFormGroup.value.detailedData.logo != null ? 'a' : 'b', // TODO replace
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -227,13 +237,11 @@ export class FitRegistrationComponent implements OnInit {
 
   private fillFormWithBooking(): void {
     this.fitFormGroup.patchValue({
-      generalData: {
+      detailedData: {
         phoneNumber: this.booking.company.folderInfo.phoneNumber,
         email: this.booking.company.folderInfo.email,
         homepage: this.booking.company.folderInfo.homepage,
         // logoUrl: this.booking.company.folderInfo.logo
-      },
-      detailedData: {
         branch: this.booking.company.folderInfo.branch,
         description: this.booking.companyDescription,
         // establishmentsAut: this.booking.company.folderInfo.establishmentsAut,
@@ -267,5 +275,16 @@ export class FitRegistrationComponent implements OnInit {
         }
       });
     }
+  }
+
+  private validateAllFormFields(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 }

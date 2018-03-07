@@ -61,6 +61,7 @@
     </fit-detailed-data>
 
     <fit-fit-appearance [isVisible]="currentStep == Step.FitAppearance"
+                        [areRepresentativesTouched]="isFormTouched"
                         [stepFormGroup]="fitFormGroup.controls['fitAppearance']">
     </fit-fit-appearance>
 

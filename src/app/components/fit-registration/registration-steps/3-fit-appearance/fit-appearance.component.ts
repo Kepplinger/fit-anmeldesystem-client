@@ -21,6 +21,9 @@ export class FitAppearanceComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
+  @Input()
+  public areRepresentativesTouched: boolean = false;
+
   public representatives: Representative[] = [];
   public resources: Resource[] = [];
   public resourceFormArray: FormArray = null;
@@ -115,12 +118,16 @@ export class FitAppearanceComponent implements OnInit {
   }
 
   public isTouched(representative: Representative, attribute: string): boolean {
-    if (attribute === 'name') {
-      return this.touchedRepresentatives.find(r => r.representative === representative).name;
-    } else if (attribute === 'email') {
-      return this.touchedRepresentatives.find(r => r.representative === representative).email;
+    if (!this.areRepresentativesTouched) {
+      if (attribute === 'name') {
+        return this.touchedRepresentatives.find(r => r.representative === representative).name;
+      } else if (attribute === 'email') {
+        return this.touchedRepresentatives.find(r => r.representative === representative).email;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      return true;
     }
   }
 }

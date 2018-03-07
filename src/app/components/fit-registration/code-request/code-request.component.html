@@ -1,10 +1,11 @@
-<div class="smaller-container my-4">
+<div class="smaller-container my-5">
 
   <h2 class="text-bold">Firmen-Code beantragen</h2>
   <p>Wenn Sie sich zum ersten Mal beim FIT anmelden wollen können Sie hier einen Code für die Anmeldung beantragen. Wenn
     Ihre Firma schon einmal beim FIT angemeldet war ...</p>
 
-  <form [formGroup]="formGroup">
+  <form [formGroup]="formGroup"
+        [ngClass]="{'disabled-element': isLoading}">
 
     <h4>Firma</h4>
 
@@ -128,7 +129,7 @@
       </div>
     </div>
 
-    <button class="btn btn-block btn-lg text-bold btn-primary"
+    <button class="btn btn-block btn-lg text-bold btn-primary mt-2"
             (click)="persistCompany()">
       Abschicken
     </button>

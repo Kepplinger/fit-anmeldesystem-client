@@ -7,6 +7,8 @@ import { Address } from '../../../core/model/address';
 import { Contact } from '../../../core/model/contact';
 import { Company } from '../../../core/model/company';
 import { CompanyDAO } from '../../../core/dao/company.dao';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fit-code-request',
@@ -17,9 +19,12 @@ export class CodeRequestComponent {
 
   public genders: DisplayedValue[];
   public formGroup: FormGroup;
+  public isLoading: boolean = false;
 
   public constructor(private appConfig: AppConfig,
                      private company: CompanyDAO,
+                     private router: Router,
+                     private toastr: ToastrService,
                      private formBuilder: FormBuilder) {
     this.genders = appConfig.genders;
 
@@ -37,8 +42,12 @@ export class CodeRequestComponent {
     })
   }
 
-  public persistCompany(): void {
-    this.company.persistCompany(this.getCompanyFromForm());
+  public async persistCompany(): Promise<void> {
+    this.isLoading = true;
+    await this.company.persistCompany(this.getCompanyFromForm());
+    this.isLoading = false;
+    this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag!');
+    this.router.navigate(['']);
   }
 
   private getCompanyFromForm(): Company {
