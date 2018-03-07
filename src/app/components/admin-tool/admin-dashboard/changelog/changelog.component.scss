@@ -1,0 +1,15 @@
+@import "../../../../styles/fit-global-styles";
+
+.company-row {
+  cursor: pointer;
+
+  &:hover:not(.selected-company) {
+    background-color: whitesmoke;
+  }
+}
+
+.selected-company {
+  background-color: $primary;
+  color: white;
+  font-weight: bold;
+}

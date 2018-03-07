@@ -14,5 +14,4 @@ export class ChangeProtocolDAO {
     return this.http.get<ChangeProtocol[]>(this.appConfig.serverURL + '/change-protocol')
       .toPromise();
   }
-
 }

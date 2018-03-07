@@ -84,27 +84,25 @@ export class AccountOverviewComponent implements OnInit {
 
   private updateCompanyFromForm(): void {
     this.company.name = this.companyFormGroup.value.companyName;
-    this.company.address = this.getCompanyAddressFromForm();
-    this.company.contact = this.getContactFromForm();
+    this.company.address = this.updateCompanyAddressFromForm(this.company.address);
+    this.company.contact = this.updateContactFromForm(this.company.contact);
   }
 
-  private getCompanyAddressFromForm(): Address {
-    return new Address(
-      this.companyFormGroup.value.city,
-      this.companyFormGroup.value.zipCode,
-      this.companyFormGroup.value.street,
-      this.companyFormGroup.value.streetNumber,
-      this.companyFormGroup.value.addressAdditions,
-    );
+  private updateCompanyAddressFromForm(address: Address): Address {
+    address.city = this.companyFormGroup.value.city;
+    address.zipCode = this.companyFormGroup.value.zipCode;
+    address.street = this.companyFormGroup.value.street;
+    address.streetNumber = this.companyFormGroup.value.streetNumber;
+    address.addition = this.companyFormGroup.value.addressAdditions;
+    return address;
   }
 
-  private getContactFromForm(): Contact {
-    return new Contact(
-      this.companyFormGroup.value.firstName,
-      this.companyFormGroup.value.lastName,
-      this.companyFormGroup.value.gender,
-      this.companyFormGroup.value.contactEmail,
-      this.companyFormGroup.value.contactPhoneNumber
-    );
+  private updateContactFromForm(contact: Contact): Contact {
+    contact.firstName = this.companyFormGroup.value.firstName;
+    contact.lastName = this.companyFormGroup.value.lastName;
+    contact.gender = this.companyFormGroup.value.gender;
+    contact.email = this.companyFormGroup.value.contactEmail;
+    contact.phoneNumber = this.companyFormGroup.value.contactPhoneNumbe;
+    return contact;
   }
 }

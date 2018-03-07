@@ -1,0 +1,33 @@
+<div class="p-5">
+
+  <h2>Änderungsprotokoll</h2>
+  <div class="row">
+
+    <div class="col-md-4">
+      <table class="table">
+
+        <tr>
+          <th>Firma</th>
+          <th>Kontakt</th>
+          <th class="text-center">Änderungen</th>
+        </tr>
+
+        <tr *ngFor="let company of companies"
+            class="company-row"
+            [ngClass]="{'selected-company': company == selectedCompany}"
+            (click)="selectCompany(company)">
+          <td>{{company.name}}</td>
+          <td>{{company.contact.firstName}} {{company.contact.lastName}}</td>
+          <td class="text-center">0</td>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="col-md-8">
+      <div *ngFor="let item of list">
+
+      </div>
+    </div>
+  </div>
+</div>
