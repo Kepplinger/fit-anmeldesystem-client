@@ -11,7 +11,7 @@ export class ChangeProtocolDAO {
   }
 
   public fetchChangeProtocol(): Promise<ChangeProtocol[]> {
-    return this.http.get<ChangeProtocol[]>(this.appConfig.serverURL + '/change-protocol')
+    return this.http.get<ChangeProtocol[]>(this.appConfig.serverURL + '/change')
       .toPromise();
   }
 }

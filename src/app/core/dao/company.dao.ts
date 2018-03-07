@@ -32,7 +32,7 @@ export class CompanyDAO {
   }
 
   public async verifyCompany(company: Company): Promise<Company> {
-    return this.http.put<Company>(this.appConfig.serverURL + '/company', company)
+    return this.http.put<Company>(this.appConfig.serverURL + '/company/accepting', company.id)
       .toPromise();
   }
 

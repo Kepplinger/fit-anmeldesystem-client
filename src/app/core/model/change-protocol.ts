@@ -6,23 +6,23 @@ export class ChangeProtocol {
   public timestamp: string;
 
   public booking: Booking;
-  public table: string;
-  public column: string;
+  public tableName: string;
+  public columName: string;
   public creationDate: Moment;
   public oldValue: any;
   public newValue: any;
 
   public constructor(booking?: Booking,
-                     table?: string,
-                     column?: string,
+                     tableName?: string,
+                     columName?: string,
                      creationDate?: Moment,
                      oldValue?: any,
                      newValue?: any,
                      id?: number) {
     this.id = id;
     this.booking = booking;
-    this.table = table;
-    this.column = column;
+    this.tableName = tableName;
+    this.columName = columName;
     this.creationDate = creationDate;
     this.oldValue = oldValue;
     this.newValue = newValue;

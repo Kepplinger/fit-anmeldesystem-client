@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -236,6 +236,7 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private fillFormWithBooking(): void {
+    console.log(this.booking);
     this.fitFormGroup.patchValue({
       detailedData: {
         phoneNumber: this.booking.company.folderInfo.phoneNumber,
@@ -244,16 +245,15 @@ export class FitRegistrationComponent implements OnInit {
         // logoUrl: this.booking.company.folderInfo.logo
         branch: this.booking.company.folderInfo.branch,
         description: this.booking.companyDescription,
-        // establishmentsAut: this.booking.company.folderInfo.establishmentsAut,
-        // establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
-        // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
-        // establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+        // establishmentsAut: new FormArray(this.booking.company.folderInfo.establishmentsAut.map(e => new FormControl(e))),
+        establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
+        // establishmentsInt: new FormArray(this.booking.company.folderInfo.establishmentsInt.map(e => new FormControl(e))),
+        establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
         // desiredBranches: this.booking.branches,
         providesSummerJob: this.booking.providesSummerJob,
         providesThesis: this.booking.providesThesis,
       },
       fitAppearance: {
-        // representatives: this.booking.representatives,
         additionalInfo: this.booking.additionalInfo,
         // resources: this.booking.resources
       },
@@ -265,6 +265,9 @@ export class FitRegistrationComponent implements OnInit {
         remarks: this.booking.remarks
       }
     });
+
+    // this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives));
+    this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives.map(r => new FormControl(r))));
 
     if (this.booking.presentation != null) {
       this.fitFormGroup.patchValue({

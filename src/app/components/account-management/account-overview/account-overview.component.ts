@@ -71,15 +71,15 @@ export class AccountOverviewComponent implements OnInit {
 
   public updateCompany(): void {
     this.isEditing = false;
-    this.companyFormGroup.controls['gender'].disable();
     this.updateCompanyFromForm();
     this.companyDAO.updateCompany(this.company);
+    this.companyFormGroup.controls['gender'].disable();
   }
 
   public cancel(): void {
     this.isEditing = false;
-    this.companyFormGroup.controls['gender'].disable();
     this.fillFormWithBooking();
+    this.companyFormGroup.controls['gender'].disable();
   }
 
   private updateCompanyFromForm(): void {
@@ -102,7 +102,7 @@ export class AccountOverviewComponent implements OnInit {
     contact.lastName = this.companyFormGroup.value.lastName;
     contact.gender = this.companyFormGroup.value.gender;
     contact.email = this.companyFormGroup.value.contactEmail;
-    contact.phoneNumber = this.companyFormGroup.value.contactPhoneNumbe;
+    contact.phoneNumber = this.companyFormGroup.value.contactPhoneNumber;
     return contact;
   }
 }

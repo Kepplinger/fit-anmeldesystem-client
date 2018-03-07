@@ -21,7 +21,7 @@ export class ChangelogComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.companies = await this.companyDAO.fetchCompanies();
-    // this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
+    this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
   }
 
   public selectCompany(company: Company): void {
