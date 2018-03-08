@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EventDAO } from '../dao/event.dao';
 import { Event } from '../model/event';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { EventHelper } from '../model/helper/event-helper';
+import { EventMapper } from '../model/mapper/event-mapper';
 
 @Injectable()
 export class EventService {
@@ -33,7 +33,7 @@ export class EventService {
   }
 
   private fetchEventFromSessionStorage(): boolean {
-    let event = EventHelper.parseJsonToEvent(JSON.parse(sessionStorage.getItem('event')));
+    let event = EventMapper.mapJsonToEvent(JSON.parse(sessionStorage.getItem('event')));
 
     if (event != null) {
       this.selectedEvent.next(event);

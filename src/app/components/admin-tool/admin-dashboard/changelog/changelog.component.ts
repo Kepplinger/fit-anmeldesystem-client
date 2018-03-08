@@ -35,11 +35,13 @@ export class ChangelogComponent implements OnInit {
   }
 
   public async applyChange(change: ChangeProtocol): Promise<void> {
-    change = await this.changeProtocolDAO.applyChangeProtocol(change);
+    let newChange = await this.changeProtocolDAO.applyChangeProtocol(change);
+    ArrayUtils.replaceElement(change, newChange, this.changelog);
   }
 
   public async revertChange(change: ChangeProtocol): Promise<void> {
-    change = await this.changeProtocolDAO.revertChangeProtocol(change);
+    let newChange = await this.changeProtocolDAO.revertChangeProtocol(change);
+    ArrayUtils.replaceElement(change, newChange, this.changelog);
   }
 
   public getChangeCountForCompany(company: Company): number {

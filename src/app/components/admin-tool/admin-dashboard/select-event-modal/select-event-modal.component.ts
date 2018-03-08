@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { EventService } from '../../../../core/app-services/event.service';
 import { Event } from '../../../../core/model/event';
+import { EventHelper } from '../../../../core/model/helper/event-helper';
 
 @Component({
   selector: 'fit-select-event-modal',
@@ -48,6 +49,11 @@ export class SelectEventModalComponent implements OnInit, OnDestroy {
 
   public createNewFitEvent(): void {
     this.eventService.selectedEvent.next(new Event());
+    this.router.navigate(['/admin-tool', 'fit-anlegen']);
+  }
+
+  public createNewFitEventWithTemplate(): void {
+    this.eventService.selectedEvent.next(EventHelper.clone(this.selectedEvent));
     this.router.navigate(['/admin-tool', 'fit-anlegen']);
   }
 

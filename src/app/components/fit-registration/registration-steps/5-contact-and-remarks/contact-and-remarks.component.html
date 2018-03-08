@@ -78,7 +78,7 @@
                [ngClass]="{'is-invalid': isInvalid('email')}">
 
         <div class="invalid-message invalid-message-container">
-          <div *ngIf="isEmpty('email')" class="mr-2">Email darf nicht leer sein!</div>
+          <span *ngIf="isEmpty('email')" class="mr-2">Email darf nicht leer sein!</span>
           <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
         </div>
       </div>

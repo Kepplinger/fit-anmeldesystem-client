@@ -19,6 +19,7 @@ import { ModalWindowService } from '../../core/app-services/modal-window.service
 import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormValidationHelper } from '../../core/app-helper/form-validation-helper';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -103,7 +104,7 @@ export class FitRegistrationComponent implements OnInit {
         gender: [this.booking.company.contact.gender],
         firstName: [this.booking.company.contact.firstName, Validators.required],
         lastName: [this.booking.company.contact.lastName, Validators.required],
-        email: [this.booking.company.contact.email, Validators.required],
+        email: [this.booking.company.contact.email, [Validators.required, Validators.email]],
         phoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
         termsAccepted: [false, Validators.requiredTrue]
@@ -152,7 +153,7 @@ export class FitRegistrationComponent implements OnInit {
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
       this.isFormTouched = true;
-      this.validateAllFormFields(this.fitFormGroup);
+      FormValidationHelper.validateAllFormFields(this.fitFormGroup);
     }
   }
 
@@ -278,16 +279,5 @@ export class FitRegistrationComponent implements OnInit {
         }
       });
     }
-  }
-
-  private validateAllFormFields(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({onlySelf: true});
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 }

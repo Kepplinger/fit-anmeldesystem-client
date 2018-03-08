@@ -2,12 +2,12 @@
   <div class="row">
 
     <!--pending companies-->
-    <div class="col-md-6 p-3" style="max-height: 800px"
+    <div class="col-md-6 p-3"
          [ngClass]="{'disabled-element': isAssigning}">
 
       <h2>Nicht bestätigte Firmen</h2>
 
-      <table class="table" style="height: 100%;">
+      <table class="table">
         <tr>
           <th></th>
           <th>Firmenname</th>
@@ -63,10 +63,11 @@
         </button>
       </div>
 
-      <table class="table">
+      <table class="table"
+             *ngIf="isAssigning">
 
         <tr>
-          <th *ngIf="isAssigning"></th>
+          <th></th>
           <th>Firmenname</th>
           <th>Adresse</th>
           <th>Kontaktperson</th>

@@ -2,37 +2,19 @@ import { Event } from '../event';
 import * as moment from 'moment';
 
 export class EventHelper {
-  public static parseJsonToEvent(eventJson: any): Event {
+  public static clone(event: Event): Event {
+    if (event != null) {
+      let newEvent: Event = event;
 
-    if (eventJson != null) {
-      let event = new Event();
+      event.id = newEvent.id;
+      event.areas = newEvent.areas;
+      event.timestamp = newEvent.timestamp;
+      event.registrationStart = moment(newEvent.registrationStart);
+      event.registrationEnd = moment(newEvent.registrationEnd);
+      event.eventDate = moment(newEvent.eventDate);
+      event.isLocked = newEvent.isLocked;
 
-      event.id = eventJson.id;
-      event.areas = eventJson.areas;
-      event.timestamp = eventJson.timestamp;
-      event.registrationStart = moment(eventJson.registrationStart);
-      event.registrationEnd = moment(eventJson.registrationEnd);
-      event.eventDate = moment(eventJson.eventDate);
-      event.isLocked = eventJson.isLocked;
-
-      return event;
-    } else {
-      return null;
-    }
-  }
-
-  public static parseJsonToEventList(eventJson: any[]): Event[] {
-
-    if (eventJson != null) {
-      let events: Event[] = [];
-
-      eventJson.forEach(
-        (data: any) => {
-          events.push(EventHelper.parseJsonToEvent(data));
-        }
-      );
-
-      return events;
+      return newEvent;
     } else {
       return null;
     }

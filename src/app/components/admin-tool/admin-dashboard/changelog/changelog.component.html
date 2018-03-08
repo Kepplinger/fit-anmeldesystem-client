@@ -58,27 +58,31 @@
       </table>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8"
+         [ngClass]="{'col-md-12': !showCompanies}">
       <div *ngFor="let change of getDisplayedChangelog()"
            class="change-container p-3 mb-2">
         <div class="d-flex">
-          <div class="flex-2">{{change.creationDate | date:'longDate'}} {{change.creationDate | date:'mediumTime'}}</div>
-          <div class="flex-1">{{change.tableName}}</div>
-          <div class="flex-1">{{change.columnName}}</div>
-          <div class="flex-2">
+          <div class="flex-4">{{change.creationDate | date:'longDate'}} {{change.creationDate | date:'mediumTime'}}
+          </div>
+          <div class="flex-2">{{change.tableName}}</div>
+          <div class="flex-2">{{change.columnName}}</div>
+          <div class="flex-4">
             <span class="text-danger">{{change.oldValue}}</span>
             <i class="fa fa-long-arrow-right mx-1"></i>
             <span class="text-success">{{change.newValue}}</span>
           </div>
-          <div *ngIf="change.isPending">
-            <button class="btn btn-sm btn-success py-0 px-1 mx-1"
-                    (click)="applyChange(change)">
-              <i class="fa fa-fw fa-check"></i>
-            </button>
-            <button class="btn btn-sm btn-danger py-0 px-1"
-                    (click)="revertChange(change)">
-              <i class="fa fa-fw fa-times"></i>
-            </button>
+          <div class="flex-1">
+            <div *ngIf="change.isPending">
+              <button class="btn btn-sm btn-success py-0 px-1 mx-1"
+                      (click)="applyChange(change)">
+                <i class="fa fa-fw fa-check"></i>
+              </button>
+              <button class="btn btn-sm btn-danger py-0 px-1"
+                      (click)="revertChange(change)">
+                <i class="fa fa-fw fa-times"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>

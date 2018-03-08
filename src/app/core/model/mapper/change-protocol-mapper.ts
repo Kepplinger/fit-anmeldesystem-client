@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 import { ChangeProtocol } from '../change-protocol';
 
-export class ChangeProtocolHelper {
-  public static parseJsonToChangeProtocol(changeJSON: any): ChangeProtocol {
+export class ChangeProtocolMapper {
+  public static mapJsonToChangeProtocol(changeJSON: any): ChangeProtocol {
 
     if (changeJSON != null) {
       let change = new ChangeProtocol();
@@ -23,14 +23,14 @@ export class ChangeProtocolHelper {
     }
   }
 
-  public static parseJsonToChangeList(changeJSON: any[]): ChangeProtocol[] {
+  public static mapJsonToChangeList(changeJSON: any[]): ChangeProtocol[] {
 
     if (changeJSON != null) {
       let changes: ChangeProtocol[] = [];
 
       changeJSON.forEach(
         (data: any) => {
-          changes.push(ChangeProtocolHelper.parseJsonToChangeProtocol(data));
+          changes.push(ChangeProtocolMapper.mapJsonToChangeProtocol(data));
         }
       );
 

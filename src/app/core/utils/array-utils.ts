@@ -4,11 +4,17 @@ export class ArrayUtils {
   }
 
   public static getFirstElement(elements: any[]): any {
-    console.log(elements.length);
     if (elements.length > 0) {
       return elements[0];
     } else {
       return null;
+    }
+  }
+
+  public static replaceElement(oldElement: any, newElement: any, elements: any[]): void {
+    let index = elements.indexOf(oldElement);
+    if (index !== -1) {
+      elements[index] = newElement;
     }
   }
 }

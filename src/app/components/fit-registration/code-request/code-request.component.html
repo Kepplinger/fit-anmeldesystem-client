@@ -10,48 +10,68 @@
     <h4>Firma</h4>
 
     <!--company name-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
       <div class="col-md-9">
         <input class="form-control"
                formControlName="companyName"
                id="companyName"
-               placeholder="Firmenname">
+               placeholder="Firmenname"
+               [ngClass]="{'is-invalid': isInvalid('companyName')}">
+
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('companyName')">Firmenname darf nicht leer sein!</div>
+        </div>
       </div>
     </div>
 
     <!--street and number-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
-      <div class="col-md-9 d-flex">
+      <div class="col-md-9">
 
-        <input class="form-control flex-2-5 mr-3"
-               formControlName="street"
-               id="street"
-               placeholder="Straße">
+        <div class="d-flex">
+          <input class="form-control flex-2-5 mr-3"
+                 formControlName="street"
+                 id="street"
+                 placeholder="Straße"
+                 [ngClass]="{'is-invalid': isInvalid('street')}">
 
-        <input class="form-control flex-1"
-               formControlName="streetNumber"
-               id="streetNumber"
-               placeholder="Hausnummer">
+          <input class="form-control flex-1"
+                 formControlName="streetNumber"
+                 id="streetNumber"
+                 placeholder="Hausnummer"
+                 [ngClass]="{'is-invalid': isInvalid('streetNumber')}">
+        </div>
+        <div class="invalid-message invalid-message-container">
+          <span *ngIf="isEmpty('street')" class="mr-2">Straße darf nicht leer sein!</span>
+          <span *ngIf="isEmpty('streetNumber')">Hausnummer darf nicht leer sein!</span>
+        </div>
       </div>
     </div>
 
     <!--location and zip-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="city" class="col-md-3 col-form-label"></label>
-      <div class="col-md-9 d-flex">
+      <div class="col-md-9">
 
-        <input class="form-control flex-1 mr-3"
-               formControlName="zipCode"
-               id="zipCode"
-               placeholder="Postleitzahl">
+        <div class="d-flex">
+          <input class="form-control flex-1 mr-3"
+                 formControlName="zipCode"
+                 id="zipCode"
+                 placeholder="Postleitzahl"
+                 [ngClass]="{'is-invalid': isInvalid('zipCode')}">
 
-        <input class="form-control flex-2-5"
-               formControlName="city"
-               id="city"
-               placeholder="Ort">
-
+          <input class="form-control flex-2-5"
+                 formControlName="city"
+                 id="city"
+                 placeholder="Ort"
+                 [ngClass]="{'is-invalid': isInvalid('city')}">
+        </div>
+        <div class="invalid-message invalid-message-container">
+          <span *ngIf="isEmpty('zipCode')" class="mr-2">Postleitzahl darf nicht leer sein!</span>
+          <span *ngIf="isEmpty('city')">Ort darf nicht leer sein!</span>
+        </div>
       </div>
     </div>
 
@@ -82,50 +102,71 @@
     </div>
 
     <!--first name-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="firstName" class="col-md-3 col-form-label">Vorname:</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                placeholder="Vorname"
                formControlName="firstName"
-               id="firstName">
+               id="firstName"
+               [ngClass]="{'is-invalid': isInvalid('firstName')}">
+
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('firstName')">Vorname darf nicht leer sein!</div>
+        </div>
       </div>
     </div>
 
     <!--last name-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="lastName" class="col-md-3 col-form-label">Nachname:</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                placeholder="Nachname"
                formControlName="lastName"
-               id="lastName">
+               id="lastName"
+               [ngClass]="{'is-invalid': isInvalid('lastName')}">
+
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('lastName')">Nachname darf nicht leer sein!</div>
+        </div>
       </div>
     </div>
 
     <!--email-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="email" class="col-md-3 col-form-label">Email:</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                placeholder="E-Mail"
                formControlName="email"
-               id="email">
+               id="email"
+               [ngClass]="{'is-invalid': isInvalid('email')}">
+
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('email')">Email darf nicht leer sein!</div>
+          <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
+        </div>
       </div>
     </div>
 
     <!--phone-->
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                placeholder="Telefonnummer"
                formControlName="phoneNumber"
-               id="phoneNumber">
+               id="phoneNumber"
+               [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
+
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</div>
+        </div>
       </div>
     </div>
 

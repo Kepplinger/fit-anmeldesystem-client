@@ -9,6 +9,7 @@ import { Company } from '../../../core/model/company';
 import { CompanyDAO } from '../../../core/dao/company.dao';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormValidationHelper } from '../../../core/app-helper/form-validation-helper';
 
 @Component({
   selector: 'fit-code-request',
@@ -35,19 +36,38 @@ export class CodeRequestComponent {
       zipCode: ['', Validators.required],
       city: ['', Validators.required],
       gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      phoneNumber: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', Validators.required],
     })
   }
 
   public async persistCompany(): Promise<void> {
-    this.isLoading = true;
-    await this.company.persistCompany(this.getCompanyFromForm());
-    this.isLoading = false;
-    this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag!');
-    this.router.navigate(['']);
+
+    if (this.formGroup.valid) {
+      this.isLoading = true;
+      await this.company.persistCompany(this.getCompanyFromForm());
+      this.isLoading = false;
+      this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
+      this.router.navigate(['']);
+    } else {
+      FormValidationHelper.validateAllFormFields(this.formGroup);
+      this.toastr.error('Ihr Eingaben sind nicht noch fehlerhaft.', 'Firmen Antrag fehlgeschalgen!');
+    }
+  }
+
+  public isNoMail(formName: string): boolean {
+    return FormValidationHelper.isNoEmail(formName, this.formGroup) && this.isInvalid(formName);
+  }
+
+  public isEmpty(formName: string): boolean {
+    return FormValidationHelper.isEmpty(formName, this.formGroup) && this.isInvalid(formName);
+  }
+
+  public isInvalid(formName: string): boolean {
+    return FormValidationHelper.hasError(formName, this.formGroup) != null &&
+      FormValidationHelper.isTouched(formName, this.formGroup);
   }
 
   private getCompanyFromForm(): Company {
