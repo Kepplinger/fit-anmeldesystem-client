@@ -118,6 +118,7 @@ export class DetailedDataComponent implements OnInit {
   public storeFroala(): void {
     let html = $('#description').froalaEditor('html.get');
     this.stepFormGroup.controls['description'].setValue(html.toString());
+    console.log(this.stepFormGroup.controls['description'].value);
   }
 
   public isEmpty(formName: string): boolean {

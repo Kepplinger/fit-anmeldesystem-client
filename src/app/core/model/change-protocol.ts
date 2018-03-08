@@ -1,30 +1,32 @@
-import { Booking } from './booking';
 import { Moment } from 'moment';
 
 export class ChangeProtocol {
   public id: number;
   public timestamp: string;
 
-  public booking: Booking;
+  public companyId: number;
   public tableName: string;
-  public columName: string;
+  public columnName: string;
   public creationDate: Moment;
   public oldValue: any;
   public newValue: any;
+  public isPending: boolean;
 
-  public constructor(booking?: Booking,
+  public constructor(companyId?: number,
                      tableName?: string,
-                     columName?: string,
+                     columnName?: string,
                      creationDate?: Moment,
                      oldValue?: any,
                      newValue?: any,
+                     isPending?: boolean,
                      id?: number) {
     this.id = id;
-    this.booking = booking;
+    this.companyId = companyId;
     this.tableName = tableName;
-    this.columName = columName;
+    this.columnName = columnName;
     this.creationDate = creationDate;
     this.oldValue = oldValue;
     this.newValue = newValue;
+    this.isPending = isPending;
   }
 }

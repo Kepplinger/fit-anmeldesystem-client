@@ -1,5 +1,5 @@
 import { Event } from '../event';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export class EventHelper {
   public static parseJsonToEvent(eventJson: any): Event {
