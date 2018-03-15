@@ -1,0 +1,48 @@
+<div class="modal fade" id="selectEventModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">FIT ändern</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table">
+          <tr>
+            <th>Datum</th>
+            <th>Anmelde-Start</th>
+            <th>Anmelde-Ende</th>
+            <th>Geschoße</th>
+          </tr>
+          <tr *ngFor="let event of events"
+              (click)="selectEvent(event)"
+              class="event-row"
+              [ngClass]="{'selected-row': selectedEvent.id == event.id}">
+            <td>{{event.eventDate | date:'longDate'}}</td>
+            <td>{{event.registrationStart | date:'longDate'}}</td>
+            <td>{{event.registrationEnd | date:'longDate'}}</td>
+            <td>{{event.areas.length}}</td>
+          </tr>
+        </table>
+
+        <div class="d-flex">
+          <button class="btn btn-success text-bold ml-auto"
+                  (click)="createNewFitEvent()"
+                  data-dismiss="modal">
+            <i class="fa fa-plus"></i>
+            <span>Neuen Fit erstellen</span>
+          </button>
+
+          <button class="btn btn-primary text-bold ml-2"
+                  (click)="createNewFitEventWithTemplate()"
+                  data-dismiss="modal">
+            <i class="fa fa-clone"></i>
+            <span>Fit mit Vorlage erstellen</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

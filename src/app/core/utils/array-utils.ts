@@ -10,4 +10,11 @@ export class ArrayUtils {
       return null;
     }
   }
+
+  public static replaceElement(oldElement: any, newElement: any, elements: any[]): void {
+    let index = elements.indexOf(oldElement);
+    if (index !== -1) {
+      elements[index] = newElement;
+    }
+  }
 }

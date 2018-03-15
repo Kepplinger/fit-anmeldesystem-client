@@ -1,9 +1,15 @@
 @import "./fit-variables";
+@import "./fit-utility-extensions";
 @import "./fit-tag-input-theme";
 @import "./fit-animations";
 
-html, body {
+html {
   height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .no-outline-button {
@@ -56,10 +62,6 @@ html, body {
   flex: 1;
 }
 
-.text-bold {
-  font-weight: bold;
-}
-
 .tiny-container {
   max-width: 400px;
   width: 100%;
@@ -75,7 +77,7 @@ html, body {
 }
 
 .small-container {
-  max-width: 850px;
+  max-width: 900px;
   width: 100%;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -104,12 +106,16 @@ html, body {
   cursor: pointer;
 }
 
-.fa-1-3x {
-  font-size: 1.3rem;
+.floating-effect-light-top {
+  box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, .05),
+  0 -3px 10px 0 rgba(0, 0, 0, .035),
+  0 -1px 18px 0 rgba(0, 0, 0, .03);
 }
 
-.fa-1-5x {
-  font-size: 1.5rem;
+.floating-effect-light {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .05),
+  0 6px 10px 0 rgba(0, 0, 0, .035),
+  0 1px 18px 0 rgba(0, 0, 0, .03);
 }
 
 .floating-effect {
@@ -124,11 +130,6 @@ html, body {
   0 1px 18px 0 rgba(0, 0, 0, .24);
 }
 
-.modal-xl {
-  width: auto;
-  max-width: 920px;
-}
-
 .text-larger {
   font-size: 1.3em;
 }
@@ -141,21 +142,43 @@ html, body {
   font-size: 0.8em;
 }
 
-.mb-0-5 {
-  margin-bottom: 0.1rem;
-}
-
-.flex-2-5 {
-  flex: 2.5;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
 .input-group-append {
   .btn {
     border-bottom-right-radius: .25rem !important;
     border-top-right-radius: .25rem !important;
   }
+}
+
+.valid-message {
+  margin-top: 0.25rem;
+  font-size: 0.75em;
+  color: $success;
+}
+
+.invalid-message {
+  margin-top: 0.25rem;
+  font-size: 0.75em;
+  color: $danger;
+}
+
+.invalid-message-container {
+  width: 100%;
+  margin-top: 1px;
+  min-height: 18px;
+  max-height: 18px;
+}
+
+.input-loading-icon {
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.message-container {
+  min-height: 25px;
+  max-height: 25px;
+}
+
+.custom-control {
+  padding-left: 1.2em;
 }

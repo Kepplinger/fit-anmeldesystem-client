@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { ApplicationStateService } from './application-state-service';
+import { ApplicationStateService } from './application-state.service';
 import { FitApplication } from '../model/enums/fit-application';
 
 @Injectable()

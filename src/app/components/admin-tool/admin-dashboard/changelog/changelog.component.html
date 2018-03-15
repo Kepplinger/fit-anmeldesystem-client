@@ -1,0 +1,91 @@
+<div class="p-5">
+
+  <div class="d-flex align-items-baseline">
+    <h2>Änderungsprotokoll</h2>
+
+    <div class="ml-3">Änderungen:</div>
+
+    <div class="ml-2">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input class="custom-control-input cursor-pointer"
+               type="radio"
+               id="allChanges"
+               [value]="false"
+               [(ngModel)]="showCompanies">
+
+        <label class="custom-control-label my-auto cursor-pointer"
+               for="allChanges">
+          alle
+        </label>
+      </div>
+
+      <div class="custom-control custom-radio custom-control-inline">
+        <input class="custom-control-input cursor-pointer"
+               type="radio"
+               id="companyChanges"
+               [value]="true"
+               [(ngModel)]="showCompanies">
+
+        <label class="custom-control-label my-auto cursor-pointer"
+               for="companyChanges">
+          pro Firma
+        </label>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-4"
+         *ngIf="showCompanies">
+      <table class="table">
+
+        <tr>
+          <th>Firma</th>
+          <th>Kontakt</th>
+          <th class="text-center">Änderungen</th>
+        </tr>
+
+        <tr *ngFor="let company of companies"
+            class="company-row"
+            [ngClass]="{'selected-company': company == selectedCompany}"
+            (click)="selectCompany(company)">
+          <td>{{company.name}}</td>
+          <td>{{company.contact.firstName}} {{company.contact.lastName}}</td>
+          <td class="text-center">{{getChangeCountForCompany(company)}}</td>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="col-md-8"
+         [ngClass]="{'col-md-12': !showCompanies}">
+      <div *ngFor="let change of getDisplayedChangelog()"
+           class="change-container p-3 mb-2">
+        <div class="d-flex">
+          <div class="flex-4">{{change.creationDate | date:'longDate'}} {{change.creationDate | date:'mediumTime'}}
+          </div>
+          <div class="flex-2">{{change.tableName}}</div>
+          <div class="flex-2">{{change.columnName}}</div>
+          <div class="flex-4">
+            <span class="text-danger">{{change.oldValue}}</span>
+            <i class="fa fa-long-arrow-right mx-1"></i>
+            <span class="text-success">{{change.newValue}}</span>
+          </div>
+          <div class="flex-1">
+            <div *ngIf="change.isPending">
+              <button class="btn btn-sm btn-success py-0 px-1 mx-1"
+                      (click)="applyChange(change)">
+                <i class="fa fa-fw fa-check"></i>
+              </button>
+              <button class="btn btn-sm btn-danger py-0 px-1"
+                      (click)="revertChange(change)">
+                <i class="fa fa-fw fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

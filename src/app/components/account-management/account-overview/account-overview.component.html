@@ -1,0 +1,181 @@
+<div class="small-container mt-5">
+
+  <h1>Firma Stammdaten</h1>
+
+  <form [formGroup]="companyFormGroup">
+    <!--company name-->
+    <div class="form-group row mb-1">
+      <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               formControlName="companyName"
+               id="companyName"
+               [readonly]="!isEditing">
+      </div>
+      <div class="invalid-message invalid-message-container">
+      </div>
+    </div>
+
+    <!--address additions-->
+    <div class="form-group row mb-1">
+      <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
+      <div class="col-md-9">
+        <input class="form-control flex-1"
+               type="text"
+               formControlName="addressAdditions"
+               id="addressAdditions"
+               [readonly]="!isEditing">
+      </div>
+      <div class="invalid-message invalid-message-container">
+      </div>
+    </div>
+
+    <!--street and number-->
+    <div class="form-group row mb-1">
+      <label class="col-md-3 col-form-label">Anschrift:</label>
+      <div class="col-md-9">
+        <div class="d-flex">
+          <input class="form-control flex-2-5 mr-3"
+                 formControlName="street"
+                 id="street"
+                 title="streetNumber"
+                 [readonly]="!isEditing">
+
+          <input class="form-control flex-1"
+                 formControlName="streetNumber"
+                 id="streetNumber"
+                 title="streetNumber"
+                 [readonly]="!isEditing">
+        </div>
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <!--location and zip-->
+    <div class="form-group row mb-1">
+      <label class="col-md-3 col-form-label"></label>
+      <div class="col-md-9">
+        <div class="d-flex">
+          <input class="form-control flex-1 mr-3"
+                 formControlName="zipCode"
+                 id="zipCode"
+                 title="zipCode"
+                 [readonly]="!isEditing">
+
+          <input class="form-control flex-2-5"
+                 formControlName="city"
+                 id="city"
+                 title="city"
+                 [readonly]="!isEditing">
+        </div>
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <h3>Firmenkontakt</h3>
+
+    <!--gender-->
+    <div class="form-row row my-3">
+      <div class="col-md-3">
+        Anrede:
+      </div>
+
+      <div class="col-md-9 px-3">
+        <div *ngFor="let gender of genders"
+             class="custom-control custom-radio custom-control-inline">
+          <!--suppress HtmlFormInputWithoutLabel -->
+          <input class="custom-control-input cursor-pointer"
+                 type="radio"
+                 [id]="'gender' + gender.value"
+                 [value]="gender.value"
+                 formControlName="gender">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 [for]="'gender' + gender.value"
+                 [id]="'genderLabel' + gender.value">
+            {{gender.display}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!--location and zip-->
+    <div class="form-group row mb-1">
+      <label for="city" class="col-md-3 col-form-label">Name:</label>
+      <div class="col-md-9">
+        <div class="d-flex">
+          <input class="form-control flex-1 mr-3"
+                 type="text"
+                 formControlName="firstName"
+                 id="firstName"
+                 title="firstName"
+                 [readonly]="!isEditing">
+
+          <input class="form-control flex-1"
+                 type="text"
+                 formControlName="lastName"
+                 id="lastName"
+                 title="lastName"
+                 [readonly]="!isEditing">
+        </div>
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <!--email-->
+    <div class="form-group row mb-0">
+      <label for="contactEmail" class="col-md-3 col-form-label">Email:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="contactEmail"
+               id="contactEmail"
+               [readonly]="!isEditing">
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <!--phone-->
+    <div class="form-group row mb-0">
+      <label for="contactPhoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="contactPhoneNumber"
+               id="contactPhoneNumber"
+               [readonly]="!isEditing">
+
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex">
+    <button class="btn btn-primary text-bold ml-auto"
+            *ngIf="!isEditing"
+            (click)="enableEditing()">
+      <i class="fa fa-pencil"></i>
+      <span>Daten bearbeiten</span>
+    </button>
+
+    <button class="btn btn-danger text-bold ml-auto"
+            *ngIf="isEditing"
+            (click)="cancel()">
+      <i class="fa fa-times"></i>
+      <span>Abbrechen</span>
+    </button>
+
+    <button class="btn btn-success text-bold ml-2"
+            *ngIf="isEditing"
+            (click)="updateCompany()">
+      <i class="fa fa-download"></i>
+      <span>Speichern</span>
+    </button>
+  </div>
+
+</div>

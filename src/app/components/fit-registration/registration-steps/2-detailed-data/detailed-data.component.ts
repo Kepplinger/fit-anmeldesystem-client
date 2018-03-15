@@ -1,10 +1,14 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import {FormArray, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
-import {FormValidationHelper} from '../../../../core/app-helper/form-validation-helper';
+import { FormValidationHelper } from '../../../../core/app-helper/form-validation-helper';
+import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
+import { PickedFile } from '../../../../libs/file-picker/picked-file';
+
 declare let $;
+
 @Component({
   selector: 'fit-detailed-data',
   templateUrl: './detailed-data.component.html',
@@ -26,13 +30,47 @@ export class DetailedDataComponent implements OnInit {
 
   public branches: Branch[] = [];
   public branchFormArray: FormArray = null;
+  public isDrag: boolean = false;
+  public logo: PickedFile;
+  public options: any;
 
   public constructor(private branchDAO: BranchDAO) {
+    this.options = {
+      charCounterCount: true,
+      charCounterMax: 1000,
+      quickInsert: false,
+      heightMin: 250,
+      heightMax: 490,
+      enter: $.FroalaEditor.ENTER_BR,
+      tooltips: true,
+      fontSize: '30',
+      placeholderText: 'Bitte Firmenbeschreibung eingeben.......',
+      quickInsertTags: '',
+      inlineMode: true,
+      toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
+        'formatUL', 'formatOL', 'clearFormatting', '|', 'superscript', 'outdent', 'indent']
+      // toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+      // toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+      // toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    };
   }
 
   public async ngOnInit(): Promise<void> {
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+  }
+
+  public filePicked(file: PickedFile | FilePickerError): void {
+    if (file instanceof PickedFile) {
+      this.logo = file;
+      this.stepFormGroup.value.logo = this.logo.dataURL;
+    } else if (file === FilePickerError.FileTooBig) {
+      console.log('too big');
+    } else if (file === FilePickerError.InvalidFileType) {
+      console.log('invalid file type');
+    } else if (file === FilePickerError.UndefinedInput) {
+      console.log('undefined input');
+    }
   }
 
   public branchChanged(branch: Branch, event: any): void {
@@ -77,42 +115,22 @@ export class DetailedDataComponent implements OnInit {
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
   }
 
-  public storeFroala():void{
-    var html =   $('#editor').froalaEditor('html.get');
-    //console.log(html.toString());
+  public storeFroala(): void {
+    let html = $('#description').froalaEditor('html.get');
     this.stepFormGroup.controls['description'].setValue(html.toString());
+    console.log(this.stepFormGroup.controls['description'].value);
   }
 
-
-
-  public options: Object = {
-    charCounterCount: true,
-    charCounterMax: 1000,
-    quickInsert:false,
-    heightMin: 250,
-    heightMax: 490,
-    enter: $.FroalaEditor.ENTER_BR,
-    tooltips:true,
-    fontSize:'30',
-    placeholderText: 'Bitte Firmenbeschreibung eingeben.......',
-    quickInsertTags:'',
-    inlineMode:true,
-    toolbarButtons: ['undo', 'redo' , '|', 'bold', 'italic', 'underline' , '|', 'formatUL', 'formatOL','clearFormatting',  '|','superscript', 'outdent', 'indent']
-    //toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    //toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    //toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-  };
-
-  public isRequired(formName: string):boolean{
-    return FormValidationHelper.isRequired(formName,this.stepFormGroup);
+  public isEmpty(formName: string): boolean {
+    return FormValidationHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
-
-  public hasErrors(formName:string):ValidationErrors{
-    return FormValidationHelper.hasError(formName,this.stepFormGroup);
+  public isNoMail(formName: string): boolean {
+    return FormValidationHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
-  public isHoovered(formName:string):boolean{
-    return FormValidationHelper.isHoovered(formName,this.stepFormGroup);
+  public isInvalid(formName: string): boolean {
+    return FormValidationHelper.hasError(formName, this.stepFormGroup) != null &&
+      FormValidationHelper.isTouched(formName, this.stepFormGroup);
   }
 }

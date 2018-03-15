@@ -1,19 +1,21 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 import { Event } from '../../../../core/model/event';
 import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
-import { ToastrService } from 'ngx-toastr';
-import { Location } from '../../../../core/model/location';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { EventService } from '../../../../core/app-services/event.service';
 
 declare let $: any;
 
 @Component({
   selector: 'fit-create-fit-event',
-  templateUrl: './create-fit-event.component.html',
-  styleUrls: ['./create-fit-event.component.scss']
+  templateUrl: './edit-fit-event.component.html',
+  styleUrls: ['./edit-fit-event.component.scss']
 })
-export class CreateFitEventComponent implements OnInit {
+export class EditFitEventComponent implements OnInit {
 
   public event: Event = new Event();
   public selectedArea: Area = null;
@@ -23,10 +25,17 @@ export class CreateFitEventComponent implements OnInit {
 
   public constructor(private changeDetector: ChangeDetectorRef,
                      private toastr: ToastrService,
+                     private router: Router,
+                     private eventService: EventService,
                      private eventDAO: EventDAO) {
   }
 
   public ngOnInit(): void {
+    this.event = this.eventService.selectedEvent.getValue();
+
+    if (this.event == null) {
+      this.router.navigate(['/admin-tool', 'dash']);
+    }
   }
 
   public getRegistrationTimeSpan(): number {
@@ -70,7 +79,7 @@ export class CreateFitEventComponent implements OnInit {
 
   public async persistEvent(): Promise<void> {
     this.isLoading = true;
-    console.log(await this.eventDAO.persistEvent(this.event));
+    this.event = await this.eventDAO.persistEvent(this.event);
     this.isLoading = false;
     this.toastr.info('Request finished', 'Event speichern!');
   }

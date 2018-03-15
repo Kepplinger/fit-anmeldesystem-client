@@ -62,6 +62,10 @@ export class Booking {
     this.providesSummerJob = providesSummerJob;
     this.providesThesis = providesThesis;
     this.creationDate = creationDate;
+
+    if (company == null) {
+      this.company = new Company();
+    }
   }
 }
 

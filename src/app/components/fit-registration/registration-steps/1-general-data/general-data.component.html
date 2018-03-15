@@ -1,28 +1,36 @@
 <div *ngIf="isVisible">
   <div class="mb-4">
-    <h2 class="text-bold">Allgemeines zur Firma</h2>
-    <p>Diese allgemeinen Angaben zu Ihrer Firma helfen unseren Schülern, Kontakt mit Ihnen aufzunehmen.</p>
+    <h2 class="text-bold">Stammdaten Ihrer Firma</h2>
+    <p>Hier werden die Stammdaten Ihrer Firma angezeigt. Sollten diese nicht mehr auf dem neusten Stand sein, können Sie
+      diese jederzeit unter Ihren <a  class="text-link" (click)="navigateToAccount()">Konto-Einstellungen</a> ändern.</p>
+  </div>
+
+  <div class="d-flex">
+    <h4 class="text-bold">Firmendaten</h4>
+    <button class="btn btn-link ml-auto p-0 mb-2"
+            (click)="navigateToAccount()">
+      Daten ändern
+    </button>
   </div>
 
   <form [formGroup]="stepFormGroup">
 
     <!--company name-->
-    <div class="form-group row">
+    <div class="form-group row mb-1">
       <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
       <div class="col-md-9">
         <input class="form-control"
                formControlName="companyName"
                id="companyName"
                placeholder="Firmenname"
-               [ngClass]="{'error': hasErrors('companyName') && isHoovered('companyName')}">
-        <div *ngIf="hasErrors('companyName') && isHoovered('companyName')" class="error-msg">
-          <div *ngIf="isRequired('companyName')">Firmenname ist required.</div>
+               readonly>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
     </div>
 
     <!--address additions-->
-    <div class="form-group row">
+    <div class="form-group row mb-1">
       <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
       <div class="col-md-9">
         <input class="form-control flex-1"
@@ -30,156 +38,141 @@
                formControlName="addressAdditions"
                id="addressAdditions"
                placeholder="Zusatz"
-               [ngClass]="{'error': hasErrors('addressAdditions') && isHoovered('addressAdditions')}">
-        <div *ngIf="hasErrors('addressAdditions') && isHoovered('addressAdditions')" class="error-msg">
-          <div *ngIf="isRequired('addressAdditions')">Addresse ist required.</div>
+               readonly>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
     </div>
 
     <!--street and number-->
-    <div class="form-group row">
+    <div class="form-group row mb-1">
       <label for="street" class="col-md-3 col-form-label">Anschrift:</label>
-      <div class="col-md-9 d-flex">
+      <div class="col-md-9">
+        <div class="d-flex">
+          <input class="form-control flex-2-5 mr-3"
+                 formControlName="street"
+                 id="street"
+                 placeholder="Straße"
+                 readonly>
 
-        <input class="form-control flex-2-5 mr-3"
-               formControlName="street"
-               id="street"
-               placeholder="Straße"
-               [ngClass]="{'error': hasErrors('street') && isHoovered('street')}">
-
-        <input class="form-control flex-1"
-               formControlName="streetNumber"
-               id="streetNumber"
-               placeholder="Hausnummer"
-               [ngClass]="{'error': hasErrors('streetNumber') && isHoovered('streetNumber')}">
-
-        <div *ngIf="hasErrors('street') && isHoovered('street')" class="error-msg">
-          <div *ngIf="isRequired('street')">Straßenname ist required.</div>
+          <input class="form-control flex-1"
+                 formControlName="streetNumber"
+                 id="streetNumber"
+                 placeholder="Hausnummer"
+                 readonly>
         </div>
-        <div *ngIf="hasErrors('streetNumber') && isHoovered('streetNumber')" class="error-msg">
-          <div *ngIf="isRequired('streetNumber')">Straßennummer ist required.</div>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
     </div>
 
     <!--location and zip-->
-    <div class="form-group row">
+    <div class="form-group row mb-1">
       <label for="city" class="col-md-3 col-form-label"></label>
-      <div class="col-md-9 d-flex">
-
-        <input class="form-control flex-1 mr-3"
-               formControlName="zipCode"
-               id="zipCode"
-               placeholder="Postleitzahl"
-               [ngClass]="{'error': hasErrors('zipCode') && isHoovered('zipCode')}">
-
-        <input class="form-control flex-2-5"
-               formControlName="city"
-               id="city"
-               placeholder="Ort"
-               [ngClass]="{'error': hasErrors('city') && isHoovered('city')}">
-
-        <div *ngIf="hasErrors('zipCode') && isHoovered('zipCode')" class="error-msg">
-          <div *ngIf="isRequired('zipCode')">Postleitzahl ist required.</div>
-        </div>
-        <div *ngIf="hasErrors('city') && isHoovered('city')" class="error-msg">
-          <div *ngIf="isRequired('city')">Ort ist required.</div>
-        </div>
-      </div>
-    </div>
-
-    <!--phoneNumber-->
-    <div class="form-group row">
-      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
       <div class="col-md-9">
-        <input class="form-control"
-               type="tel"
-               formControlName="phoneNumber"
-               id="phoneNumber"
-               placeholder="Telefonnummer"
-               [ngClass]="{'error': hasErrors('phoneNumber') && isHoovered('phoneNumber')}">
-        <div *ngIf="hasErrors('phoneNumber') && isHoovered('phoneNumber')" class="error-msg">
-          <div *ngIf="isRequired('phoneNumber')">Telefonnummer ist required.</div>
+        <div class="d-flex">
+          <input class="form-control flex-1 mr-3"
+                 formControlName="zipCode"
+                 id="zipCode"
+                 placeholder="Postleitzahl"
+                 readonly>
+
+          <input class="form-control flex-2-5"
+                 formControlName="city"
+                 id="city"
+                 placeholder="Ort"
+                 readonly>
+        </div>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
     </div>
 
-    <!--email and web-->
-    <div class="form-group row">
-      <label for="email" class="col-md-3 col-form-label">
-        Email:
-        <fit-hint-icon
-          [message]="'Diese Email wird nur für den Fit Folder verwendert, und nicht zur Kontaktaufnahme von uns.'"></fit-hint-icon>
-      </label>
-      <div class="col-md-9">
-        <input class="form-control"
-               type="email"
-               formControlName="email"
-               id="email"
-               placeholder="Email"
-               [ngClass]="{'error': hasErrors('email') && isHoovered('email')}">
-        <div *ngIf="hasErrors('email') && isHoovered('email')" class="error-msg">
-          <div *ngIf="isRequired('email')">Email ist required.</div>
-        </div>
-      </div>
-
+    <div class="d-flex align-items-center">
+      <h4 class="my-0 mr-1 text-bold">Kontaktperson</h4>
+      <fit-hint-icon
+        [message]="'Dies ist unser Ansprechperson für Ihre Firma. Wenn erwünscht, kann unter Schritt 5 noch eine eigene FIT-Ansprechperson angegben werden'">
+      </fit-hint-icon>
     </div>
 
-    <div class="form-group row">
-      <label for="homepage" class="col-md-3 col-form-label">Homepage:</label>
-      <div class="col-md-9 ">
-        <input class="form-control "
-               type="url"
-               formControlName="homepage"
-               id="homepage"
-               placeholder="Homepage"
-               [ngClass]="{'error': hasErrors('homepage') && isHoovered('homepage')}">
-        <div *ngIf="hasErrors('homepage') && isHoovered('homepage')" class="error-msg">
-          <div *ngIf="isRequired('homepage')">Homepage ist required.</div>
-        </div>
-      </div>
-    </div>
-
-
-    <!--logo-->
-    <div class="form-group row">
-      <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
-      <div class="input-group col-md-9"
-           fitFilePicker
-           [accept]="'image/*'"
-           [maxSize]="2000000"
-           (filePick)="filePicked($event)">
-        <input class="form-control"
-               id="logo"
-               type="text"
-               [value]="logo?.name"
-               placeholder="Logo auswählen..."
-               disabled>
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">Druchsuchen</button>
-        </div>
-      </div>
-    </div>
-
-    <!--image and dropzone-->
-    <div class="row" style="height: 100px; max-height: 100px">
+    <!--gender-->
+    <div class="form-row row my-3">
       <div class="col-md-3">
-        <img *ngIf="logo != undefined && logo.dataURL != undefined"
-             [src]="logo?.dataURL"
-             class="logo-display w-100 h-100">
+        Anrede:
       </div>
+
+      <div class="col-md-9 px-3">
+        <div *ngFor="let gender of genders"
+             class="custom-control custom-radio custom-control-inline">
+          <!--suppress HtmlFormInputWithoutLabel -->
+          <input class="custom-control-input cursor-pointer"
+                 type="radio"
+                 [id]="'gender' + gender.value"
+                 [value]="gender.value"
+                 formControlName="gender">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 [for]="'gender' + gender.value"
+                 [id]="'genderLabel' + gender.value">
+            {{gender.display}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <!--first name-->
+    <div class="form-group row mb-0">
+      <label for="firstName" class="col-md-3 col-form-label">Vorname:</label>
       <div class="col-md-9">
-        <div fitFileDropzone
-             [accept]="'image\/.'"
-             [maxSize]="2000000"
-             (fileDrop)="filePicked($event)"
-             (dragenter)="isDrag = true"
-             (dragleave)="isDrag = false"
-             (drop)="isDrag = false"
-             class="drop-zone h-100 w-100"
-             [ngClass]="{'is-drag': isDrag}">
-          <div class="drop-zone-text centered-element">Logo: Drag & Drop</div>
+        <input class="form-control"
+               type="text"
+               formControlName="firstName"
+               id="firstName"
+               readonly>
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <!--last name-->
+    <div class="form-group row mb-0">
+      <label for="lastName" class="col-md-3 col-form-label">Nachname:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="lastName"
+               id="lastName"
+               readonly>
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <!--email-->
+    <div class="form-group row mb-0">
+      <label for="contactEmail" class="col-md-3 col-form-label">Email:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="contactEmail"
+               id="contactEmail"
+               readonly>
+        <div class="invalid-message invalid-message-container">
+        </div>
+      </div>
+    </div>
+
+    <!--phone-->
+    <div class="form-group row mb-0">
+      <label for="contactPhoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+      <div class="col-md-9">
+        <input class="form-control"
+               type="text"
+               formControlName="contactPhoneNumber"
+               id="contactPhoneNumber"
+               readonly>
+        <div class="invalid-message invalid-message-container">
         </div>
       </div>
     </div>

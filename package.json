@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.1",
+    "alertifyjs": "^1.11.0",
     "angular-froala-wysiwyg": "^2.7.3",
     "angular2-draggable": "^1.1.0-beta.0",
     "bootstrap": "^4.0.0",
@@ -38,10 +39,14 @@
   "devDependencies": {
     "@angular/cli": "^1.6.5",
     "@angular/compiler-cli": "^5.2.1",
+    "@types/jasmine": "2.5.47",
     "@types/node": "^9.3.0",
     "codelyzer": "^4.1.0",
     "ts-node": "~4.1.0",
     "tslint": "^5.9.1",
-    "typescript": "~2.4.0"
+    "typescript": "~2.4.0",
+    "protractor": "^5.3.0",
+    "jasmine-core": "^2.99.1",
+    "jasmine-spec-reporter": "^4.2.1"
   }
 }

@@ -2,14 +2,15 @@
 @import "../../styles/fit-global-styles";
 
 .step-header {
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.step-sub-text {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .step-container {
   cursor: pointer;
+}
+
+.step-number {
+  font-weight: bold;
+  font-family: $main-font;
+  font-size: 0.7em;
 }

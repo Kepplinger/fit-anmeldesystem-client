@@ -21,6 +21,9 @@ export class PackagesAndLocationComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
+  @Input()
+  public event: Event;
+
   public selectedLocation: Location;
   public selectedPackage: number = FitPackage.BasicPack;
 

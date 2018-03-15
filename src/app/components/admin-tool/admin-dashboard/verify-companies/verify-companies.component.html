@@ -1,0 +1,97 @@
+<div class="m-5">
+  <div class="row">
+
+    <!--pending companies-->
+    <div class="col-md-6 p-3"
+         [ngClass]="{'disabled-element': isAssigning}">
+
+      <h2>Nicht bestätigte Firmen</h2>
+
+      <table class="table">
+        <tr>
+          <th></th>
+          <th>Firmenname</th>
+          <th>Adresse</th>
+          <th>Kontaktperson</th>
+          <th></th>
+        </tr>
+
+        <tr *ngFor="let company of pendingCompanies"
+            [ngClass]="{'selected-company': company == companyToAssign}">
+          <td class="align-middle d-flex flex-column">
+            <button class="btn btn-sm btn-success mb-0-5 py-0 px-1"
+                    (click)="verifyCompany(company)">
+              <i class="fa fa-fw fa-check"></i>
+            </button>
+            <button class="btn btn-sm btn-danger py-0 px-1"
+                    (click)="removeCompany(company)">
+              <i class="fa fa-fw fa-times"></i>
+            </button>
+          </td>
+          <td class="text-bold align-middle">{{company.name}}</td>
+          <td>
+            <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
+            <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
+          </td>
+          <td>
+            <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
+            <span>{{company.contact.email}}</span>
+          </td>
+          <td class="align-middle">
+            <button class="btn btn-sm btn-primary my-auto ml-0-5"
+                    (click)="selectCompanyForAssigning(company)">
+              <i class="fa fa-fw fa-mail-forward"></i>
+            </button>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <!--companies in system-->
+    <div class="col-md-6 p-3"
+         [ngClass]="{'disabled-element': !isAssigning}">
+
+      <div class="d-flex">
+        <h2>Firmenstamm</h2>
+        <div class="flex-1"></div>
+        <button class="btn btn-primary back-btn py-0 my-auto"
+                *ngIf="isAssigning"
+                (click)="cancelAssiging()">
+          <i class="fa fa-fw fa-mail-reply"></i>
+          Zurück
+        </button>
+      </div>
+
+      <table class="table"
+             *ngIf="isAssigning">
+
+        <tr>
+          <th></th>
+          <th>Firmenname</th>
+          <th>Adresse</th>
+          <th>Kontaktperson</th>
+        </tr>
+
+        <tr *ngFor="let company of companies">
+          <td class="align-middle" *ngIf="isAssigning">
+            <button class="btn btn-sm btn-success">
+              <i class="fa fa-fw fa-download"></i>
+            </button>
+          </td>
+          <td class="text-bold align-middle">{{company.name}}</td>
+          <td>
+            <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
+            <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
+          </td>
+          <td>
+            <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
+            <span>{{company.contact.email}}</span>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+  </div>
+</div>

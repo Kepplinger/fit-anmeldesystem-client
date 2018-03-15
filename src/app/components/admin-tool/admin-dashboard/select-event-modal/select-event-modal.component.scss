@@ -1,0 +1,13 @@
+@import "../../../../styles/fit-global-styles";
+
+.event-row {
+  cursor: pointer;
+  &:hover:not(.selected-row) {
+    background-color: whitesmoke;
+  }
+}
+
+.selected-row {
+  color: white;
+  background-color: $primary;
+}

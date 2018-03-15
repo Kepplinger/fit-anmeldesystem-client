@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -12,10 +12,14 @@ import { Presentation } from '../../core/model/presentation';
 import { Event } from '../../core/model/event';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
-import * as moment from 'moment';
-import { DisplayedValue } from '../../core/app-helper/helper-model/displayed-value';
 import { AppConfig } from '../../core/app-config/app-config.service';
-import { ArrayUtils } from '../../core/utils/array-utils';
+import { FolderInfo } from '../../core/model/folder-info';
+import { EventDAO } from '../../core/dao/event.dao';
+import { ModalWindowService } from '../../core/app-services/modal-window.service';
+import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
+import { EventService } from '../../core/app-services/event.service';
+import { ToastrService } from 'ngx-toastr';
+import { FormValidationHelper } from '../../core/app-helper/form-validation-helper';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -29,28 +33,52 @@ export class FitRegistrationComponent implements OnInit {
 
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
+  public event: Event;
+  public steps: FitRegistrationStep[] = [
+    FitRegistrationStep.GeneralData,
+    FitRegistrationStep.DetailedData,
+    FitRegistrationStep.FitAppearance,
+    FitRegistrationStep.PackagesAndLocation,
+    FitRegistrationStep.ContactAndRemarks
+  ];
+
+  public isFormTouched: boolean = false;
+
+  private booking: Booking = new Booking();
 
   public constructor(private router: Router,
                      private bookingDAO: BookingDAO,
+                     private eventDAO: EventDAO,
+                     private eventService: EventService,
                      private appConfig: AppConfig,
+                     private toastr: ToastrService,
+                     private bookingRegistrationService: FitRegistrationService,
+                     private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
 
+    this.booking = this.bookingRegistrationService.booking;
+
     this.fitFormGroup = fb.group({
       generalData: fb.group({
-        companyName: ['', Validators.required],
-        street: ['', Validators.required],
-        streetNumber: ['', Validators.required],
-        zipCode: ['', Validators.required],
-        city: ['', Validators.required],
-        addressAdditions: ['',Validators.required],
-        phoneNumber: ['', Validators.required],
-        email: ['', Validators.required],
-        homepage: ['', Validators.required],
-        logoUrl: ['', Validators.required],
+        companyName: [this.booking.company.name, Validators.required],
+        street: [this.booking.company.address.street, Validators.required],
+        streetNumber: [this.booking.company.address.streetNumber, Validators.required],
+        zipCode: [this.booking.company.address.zipCode, Validators.required],
+        city: [this.booking.company.address.city, Validators.required],
+        addressAdditions: [this.booking.company.address.addition, Validators.required],
+        gender: [{value: this.booking.company.contact.gender, disabled: true}],
+        firstName: [this.booking.company.contact.firstName, Validators.required],
+        lastName: [this.booking.company.contact.lastName, Validators.required],
+        contactEmail: [this.booking.company.contact.email, Validators.required],
+        contactPhoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
       }),
       detailedData: fb.group({
         branch: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        homepage: ['', Validators.required],
+        logoUrl: ['', Validators.required],
         description: ['', Validators.required],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],
@@ -62,7 +90,7 @@ export class FitRegistrationComponent implements OnInit {
       }),
       fitAppearance: fb.group({
         representatives: this.fb.array([]),
-        additionalInfo: ['',Validators.required],
+        additionalInfo: ['', Validators.required],
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
@@ -73,18 +101,35 @@ export class FitRegistrationComponent implements OnInit {
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
-        gender: [ArrayUtils.getFirstElement(this.appConfig.genders).value],
-        firstName: ['',Validators.required],
-        lastName: ['',Validators.required],
-        email: ['',Validators.required],
-        phoneNumber: ['',Validators.required],
+        gender: [this.booking.company.contact.gender],
+        firstName: [this.booking.company.contact.firstName, Validators.required],
+        lastName: [this.booking.company.contact.lastName, Validators.required],
+        email: [this.booking.company.contact.email, [Validators.required, Validators.email]],
+        phoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
-        termsAccepted: [false,Validators.requiredTrue]
+        termsAccepted: [false, Validators.requiredTrue]
       })
     });
   }
 
-  public ngOnInit() {
+  public async ngOnInit(): Promise<void> {
+    this.event = this.eventService.currentEvent.getValue();
+
+    if (this.booking.id != null) {
+      let useOldBooking = await this.modalWindowService.confirm(
+        'Anmeldung von letzten Mal übernehemen?',
+        'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
+        {
+          closableByDimmer: false,
+          movable: false,
+          labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
+        }
+      );
+
+      if (useOldBooking) {
+        this.fillFormWithBooking()
+      }
+    }
   }
 
   public setCurrentPage(step: FitRegistrationStep) {
@@ -101,17 +146,21 @@ export class FitRegistrationComponent implements OnInit {
 
   public async submitForm(): Promise<void> {
 
-    let booking: Booking = this.getBookingFromForm();
-    console.log(booking);
-
-    await this.bookingDAO.createBooking(booking);
-    this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+    if (this.fitFormGroup.valid) {
+      let booking: Booking = this.getBookingFromForm();
+      await this.bookingDAO.createBooking(booking);
+      this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+    } else {
+      this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
+      this.isFormTouched = true;
+      FormValidationHelper.validateAllFormFields(this.fitFormGroup);
+    }
   }
 
   private getBookingFromForm(): Booking {
     return new Booking(
-      new Event(moment(), moment(), moment(), [], false, 1),
-      new Package('', 200, 1, 1),
+      this.event,
+      this.fitFormGroup.value.packagesAndLocation.fitPackage,
       this.fitFormGroup.value.packagesAndLocation.location,
       this.getCompanyFromForm(),
       this.getPresentationFromForm(),
@@ -131,12 +180,19 @@ export class FitRegistrationComponent implements OnInit {
     return new Company(
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
+      this.getFolderInfoFromForm(),
       this.fitFormGroup.value.generalData.companyName,
+      false
+    )
+  }
+
+  private getFolderInfoFromForm(): FolderInfo {
+    return new FolderInfo(
       this.fitFormGroup.value.detailedData.branch,
-      this.fitFormGroup.value.generalData.phoneNumber,
-      this.fitFormGroup.value.generalData.email,
-      this.fitFormGroup.value.generalData.homepage,
-      this.fitFormGroup.value.generalData.logo,
+      this.fitFormGroup.value.detailedData.phoneNumber,
+      this.fitFormGroup.value.detailedData.email,
+      this.fitFormGroup.value.detailedData.homepage,
+      this.fitFormGroup.value.detailedData.logo != null ? 'a' : 'b', // TODO replace
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -158,7 +214,7 @@ export class FitRegistrationComponent implements OnInit {
     return new Contact(
       this.fitFormGroup.value.contactAndRemarks.firstName,
       this.fitFormGroup.value.contactAndRemarks.lastName,
-      'M',
+      this.fitFormGroup.value.contactAndRemarks.gender,
       this.fitFormGroup.value.contactAndRemarks.email,
       this.fitFormGroup.value.contactAndRemarks.phoneNumber
     );
@@ -177,6 +233,51 @@ export class FitRegistrationComponent implements OnInit {
       )
     } else {
       return null;
+    }
+  }
+
+  private fillFormWithBooking(): void {
+    console.log(this.booking);
+    this.fitFormGroup.patchValue({
+      detailedData: {
+        phoneNumber: this.booking.company.folderInfo.phoneNumber,
+        email: this.booking.company.folderInfo.email,
+        homepage: this.booking.company.folderInfo.homepage,
+        // logoUrl: this.booking.company.folderInfo.logo
+        branch: this.booking.company.folderInfo.branch,
+        description: this.booking.companyDescription,
+        // establishmentsAut: new FormArray(this.booking.company.folderInfo.establishmentsAut.map(e => new FormControl(e))),
+        establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
+        // establishmentsInt: new FormArray(this.booking.company.folderInfo.establishmentsInt.map(e => new FormControl(e))),
+        establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+        // desiredBranches: this.booking.branches,
+        providesSummerJob: this.booking.providesSummerJob,
+        providesThesis: this.booking.providesThesis,
+      },
+      fitAppearance: {
+        additionalInfo: this.booking.additionalInfo,
+        // resources: this.booking.resources
+      },
+      packagesAndLocation: {
+        fitPackage: this.booking.fitPackage,
+        location: this.booking.location,
+      },
+      contactAndRemarks: {
+        remarks: this.booking.remarks
+      }
+    });
+
+    // this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives));
+    this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives.map(r => new FormControl(r))));
+
+    if (this.booking.presentation != null) {
+      this.fitFormGroup.patchValue({
+        packagesAndLocation: {
+          presentationTitle: this.booking.presentation.title,
+          presentationDescription: this.booking.presentation.description,
+          // presentationFile: this.booking.presentation.fileUrl
+        }
+      });
     }
   }
 }

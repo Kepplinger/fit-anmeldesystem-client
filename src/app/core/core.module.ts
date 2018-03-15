@@ -8,18 +8,22 @@ import { BranchDAO } from './dao/branch.dao';
 import { ResourceDAO } from './dao/resource.dao';
 import { PackageDAO } from './dao/package.dao';
 import { AreaDAO } from './dao/area.dao';
-import { ApplicationStateService } from './app-services/application-state-service';
-import { RouterService } from './app-services/router-service';
+import { ApplicationStateService } from './app-services/application-state.service';
+import { RouterService } from './app-services/router.service';
 import { EventDAO } from './dao/event.dao';
 import { LocationDao } from './dao/location.dao';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { AuthenticationDAO } from './dao/authentication.dao';
+import { CompanyDAO } from './dao/company.dao';
+import { FitRegistrationService } from './app-services/fit-registration.service';
+import { ModalWindowService } from './app-services/modal-window.service';
+import { BookingTransferService } from './app-services/booking-transfer.service';
+import { EventService } from './app-services/event.service';
+import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   declarations: [],
   providers: [
@@ -27,12 +31,19 @@ import { FormsModule } from '@angular/forms';
     BranchDAO,
     ResourceDAO,
     PackageDAO,
+    CompanyDAO,
+    ChangeProtocolDAO,
     LocationDao,
+    AuthenticationDAO,
     AreaDAO,
     EventDAO,
     AppConfig,
     ApplicationStateService,
-    RouterService
+    FitRegistrationService,
+    ModalWindowService,
+    BookingTransferService,
+    RouterService,
+    EventService
   ]
 })
 export class CoreModule {

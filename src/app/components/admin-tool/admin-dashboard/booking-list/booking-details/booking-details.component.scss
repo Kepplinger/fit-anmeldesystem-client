@@ -1,0 +1,42 @@
+@import "../../../../../styles/fit-global-styles";
+
+#logo {
+  cursor: pointer;
+}
+
+.logo-display {
+  object-fit: contain;
+}
+
+.drop-zone {
+  position: relative;
+  background-color: #f9f9f9;
+  border: dashed 2px grey;
+  border-radius: .50rem;
+  color: grey;
+  font-size: 1.25rem;
+  user-select: none;
+  cursor: default;
+  transition: all 0.25s;
+
+  .drop-zone-text {
+    pointer-events: none;
+  }
+}
+
+.is-drag {
+  background-color: #efefef;
+  border: dashed 2px #0069d9;
+  color: #0069d9;
+}
+
+
+
+.number-input {
+  padding: .20rem .50rem;
+  width: 4rem;
+}
+
+#editor{
+  max-width: 802px !important;
+}

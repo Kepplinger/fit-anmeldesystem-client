@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import {FormGroup, ValidationErrors} from '@angular/forms';
-import { PickedFile } from '../../../../libs/file-picker/picked-file';
-import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
-import {FormValidationHelper} from '../../../../core/app-helper/form-validation-helper';
-
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
+import { AppConfig } from '../../../../core/app-config/app-config.service';
+import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fit-general-data',
   templateUrl: './general-data.component.html',
   styleUrls: ['./general-data.component.scss']
 })
-export class GeneralDataComponent implements OnInit {
+export class GeneralDataComponent {
 
   @Input()
   public isVisible: boolean = false;
@@ -18,40 +18,25 @@ export class GeneralDataComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
-  public logo: PickedFile;
-  public isDrag: boolean = false;
+  public genders: DisplayedValue[];
 
-  public constructor() {
+  public constructor(private appConfig: AppConfig,
+                     private router: Router,
+                     private modalWindowService: ModalWindowService) {
+    this.genders = appConfig.genders;
   }
 
-  public ngOnInit() {
-  }
+  public async navigateToAccount(): Promise<void> {
+    let result: boolean = await this.modalWindowService.confirm('Stammdaten bearbeiten',
+      'Wenn Sie fortfahren, wird Ihre derzeitige FIT Anmeldung abgebrochen. Wollen Sie wirklich fortfahren?',
+      {
+        closableByDimmer: false,
+        movable: false,
+        labels: {ok: 'Fortfahren', cancel: 'Abbrechen'}
+      });
 
-  public filePicked(file: PickedFile | FilePickerError): void {
-
-    if (file instanceof PickedFile) {
-      this.logo = file;
-      this.stepFormGroup.value.logo = this.logo.dataURL;
-    } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
-    } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
-    } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
+    if (result) {
+      this.router.navigate(['/konto']);
     }
   }
-
-  public isRequired(formName: string):boolean{
-    return FormValidationHelper.isRequired(formName,this.stepFormGroup);
-  }
-
-
-  public hasErrors(formName:string):ValidationErrors{
-    return FormValidationHelper.hasError(formName,this.stepFormGroup);
-  }
-
-  public isHoovered(formName:string):boolean{
-    return FormValidationHelper.isHoovered(formName,this.stepFormGroup);
-  }
-
 }

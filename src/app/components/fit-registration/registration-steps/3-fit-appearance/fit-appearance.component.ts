@@ -21,9 +21,13 @@ export class FitAppearanceComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
+  @Input()
+  public areRepresentativesTouched: boolean = false;
+
   public representatives: Representative[] = [];
   public resources: Resource[] = [];
   public resourceFormArray: FormArray = null;
+  public touchedRepresentatives: any[] = [];
 
   public constructor(private resourceDAO: ResourceDAO) {
   }
@@ -40,13 +44,25 @@ export class FitAppearanceComponent implements OnInit {
 
   public addRepresentative(representative: Representative): void {
     let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
+    console.log(representativeArray);
     this.representatives.push(representative);
+
+    this.touchedRepresentatives.push({
+      representative: representative,
+      name: false,
+      email: false
+    });
+
     representativeArray.push(new FormControl(representative));
   }
 
   public deleteRepresentative(representative: Representative): void {
     let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
     ArrayUtils.deleteElement(this.representatives, representative);
+    ArrayUtils.deleteElement(
+      this.touchedRepresentatives,
+      this.touchedRepresentatives.find(r => r.representative === representative)
+    );
     representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
   }
 
@@ -76,6 +92,43 @@ export class FitAppearanceComponent implements OnInit {
       console.log('invalid file type');
     } else if (file === FilePickerError.UndefinedInput) {
       console.log('undefined input');
+    }
+  }
+
+  public onRepresentativeTouch(representative: Representative, attribute: string): void {
+    let foundRepresentative = this.touchedRepresentatives.find(r => r.representative === representative);
+
+    if (attribute === 'name') {
+      foundRepresentative.name = true;
+    } else if (attribute === 'email') {
+      foundRepresentative.email = true;
+    }
+  }
+
+  public isEmpty(representative: Representative, attribute: string): boolean {
+
+    let input = '';
+
+    if (attribute === 'name') {
+      input = representative.name;
+    } else if (attribute === 'email') {
+      input = representative.email;
+    }
+
+    return (input == null || input === '') && this.isTouched(representative, attribute);
+  }
+
+  public isTouched(representative: Representative, attribute: string): boolean {
+    if (!this.areRepresentativesTouched) {
+      if (attribute === 'name') {
+        return this.touchedRepresentatives.find(r => r.representative === representative).name;
+      } else if (attribute === 'email') {
+        return this.touchedRepresentatives.find(r => r.representative === representative).email;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
     }
   }
 }

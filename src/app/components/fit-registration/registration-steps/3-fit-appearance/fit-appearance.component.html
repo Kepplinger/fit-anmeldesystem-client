@@ -1,7 +1,8 @@
 <div *ngIf="isVisible">
   <div class="mb-4">
     <h2 class="text-bold">Ihr Auftreten am FIT</h2>
-    <p>Diese Angaben helfen uns, Ihr Auftreten am FIT so optimal wie möglich zu gestalten.</p>
+    <p>Diese Angaben helfen uns, Ihr Auftreten am FIT so optimal wie möglich zu gestalten, und uns besser für Sie
+      vorzubereiten.</p>
   </div>
 
   <form [formGroup]="stepFormGroup">
@@ -28,16 +29,19 @@
 
           <tr>
             <td width="15%">
-              <label for="representativeName">Name:</label>
+              <label [for]="'representativeName' + index">Name:*</label>
             </td>
             <td width="85%">
               <input class="form-control"
+                     [id]="'representativeName' + index"
                      type="text"
                      name="name"
                      [(ngModel)]="representative.name"
                      [ngModelOptions]="{standalone: true}"
                      ngDefaultControl
-                     id="representativeName">
+                     (blur)="onRepresentativeTouch(representative, 'name')"
+                     [ngClass]="{'is-invalid': isEmpty(representative, 'name')}"
+                     title="representativeName">
             </td>
             <td rowspan="2">
               <img [src]="representative.image"
@@ -48,25 +52,36 @@
                    [accept]="'image/*'"
                    [maxSize]="2000000"
                    (filePick)="onImagePick($event, representative)"/>
+              <div class="invalid-message invalid-message-container"></div>
             </td>
           </tr>
 
           <tr>
             <td>
-              <label for="representiveEmail">E-Mail:</label>
+              <label [for]="'representativeEmail' + index">E-Mail:*</label>
+              <div class="invalid-message invalid-message-container"></div>
             </td>
             <td>
               <input class="form-control"
                      type="text"
+                     [id]="'representativeEmail' + index"
                      [(ngModel)]="representative.email"
                      [ngModelOptions]="{standalone: true}"
-                     id="representiveEmail">
+                     (blur)="onRepresentativeTouch(representative, 'email')"
+                     [ngClass]="{'is-invalid': isEmpty(representative, 'email')}"
+                     title="representativeEmail">
+
+              <div class="invalid-message invalid-message-container">
+                <span *ngIf="isEmpty(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
+                <span *ngIf="isEmpty(representative, 'email')">E-Mail darf nicht leer sein!</span>
+              </div>
             </td>
           </tr>
         </ng-container>
       </table>
-      <button class="btn btn-success my-2 text-bold"
-              *ngIf="representatives.length < 3"
+      <button *ngIf="representatives.length < 3"
+              class="btn btn-success my-2 text-bold"
+              id="btnAddRepresentative"
               (click)="onRepresentativeAdd()">
         <i class="fa fa-user-plus mr-1"></i>
         Vertreter/in hinzufügen
@@ -95,7 +110,7 @@
                   id="otherNotes"
                   formControlName="additionalInfo"
                   rows="5">
-  </textarea>
+        </textarea>
       </div>
     </div>
   </form>

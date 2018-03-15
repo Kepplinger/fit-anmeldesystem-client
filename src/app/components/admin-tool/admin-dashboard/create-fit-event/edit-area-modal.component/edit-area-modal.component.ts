@@ -111,4 +111,9 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
         }
       });
   }
+
+  // noinspection JSMethodCanBeStatic
+  public selectAll(event: any): void {
+    event.target.select();
+  }
 }

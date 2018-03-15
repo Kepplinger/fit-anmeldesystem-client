@@ -5,3 +5,15 @@ $fa-font-path: '~font-awesome/fonts' !default;
 @import "app/styles/fit-global-styles";
 @import "./app/styles/fit-variables";
 @import "./app/styles/fit-boxes";
+
+.ajs-button {
+  @extend .btn;
+}
+
+.ajs-ok {
+  @extend .btn-primary;
+}
+
+.ajs-cancel {
+  @extend .btn-dark;
+}

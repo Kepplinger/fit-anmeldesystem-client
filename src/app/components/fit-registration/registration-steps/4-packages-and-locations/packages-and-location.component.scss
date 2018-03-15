@@ -6,10 +6,13 @@
   cursor: pointer;
   filter: brightness(100%);
 
+  &:hover {
+    filter: brightness(110%);
+  }
 }
 
 .enabled {
-  filter: brightness(75%);
+  filter: brightness(60%);
 }
 
 .card {
@@ -35,8 +38,6 @@
   .package-price {
     font-size: 26px;
     font-weight: bold;
-
-    // TODO consider using
   }
 
   .stars {
@@ -53,6 +54,8 @@
     -ms-transform: scale(1.03, 1.03);
     transform: scale(1.03, 1.03);
     transition-duration: 0.2s;
+
+    filter: brightness(110%);
   }
 }
 

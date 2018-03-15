@@ -7,7 +7,7 @@
           <span>&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" *ngIf="event != null">
 
         <div class="d-flex mb-2">
 
@@ -40,7 +40,7 @@
 
         <div id="accordion" role="tablist">
           <div class="card"
-               *ngFor="let area of areas"
+               *ngFor="let area of event.areas"
                [ngClass]="{'highlighted-border': selectedAreaId == area.id}">
 
             <div class="card-header collapse-head" role="tab"
@@ -87,9 +87,15 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button"
+                id="btnDismissModal"
+                class="btn btn-secondary"
+                data-dismiss="modal">
+          Abbrechen
+        </button>
 
         <button type="button"
+                id="btnSaveLocation"
                 class="btn btn-primary"
                 data-dismiss="modal"
                 (click)="saveLocation()"

@@ -1,53 +1,46 @@
-<div class="d-table small-container">
-  <div class="d-inline-flex mx-4">
+<div class="d-table small-container mt-2 mb-4">
+  <div class="d-inline-flex px-4 w-100">
 
     <!--step 1-->
-    <div class="step-container mx-3 my-2"
-         (click)="setCurrentPage(Step.GeneralData)">
-      <div class="step-header">Schritt 1</div>
-      <div class="step-sub-text">Allgemeines zur Firma</div>
+    <div class="step-container flex-1 my-3"
+         *ngFor="let step of steps; let index = index"
+         (click)="setCurrentPage(step)">
+      <div class="step-header justify-content-center d-flex flex-column align-items-center">
+        <i class="fa fa-2x position-relative mr-1 my-auto"
+           [ngClass]="{'fa-circle-thin': step > currentStep,
+                       'fa-circle': step <= currentStep}">
+          <span class="position-absolute centered-element step-number"
+                [ngClass]="{'text-dark': step > currentStep,
+                            'text-light': step <= currentStep}">
+            {{index + 1}}
+          </span>
+        </i>
+
+        <div [ngSwitch]="step">
+          <div *ngSwitchCase="Step.GeneralData"
+               class="my-auto">
+            Firma Stammdaten
+          </div>
+          <div *ngSwitchCase="Step.DetailedData"
+               class="my-auto">
+            Details zur Firma
+          </div>
+          <div *ngSwitchCase="Step.FitAppearance"
+               class="my-auto">
+            Ihr Auftreten
+          </div>
+          <div *ngSwitchCase="Step.PackagesAndLocation"
+               class="my-auto">
+            Pakete & Standort
+          </div>
+          <div *ngSwitchCase="Step.ContactAndRemarks"
+               class="my-auto">
+            FIT-Kontakt
+          </div>
+        </div>
+
+      </div>
     </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
-
-    <!--step 2-->
-    <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentStep < 2}"
-         (click)="setCurrentPage(Step.DetailedData)">
-      <div class="step-header">Schritt 2</div>
-      <div class="step-sub-text">Details zur Firma</div>
-    </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto "></i>
-
-    <!--step 3-->
-    <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentStep < 3}"
-         (click)="setCurrentPage(Step.FitAppearance)">
-      <div class="step-header">Schritt 3</div>
-      <div class="step-sub-text">Ihr Auftreten</div>
-    </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
-
-    <!--step 4-->
-    <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentStep < 4}"
-         (click)="setCurrentPage(Step.PackagesAndLocation)">
-      <div class="step-header">Schritt 4</div>
-      <div class="step-sub-text">Pakete & Standort</div>
-    </div>
-
-    <i class="fa fa-1-5x fa-long-arrow-right my-auto"></i>
-
-    <!--step 5-->
-    <div class="step-container mx-3 my-2"
-         [ngClass]="{'text-muted': currentStep < Step.ContactAndRemarks}"
-         (click)="setCurrentPage(Step.ContactAndRemarks)">
-      <div class="step-header">Schritt 5</div>
-      <div class="step-sub-text">Kontak & Anmerkungen</div>
-    </div>
-
   </div>
 
   <!--progress bar-->
@@ -68,22 +61,29 @@
     </fit-detailed-data>
 
     <fit-fit-appearance [isVisible]="currentStep == Step.FitAppearance"
+                        [areRepresentativesTouched]="isFormTouched"
                         [stepFormGroup]="fitFormGroup.controls['fitAppearance']">
     </fit-fit-appearance>
 
     <fit-packages-and-location [isVisible]="currentStep == Step.PackagesAndLocation"
-                               [stepFormGroup]="fitFormGroup.controls['packagesAndLocation']">
+                               [stepFormGroup]="fitFormGroup.controls['packagesAndLocation']"
+                               [event]="event">
     </fit-packages-and-location>
 
     <fit-contact-and-remarks [isVisible]="currentStep == Step.ContactAndRemarks"
                              [stepFormGroup]="fitFormGroup.controls['contactAndRemarks']">
     </fit-contact-and-remarks>
+
+    <div class="d-flex">
+      <div class="ml-auto text-smaller text-muted">* Pflichtfeld</div>
+    </div>
   </div>
 
   <!--navigation buttons-->
   <div class="d-flex mx-4">
     <button *ngIf="currentStep != Step.GeneralData"
             class="btn btn-dark"
+            id="btnPrevious"
             (click)="previousPage()">
       <i class="fa fa-arrow-left"></i>
       Zurück
@@ -92,12 +92,14 @@
     <div class="flex-filler"></div>
     <button *ngIf="currentStep != Step.ContactAndRemarks"
             class="btn btn-dark"
+            id="btnNext"
             (click)="nextPage()">
       Weiter
       <i class="fa fa-arrow-right"></i>
     </button>
 
     <button *ngIf="currentStep == Step.ContactAndRemarks"
+            id="btnSubmitBooking"
             class="btn btn-success"
             (click)="submitForm()">
       Anmelden
@@ -105,8 +107,8 @@
     </button>
   </div>
 
-  <div style="overflow: hidden; max-width: inherit">
-    <pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>
-  </div>
+  <!--<div style="overflow: hidden; max-width: inherit">-->
+  <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
+  <!--</div>-->
 
 </div>

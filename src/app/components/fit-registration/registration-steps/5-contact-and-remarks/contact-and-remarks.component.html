@@ -1,9 +1,8 @@
 <div *ngIf="isVisible">
   <div class="mb-4">
-    <h2 class="text-bold">Kontakt und Anmerkungen</h2>
+    <h2 class="text-bold">FIT-Kontakt und Anmerkungen</h2>
     <p>Bitte geben Sie hier die Daten der Kontaktperson an, mit der das FIT-Organisationsteam Sie für Rückfragen
-      erreichen
-      kann. An diese Emailadresse wird auch die Anmeldebestätigung versandt.</p>
+      erreichen kann. An diese Emailadresse wird auch die Anmeldebestätigung versandt.</p>
   </div>
 
   <h5 class="text-bold">Kontaktperson</h5>
@@ -11,9 +10,9 @@
   <form [formGroup]="stepFormGroup">
 
     <!--gender-->
-    <div class="form-row row mb-3">
+    <div class="form-row row my-3">
       <div class="col-md-3">
-        Geschlecht:
+        Anrede:*
       </div>
 
       <div class="col-md-9 px-3">
@@ -22,12 +21,13 @@
           <!--suppress HtmlFormInputWithoutLabel -->
           <input class="custom-control-input cursor-pointer"
                  type="radio"
-                 [id]="'cat' + gender.value"
+                 [id]="'gender' + gender.value"
                  [value]="gender.value"
                  formControlName="gender">
 
           <label class="custom-control-label my-auto cursor-pointer"
-                 [for]="'cat' + gender.value">
+                 [for]="'gender' + gender.value"
+                 [id]="'genderLabel' + gender.value">
             {{gender.display}}
           </label>
         </div>
@@ -36,65 +36,66 @@
 
 
     <!--first name-->
-    <div class="form-group row">
-      <label for="firstName" class="col-md-3 col-form-label">Vorname:</label>
+    <div class="form-group row mb-0">
+      <label for="firstName" class="col-md-3 col-form-label">Vorname:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                formControlName="firstName"
                id="firstName"
-               [ngClass]="{'error': hasErrors('firstName') && isHoovered('firstName')}">
+               [ngClass]="{'is-invalid': isInvalid('firstName')}">
 
-        <div *ngIf="hasErrors('firstName') && isHoovered('firstName')" class="error-msg">
-          <div *ngIf="isRequired('firstName')">Vorname ist required.</div>
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('firstName')">Vorname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
 
     <!--last name-->
-    <div class="form-group row">
-      <label for="lastName" class="col-md-3 col-form-label">Nachname:</label>
+    <div class="form-group row mb-0">
+      <label for="lastName" class="col-md-3 col-form-label">Nachname:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                formControlName="lastName"
                id="lastName"
-               [ngClass]="{'error': hasErrors('lastName') && isHoovered('lastName')}">
+               [ngClass]="{'is-invalid': isInvalid('lastName')}">
 
-        <div *ngIf="hasErrors('lastName') && isHoovered('lastName')" class="error-msg">
-          <div *ngIf="isRequired('lastName')">Nachname ist required.</div>
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('lastName')">Nachname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
 
     <!--email-->
-    <div class="form-group row">
-      <label for="email" class="col-md-3 col-form-label">Email:</label>
+    <div class="form-group row mb-0">
+      <label for="email" class="col-md-3 col-form-label">Email:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                formControlName="email"
                id="email"
-               [ngClass]="{'error': hasErrors('email') && isHoovered('email')}">
+               [ngClass]="{'is-invalid': isInvalid('email')}">
 
-        <div *ngIf="hasErrors('email') && isHoovered('email')" class="error-msg">
-          <div *ngIf="isRequired('email')">Email ist required.</div>
+        <div class="invalid-message invalid-message-container">
+          <span *ngIf="isEmpty('email')" class="mr-2">Email darf nicht leer sein!</span>
+          <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
         </div>
       </div>
     </div>
 
     <!--phone-->
-    <div class="form-group row">
-      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+    <div class="form-group row mb-0">
+      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
                formControlName="phoneNumber"
                id="phoneNumber"
-               [ngClass]="{'error': hasErrors('phoneNumber') && isHoovered('phoneNumber')}">
+               [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
 
-        <div *ngIf="hasErrors('phoneNumber') && isHoovered('phoneNumber')" class="error-msg">
-          <div *ngIf="isRequired('phoneNumber')">Telefonnummer ist required.</div>
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -110,18 +111,17 @@
       </div>
     </div>
 
-    <div class="checkbox" >
-      <label [ngClass]="{'error': hasErrors('termsAccepted') && isHoovered('termsAccepted')}">
+    <div class="checkbox">
+      <label [ngClass]="{'is-invalid': isInvalid('termsAccepted')}"
+             id="acceptTerms">
         <input type="checkbox"
-               formControlName="termsAccepted"
-               >
-
-        <span class="cr"><i class="cr-icon fa fa-check" ></i></span>
+               formControlName="termsAccepted">
+        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
         Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre
-        verwendet werden dürfen
+        verwendet werden dürfen.
       </label>
-      <div *ngIf="hasErrors('termsAccepted') && isHoovered('termsAccepted')" class="error-msg">
-        <div *ngIf="isRequired('termsAccepted')">Agb´s müssen akzeptiert werden.</div>
+      <div class="invalid-message invalid-message-container">
+        <div *ngIf="isEmpty('termsAccepted')">Zustimmung muss gegeben werden.</div>
       </div>
     </div>
   </form>

@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminToolComponent implements OnInit {
 
-  public constructor() { }
-
-  ngOnInit() {
+  public constructor() {
   }
 
+  public ngOnInit(): void {
+  }
 }

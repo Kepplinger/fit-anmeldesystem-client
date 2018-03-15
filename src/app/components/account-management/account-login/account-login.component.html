@@ -1,0 +1,37 @@
+<div class="tiny-container card mt-7 floating-effect">
+
+  <div class="card-header bg-primary">
+    <h2 class="text-center text-light text-bold m-0">Firmen Konto</h2>
+  </div>
+
+  <div class="card-body px-5 pb-4">
+    <div class="form-group">
+
+      <label class="d-flex text-bold" for="codeInput">
+        Code Eingabe:
+        <a class="ml-auto cursor-pointer"
+           [routerLink]="['/fit/code-vergessen']">Code vergessen?</a>
+      </label>
+
+      <div class="position-relative">
+        <input type="text"
+               class="form-control"
+               id="codeInput"
+               [ngClass]="{'is-invalid': hasFailed}"
+               [(ngModel)]="authenticationToken"
+               placeholder="12-stelliger Code">
+
+        <div class="position-absolute input-loading-icon">
+          <i *ngIf="hasFailed" class="fa fa-times fa-1-3x text-danger"></i>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-block btn-primary text-bold"
+            id="btnFitRegister"
+            [disabled]="authenticationToken.length < 12"
+            (click)="loginToCompanyAccount()">
+      Anmelden
+    </button>
+  </div>
+</div>
