@@ -50,21 +50,20 @@
 
     <!--companies in system-->
     <div class="col-md-6 p-3"
+         *ngIf="isAssigning"
          [ngClass]="{'disabled-element': !isAssigning}">
 
       <div class="d-flex">
         <h2>Firmenstamm</h2>
         <div class="flex-1"></div>
         <button class="btn btn-primary back-btn py-0 my-auto"
-                *ngIf="isAssigning"
                 (click)="cancelAssiging()">
           <i class="fa fa-fw fa-mail-reply"></i>
           Zurück
         </button>
       </div>
 
-      <table class="table"
-             *ngIf="isAssigning">
+      <table class="table">
 
         <tr>
           <th></th>
