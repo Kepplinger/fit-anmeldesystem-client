@@ -215,7 +215,7 @@
         <label class="my-auto">Firmenbeschreibung:</label>
       </div>
 
-      <div class="my-2" (keypress)="storeFroala()" id="description" [froalaEditor]="options"></div>
+      <div class="my-2" id="description" [froalaEditor]="options"></div>
 
       <!--establishments-->
       <div class="mb-4">
@@ -284,31 +284,51 @@
         <!--</div>-->
 
         <!--provide-->
-        <div class="col-6">
-          <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
 
-          <div class="checkbox mx-2">
-            <label id="providesSummerJob">
-              <input type="checkbox"
-                     formControlName="providesSummerJob">
-              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-              Ferialjobs/Ferialpraktika
-            </label>
+
+          <!--desiredBranches-->
+          <div class="col-6">
+            <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
+
+            <div *ngFor="let branch of branches; let index = index"
+                 class="checkbox mx-2">
+              <label [id]="'checkboxBranch' + index">
+                <input type="checkbox"
+                       (change)="branchChanged(branch, $event)"
+                       [checked]="isBranchSelected(branch)">
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                {{branch.name}}
+              </label>
+            </div>
+
           </div>
 
-          <div class="checkbox mx-2">
-            <label id="providesThesis">
-              <input type="checkbox"
-                     formControlName="providesThesis">
-              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-              Diplomarbeiten
-            </label>
+          <!--provide-->
+          <div class="col-6">
+            <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
+
+            <div class="checkbox mx-2">
+              <label id="providesSummerJob">
+                <input type="checkbox"
+                       formControlName="providesSummerJob">
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                Ferialjobs/Ferialpraktika
+              </label>
+            </div>
+
+            <div class="checkbox mx-2">
+              <label id="providesThesis">
+                <input type="checkbox"
+                       formControlName="providesThesis">
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                Diplomarbeiten
+              </label>
+            </div>
           </div>
+
         </div>
-      </div>
-
       <!--logo-->
-      <div class="form-group row mb-3">
+      <div class="form-group row mb-3 mt-3">
         <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
         <div class="input-group col-md-9"
              fitFilePicker

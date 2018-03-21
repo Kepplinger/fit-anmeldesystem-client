@@ -6,6 +6,10 @@ import { BookingTransferService } from '../../../../../core/app-services/booking
 import { FormValidationHelper } from '../../../../../core/app-helper/form-validation-helper';
 import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../../../core/app-config/app-config.service';
+import {Branch} from '../../../../../core/model/branch';
+import {BranchDAO} from '../../../../../core/dao/branch.dao';
+import {FormArrayUtils} from '../../../../../core/utils/form-array-utils';
+declare let $;
 
 @Component({
   selector: 'fit-booking-detail',
@@ -19,15 +23,22 @@ export class BookingDetailsComponent implements OnInit {
   @ViewChild('establishmentAutCount')
   public establishmentAutCount: ElementRef;
 
+  public options:any;
+
   public booking: Booking;
   public bookingFormGroup: FormGroup;
   public bookingAutArray:string[] = ['Linz','Wien'];
+
+  public branches: Branch[] = [];
+  public branchFormArray: FormArray = new FormArray([]);
+
 
   public constructor(private bookingTransferService: BookingTransferService,
                      private activatedRoute: ActivatedRoute,
                      private appConfig: AppConfig,
                      private router: Router,
-                     private fb: FormBuilder) {
+                     private fb: FormBuilder,
+                     private branchDAO: BranchDAO) {
     this.bookingFormGroup = this.fb.group({
       companyName: ['', Validators.required],
       street: ['', Validators.required],
@@ -64,9 +75,27 @@ export class BookingDetailsComponent implements OnInit {
       remarks: [''],
       termsAccepted: [false, Validators.requiredTrue]
     });
+    this.options = {
+      charCounterCount: true,
+      charCounterMax: 1000,
+      quickInsert: false,
+      heightMin: 250,
+      heightMax: 490,
+      enter: $.FroalaEditor.ENTER_BR,
+      tooltips: true,
+      fontSize: '30',
+      placeholderText: '',
+      quickInsertTags: '',
+      inlineMode: true,
+      toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
+        'formatUL', 'formatOL', 'clearFormatting', '|', 'superscript', 'outdent', 'indent']
+      // toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+      // toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+      // toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    };
   }
 
-  public ngOnInit(): void {
+   public async ngOnInit(): Promise<void> {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         if (params.id != null) {
@@ -78,7 +107,12 @@ export class BookingDetailsComponent implements OnInit {
           }
         }
       });
+    this.branches = await this.branchDAO.fetchBranches();
+    this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
+
   }
+
+
 
   public isEmpty(formName: string): boolean {
     return FormValidationHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
@@ -102,7 +136,7 @@ export class BookingDetailsComponent implements OnInit {
   private fillFormWithBooking() {
     console.log(this.booking.company.folderInfo.establishmentsAut);
     this.createArrayFromString(this.booking.company.folderInfo.establishmentsAut);
-
+    console.log(this.booking.branches);
     this.bookingFormGroup.patchValue({
       companyName: this.booking.company.name,
       street: this.booking.company.address.street,
@@ -120,7 +154,7 @@ export class BookingDetailsComponent implements OnInit {
       establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
       // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
       establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
-      desiredBranches: this.booking.branches,
+     // desiredBranches: new FormArray([]),
       providesSummerJob: this.booking.providesSummerJob,
       providesThesis: this.booking.providesThesis,
       // representatives: this.booking.representatives,
@@ -137,6 +171,9 @@ export class BookingDetailsComponent implements OnInit {
     });
 
     this.fillArrays(this.bookingAutArray);
+    this.tickBranches();
+    this.pushFroala();
+    //this.tickBranches();
     // if (this.booking.presentation != null) {
     //   this.fitFormGroup.patchValue({
     //     packagesAndLocation: {
@@ -148,6 +185,8 @@ export class BookingDetailsComponent implements OnInit {
     // }
 
   }
+
+
 
   fillArrays(establishmentsArrayAut:string[]){
     const control = <FormArray>this.bookingFormGroup.controls['establishmentsAut'];
@@ -185,4 +224,41 @@ export class BookingDetailsComponent implements OnInit {
     this.bookingFormGroup.controls['establishmentsCountInt'].setValue(count);
   }
 
+  public branchChanged(branch: Branch, event: any): void {
+    if (event.target.checked) {
+      this.branchFormArray.push(new FormControl(branch));
+    } else {
+      let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
+
+      if (index !== -1) {
+        this.branchFormArray.removeAt(index);
+      }
+    }
+  }
+
+  public isBranchSelected(branch: Branch): boolean {
+    return FormArrayUtils.indexOf(this.branchFormArray, branch) !== -1;
+  }
+
+  public tickBranches() {
+
+    const control = <FormArray>this.bookingFormGroup.controls['desiredBranches'];
+    for (let entry of this.booking.branches) {
+      console.log(entry);
+
+      this.branchFormArray.push(new FormControl(entry));
+
+      control.push(this.fb.group({"name": entry.name,
+        "id": entry.id,
+        "timestamp":entry.timestamp}));
+    }
+  }
+
+  public pushFroala(): void{
+    console.log(this.booking.companyDescription);
+    $('#description').froalaEditor('html.set', '<p>My custom paragraph.</p>');
+
+    $("#description").editable("insertHTML", "123456", true);
+    $("#description").editable("sync");
+  }
 }
