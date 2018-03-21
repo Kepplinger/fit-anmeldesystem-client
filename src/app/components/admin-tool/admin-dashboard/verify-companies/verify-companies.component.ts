@@ -45,4 +45,12 @@ export class VerifyCompaniesComponent implements OnInit {
     ArrayUtils.deleteElement(this.pendingCompanies, company);
     this.companies.push(company);
   }
+
+  public getFilteredCompanies(): Company[] {
+    if (this.filterText !== '') {
+      return this.companies.filter(c => c.name.includes(this.filterText));
+    } else {
+      return this.companies;
+    }
+  }
 }
