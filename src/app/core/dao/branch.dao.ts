@@ -11,12 +11,6 @@ export class BranchDAO {
   }
 
   public async fetchBranches(): Promise<Branch[]> {
-
-    // return [
-    //   new Branch('Informatik / Medientechnik', 1),
-    //   new Branch('Elektronik und Technische Informatik', 2),
-    //   new Branch('Biomedizin- und Gesundheitstechnik', 3)
-    // ];
     return this.http.get<Branch[]>(this.appConfig.serverURL + '/branch')
       .toPromise();
   }
