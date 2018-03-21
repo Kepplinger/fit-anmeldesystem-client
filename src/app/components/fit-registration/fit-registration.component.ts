@@ -30,7 +30,6 @@ export class FitRegistrationComponent implements OnInit {
 
   // necessary for template-usage
   Step = FitRegistrationStep;
-
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
   public event: Event;

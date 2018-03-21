@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Booking } from '../../../../../core/model/booking';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { FormValidationHelper } from '../../../../../core/app-helper/form-validation-helper';
@@ -13,9 +13,15 @@ import { AppConfig } from '../../../../../core/app-config/app-config.service';
   styleUrls: ['./booking-details.component.scss']
 })
 export class BookingDetailsComponent implements OnInit {
+  @ViewChild('establishmentIntCount')
+  public establishmentIntCount: ElementRef;
+
+  @ViewChild('establishmentAutCount')
+  public establishmentAutCount: ElementRef;
 
   public booking: Booking;
   public bookingFormGroup: FormGroup;
+  public bookingAutArray:string[] = ['Linz','Wien'];
 
   public constructor(private bookingTransferService: BookingTransferService,
                      private activatedRoute: ActivatedRoute,
@@ -86,9 +92,16 @@ export class BookingDetailsComponent implements OnInit {
     return FormValidationHelper.hasError(formName, this.bookingFormGroup) != null &&
       FormValidationHelper.isTouched(formName, this.bookingFormGroup);
   }
+  public createArrayFromString(tmp:string[]):string[]{
+    console.log(tmp);
+    return new Array();
+  }
+
+
 
   private fillFormWithBooking() {
     console.log(this.booking.company.folderInfo.establishmentsAut);
+    this.createArrayFromString(this.booking.company.folderInfo.establishmentsAut);
 
     this.bookingFormGroup.patchValue({
       companyName: this.booking.company.name,
@@ -103,7 +116,7 @@ export class BookingDetailsComponent implements OnInit {
       logoUrl: this.booking.company.folderInfo.logo,
       branch: this.booking.company.folderInfo.branch,
       description: this.booking.companyDescription,
-      // establishmentsAut: this.booking.company.folderInfo.establishmentsAut,
+      //establishmentsAut: this.fb.array([]),
       establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
       // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
       establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
@@ -123,6 +136,7 @@ export class BookingDetailsComponent implements OnInit {
       contactPhoneNumber: this.booking.company.contact.phoneNumber,
     });
 
+    this.fillArrays(this.bookingAutArray);
     // if (this.booking.presentation != null) {
     //   this.fitFormGroup.patchValue({
     //     packagesAndLocation: {
@@ -132,5 +146,43 @@ export class BookingDetailsComponent implements OnInit {
     //     }
     //   });
     // }
+
   }
+
+  fillArrays(establishmentsArrayAut:string[]){
+    const control = <FormArray>this.bookingFormGroup.controls['establishmentsAut'];
+    for (let entry of establishmentsArrayAut) {
+      control.push(this.fb.group({"display": entry,
+        "value": entry}));
+    }
+
+
+  }
+
+  public updateEstablishments(controlName: string, names: string[]): void {
+    this.bookingFormGroup.setControl(controlName, new FormArray(names.map(n => new FormControl(n))));
+    this.verifyAutEstablishmentsCount();
+    this.verifyIntEstablishmentsCount();
+  }
+
+  public verifyAutEstablishmentsCount(): void {
+    let count: number = Math.max(
+      this.bookingFormGroup.value.establishmentsAut.length,
+      this.establishmentAutCount.nativeElement.value
+    );
+
+    this.establishmentAutCount.nativeElement.value = count;
+    this.bookingFormGroup.controls['establishmentsCountAut'].setValue(count);
+  }
+
+  public verifyIntEstablishmentsCount(): void {
+    let count: number = Math.max(
+      this.bookingFormGroup.value.establishmentsInt.length,
+      this.establishmentIntCount.nativeElement.value
+    );
+
+    this.establishmentIntCount.nativeElement.value = count;
+    this.bookingFormGroup.controls['establishmentsCountInt'].setValue(count);
+  }
+
 }
