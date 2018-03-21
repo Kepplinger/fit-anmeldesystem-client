@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Booking } from '../../../../../core/model/booking';
@@ -9,6 +9,10 @@ import { AppConfig } from '../../../../../core/app-config/app-config.service';
 import {Branch} from '../../../../../core/model/branch';
 import {BranchDAO} from '../../../../../core/dao/branch.dao';
 import {FormArrayUtils} from '../../../../../core/utils/form-array-utils';
+import {PickedFile} from '../../../../../libs/file-picker/picked-file';
+import {FilePickerError} from '../../../../../libs/file-picker/file-picker-error';
+import {Representative} from '../../../../../core/model/representative';
+import {ArrayUtils} from '../../../../../core/utils/array-utils';
 declare let $;
 window["$"] = $;
 window["jQuery"] = $;
@@ -25,6 +29,8 @@ export class BookingDetailsComponent implements OnInit {
   @ViewChild('establishmentAutCount')
   public establishmentAutCount: ElementRef;
 
+  public areRepresentativesTouched: boolean = false;
+
   public options:any;
 
   public booking: Booking;
@@ -34,7 +40,10 @@ export class BookingDetailsComponent implements OnInit {
   public branches: Branch[] = [];
   public branchFormArray: FormArray = new FormArray([]);
 
+  public representatives: Representative[] = [];
+  public touchedRepresentatives: any[] = [];
 
+  public logo: PickedFile;
   public constructor(private bookingTransferService: BookingTransferService,
                      private activatedRoute: ActivatedRoute,
                      private appConfig: AppConfig,
@@ -111,9 +120,84 @@ export class BookingDetailsComponent implements OnInit {
       });
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
+   }
 
+  public onRepresentativeAdd(): void {
+    this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
   }
 
+  public addRepresentative(representative: Representative): void {
+    let representativeArray: FormArray = <FormArray>this.bookingFormGroup.get('representatives');
+    console.log(representativeArray);
+    this.representatives.push(representative);
+
+    this.touchedRepresentatives.push({
+      representative: representative,
+      name: false,
+      email: false
+    });
+
+    representativeArray.push(new FormControl(representative));
+  }
+
+  public deleteRepresentative(representative: Representative): void {
+    let representativeArray: FormArray = <FormArray>this.bookingFormGroup.get('representatives');
+    ArrayUtils.deleteElement(this.representatives, representative);
+    ArrayUtils.deleteElement(
+      this.touchedRepresentatives,
+      this.touchedRepresentatives.find(r => r.representative === representative)
+    );
+    representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
+  }
+
+  public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
+    if (file instanceof PickedFile) {
+      representative.image = file.dataURL;
+    } else if (file === FilePickerError.FileTooBig) {
+      console.log('too big');
+    } else if (file === FilePickerError.InvalidFileType) {
+      console.log('invalid file type');
+    } else if (file === FilePickerError.UndefinedInput) {
+      console.log('undefined input');
+    }
+  }
+
+  public onRepresentativeTouch(representative: Representative, attribute: string): void {
+    let foundRepresentative = this.touchedRepresentatives.find(r => r.representative === representative);
+
+    if (attribute === 'name') {
+      foundRepresentative.name = true;
+    } else if (attribute === 'email') {
+      foundRepresentative.email = true;
+    }
+  }
+
+  public isLeer(representative: Representative, attribute: string): boolean {
+
+    let input = '';
+
+    if (attribute === 'name') {
+      input = representative.name;
+    } else if (attribute === 'email') {
+      input = representative.email;
+    }
+
+    return (input == null || input === '') && this.isTouched(representative, attribute);
+  }
+
+  public isTouched(representative: Representative, attribute: string): boolean {
+    if (!this.areRepresentativesTouched) {
+      if (attribute === 'name') {
+        return this.touchedRepresentatives.find(r => r.representative === representative).name;
+      } else if (attribute === 'email') {
+        return this.touchedRepresentatives.find(r => r.representative === representative).email;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
 
 
   public isEmpty(formName: string): boolean {
@@ -173,7 +257,6 @@ export class BookingDetailsComponent implements OnInit {
     });
 
     this.fillArrays(this.bookingAutArray);
-    this.tickBranches();
     this.pushFroala();
     //this.tickBranches();
     // if (this.booking.presentation != null) {
@@ -197,7 +280,9 @@ export class BookingDetailsComponent implements OnInit {
         "value": entry}));
     }
 
-
+    for(let entry of this.booking.representatives){
+      this.addRepresentative(new Representative(entry.name, entry.email, '../../../../../assets/contact.png'));
+    }
   }
 
   public updateEstablishments(controlName: string, names: string[]): void {
@@ -229,12 +314,16 @@ export class BookingDetailsComponent implements OnInit {
   public branchChanged(branch: Branch, event: any): void {
     if (event.target.checked) {
       this.branchFormArray.push(new FormControl(branch));
+      console.log("add");
     } else {
       let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
-
-      if (index !== -1) {
+      console.log(index);
+      console.log(branch);
         this.branchFormArray.removeAt(index);
-      }
+
+      console.log(this.branchFormArray);
+
+      console.log("remove");
     }
   }
 
@@ -243,16 +332,10 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   public tickBranches() {
-
-    const control = <FormArray>this.bookingFormGroup.controls['desiredBranches'];
     for (let entry of this.booking.branches) {
-      console.log(entry);
-
       this.branchFormArray.push(new FormControl(entry));
-
-      control.push(this.fb.group({"name": entry.name,
-        "id": entry.id,
-        "timestamp":entry.timestamp}));
+      $('#checkbox'+entry.id).prop("checked", this.isBranchSelected(entry));
+    console.log(this.branchFormArray);
     }
   }
 
@@ -264,5 +347,18 @@ export class BookingDetailsComponent implements OnInit {
     let html = $('#description').froalaEditor('html.get');
     this.bookingFormGroup.controls['description'].setValue(html.toString());
     console.log(this.bookingFormGroup.controls['description'].value);
+  }
+
+  public filePicked(file: PickedFile | FilePickerError): void {
+    if (file instanceof PickedFile) {
+      this.logo = file;
+      this.bookingFormGroup.value.logoUrl = this.logo.dataURL;
+    } else if (file === FilePickerError.FileTooBig) {
+      console.log('too big');
+    } else if (file === FilePickerError.InvalidFileType) {
+      console.log('invalid file type');
+    } else if (file === FilePickerError.UndefinedInput) {
+      console.log('undefined input');
+    }
   }
 }
