@@ -215,7 +215,9 @@
         <label class="my-auto">Firmenbeschreibung:</label>
       </div>
 
-      <div class="my-2" id="description" [froalaEditor]="options"></div>
+      <div class="my-2" id="description" (keypress)="storeFroala()" [froalaEditor]="options">
+
+      </div>
 
       <!--establishments-->
       <div class="mb-4">

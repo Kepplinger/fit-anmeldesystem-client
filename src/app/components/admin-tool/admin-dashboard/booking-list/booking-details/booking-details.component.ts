@@ -10,6 +10,8 @@ import {Branch} from '../../../../../core/model/branch';
 import {BranchDAO} from '../../../../../core/dao/branch.dao';
 import {FormArrayUtils} from '../../../../../core/utils/form-array-utils';
 declare let $;
+window["$"] = $;
+window["jQuery"] = $;
 
 @Component({
   selector: 'fit-booking-detail',
@@ -255,10 +257,12 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   public pushFroala(): void{
-    console.log(this.booking.companyDescription);
-    $('#description').froalaEditor('html.set', '<p>My custom paragraph.</p>');
+    document.getElementById("description").innerHTML = this.booking.companyDescription;
+  }
 
-    $("#description").editable("insertHTML", "123456", true);
-    $("#description").editable("sync");
+  public storeFroala(): void {
+    let html = $('#description').froalaEditor('html.get');
+    this.bookingFormGroup.controls['description'].setValue(html.toString());
+    console.log(this.bookingFormGroup.controls['description'].value);
   }
 }
