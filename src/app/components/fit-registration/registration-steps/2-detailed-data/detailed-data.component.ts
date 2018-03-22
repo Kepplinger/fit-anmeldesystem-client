@@ -29,6 +29,7 @@ export class DetailedDataComponent implements OnInit {
   public establishmentAutCount: ElementRef;
 
   public branches: Branch[] = [];
+
   public branchFormArray: FormArray = null;
   public isDrag: boolean = false;
   public logo: PickedFile;
