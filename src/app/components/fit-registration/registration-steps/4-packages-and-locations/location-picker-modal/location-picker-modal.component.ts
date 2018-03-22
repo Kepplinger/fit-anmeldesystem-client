@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Event } from '../../../../../core/model/event';
 import { Area } from '../../../../../core/model/area';
 import { Location } from '../../../../../core/model/location';
-import { AreaDAO } from '../../../../../core/dao/area.dao';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { iteratorToArray } from '@angular/animations/browser/src/util';
 
 declare let $: any;
 
@@ -28,11 +28,22 @@ export class LocationPickerModalComponent implements OnInit {
 
   public selectedAreaId: number;
 
+  public images: string[] = [
+    '../../../../../../assets/eg.png',
+    '../../../../../../assets/og1.png',
+    '../../../../../../assets/og2.png'
+  ];
+
   public constructor() {
   }
 
   public async ngOnInit(): Promise<void> {
     if (this.event != null) {
+
+      for (let i = 0; i < this.event.areas.length; i++) {
+        this.event.areas[i].graphicUrl = this.images[i];
+      }
+
       // using setTimeout workaround to prevent jQuery failure
       setTimeout(() => {
         let firstArea = ArrayUtils.getFirstElement(this.event.areas);

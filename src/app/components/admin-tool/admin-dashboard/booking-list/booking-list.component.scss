@@ -1,0 +1,21 @@
+@import "../../../../styles/fit-global-styles";
+
+.booking-tool-btn {
+  @extend .floating-effect;
+  cursor: pointer;
+  border-radius: .25em;
+  padding: .5em;
+  vertical-align: middle;
+  user-select: none;
+  font-weight: bold;
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+
+  &:active {
+    @extend .no-floating-effect;
+    background-color: #ededed;
+    transform: translateY(3px) translateX(-3px);
+  }
+}

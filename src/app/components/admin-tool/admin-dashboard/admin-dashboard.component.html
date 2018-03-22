@@ -11,7 +11,7 @@
             data-toggle="modal"
             data-target="#selectEventModal">
       <i class="fa fa-pencil"></i>
-      <span>FIT ändern</span>
+      <span>FIT ändern/erstellen</span>
     </button>
   </div>
 
@@ -41,12 +41,17 @@
       <div class="dash-text">Änderungsprotokoll</div>
     </div>
 
-    <div class="dash">
-      <i class="fa fas fa-book dash-icon"></i>
-      <div class="dash-text">Vorträge</div>
+    <div class="dash"
+         [routerLink]="['/admin-tool','mail-vorlagen']">
+      <i class="fa fa-envelope dash-icon"></i>
+      <div class="dash-text">Mail-Vorlagen</div>
     </div>
 
-    <div class="dash">Zeta</div>
+    <div class="dash"
+         [routerLink]="['/admin-tool','vortraege']">
+      <i class="fa fa-graduation-cap dash-icon"></i>
+      <div class="dash-text">Vorträge</div>
+    </div>
 
     <div class="dash">Eta</div>
 

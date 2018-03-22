@@ -50,21 +50,27 @@
 
     <!--companies in system-->
     <div class="col-md-6 p-3"
+         *ngIf="isAssigning"
          [ngClass]="{'disabled-element': !isAssigning}">
 
       <div class="d-flex">
         <h2>Firmenstamm</h2>
-        <div class="flex-1"></div>
-        <button class="btn btn-primary back-btn py-0 my-auto"
-                *ngIf="isAssigning"
-                (click)="cancelAssiging()">
-          <i class="fa fa-fw fa-mail-reply"></i>
-          Zurück
-        </button>
+        <div class="flex-2"></div>
+        <div class="flex-2 d-flex my-1">
+          <button class="btn btn-primary back-btn py-0 mr-2"
+                  (click)="cancelAssiging()">
+            <i class="fa fa-fw fa-mail-reply"></i>
+            Zurück
+          </button>
+          <input type="text"
+                 title="search"
+                 class="form-control search-input py-0"
+                 [(ngModel)]="filterText"
+                 placeholder="Suche">
+        </div>
       </div>
 
-      <table class="table"
-             *ngIf="isAssigning">
+      <table class="table">
 
         <tr>
           <th></th>
@@ -73,8 +79,8 @@
           <th>Kontaktperson</th>
         </tr>
 
-        <tr *ngFor="let company of companies">
-          <td class="align-middle" *ngIf="isAssigning">
+        <tr *ngFor="let company of getFilteredCompanies()">
+          <td class="align-middle">
             <button class="btn btn-sm btn-success">
               <i class="fa fa-fw fa-download"></i>
             </button>

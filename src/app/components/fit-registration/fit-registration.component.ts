@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -65,7 +65,7 @@ export class FitRegistrationComponent implements OnInit {
         streetNumber: [this.booking.company.address.streetNumber, Validators.required],
         zipCode: [this.booking.company.address.zipCode, Validators.required],
         city: [this.booking.company.address.city, Validators.required],
-        addressAdditions: [this.booking.company.address.addition, Validators.required],
+        addressAdditions: [this.booking.company.address.addition],
         gender: [{value: this.booking.company.contact.gender, disabled: true}],
         firstName: [this.booking.company.contact.firstName, Validators.required],
         lastName: [this.booking.company.contact.lastName, Validators.required],
@@ -77,8 +77,8 @@ export class FitRegistrationComponent implements OnInit {
         phoneNumber: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
-        logoUrl: ['', Validators.required],
-        description: ['', Validators.required],
+        logoUrl: [''],
+        description: [''],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],
         establishmentsInt: this.fb.array([]),

@@ -3,6 +3,8 @@ import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
+import { BookingMapper } from '../../../core/model/mapper/booking-mapper';
+import { CompanyMapper } from '../../../core/model/mapper/company-mapper';
 
 @Component({
   selector: 'fit-account-login',
@@ -29,9 +31,9 @@ export class AccountLoginComponent {
       this.hasFailed = true;
     } else {
       if (response.booking != null) {
-        this.accountManagementService.setBooking(response.booking);
+        this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.booking));
       } else if (response.company != null) {
-        this.accountManagementService.setCompany(response.company);
+        this.accountManagementService.setCompany(CompanyMapper.mapJsonToCompany(response.company));
       }
       this.router.navigate(['/konto']);
     }

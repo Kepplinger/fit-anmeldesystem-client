@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Booking } from '../model/booking';
 import 'rxjs/add/operator/toPromise';
+import { BookingMapper } from '../model/mapper/booking-mapper';
+import { ArrayUtils } from '../utils/array-utils';
 
 @Injectable()
 export class BookingDAO {
@@ -13,6 +15,9 @@ export class BookingDAO {
 
   public fetchAllBookings(): Promise<Booking[]> {
     return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking')
+      .map((data: any[]) => {
+        return BookingMapper.mapJsonToBookingList(data);
+      })
       .toPromise();
   }
 
@@ -20,14 +25,14 @@ export class BookingDAO {
 
     let json: any = booking;
 
-    json.company.folderInfo.establishmentsAut = this.concatWithDelimiter(json.company.folderInfo.establishmentsAut, ';');
-    json.company.folderInfo.establishmentsInt = this.concatWithDelimiter(json.company.folderInfo.establishmentsInt, ';');
+    if (json.company.folderInfo != null
+      && json.company.folderInfo.establishmentsAut != null
+      && json.company.folderInfo.establishmentsInt != null) {
+      json.company.folderInfo.establishmentsAut = ArrayUtils.concatWithDelimiter(json.company.folderInfo.establishmentsAut, ';');
+      json.company.folderInfo.establishmentsInt = ArrayUtils.concatWithDelimiter(json.company.folderInfo.establishmentsInt, ';');
+    }
 
     await this.http.post<void>(this.appConfig.serverURL + '/booking', booking)
       .toPromise();
-  }
-
-  private concatWithDelimiter(stringArray: string[], delimiter: string) {
-    return stringArray.map(e => e.replace(delimiter, '\\' + delimiter)).join(delimiter);
   }
 }
