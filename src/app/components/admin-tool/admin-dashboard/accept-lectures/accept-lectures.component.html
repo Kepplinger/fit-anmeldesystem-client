@@ -1,0 +1,70 @@
+<div class="m-5">
+    <!--pending companies-->
+    <div class="p-3"
+         [ngClass]="{'disabled-element': isAssigning}">
+
+      <h2 class="mb-4">Nicht bestätigte Vorträge</h2>
+
+      <table class="table">
+        <tr>
+          <th>Firmenname</th>
+          <th>Vortrag</th>
+          <th>Beschreibung</th>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <tr *ngFor="let entry of listOfLectures" class="bg-warning">
+          <td class="text-bold align-middle">{{entry.companyName}}</td>
+          <td>
+           {{entry.presentationTitle}}
+          </td>
+          <td>
+            {{entry.presentationDescr}}
+          </td>
+          <td class="align-middle d-flex flex-column">
+            <button class="btn btn-sm btn-success"
+                    (click)="verifyLecture(entry)">
+              <i class="fa fa-fw fa-check"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger"
+                    (click)="removeLecture(entry)">
+              <i class="fa fa-fw fa-times"></i>
+            </button>
+          </td>
+        </tr>
+
+      </table>
+
+      <h2 class="mb-4">Bestätigte Vorträge</h2>
+
+      <table class="table">
+        <tr>
+          <th>Firmenname</th>
+          <th>Vortrag</th>
+          <th>Beschreibung</th>
+          <th></th>
+        </tr>
+
+        <tr *ngFor="let entry of listOfAccepted" class="bg-success">
+          <td class="text-bold align-middle">{{entry.companyName}}</td>
+          <td>
+            {{entry.presentationTitle}}
+          </td>
+          <td>
+            {{entry.presentationDescr}}
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger"
+                    (click)="kickLecture(entry)">
+              <i class="fa fa-fw fa-times"></i>
+            </button>
+          </td>
+        </tr>
+
+      </table>
+
+    </div>
+</div>
