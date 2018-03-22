@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CompanyDAO} from '../../../../core/dao/company.dao';
 import {promise} from 'selenium-webdriver';
 import {ArrayUtils} from '../../../../core/utils/array-utils';
-
+declare let $;
 @Component({
   selector: 'fit-accept-lectures',
   templateUrl: './accept-lectures.component.html',
@@ -10,6 +10,7 @@ import {ArrayUtils} from '../../../../core/utils/array-utils';
 })
 export class AcceptLecturesComponent implements OnInit {
 
+  public choosenEntry: any;
   public listOfLectures: any[] = [];
   public listOfAccepted:any[] = [];
 
@@ -24,6 +25,7 @@ export class AcceptLecturesComponent implements OnInit {
 
   public async removeLecture(entry: any): Promise<void> {
     ArrayUtils.deleteElement(this.listOfLectures, entry);
+    $('#myModal').modal('hide');
   }
 
   public async verifyLecture(entry: any): Promise<void> {
@@ -34,6 +36,10 @@ export class AcceptLecturesComponent implements OnInit {
   public async kickLecture(entry: any): Promise<void> {
     ArrayUtils.deleteElement(this.listOfAccepted, entry);
     this.listOfLectures.push(entry);
+  }
+
+  public setChoosenEntry(entry:any){
+    this.choosenEntry = entry;
   }
 
 

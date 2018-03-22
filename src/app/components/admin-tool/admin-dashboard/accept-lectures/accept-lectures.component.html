@@ -23,14 +23,15 @@
             {{entry.presentationDescr}}
           </td>
           <td class="align-middle d-flex flex-column">
-            <button class="btn btn-sm btn-success"
+            <button class="btn btn-sm btn-success buttonwidth"
                     (click)="verifyLecture(entry)">
               <i class="fa fa-fw fa-check"></i>
             </button>
           </td>
           <td>
-            <button class="btn btn-sm btn-danger"
-                    (click)="removeLecture(entry)">
+            <button class="btn btn-sm btn-danger buttonwidth"
+                    data-toggle="modal" data-target="#myModal"
+                    (click)="setChoosenEntry(entry)">
               <i class="fa fa-fw fa-times"></i>
             </button>
           </td>
@@ -57,7 +58,7 @@
             {{entry.presentationDescr}}
           </td>
           <td>
-            <button class="btn btn-sm btn-danger"
+            <button class="btn btn-sm btn-danger buttonwidth"
                     (click)="kickLecture(entry)">
               <i class="fa fa-fw fa-times"></i>
             </button>
@@ -65,6 +66,29 @@
         </tr>
 
       </table>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Bestätigen</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Wollen Sie den ausgewählten Vortrag der Firma {{choosenEntry.companyName}} wirklich löschen?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+              <button type="button" class="btn btn-danger" (click)="removeLecture(this.choosenEntry)">Akzeptieren</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     </div>
 </div>
