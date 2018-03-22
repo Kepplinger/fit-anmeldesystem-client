@@ -7,7 +7,6 @@ import { Representative } from './representative';
 import { Resource } from './resource';
 import { Package } from './package';
 import { Moment } from 'moment';
-import { Contact } from './contact';
 
 export class Booking {
   public id: number;
