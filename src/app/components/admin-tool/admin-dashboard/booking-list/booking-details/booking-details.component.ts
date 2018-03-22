@@ -13,6 +13,12 @@ import {PickedFile} from '../../../../../libs/file-picker/picked-file';
 import {FilePickerError} from '../../../../../libs/file-picker/file-picker-error';
 import {Representative} from '../../../../../core/model/representative';
 import {ArrayUtils} from '../../../../../core/utils/array-utils';
+import {FitPackage} from '../../../../../core/model/enums/fit-package';
+import {Package} from '../../../../../core/model/package';
+import {PackageDAO} from '../../../../../core/dao/package.dao';
+import {Event} from '../../../../../core/model/event';
+import {Input} from '@angular/compiler/src/core';
+import {DisplayedValue} from '../../../../../core/app-helper/helper-model/displayed-value';
 declare let $;
 window["$"] = $;
 window["jQuery"] = $;
@@ -29,6 +35,10 @@ export class BookingDetailsComponent implements OnInit {
   @ViewChild('establishmentAutCount')
   public establishmentAutCount: ElementRef;
 
+  public genders: DisplayedValue[];
+
+  public event:Event = null;
+
   public areRepresentativesTouched: boolean = false;
 
   public options:any;
@@ -44,12 +54,24 @@ export class BookingDetailsComponent implements OnInit {
   public touchedRepresentatives: any[] = [];
 
   public logo: PickedFile;
+
+
+  Package = FitPackage;
+
+  public selectedLocation: Location;
+  public selectedPackage: number = FitPackage.BasicPack;
+
+  public basicPackage: Package = new Package();
+  public sponsorPackage: Package = new Package();
+  public lecturePackage: Package = new Package();
+
   public constructor(private bookingTransferService: BookingTransferService,
                      private activatedRoute: ActivatedRoute,
                      private appConfig: AppConfig,
                      private router: Router,
                      private fb: FormBuilder,
-                     private branchDAO: BranchDAO) {
+                     private branchDAO: BranchDAO,
+                     private packageDAO: PackageDAO) {
     this.bookingFormGroup = this.fb.group({
       companyName: ['', Validators.required],
       street: ['', Validators.required],
@@ -104,6 +126,8 @@ export class BookingDetailsComponent implements OnInit {
       // toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
       // toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     };
+    this.genders = appConfig.genders;
+
   }
 
    public async ngOnInit(): Promise<void> {
@@ -120,7 +144,55 @@ export class BookingDetailsComponent implements OnInit {
       });
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
+     let packages: Package[] = await this.packageDAO.fetchPackages();
+     this.basicPackage = packages.find(p => p.discriminator === 1);
+     this.sponsorPackage = packages.find(p => p.discriminator === 2);
+     this.lecturePackage = packages.find(p => p.discriminator === 3);
+
+     if (this.bookingFormGroup.value.fitPackage != null) {
+       this.selectedPackage = this.bookingFormGroup.value.fitPackage;
+     } else {
+       this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+     }
+
+     if (this.bookingFormGroup.value.location != null) {
+       this.selectedLocation = this.bookingFormGroup.value.location;
+     }
+     this.event = this.booking.event;
+     console.log(this.event);
    }
+
+  public setLocation(location: Location): void {
+    this.selectedLocation = location;
+    this.bookingFormGroup.controls['location'].setValue(this.selectedLocation);
+  }
+
+  public togglePackage(packageNumber: number): void {
+    if (packageNumber-- === this.selectedPackage) {
+      this.selectedPackage--;
+    } else if (packageNumber++ === this.selectedPackage) {
+      this.selectedPackage++;
+    } else {
+      this.selectedPackage = packageNumber;
+    }
+
+    this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+  }
+
+  public isPackageSelected(packageType: FitPackage): boolean {
+    return packageType <= this.selectedPackage;
+  }
+
+  public getSelectedPackage(packageType: FitPackage): Package {
+    switch (packageType) {
+      case FitPackage.BasicPack:
+        return this.basicPackage;
+      case FitPackage.SponsorPack:
+        return this.sponsorPackage;
+      case FitPackage.LecturePack:
+        return this.lecturePackage;
+    }
+  }
 
   public onRepresentativeAdd(): void {
     this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
@@ -283,6 +355,8 @@ export class BookingDetailsComponent implements OnInit {
     for(let entry of this.booking.representatives){
       this.addRepresentative(new Representative(entry.name, entry.email, '../../../../../assets/contact.png'));
     }
+
+
   }
 
   public updateEstablishments(controlName: string, names: string[]): void {

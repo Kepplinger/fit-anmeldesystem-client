@@ -1,3 +1,9 @@
+<fit-location-picker-modal [selectedLocation]="selectedLocation"
+                           [event]="event"
+                           (selectedLocationChange)="setLocation($event)"
+                           [currentCategory]="selectedPackage == Package.BasicPack ? 'B' : 'A'">
+</fit-location-picker-modal>
+
 <div class="small-container my-5">
 
   <h2>Anmeldung von {{booking?.company.name}} bearbeiten</h2>
@@ -350,17 +356,6 @@
         </div>
       </div>
 
-     <!-- <div class="form-group row">
-        <label for="remarks" class="col-md-3 col-form-label">Anmerkungen:</label>
-        <div class="col-md-9">
-      <textarea class="form-control"
-                id="remarks"
-                rows="4"
-                formControlName="remarks">
-      </textarea>
-        </div>
-      </div>-->
-
 
       <div class="mb-4">
         <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
@@ -443,7 +438,259 @@
         </button>
       </div>
 
+      <div class="form-group row">
+         <label for="remarks" class="col-md-3 col-form-label"><h5>Benötigte Gegenstände</h5></label>
+         <div class="col-md-9">
+       <textarea class="form-control"
+                 id="additionalInfo"
+                 rows="4"
+                 formControlName="additionalInfo">
+       </textarea>
+         </div>
+       </div>
 
+      <div class="mb-4">
+        <h5 class="text-bold m-0">FIT-Paket</h5>
+
+        <div class="card-deck">
+
+          <!--basic fitPackage-->
+          <div class="pointer card text-white bg-info m-3 disabled" id="basicPack"
+               (click)="togglePackage(Package.BasicPack)">
+            <div class="card-header text-center">
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+                <i class="fa fa-star-o"></i>
+              </div>
+              {{basicPackage?.name}}
+            </div>
+
+            <ul class="list-group list-group-flush flex-filler">
+              <li class="list-group-item">
+                Stand am FIT
+              </li>
+              <li class="list-group-item">
+                Kategorie B Platz
+              </li>
+              <li class="list-group-item h-100">
+                Eintrag im Flyer
+              </li>
+            </ul>
+
+            <div class="card-footer d-flex">
+        <span class="flex-filler  my-auto">
+          <i class="fa fa-2x fa-check-square"></i>
+        </span>
+              <span class="package-price">{{basicPackage?.price}} €</span>
+            </div>
+          </div>
+
+          <!--sponsor fitPackage-->
+          <div class="pointer card text-white bg-danger  m-3" id="sponsorPack"
+               [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
+                      'enabled':!isPackageSelected(Package.SponsorPack)}"
+               (click)="togglePackage(Package.SponsorPack)">
+            <div class="card-header text-center">
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+              </div>
+              {{sponsorPackage?.name}}
+            </div>
+
+            <ul class="list-group list-group-flush flex-filler">
+              <li class="list-group-item text-bold">
+                beinhaltet {{basicPackage?.name}}
+              </li>
+              <li class="list-group-item">
+                Kategorie A Platz
+              </li>
+              <li class="list-group-item h-100">
+                Logo auf: Plakat, Homepage, Flyer
+              </li>
+            </ul>
+
+            <div class="card-footer d-flex">
+        <span class="flex-filler  my-auto">
+          <i class="fa fa-2x"
+             [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),
+                         'fa-check-square': isPackageSelected(Package.SponsorPack)}">
+          </i>
+        </span>
+              <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage?.price - basicPackage?.price}} € =</span>
+              <span class="package-price">{{sponsorPackage?.price}} €</span>
+            </div>
+          </div>
+
+          <!--lecture fitPackage-->
+          <div class="pointer card text-white bg-sponsor m-3" id="lecturePack"
+               [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
+                      'enabled':!isPackageSelected(Package.LecturePack)}"
+               (click)="togglePackage(Package.LecturePack)">
+
+            <div class="card-header text-center">
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              {{lecturePackage?.name}}
+            </div>
+
+            <ul class="list-group list-group-flush flex-filler">
+              <li class="list-group-item text-bold">
+                beinhaltet {{sponsorPackage?.name}}
+              </li>
+              <li class="list-group-item h-100">
+                Antrag für einen Vortrag:
+                <ul>
+                  <li>vor vielen Klassen</li>
+                  <li>eigener Raum</li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="card-footer d-flex">
+        <span class="flex-filler my-auto">
+          <i class="fa fa-2x"
+             [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
+                         'fa-check-square': isPackageSelected(Package.LecturePack)}">
+          </i>
+        </span>
+              <span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>
+              <span class="package-price">{{lecturePackage?.price}} €</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h5 class="text-bold mb-2">Wählen Sie Ihren Standplatz</h5>
+
+        <div class="d-flex">
+          <div class="text-bold my-auto mr-1">
+            Gewählter Platz:
+          </div>
+
+          <div [ngSwitch]="selectedLocation != null"
+               class="my-auto ml-1">
+            <div *ngSwitchCase="true">Nr: {{selectedLocation.number}}</div>
+            <div *ngSwitchCase="false">keinen Platz ausgewählt</div>
+          </div>
+
+          <button type="button"
+                  id="btnLocationModal"
+                  class="btn btn-primary mx-5"
+                  data-toggle="modal"
+                  data-target="#locationPickerModal">
+            Standplatz wählen
+          </button>
+
+        </div>
+      </div>
+
+      <h5 class="text-bold">Kontaktperson</h5>
+     <div class="form-row row my-3">
+        <div class="col-md-3">
+          Anrede:*
+        </div>
+
+        <div class="col-md-9 px-3">
+          <div *ngFor="let gender of genders"
+               class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input cursor-pointer"
+                   type="radio"
+                   [id]="'gender' + gender.value"
+                   [value]="gender.value"
+                   formControlName="gender">
+
+            <label class="custom-control-label my-auto cursor-pointer"
+                   [for]="'gender' + gender.value"
+                   [id]="'genderLabel' + gender.value">
+              {{gender.display}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <!--first name-->
+      <div class="form-group row mb-0">
+        <label for="firstName" class="col-md-3 col-form-label">Vorname:*</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="firstName"
+                 id="firstName2"
+                 [ngClass]="{'is-invalid': isInvalid('firstName')}">
+
+          <div class="invalid-message invalid-message-container">
+            <div *ngIf="isEmpty('firstName')">Vorname darf nicht leer sein!</div>
+          </div>
+        </div>
+      </div>
+
+      <!--last name-->
+      <div class="form-group row mb-0">
+        <label for="lastName" class="col-md-3 col-form-label">Nachname:*</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="lastName"
+                 id="lastName2"
+                 [ngClass]="{'is-invalid': isInvalid('lastName')}">
+
+          <div class="invalid-message invalid-message-container">
+            <div *ngIf="isEmpty('lastName')">Nachname darf nicht leer sein!</div>
+          </div>
+        </div>
+      </div>
+
+      <!--email-->
+      <div class="form-group row mb-0">
+        <label for="email" class="col-md-3 col-form-label">Email:*</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="email"
+                 id="email"
+                 [ngClass]="{'is-invalid': isInvalid('email')}">
+
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('email')" class="mr-2">Email darf nicht leer sein!</span>
+            <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--phone-->
+      <div class="form-group row mb-0">
+        <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="phoneNumber"
+                 id="phoneNumber2"
+                 [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
+
+          <div class="invalid-message invalid-message-container">
+            <div *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="remarks" class="col-md-3 col-form-label">Anmerkungen:</label>
+        <div class="col-md-9">
+      <textarea class="form-control"
+                id="remarks"
+                rows="4"
+                formControlName="remarks">
+      </textarea>
+        </div>
+      </div>
     </form>
 
     <div style="overflow: hidden; max-width: inherit">
