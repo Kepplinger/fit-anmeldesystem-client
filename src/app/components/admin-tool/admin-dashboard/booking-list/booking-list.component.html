@@ -1,5 +1,18 @@
 <div class="m-5">
-  <h1>Anmeldungen</h1>
+
+  <div class="d-flex mb-1">
+    <h1>Anmeldungen</h1>
+    <div class="flex-1"></div>
+    <div class="booking-tool-btn my-2 mr-3"
+         [routerLink]="['/admin-tool', 'csv-export']">
+      <i class="fa fa-file-excel-o text-success mr-1"></i>
+      CSV-Export
+    </div>
+    <div class="booking-tool-btn my-2">
+      <i class="fa fa-file-image-o text-primary mr-1"></i>
+      Bilder-Export
+    </div>
+  </div>
 
   <table class="table">
 
@@ -9,6 +22,8 @@
       <th>Standplatz</th>
       <th>Kontakt - E-Mail</th>
       <th>Paket</th>
+      <th>Abs-Mitglied</th>
+      <th>Status</th>
       <th></th>
     </tr>
 
@@ -18,13 +33,19 @@
       <td>{{booking.location?.number}}</td>
       <td>{{booking.company?.contact?.email}}</td>
       <td>{{booking.fitPackage?.name}}</td>
+      <td>Groß</td>
+      <td>Austehend</td>
       <td>
         <div class="icon-button"
-        (click)="routeToBookingDetail(booking)">
+             (click)="routeToBookingDetail(booking)">
           <i class="fa fa-pencil fa-1-5x"></i>
         </div>
       </td>
     </tr>
 
   </table>
+
+  <div *ngIf="loading" class="text-center mt-3">
+    <i class="fa fa-5x fa-spin fa-wheelchair"></i>
+  </div>
 </div>

@@ -19,6 +19,10 @@ import { SelectEventModalComponent } from './admin-dashboard/select-event-modal/
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
+import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
+import { BookingCsvExportComponent } from './admin-dashboard/booking-list/booking-csv-export/booking-csv-export.component';
+import { PapaParseModule } from 'ngx-papaparse';
+import { AcceptLecturesComponent } from './admin-dashboard/accept-lectures/accept-lectures.component';
 
 @NgModule({
   imports: [
@@ -30,6 +34,7 @@ import { ChangelogComponent } from './admin-dashboard/changelog/changelog.compon
     FroalaEditorModule,
     FroalaViewModule,
     ReactiveFormsModule,
+    PapaParseModule,
     SharedModule,
   ],
   declarations: [
@@ -37,12 +42,15 @@ import { ChangelogComponent } from './admin-dashboard/changelog/changelog.compon
     AdminLoginComponent,
     AdminHeaderComponent,
     AdminDashboardComponent,
+    AcceptLecturesComponent,
     BookingListComponent,
     BookingDetailsComponent,
     EditFitEventComponent,
     EditAreaModalComponent,
     SelectEventModalComponent,
     DateTimePickerComponent,
+    MailTemplatesComponent,
+    BookingCsvExportComponent,
     ChangelogComponent,
     VerifyCompaniesComponent
   ],

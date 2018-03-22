@@ -61,13 +61,23 @@
     <div class="col-md-8"
          [ngClass]="{'col-md-12': !showCompanies}">
       <div *ngFor="let change of getDisplayedChangelog()"
-           class="change-container p-3 mb-2">
+           class="change-container p-3 mb-2 cursor-pointer"
+           (click)="toggleChange(change)"
+           [ngClass]="{'selected': change == openedChange}">
         <div class="d-flex">
-          <div class="flex-4">{{change.creationDate | date:'longDate'}} {{change.creationDate | date:'mediumTime'}}
+          <div class="mr-1">
+            <i *ngIf="change != openedChange"
+               class="fa fa-fw fa-chevron-right"></i>
+            <i *ngIf="change == openedChange"
+               class="fa fa-fw fa-chevron-down"></i>
           </div>
-          <div class="flex-2">{{change.tableName}}</div>
-          <div class="flex-2">{{change.columnName}}</div>
-          <div class="flex-4">
+          <div class="flex-3">{{change.creationDate | date:'longDate'}} {{change.creationDate | date:'mediumTime'}}
+          </div>
+          <div class="flex-3">
+            <span class="text-bold">{{change.tableName}}:</span>
+            <span>{{change.columnName}}</span>
+          </div>
+          <div class="flex-5 overflow-text">
             <span class="text-danger">{{change.oldValue}}</span>
             <i class="fa fa-long-arrow-right mx-1"></i>
             <span class="text-success">{{change.newValue}}</span>
@@ -83,6 +93,14 @@
                 <i class="fa fa-fw fa-times"></i>
               </button>
             </div>
+          </div>
+        </div>
+        <div class="change-detail-container"
+             [ngClass]="{'show-change': change == openedChange}">
+          <h5 class="mb-2 mt-3">Änderung:</h5>
+          <div class="d-flex">
+            <div class="flex-1 text-danger mr-1">{{change.oldValue}}</div>
+            <div class="flex-1 text-success">{{change.newValue}}</div>
           </div>
         </div>
       </div>

@@ -11,6 +11,8 @@ export class ChangeProtocol {
   public oldValue: any;
   public newValue: any;
   public isPending: boolean;
+  public isReverted: boolean;
+  public isAdminChange: boolean;
 
   public constructor(companyId?: number,
                      tableName?: string,
@@ -19,6 +21,8 @@ export class ChangeProtocol {
                      oldValue?: any,
                      newValue?: any,
                      isPending?: boolean,
+                     isReverted?: boolean,
+                     isAdminChange?: boolean,
                      id?: number) {
     this.id = id;
     this.companyId = companyId;
@@ -28,5 +32,7 @@ export class ChangeProtocol {
     this.oldValue = oldValue;
     this.newValue = newValue;
     this.isPending = isPending;
+    this.isReverted = isReverted;
+    this.isAdminChange = isReverted;
   }
 }

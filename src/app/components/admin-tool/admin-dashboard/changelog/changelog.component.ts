@@ -17,6 +17,8 @@ export class ChangelogComponent implements OnInit {
   public selectedCompany: Company;
   public showCompanies: boolean = true;
 
+  public openedChange: ChangeProtocol = null;
+
   public constructor(private changeProtocolDAO: ChangeProtocolDAO,
                      private companyDAO: CompanyDAO) {
   }
@@ -32,6 +34,15 @@ export class ChangelogComponent implements OnInit {
 
   public selectCompany(company: Company): void {
     this.selectedCompany = company;
+  }
+
+  public toggleChange(change: ChangeProtocol): void {
+    console.log('ahhh');
+    if (this.openedChange === change) {
+      this.openedChange = null;
+    } else {
+      this.openedChange = change;
+    }
   }
 
   public async applyChange(change: ChangeProtocol): Promise<void> {

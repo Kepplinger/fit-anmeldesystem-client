@@ -17,4 +17,9 @@ export class ArrayUtils {
       elements[index] = newElement;
     }
   }
+
+
+  public static concatWithDelimiter(stringArray: string[], delimiter: string) {
+    return stringArray.map(e => e.replace(delimiter, '\\' + delimiter)).join(delimiter);
+  }
 }

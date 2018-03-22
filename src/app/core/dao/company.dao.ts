@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
+import { ArrayUtils } from '../utils/array-utils';
 
 @Injectable()
 export class CompanyDAO {
@@ -33,7 +34,17 @@ export class CompanyDAO {
   }
 
   public async persistCompany(company: Company): Promise<Company> {
-    return this.http.post<any>(this.appConfig.serverURL + '/company', company)
+
+    let json: any = company;
+
+    if (json.folderInfo != null
+      && json.folderInfo.establishmentsAut != null
+      && json.folderInfo.establishmentsInt != null) {
+      json.folderInfo.establishmentsAut = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsAut, ';');
+      json.folderInfo.establishmentsInt = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsInt, ';');
+    }
+
+    return this.http.post<any>(this.appConfig.serverURL + '/company', json)
       .map(
         (data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
@@ -43,7 +54,17 @@ export class CompanyDAO {
   }
 
   public async updateCompany(company: Company): Promise<Company> {
-    return this.http.put<any>(this.appConfig.serverURL + '/company', company)
+
+    let json: any = company;
+
+    if (json.folderInfo != null
+      && json.folderInfo.establishmentsAut != null
+      && json.folderInfo.establishmentsInt != null) {
+      json.folderInfo.establishmentsAut = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsAut, ';');
+      json.folderInfo.establishmentsInt = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsInt, ';');
+    }
+
+    return this.http.put<any>(this.appConfig.serverURL + '/company', json)
       .map(
         (data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
