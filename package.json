@@ -23,6 +23,7 @@
     "alertifyjs": "^1.11.0",
     "angular-froala-wysiwyg": "^2.7.3",
     "angular2-draggable": "^1.1.0-beta.0",
+    "bootbox": "^4.4.0",
     "bootstrap": "^4.0.0",
     "core-js": "^2.5.3",
     "font-awesome": "^4.7.0",
