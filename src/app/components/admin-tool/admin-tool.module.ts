@@ -26,6 +26,7 @@ import { AcceptLecturesComponent } from './admin-dashboard/accept-lectures/accep
 import {
   LocationPickerModalComponent
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
+import { CsvCreatorService } from './services/csv-creator.service';
 
 @NgModule({
   imports: [
@@ -58,7 +59,9 @@ import {
     VerifyCompaniesComponent,
     LocationPickerModalComponent
   ],
-  providers: []
+  providers: [
+    CsvCreatorService
+  ]
 })
 export class AdminToolModule {
 }

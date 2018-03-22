@@ -4,7 +4,7 @@ import { Location } from '../model/location';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class LocationDao {
+export class LocationDAO {
 
   public constructor(private http: HttpClient,
                      private appConfig: AppConfig) {

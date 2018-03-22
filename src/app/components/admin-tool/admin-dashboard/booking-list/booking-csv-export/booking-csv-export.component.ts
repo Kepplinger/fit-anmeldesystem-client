@@ -1,26 +1,26 @@
-import { Component } from '@angular/core';
-import { PapaParseService } from 'ngx-papaparse';
+import { Component, Input, OnInit } from '@angular/core';
+import { Booking } from '../../../../../core/model/booking';
+import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
+import { CsvCreatorService } from '../../../services/csv-creator.service';
 
 @Component({
   selector: 'fit-booking-csv-export',
   templateUrl: './booking-csv-export.component.html',
   styleUrls: ['./booking-csv-export.component.scss']
 })
-export class BookingCsvExportComponent {
+export class BookingCsvExportComponent implements OnInit {
 
-  constructor(private papa: PapaParseService) {
-    let csvData = '"Hello","World!"';
-    let options = {
-      complete: (results, file) => {
-        console.log('Parsed: ', results, file);
-      }
-      // Add your options here
-    };
+  public bookings: Booking[];
 
-    // this.papa.parse(csvData, options);
+  public constructor(private bookingTransferService: BookingTransferService,
+                     private csvCreatorService: CsvCreatorService) {
+  }
 
-    // let data = ['hello', 'world'];
-    // console.log('Unparsed: ', this.papa.unparse(data, options));
+  public ngOnInit(): void {
+    this.bookings = this.bookingTransferService.getAllBookings();
+    this.bookingTransferService.clearBuffer();
+
+    console.log(this.csvCreatorService.downloadCsvFromBookings(this.bookings));
   }
 
 }

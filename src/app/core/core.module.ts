@@ -11,7 +11,7 @@ import { AreaDAO } from './dao/area.dao';
 import { ApplicationStateService } from './app-services/application-state.service';
 import { RouterService } from './app-services/router.service';
 import { EventDAO } from './dao/event.dao';
-import { LocationDao } from './dao/location.dao';
+import { LocationDAO } from './dao/location.dao';
 import { AuthenticationDAO } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
 import { FitRegistrationService } from './app-services/fit-registration.service';
@@ -33,7 +33,7 @@ import { ChangeProtocolDAO } from './dao/change-protocol.dao';
     PackageDAO,
     CompanyDAO,
     ChangeProtocolDAO,
-    LocationDao,
+    LocationDAO,
     AuthenticationDAO,
     AreaDAO,
     EventDAO,
