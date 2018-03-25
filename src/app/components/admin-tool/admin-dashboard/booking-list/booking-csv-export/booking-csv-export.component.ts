@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Booking } from '../../../../../core/model/booking';
+import { Event } from '../../../../../core/model/event';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
+import { EventService } from '../../../../../core/app-services/event.service';
 
 @Component({
   selector: 'fit-booking-csv-export',
@@ -11,8 +13,10 @@ import { CsvCreatorService } from '../../../services/csv-creator.service';
 export class BookingCsvExportComponent implements OnInit {
 
   public bookings: Booking[];
+  public event: Event;
 
   public constructor(private bookingTransferService: BookingTransferService,
+                     private eventService: EventService,
                      private csvCreatorService: CsvCreatorService) {
   }
 
@@ -20,7 +24,11 @@ export class BookingCsvExportComponent implements OnInit {
     this.bookings = this.bookingTransferService.getAllBookings();
     this.bookingTransferService.clearBuffer();
 
-    console.log(this.csvCreatorService.downloadCsvFromBookings(this.bookings));
+    this.event = this.eventService.selectedEvent.getValue();
+  }
+
+  public downloadCSV(): void {
+    this.csvCreatorService.downloadCsvFromBookings(this.bookings);
   }
 
 }
