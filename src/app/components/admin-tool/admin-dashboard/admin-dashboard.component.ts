@@ -32,4 +32,9 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
+
+  public openSelectionModal(): void {
+    // triggers selectedEvent Subject to fix display bug in modal
+    this.eventService.selectedEvent.next(this.eventService.selectedEvent.getValue());
+  }
 }
