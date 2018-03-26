@@ -1,0 +1,10 @@
+<div class="checkbox"
+     [ngClass]="{'mx-2': !preventMargins}">
+  <label [ngClass]="{'m-0': preventMargins}">
+    <input type="checkbox"
+           [(ngModel)]="value"
+           (change)="onChange()">
+    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+    {{message}}
+  </label>
+</div>

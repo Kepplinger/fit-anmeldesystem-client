@@ -23,8 +23,9 @@ export class CompanyDAO {
       .toPromise();
   }
 
-  public async fetchCompaniesAndPresentations(id:number):Promise<any[]>{
-    return this.http.get<any[]>(this.appConfig.serverURL+'/company/presentation/'+id).toPromise();
+  public async fetchCompaniesAndPresentations(id: number): Promise<any[]> {
+    return this.http.get<any[]>(this.appConfig.serverURL + '/company/presentation/' + id)
+      .toPromise();
   }
 
   public async fetchPendingCompanies(): Promise<Company[]> {

@@ -15,6 +15,33 @@ export class BookingCsvExportComponent implements OnInit {
   public bookings: Booking[];
   public event: Event;
 
+  public csv: any = {
+    isCompanyEnabled: true,
+    isContactEnabled: true,
+    isFolderInfoEnabled: true,
+    company: {
+      name: true,
+      street: true,
+      houseNumber: true,
+      zipCode: true,
+      location: true,
+      addition: true
+    },
+    contact: {
+      gender: true,
+      name: true,
+      email: true,
+      phone: true
+    },
+    folderInfo: {
+      branch: true,
+      phone: true,
+      email: true,
+      homepage: true,
+      establishments: true
+    }
+  };
+
   public constructor(private bookingTransferService: BookingTransferService,
                      private eventService: EventService,
                      private csvCreatorService: CsvCreatorService) {

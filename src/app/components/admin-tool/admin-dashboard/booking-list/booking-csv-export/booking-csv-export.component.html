@@ -5,40 +5,127 @@
   <div class="mt-2">
     <h4 class="text-bold">Ausgabe</h4>
 
-    <div class="card mb-3" style="max-width: 18rem;">
-      <div class="card-header text-bold">
-        Firma
-      </div>
-      <div class="card-body">
+    <div class="d-flex">
 
-        <div class="checkbox mx-2">
-          <label>
-            <input type="checkbox">
-            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-            Name
-          </label>
+      <div class="mr-3">
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-header text-bold">
+            <fit-custom-checkbox
+              [preventMargins]="true"
+              [message]="'Firma'"
+              [(value)]="csv.isCompanyEnabled">
+            </fit-custom-checkbox>
+          </div>
+          <div class="card-body"
+               [ngClass]="{'disabled-element': !csv.isCompanyEnabled}">
+
+            <fit-custom-checkbox
+              [message]="'Name'"
+              [(value)]="csv.company.name">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Straße'"
+              [(value)]="csv.company.street">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Hausnummer'"
+              [(value)]="csv.company.houseNumber">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Postleitzahl'"
+              [(value)]="csv.company.zipCode">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Ort'"
+              [(value)]="csv.company.location">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Adresszusatz'"
+              [(value)]="csv.company.addition">
+            </fit-custom-checkbox>
+
+          </div>
         </div>
 
-      </div>
-    </div>
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-header text-bold">
+            <fit-custom-checkbox
+              [preventMargins]="true"
+              [message]="'Firmen-Kontakt'"
+              [(value)]="csv.isContactEnabled">
+            </fit-custom-checkbox>
+          </div>
+          <div class="card-body"
+               [ngClass]="{'disabled-element': !csv.isContactEnabled}">
 
-    <div class="card mb-3" style="max-width: 18rem;">
-      <div class="card-header text-bold">
-        FIT-Anmeldung
-      </div>
-      <div class="card-body">
+            <fit-custom-checkbox
+              [message]="'Anrede'"
+              [(value)]="csv.contact.gender">
+            </fit-custom-checkbox>
 
-        <div class="checkbox mx-2">
-          <label>
-            <input type="checkbox">
-            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-            hallo
-          </label>
+            <fit-custom-checkbox
+              [message]="'Name'"
+              [(value)]="csv.contact.name">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'E-Mail'"
+              [(value)]="csv.contact.email">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Telefon'"
+              [(value)]="csv.contact.phone">
+            </fit-custom-checkbox>
+
+          </div>
         </div>
+      </div>
 
+      <div class="card mb-3" style="width: 18rem;">
+        <div class="card-header text-bold">
+          <fit-custom-checkbox
+            [preventMargins]="true"
+            [message]="'Folder-Info'"
+            [(value)]="csv.isFolderInfoEnabled">
+          </fit-custom-checkbox>
+        </div>
+        <div class="card-body"
+             [ngClass]="{'disabled-element': !csv.isFolderInfoEnabled}">
+
+          <fit-custom-checkbox
+            [message]="'Branch'"
+            [(value)]="csv.folderInfo.branch">
+          </fit-custom-checkbox>
+
+          <fit-custom-checkbox
+            [message]="'Telefon'"
+            [(value)]="csv.folderInfo.phone">
+          </fit-custom-checkbox>
+
+          <fit-custom-checkbox
+            [message]="'E-Mail'"
+            [(value)]="csv.folderInfo.email">
+          </fit-custom-checkbox>
+
+          <fit-custom-checkbox
+            [message]="'Homepage'"
+            [(value)]="csv.folderInfo.homepage">
+          </fit-custom-checkbox>
+
+          <fit-custom-checkbox
+            [message]="'Niederlassungen'"
+            [(value)]="csv.folderInfo.establishments">
+          </fit-custom-checkbox>
+        </div>
       </div>
     </div>
-
   </div>
 
+  <pre>{{ csv | json }}</pre>
 </div>
