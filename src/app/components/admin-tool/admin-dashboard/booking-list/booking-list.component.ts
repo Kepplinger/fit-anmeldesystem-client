@@ -6,6 +6,7 @@ import { BookingDAO } from '../../../../core/dao/booking.dao';
 import { Booking } from '../../../../core/model/booking';
 import { EventService } from '../../../../core/app-services/event.service';
 import { AppConfig } from '../../../../core/app-config/app-config.service';
+import { CsvCreatorService } from '../../services/csv-creator.service';
 
 @Component({
   selector: 'fit-booking-list',
@@ -21,7 +22,8 @@ export class BookingListComponent implements OnInit {
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private router: Router,
-                     private bookingTransferService: BookingTransferService) {
+                     private bookingTransferService: BookingTransferService,
+                     private csvCreatorService: CsvCreatorService) {
   }
 
   public async ngOnInit(): Promise<void> {
@@ -30,8 +32,7 @@ export class BookingListComponent implements OnInit {
   }
 
   public routeToCsvExport(): void {
-    this.bookingTransferService.clearBuffer();
-    this.bookingTransferService.setBookings(this.bookings);
+    this.csvCreatorService.setBookings(this.bookings);
     this.router.navigate(['/admin-tool', 'csv-export']);
   }
 

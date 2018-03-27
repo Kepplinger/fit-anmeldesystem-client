@@ -12,7 +12,6 @@ import { EventService } from '../../../../../core/app-services/event.service';
 })
 export class BookingCsvExportComponent implements OnInit {
 
-  public bookings: Booking[];
   public event: Event;
 
   public csv: any = {
@@ -48,14 +47,15 @@ export class BookingCsvExportComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.bookings = this.bookingTransferService.getAllBookings();
-    this.bookingTransferService.clearBuffer();
-
     this.event = this.eventService.selectedEvent.getValue();
   }
 
+  public getEntryCount(): number {
+    return this.csvCreatorService.getBookingCount();
+  }
+
   public downloadCSV(): void {
-    this.csvCreatorService.downloadCsvFromBookings(this.bookings);
+    this.csvCreatorService.downloadCsvFromBookings();
   }
 
 }

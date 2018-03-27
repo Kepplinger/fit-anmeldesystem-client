@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '../../../core/model/company';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { DisplayedValue } from '../../../core/app-helper/helper-model/displayed-value';
-import { DisplayedValueMapper } from '../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../core/app-config/app-config.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address } from '../../../core/model/address';

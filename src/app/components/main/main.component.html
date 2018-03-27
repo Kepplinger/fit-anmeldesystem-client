@@ -42,6 +42,7 @@
         <button class="btn btn-lg btn-block btn-primary"
                 id="btnFitRegister"
                 [disabled]="authenticationToken.length < 12"
+                [ngClass]="{'cursor-not-allowed': authenticationToken.length < 12}"
                 (click)="loginToBooking()">
           Anmelden
         </button>
