@@ -41,6 +41,7 @@ export class FitRegistrationComponent implements OnInit {
   ];
 
   public isFormTouched: boolean = false;
+  public isEditMode: boolean;
 
   private booking: Booking = new Booking();
 
@@ -56,6 +57,7 @@ export class FitRegistrationComponent implements OnInit {
     this.currentStep = FitRegistrationStep.GeneralData;
 
     this.booking = this.bookingRegistrationService.booking;
+    this.isEditMode = this.bookingRegistrationService.editMode;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -142,11 +144,11 @@ export class FitRegistrationComponent implements OnInit {
     this.currentStep -= 1;
   }
 
-  public async submitForm(): Promise<void> {
+  public async submitBooking(): Promise<void> {
 
     if (this.fitFormGroup.valid) {
       let booking: Booking = this.getBookingFromForm();
-      await this.bookingDAO.createBooking(booking);
+      await this.bookingDAO.persistBooking(booking);
       this.router.navigateByUrl('fit/anmeldung-erfolgreich');
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');

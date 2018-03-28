@@ -51,7 +51,7 @@
   </div>
 
   <!--main container-->
-  <div class="py-3 m-4 border-top">
+  <div class="py-3 mx-4 mt-4 mb-0 border-top">
     <fit-general-data [isVisible]="currentStep == Step.GeneralData"
                       [stepFormGroup]="fitFormGroup.controls['generalData']">
     </fit-general-data>
@@ -80,9 +80,9 @@
   </div>
 
   <!--navigation buttons-->
-  <div class="d-flex mx-4">
+  <div class="d-flex mx-4 mb-4">
     <button *ngIf="currentStep != Step.GeneralData"
-            class="btn btn-dark"
+            class="btn btn-dark text-bold"
             id="btnPrevious"
             (click)="previousPage()">
       <i class="fa fa-arrow-left"></i>
@@ -91,7 +91,7 @@
 
     <div class="flex-filler"></div>
     <button *ngIf="currentStep != Step.ContactAndRemarks"
-            class="btn btn-dark"
+            class="btn btn-dark text-bold"
             id="btnNext"
             (click)="nextPage()">
       Weiter
@@ -100,9 +100,10 @@
 
     <button *ngIf="currentStep == Step.ContactAndRemarks"
             id="btnSubmitBooking"
-            class="btn btn-success"
-            (click)="submitForm()">
-      Anmelden
+            class="btn btn-success text-bold"
+            (click)="submitBooking()">
+      <span *ngIf="!isEditMode">Anmelden</span>
+      <span *ngIf="isEditMode">Speichern</span>
       <i class="fa fa-arrow-right"></i>
     </button>
   </div>

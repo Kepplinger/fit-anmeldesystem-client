@@ -30,8 +30,10 @@ export class AccountLoginComponent {
       this.toastr.error(response.errorMessage);
       this.hasFailed = true;
     } else {
-      if (response.booking != null) {
-        this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.booking));
+      if (response.oldBooking != null) {
+        this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
+      } else if (response.currentBooking != null) {
+        this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
       } else if (response.company != null) {
         this.accountManagementService.setCompany(CompanyMapper.mapJsonToCompany(response.company));
       }

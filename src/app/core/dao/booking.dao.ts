@@ -21,7 +21,7 @@ export class BookingDAO {
       .toPromise();
   }
 
-  public async createBooking(booking: Booking): Promise<void> {
+  public async persistBooking(booking: Booking): Promise<void> {
 
     let json: any = booking;
 

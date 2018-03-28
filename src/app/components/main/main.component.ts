@@ -33,8 +33,10 @@ export class MainComponent implements OnInit {
       this.hasFailed = true;
     } else {
       console.log(response);
-      if (response.booking != null) {
-        this.bookingRegistrationService.setBooking(response.booking);
+      if (response.oldBooking != null) {
+        this.bookingRegistrationService.setBooking(response.oldBooking, false);
+      } else if (response.currentBooking != null) {
+        this.bookingRegistrationService.setBooking(response.currentBooking, true);
       } else if (response.company != null) {
         this.bookingRegistrationService.setCompany(response.company);
       }

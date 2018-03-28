@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address } from '../../../core/model/address';
 import { Contact } from '../../../core/model/contact';
 import { CompanyDAO } from '../../../core/dao/company.dao';
+import { Booking } from '../../../core/model/booking';
 
 @Component({
   selector: 'fit-account-overview',
@@ -16,6 +17,7 @@ import { CompanyDAO } from '../../../core/dao/company.dao';
 export class AccountOverviewComponent implements OnInit {
 
   public company: Company;
+  public booking: Booking;
   public companyFormGroup: FormGroup;
   public isEditing: boolean = false;
 
@@ -44,6 +46,9 @@ export class AccountOverviewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.company = this.accountManagementService.getCompany();
+    if (this.accountManagementService.bookingExists) {
+      this.booking = this.accountManagementService.booking;
+    }
     this.fillFormWithBooking();
   }
 
