@@ -27,6 +27,18 @@ export class Booking {
   public companyDescription: string;
   public providesSummerJob: boolean;
   public providesThesis: boolean;
+
+  public branch: string;
+  public phoneNumber: string;
+  public email: string;
+  public homepage: string;
+  public logo: string;
+
+  public establishmentsCountInt?: number;
+  public establishmentsInt?: string[];
+  public establishmentsCountAut?: number;
+  public establishmentsAut?: string[];
+
   public creationDate: Moment;
 
   public constructor(event?: Event,
@@ -42,6 +54,15 @@ export class Booking {
                      companyDescription?: string,
                      providesSummerJob?: boolean,
                      providesThesis?: boolean,
+                     branch?: string,
+                     phoneNumber?: string,
+                     email?: string,
+                     homepage?: string,
+                     logo?: string,
+                     establishmentsCountInt?: number,
+                     establishmentsInt?: string[],
+                     establishmentsCountAut?: number,
+                     establishmentsAut?: string[],
                      isAccepted?: boolean,
                      creationDate?: Moment,
                      id?: number) {
@@ -60,6 +81,15 @@ export class Booking {
     this.companyDescription = companyDescription;
     this.providesSummerJob = providesSummerJob;
     this.providesThesis = providesThesis;
+    this.branch = branch;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+    this.homepage = homepage;
+    this.logo = logo;
+    this.establishmentsCountInt = establishmentsCountInt;
+    this.establishmentsInt = establishmentsInt;
+    this.establishmentsCountAut = establishmentsCountAut;
+    this.establishmentsAut = establishmentsAut;
     this.creationDate = creationDate;
 
     if (company == null) {

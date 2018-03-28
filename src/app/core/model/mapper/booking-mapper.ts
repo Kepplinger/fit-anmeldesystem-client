@@ -26,6 +26,15 @@ export class BookingMapper {
       booking.companyDescription = bookingJson.companyDescription;
       booking.isAccepted = bookingJson.isAccepted;
       booking.creationDate = moment(bookingJson.creationDate);
+      booking.branch = bookingJson.branch;
+      booking.logo = bookingJson.logo;
+      booking.homepage = bookingJson.homepage;
+      booking.email = bookingJson.email;
+      booking.phoneNumber = bookingJson.phoneNumber;
+      booking.establishmentsAut = bookingJson.establishmentsAut.split(';');
+      booking.establishmentsInt = bookingJson.establishmentsInt.split(';');
+      booking.establishmentsCountAut = bookingJson.establishmentsCountAut;
+      booking.establishmentsCountInt = bookingJson.establishmentsCountInt;
 
       return booking;
     } else {

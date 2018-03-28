@@ -13,7 +13,6 @@ import { Event } from '../../core/model/event';
 import { Package } from '../../core/model/package';
 import { FitPackage } from '../../core/model/enums/fit-package';
 import { AppConfig } from '../../core/app-config/app-config.service';
-import { FolderInfo } from '../../core/model/folder-info';
 import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
 import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
@@ -171,22 +170,6 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.description,
       this.fitFormGroup.value.detailedData.providesSummerJob,
       this.fitFormGroup.value.detailedData.providesThesis,
-      false
-    );
-  }
-
-  private getCompanyFromForm(): Company {
-    return new Company(
-      this.getCompanyAddressFromForm(),
-      this.getContactFromForm(),
-      this.getFolderInfoFromForm(),
-      this.fitFormGroup.value.generalData.companyName,
-      false
-    )
-  }
-
-  private getFolderInfoFromForm(): FolderInfo {
-    return new FolderInfo(
       this.fitFormGroup.value.detailedData.branch,
       this.fitFormGroup.value.detailedData.phoneNumber,
       this.fitFormGroup.value.detailedData.email,
@@ -195,7 +178,17 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
-      this.fitFormGroup.value.detailedData.establishmentsAut.map(e => e.value)
+      this.fitFormGroup.value.detailedData.establishmentsAut.map(e => e.value),
+      false
+    );
+  }
+
+  private getCompanyFromForm(): Company {
+    return new Company(
+      this.getCompanyAddressFromForm(),
+      this.getContactFromForm(),
+      this.fitFormGroup.value.generalData.companyName,
+      false
     )
   }
 
@@ -239,16 +232,16 @@ export class FitRegistrationComponent implements OnInit {
     console.log(this.booking);
     this.fitFormGroup.patchValue({
       detailedData: {
-        phoneNumber: this.booking.company.folderInfo.phoneNumber,
-        email: this.booking.company.folderInfo.email,
-        homepage: this.booking.company.folderInfo.homepage,
-        // logoUrl: this.booking.company.folderInfo.logo
-        branch: this.booking.company.folderInfo.branch,
+        phoneNumber: this.booking.phoneNumber,
+        email: this.booking.email,
+        homepage: this.booking.homepage,
+        // logoUrl: this.booking.logo
+        branch: this.booking.branch,
         description: this.booking.companyDescription,
-        // establishmentsAut: new FormArray(this.booking.company.folderInfo.establishmentsAut.map(e => new FormControl(e))),
-        establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
-        // establishmentsInt: new FormArray(this.booking.company.folderInfo.establishmentsInt.map(e => new FormControl(e))),
-        establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+        // establishmentsAut: new FormArray(this.booking.establishmentsAut.map(e => new FormControl(e))),
+        establishmentsCountAut: this.booking.establishmentsCountAut,
+        // establishmentsInt: new FormArray(this.booking.establishmentsInt.map(e => new FormControl(e))),
+        establishmentsCountInt: this.booking.establishmentsCountInt,
         // desiredBranches: this.booking.branches,
         providesSummerJob: this.booking.providesSummerJob,
         providesThesis: this.booking.providesThesis,

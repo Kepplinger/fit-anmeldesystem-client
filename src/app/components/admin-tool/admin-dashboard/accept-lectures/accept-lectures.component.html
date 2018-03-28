@@ -1,7 +1,6 @@
 <div class="m-5">
     <!--pending companies-->
-    <div class="p-3"
-         [ngClass]="{'disabled-element': isAssigning}">
+    <div class="p-3">
 
       <h2 class="mb-4">Nicht bestätigte Vorträge</h2>
 
@@ -31,7 +30,7 @@
           <td>
             <button class="btn btn-sm btn-danger buttonwidth"
                     data-toggle="modal" data-target="#myModal"
-                    (click)="setChoosenEntry(entry)">
+                    (click)="setChosenEntry(entry)">
               <i class="fa fa-fw fa-times"></i>
             </button>
           </td>
@@ -79,11 +78,11 @@
               </button>
             </div>
             <div class="modal-body">
-              Wollen Sie den ausgewählten Vortrag der Firma {{choosenEntry.companyName}} wirklich löschen?
+              Wollen Sie den ausgewählten Vortrag der Firma {{chosenEntry.companyName}} wirklich löschen?
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-              <button type="button" class="btn btn-danger" (click)="removeLecture(this.choosenEntry)">Akzeptieren</button>
+              <button type="button" class="btn btn-danger" (click)="removeLecture(this.chosenEntry)">Akzeptieren</button>
             </div>
           </div>
         </div>

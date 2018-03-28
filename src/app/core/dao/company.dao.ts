@@ -39,17 +39,7 @@ export class CompanyDAO {
   }
 
   public async persistCompany(company: Company): Promise<Company> {
-
-    let json: any = company;
-
-    if (json.folderInfo != null
-      && json.folderInfo.establishmentsAut != null
-      && json.folderInfo.establishmentsInt != null) {
-      json.folderInfo.establishmentsAut = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsAut, ';');
-      json.folderInfo.establishmentsInt = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsInt, ';');
-    }
-
-    return this.http.post<any>(this.appConfig.serverURL + '/company', json)
+    return this.http.post<any>(this.appConfig.serverURL + '/company', company)
       .map(
         (data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
@@ -59,17 +49,7 @@ export class CompanyDAO {
   }
 
   public async updateCompany(company: Company): Promise<Company> {
-
-    let json: any = company;
-
-    if (json.folderInfo != null
-      && json.folderInfo.establishmentsAut != null
-      && json.folderInfo.establishmentsInt != null) {
-      json.folderInfo.establishmentsAut = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsAut, ';');
-      json.folderInfo.establishmentsInt = ArrayUtils.concatWithDelimiter(json.folderInfo.establishmentsInt, ';');
-    }
-
-    return this.http.put<any>(this.appConfig.serverURL + '/company', json)
+    return this.http.put<any>(this.appConfig.serverURL + '/company', company)
       .map(
         (data: any) => {
           return CompanyMapper.mapJsonToCompany(data);

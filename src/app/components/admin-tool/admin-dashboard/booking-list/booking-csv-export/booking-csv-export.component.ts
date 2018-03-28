@@ -17,7 +17,7 @@ export class BookingCsvExportComponent implements OnInit {
   public csv: any = {
     isCompanyEnabled: true,
     isContactEnabled: true,
-    isFolderInfoEnabled: true,
+    isBookingEnabled: true,
     company: {
       name: true,
       street: true,
@@ -32,7 +32,7 @@ export class BookingCsvExportComponent implements OnInit {
       email: true,
       phone: true
     },
-    folderInfo: {
+    booking: {
       branch: true,
       phone: true,
       email: true,

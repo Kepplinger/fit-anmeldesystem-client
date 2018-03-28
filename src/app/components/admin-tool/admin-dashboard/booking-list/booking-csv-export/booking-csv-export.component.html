@@ -101,35 +101,35 @@
           <fit-custom-checkbox
             [preventMargins]="true"
             [message]="'Folder-Info'"
-            [(value)]="csv.isFolderInfoEnabled">
+            [(value)]="csv.isBookingEnabled">
           </fit-custom-checkbox>
         </div>
         <div class="card-body"
-             [ngClass]="{'disabled-element': !csv.isFolderInfoEnabled}">
+             [ngClass]="{'disabled-element': !csv.isBookingEnabled}">
 
           <fit-custom-checkbox
             [message]="'Branch'"
-            [(value)]="csv.folderInfo.branch">
+            [(value)]="csv.booking.branch">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
             [message]="'Telefon'"
-            [(value)]="csv.folderInfo.phone">
+            [(value)]="csv.booking.phone">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
             [message]="'E-Mail'"
-            [(value)]="csv.folderInfo.email">
+            [(value)]="csv.booking.email">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
             [message]="'Homepage'"
-            [(value)]="csv.folderInfo.homepage">
+            [(value)]="csv.booking.homepage">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
             [message]="'Niederlassungen'"
-            [(value)]="csv.folderInfo.establishments">
+            [(value)]="csv.booking.establishments">
           </fit-custom-checkbox>
         </div>
       </div>

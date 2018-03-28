@@ -17,6 +17,7 @@ export class BookingListComponent implements OnInit {
 
   public bookings: Booking[];
   public loading: boolean = true;
+  public imageDownloadLink: string;
 
   public constructor(private bookingDAO: BookingDAO,
                      private eventService: EventService,
@@ -24,6 +25,7 @@ export class BookingListComponent implements OnInit {
                      private router: Router,
                      private bookingTransferService: BookingTransferService,
                      private csvCreatorService: CsvCreatorService) {
+    this.imageDownloadLink = this.appConfig + '/media';
   }
 
   public async ngOnInit(): Promise<void> {

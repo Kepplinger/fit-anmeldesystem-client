@@ -292,8 +292,8 @@ export class BookingDetailsComponent implements OnInit {
 
 
   private fillFormWithBooking() {
-    console.log(this.booking.company.folderInfo.establishmentsAut);
-    this.createArrayFromString(this.booking.company.folderInfo.establishmentsAut);
+    console.log(this.booking.establishmentsAut);
+    this.createArrayFromString(this.booking.establishmentsAut);
     console.log(this.booking.branches);
     this.bookingFormGroup.patchValue({
       companyName: this.booking.company.name,
@@ -302,16 +302,16 @@ export class BookingDetailsComponent implements OnInit {
       zipCode: this.booking.company.address.zipCode,
       city: this.booking.company.address.city,
       addressAdditions: this.booking.company.address.addition,
-      phoneNumber: this.booking.company.folderInfo.phoneNumber,
-      email: this.booking.company.folderInfo.email,
-      homepage: this.booking.company.folderInfo.homepage,
-      logoUrl: this.booking.company.folderInfo.logo,
-      branch: this.booking.company.folderInfo.branch,
+      phoneNumber: this.booking.phoneNumber,
+      email: this.booking.email,
+      homepage: this.booking.homepage,
+      logoUrl: this.booking.logo,
+      branch: this.booking.branch,
       description: this.booking.companyDescription,
       //establishmentsAut: this.fb.array([]),
-      establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
-      // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
-      establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+      establishmentsCountAut: this.booking.establishmentsCountAut,
+      // establishmentsInt: this.booking.establishmentsInt,
+      establishmentsCountInt: this.booking.establishmentsCountInt,
      // desiredBranches: new FormArray([]),
       providesSummerJob: this.booking.providesSummerJob,
       providesThesis: this.booking.providesThesis,
