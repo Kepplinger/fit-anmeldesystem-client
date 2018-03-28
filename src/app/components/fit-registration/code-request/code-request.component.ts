@@ -74,7 +74,6 @@ export class CodeRequestComponent {
     return new Company(
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
-      null,
       this.formGroup.value.companyName,
       true
     )
@@ -99,5 +98,4 @@ export class CodeRequestComponent {
       this.formGroup.value.phoneNumber
     );
   }
-
 }
