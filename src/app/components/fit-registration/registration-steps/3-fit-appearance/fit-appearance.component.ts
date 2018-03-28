@@ -85,7 +85,7 @@ export class FitAppearanceComponent implements OnInit {
 
   public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
     if (file instanceof PickedFile) {
-      representative.image = file.dataURL;
+      representative.imageUrl = file.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
       console.log('too big');
     } else if (file === FilePickerError.InvalidFileType) {

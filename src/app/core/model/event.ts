@@ -1,6 +1,6 @@
+import { Area } from './area';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { Area } from './area';
 
 export class Event {
   public id: number;
