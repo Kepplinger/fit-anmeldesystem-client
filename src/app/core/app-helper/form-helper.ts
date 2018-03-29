@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
-export class FormValidationHelper {
+export class FormHelper {
   public static isEmpty(formName: string, formGroup: FormGroup): boolean {
     let errors = formGroup.controls[formName].errors;
 
@@ -38,5 +38,37 @@ export class FormValidationHelper {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  public static getErrorCount(formGroup: FormGroup): number {
+    let errorCount: number = 0;
+
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        if (!control.valid) {
+          errorCount++;
+        }
+      } else if (control instanceof FormGroup) {
+        errorCount += this.getErrorCount(control);
+      }
+    });
+
+    return errorCount;
+  }
+
+  public static getControlCount(formGroup: FormGroup): number {
+    let count: number = 0;
+
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        count++;
+      } else if (control instanceof FormGroup) {
+        count += this.getControlCount(control);
+      }
+    });
+
+    return count;
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Company } from '../model/company';
 import { Booking } from '../model/booking';
+import { EventService } from './event.service';
 
 @Injectable()
 export class AccountManagementService {
@@ -28,6 +29,10 @@ export class AccountManagementService {
   }
 
   public getCompany(): Company {
-    return this.booking.company;
+    if (this.booking != null) {
+      return this.booking.company;
+    } else {
+      return null;
+    }
   }
 }

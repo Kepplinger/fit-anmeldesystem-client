@@ -1,9 +1,9 @@
 <!--<div class="diagonal-container floating-effect bg-primary">-->
-  <!--<div class="school-background">-->
-    <!--<div class="diagonal-content">-->
-      <!--<h1 class="text-center pt-5 text-light">Hallo</h1>-->
-    <!--</div>-->
-  <!--</div>-->
+<!--<div class="school-background">-->
+<!--<div class="diagonal-content">-->
+<!--<h1 class="text-center pt-5 text-light">Hallo</h1>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 <div class="small-container mt-5">
@@ -188,6 +188,28 @@
 
   <div>
     <h1>FIT-Anmeldung</h1>
+
+    <div [ngSwitch]="booking == null">
+      <div *ngSwitchCase="true"
+           class="d-flex flex-column">
+        <div class="text-center">Sie sind nicht für den FIT am {{event.eventDate | date:'longDate'}} angemeldet</div>
+        <button class="btn btn-primary text-bold mt-2 mx-auto"
+                [routerLink]="['/']">
+          Zur FIT-Anmeldung
+        </button>
+      </div>
+
+      <div *ngSwitchDefault
+           class="d-flex flex-column">
+        <div>Sie haben sich am {{booking.creationDate | date:'longDate'}} um {{booking.creationDate | date:'shortTime'}}
+          Uhr für den FIT angemeldet.
+        </div>
+        <button class="btn btn-primary text-bold mt-2 mx-auto"
+                [routerLink]="['/fit','anmelden']">
+          Anmeldung bearbeiten
+        </button>
+      </div>
+    </div>
   </div>
 
 </div>

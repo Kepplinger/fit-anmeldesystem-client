@@ -8,6 +8,9 @@ import { Address } from '../../../core/model/address';
 import { Contact } from '../../../core/model/contact';
 import { CompanyDAO } from '../../../core/dao/company.dao';
 import { Booking } from '../../../core/model/booking';
+import { Event } from '../../../core/model/event';
+import { EventService } from '../../../core/app-services/event.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fit-account-overview',
@@ -16,8 +19,10 @@ import { Booking } from '../../../core/model/booking';
 })
 export class AccountOverviewComponent implements OnInit {
 
-  public company: Company;
-  public booking: Booking;
+  public company: Company = null;
+  public booking: Booking = null;
+  public event: Event = null;
+
   public companyFormGroup: FormGroup;
   public isEditing: boolean = false;
 
@@ -25,6 +30,8 @@ export class AccountOverviewComponent implements OnInit {
 
   public constructor(private accountManagementService: AccountManagementService,
                      private fb: FormBuilder,
+                     private eventService: EventService,
+                     private router: Router,
                      private companyDAO: CompanyDAO,
                      private appConfig: AppConfig) {
     this.companyFormGroup = this.fb.group({
@@ -42,12 +49,24 @@ export class AccountOverviewComponent implements OnInit {
     });
 
     this.genders = this.appConfig.genders;
+    this.event = this.eventService.currentEvent.getValue();
+
+    this.eventService.currentEvent.subscribe((event: Event) => {
+      this.event = event;
+    })
   }
 
   public ngOnInit(): void {
     this.company = this.accountManagementService.getCompany();
+
+    if (this.company == null) {
+      console.log(this.company);
+      this.router.navigate(['/konto', 'login']);
+    }
+
     if (this.accountManagementService.bookingExists) {
       this.booking = this.accountManagementService.booking;
+      console.log(this.booking);
     }
     this.fillFormWithBooking();
   }

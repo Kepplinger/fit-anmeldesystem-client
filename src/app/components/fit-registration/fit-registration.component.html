@@ -45,8 +45,11 @@
 
   <!--progress bar-->
   <div class="progress mx-4">
-    <div id="progBar" class="progress-bar progress-bar-striped bg-info"
-         role="progressbar" [style.width]="currentStep / 5 * 100 + '%'">
+    <div id="progBar" class="progress-bar progress-bar-striped"
+         [ngClass]="{'bg-danger': getProgress() < 0.25,
+                     'bg-info': getProgress() <= 0.75 && getProgress() >= 0.25,
+                     'bg-success': getProgress() > 0.75}"
+         role="progressbar" [style.width]="getProgress() * 100 + '%'">
     </div>
   </div>
 

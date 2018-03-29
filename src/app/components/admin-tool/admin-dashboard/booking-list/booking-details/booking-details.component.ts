@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Booking } from '../../../../../core/model/booking';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
-import { FormValidationHelper } from '../../../../../core/app-helper/form-validation-helper';
+import { FormHelper } from '../../../../../core/app-helper/form-helper';
 import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../../../core/app-config/app-config.service';
 import {Branch} from '../../../../../core/model/branch';
@@ -273,16 +273,16 @@ export class BookingDetailsComponent implements OnInit {
 
 
   public isEmpty(formName: string): boolean {
-    return FormValidationHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
+    return FormHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
   }
 
   public isNoMail(formName: string): boolean {
-    return FormValidationHelper.isNoEmail(formName, this.bookingFormGroup) && this.isInvalid(formName);
+    return FormHelper.isNoEmail(formName, this.bookingFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {
-    return FormValidationHelper.hasError(formName, this.bookingFormGroup) != null &&
-      FormValidationHelper.isTouched(formName, this.bookingFormGroup);
+    return FormHelper.hasError(formName, this.bookingFormGroup) != null &&
+      FormHelper.isTouched(formName, this.bookingFormGroup);
   }
   public createArrayFromString(tmp:string[]):string[]{
     console.log(tmp);

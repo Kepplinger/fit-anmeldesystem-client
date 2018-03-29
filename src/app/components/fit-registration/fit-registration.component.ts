@@ -18,7 +18,7 @@ import { ModalWindowService } from '../../core/app-services/modal-window.service
 import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormValidationHelper } from '../../core/app-helper/form-validation-helper';
+import { FormHelper } from '../../core/app-helper/form-helper';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -144,6 +144,11 @@ export class FitRegistrationComponent implements OnInit {
     this.currentStep -= 1;
   }
 
+  public getProgress(): number {
+    console.log(FormHelper.getErrorCount(this.fitFormGroup));
+    return (11 - FormHelper.getErrorCount(this.fitFormGroup)) / 11;
+  }
+
   public async submitBooking(): Promise<void> {
 
     if (this.fitFormGroup.valid) {
@@ -153,7 +158,7 @@ export class FitRegistrationComponent implements OnInit {
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
       this.isFormTouched = true;
-      FormValidationHelper.validateAllFormFields(this.fitFormGroup);
+      FormHelper.validateAllFormFields(this.fitFormGroup);
     }
   }
 
