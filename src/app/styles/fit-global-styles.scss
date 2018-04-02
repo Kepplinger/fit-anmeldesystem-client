@@ -191,13 +191,11 @@ body {
   padding-left: 1.2em;
 }
 
-
 .btn-link {
   @extend .no-outline-button;
   padding: 0;
   border: none;
-  height: 1em;
-  vertical-align: top;
+  vertical-align: baseline;
 
   &:focus {
     text-decoration: none;

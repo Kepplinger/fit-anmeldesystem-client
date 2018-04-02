@@ -69,50 +69,6 @@
         </div>
       </div>
 
-      <!--logo-->
-      <div class="form-group row mb-3">
-        <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
-        <div class="input-group col-md-9"
-             fitFilePicker
-             [accept]="'image/*'"
-             [maxSize]="2000000"
-             (filePick)="filePicked($event)">
-          <input class="form-control"
-                 id="logo"
-                 type="text"
-                 [value]="logo?.name"
-                 placeholder="Logo auswählen..."
-                 disabled>
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">Druchsuchen</button>
-          </div>
-        </div>
-      </div>
-
-      <!--imageUrl and dropzone-->
-      <div class="row mb-2" style="height: 100px; max-height: 100px">
-        <div class="col-md-3">
-          <img *ngIf="logo != undefined && logo.dataURL != undefined"
-               [src]="logo?.dataURL"
-               class="logo-display w-100 h-100">
-        </div>
-        <div class="col-md-9">
-          <div fitFileDropzone
-               [accept]="'image\/.'"
-               [maxSize]="2000000"
-               (fileDrop)="filePicked($event)"
-               (dragenter)="isDrag = true"
-               (dragleave)="isDrag = false"
-               (drop)="isDrag = false"
-               class="drop-zone h-100 w-100"
-               [ngClass]="{'is-drag': isDrag}">
-            <div class="drop-zone-text centered-element">Logo: Drag & Drop</div>
-          </div>
-        </div>
-      </div>
-
-      <h5 class="text-bold mb-3">Tätigkeitsbereich</h5>
-
       <div class="form-group row mb-1">
         <label for="branch" class="col-md-3 col-form-label">Branche:*</label>
         <div class="col-md-9">
@@ -233,7 +189,49 @@
           </label>
         </div>
       </div>
+    </div>
 
+    <h5 class="text-bold mt-3">Logo</h5>
+    <!--logo-->
+    <div class="form-group row mb-3">
+      <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
+      <div class="input-group col-md-9"
+           fitFilePicker
+           [accept]="'image/*'"
+           [maxSize]="2000000"
+           (filePick)="filePicked($event)">
+        <input class="form-control"
+               id="logo"
+               type="text"
+               [value]="logo?.name"
+               placeholder="Logo auswählen..."
+               disabled>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">Druchsuchen</button>
+        </div>
+      </div>
+    </div>
+
+    <!--imageUrl and dropzone-->
+    <div class="row mb-2" style="height: 100px; max-height: 100px">
+      <div class="col-md-3">
+        <img *ngIf="logo != undefined && logo.dataURL != undefined"
+             [src]="logo?.dataURL"
+             class="logo-display w-100 h-100">
+      </div>
+      <div class="col-md-9">
+        <div fitFileDropzone
+             [accept]="'image\/.'"
+             [maxSize]="2000000"
+             (fileDrop)="filePicked($event)"
+             (dragenter)="isDrag = true"
+             (dragleave)="isDrag = false"
+             (drop)="isDrag = false"
+             class="drop-zone h-100 w-100"
+             [ngClass]="{'is-drag': isDrag}">
+          <div class="drop-zone-text centered-element">Logo: Drag & Drop</div>
+        </div>
+      </div>
     </div>
 
   </form>

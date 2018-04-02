@@ -19,6 +19,7 @@ import { FitRegistrationService } from '../../core/app-services/fit-registration
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
+import { ArrayUtils } from '../../core/utils/array-utils';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -29,6 +30,7 @@ export class FitRegistrationComponent implements OnInit {
 
   // necessary for template-usage
   Step = FitRegistrationStep;
+
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
   public event: Event;
@@ -43,6 +45,8 @@ export class FitRegistrationComponent implements OnInit {
   public isFormTouched: boolean = false;
   public isEditMode: boolean;
 
+  public visitedSteps: FitRegistrationStep[] = [];
+
   private booking: Booking = new Booking();
 
   public constructor(private router: Router,
@@ -55,6 +59,7 @@ export class FitRegistrationComponent implements OnInit {
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
+    this.visitedSteps.push(FitRegistrationStep.GeneralData);
 
     this.booking = this.bookingRegistrationService.booking;
     this.isEditMode = this.bookingRegistrationService.editMode;
@@ -95,7 +100,7 @@ export class FitRegistrationComponent implements OnInit {
       }),
       packagesAndLocation: fb.group({
         fitPackage: [null, Validators.required],
-        location: [],
+        location: [null, Validators.required],
         presentationTitle: [''],
         presentationDescription: [''],
         presentationFile: ['']
@@ -134,19 +139,38 @@ export class FitRegistrationComponent implements OnInit {
 
   public setCurrentPage(step: FitRegistrationStep) {
     this.currentStep = step;
+
+    if (this.visitedSteps.indexOf(step) === -1) {
+      this.visitedSteps.push(step);
+    }
   }
 
   public nextPage() {
-    this.currentStep += 1;
+    this.setCurrentPage(this.currentStep + 1)
   }
 
   public previousPage() {
-    this.currentStep -= 1;
+    this.setCurrentPage(this.currentStep - 1)
   }
 
   public getProgress(): number {
-    console.log(FormHelper.getErrorCount(this.fitFormGroup));
-    return (11 - FormHelper.getErrorCount(this.fitFormGroup)) / 11;
+
+    const progressFactor: number = 15;
+    let progress: number = 0;
+
+    progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('detailedData'));
+    progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('fitAppearance'));
+    progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('packagesAndLocation'));
+
+    if (this.visitedSteps.indexOf(FitRegistrationStep.ContactAndRemarks) !== -1) {
+      progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('contactAndRemarks'));
+    } else {
+      progress += 5;
+    }
+
+    progress += 5 - this.visitedSteps.length;
+
+    return (progressFactor - progress) / progressFactor;
   }
 
   public async submitBooking(): Promise<void> {

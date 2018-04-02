@@ -26,10 +26,7 @@ export class AccountLoginComponent {
     this.hasFailed = false;
     let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
 
-    if (response.errorMessage != null) {
-      this.toastr.error(response.errorMessage);
-      this.hasFailed = true;
-    } else {
+    if (response != null && response.error == null) {
       if (response.oldBooking != null) {
         this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
       } else if (response.currentBooking != null) {
@@ -38,6 +35,8 @@ export class AccountLoginComponent {
         this.accountManagementService.setCompany(CompanyMapper.mapJsonToCompany(response.company));
       }
       this.router.navigate(['/konto']);
+    } else {
+      this.hasFailed = true;
     }
   }
 }
