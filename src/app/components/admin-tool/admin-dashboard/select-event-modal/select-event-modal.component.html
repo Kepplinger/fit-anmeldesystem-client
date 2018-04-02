@@ -32,8 +32,7 @@
           <tr>
             <th></th>
             <th>Datum</th>
-            <th>Anmelde-Start</th>
-            <th>Anmelde-Ende</th>
+            <th>Anmelde-Zeitraum</th>
             <th>Geschoße</th>
           </tr>
           <tr *ngFor="let event of events"
@@ -45,10 +44,15 @@
                  *ngIf="selectedEvent.id != event.id"></i>
               <i class="fa fa-fw fa-check-square-o"
                  *ngIf="selectedEvent.id == event.id"></i>
+              <span class="badge badge-danger"
+                    *ngIf="event.isCurrent">Current</span>
             </td>
             <td>{{event.eventDate | date:'longDate'}}</td>
-            <td>{{event.registrationStart | date:'longDate'}}</td>
-            <td>{{event.registrationEnd | date:'longDate'}}</td>
+            <td>
+              {{event.registrationStart | date:'longDate'}}
+              <span class="text-bold mx-2">bis</span>
+              {{event.registrationEnd | date:'longDate'}}
+            </td>
             <td>{{event.areas.length}}</td>
           </tr>
         </table>
@@ -68,7 +72,6 @@
           </button>
 
         </div>
-
       </div>
     </div>
   </div>

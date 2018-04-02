@@ -143,6 +143,7 @@ export class FitRegistrationComponent implements OnInit {
     if (this.visitedSteps.indexOf(step) === -1) {
       this.visitedSteps.push(step);
     }
+    window.scrollTo(0, 0);
   }
 
   public nextPage() {

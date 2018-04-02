@@ -53,7 +53,7 @@ export class SelectEventModalComponent implements OnInit, OnDestroy {
   }
 
   public createNewFitEventWithTemplate(): void {
-    this.eventService.selectedEvent.next(EventHelper.clone(this.selectedEvent));
+    this.eventService.selectedEvent.next(EventHelper.cloneWithoutIds(this.selectedEvent));
     this.router.navigate(['/admin-tool', 'fit-anlegen']);
   }
 

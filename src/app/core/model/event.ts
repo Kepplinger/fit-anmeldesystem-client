@@ -11,12 +11,14 @@ export class Event {
   public registrationEnd: Moment;
   public areas: Area[];
   public isLocked: boolean;
+  public isCurrent: boolean;
 
   public constructor(eventDate: Moment = moment(),
                      registrationStart: Moment = moment(),
                      registrationEnd: Moment = moment(),
                      areas: Area[] = [],
                      isLocked?: boolean,
+                     isCurrent?: boolean,
                      id?: number) {
     this.id = id;
     this.eventDate = eventDate;
@@ -24,5 +26,6 @@ export class Event {
     this.registrationEnd = registrationEnd;
     this.areas = areas;
     this.isLocked = isLocked;
+    this.isCurrent = isCurrent;
   }
 }

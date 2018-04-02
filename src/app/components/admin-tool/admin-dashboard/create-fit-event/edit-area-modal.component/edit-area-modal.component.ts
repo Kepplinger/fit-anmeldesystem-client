@@ -84,7 +84,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   }
 
   public addNewLocation(): void {
-    let location = new Location('----', false, 'B', 50, 50);
+    let location = new Location('', false, 'B', 50, 50);
     this.selectedLocation = location;
     this.area.locations.push(location);
     this.draggableLocations = this.mapLocationsToDraggables();
