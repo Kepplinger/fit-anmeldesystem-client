@@ -21,6 +21,17 @@ export class FormHelper {
     }
   }
 
+  public static isTooLong(formName: string, formGroup: FormGroup): boolean {
+    let errors = formGroup.controls[formName].errors;
+
+    if (errors != null) {
+      return errors.maxlength != null
+    } else {
+      return false;
+    }
+  }
+
+
   public static hasError(formName: string, formGroup: FormGroup): ValidationErrors {
     return formGroup.get(formName).errors;
   }
