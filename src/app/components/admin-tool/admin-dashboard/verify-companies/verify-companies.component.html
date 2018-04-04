@@ -81,7 +81,8 @@
 
         <tr *ngFor="let company of getFilteredCompanies()">
           <td class="align-middle">
-            <button class="btn btn-sm btn-success">
+            <button class="btn btn-sm btn-success"
+                    (click)="assignCompany(companyToAssign, company)">
               <i class="fa fa-fw fa-download"></i>
             </button>
           </td>

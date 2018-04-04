@@ -53,4 +53,8 @@ export class VerifyCompaniesComponent implements OnInit {
       return this.companies;
     }
   }
+
+  public assignCompany(pendingCompany: Company, existingCompany: Company): void {
+    this.companyDAO.assignCompany(pendingCompany, existingCompany);
+  }
 }

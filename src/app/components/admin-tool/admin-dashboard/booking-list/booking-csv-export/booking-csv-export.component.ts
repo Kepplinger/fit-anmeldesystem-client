@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Booking } from '../../../../../core/model/booking';
 import { Event } from '../../../../../core/model/event';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
@@ -55,7 +54,7 @@ export class BookingCsvExportComponent implements OnInit {
   }
 
   public downloadCSV(): void {
-    this.csvCreatorService.downloadCsvFromBookings();
+    this.csvCreatorService.downloadCsvFromBookings(this.csv);
   }
 
 }

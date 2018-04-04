@@ -8,9 +8,13 @@
   </div>
 
   <div class="account-form-background">
-    <div>
-      <h1>Firma Stammdaten</h1>
+    <p class="my-4 text-justify">Hier befinden sich Ihre Firmen Stammdaten. Wir bitten Sie dies Daten immer am neusten
+      Stand zu halten, damit es
+      zu keinen Probleme für uns kommt. Sie können sich jederzeit mit Ihren Anmelde-Code in Ihren Konto einloggen und
+      Ihre Daten pfelgen.</p>
 
+    <div>
+      <h1>Stammdaten</h1>
       <form [formGroup]="companyFormGroup">
         <!--company name-->
         <div class="form-group row mb-1">
@@ -115,6 +119,7 @@
                      formControlName="gender">
 
               <label class="custom-control-label my-auto cursor-pointer"
+                     [ngClass]="{'disabled': !isEditing}"
                      [for]="'gender' + gender.value"
                      [id]="'genderLabel' + gender.value">
                 {{gender.display}}
@@ -210,10 +215,13 @@
       </div>
     </div>
 
-    <div>
+    <div class="mb-4">
       <h1>FIT-Anmeldung</h1>
+      <p>Der FIT ist eine jährlich Veranstaltung der HTL-Leonding bei welcher sich die Schüler bei Ihenen als Firma
+        informieren können.</p>
 
-      <div [ngSwitch]="booking == null">
+      <div [ngSwitch]="booking == null"
+           class="text-center text-bold text-large">
         <div *ngSwitchCase="true"
              class="d-flex flex-column">
           <div class="text-center">Sie sind nicht für den FIT am {{event.eventDate | date:'longDate'}} angemeldet</div>
@@ -224,13 +232,12 @@
         </div>
 
         <div *ngSwitchDefault
-             class="d-flex flex-column">
-          <div>Sie haben sich am {{booking.creationDate | date:'longDate'}} um {{booking.creationDate |
-            date:'shortTime'}}
-            Uhr für den FIT angemeldet.
+             class="d-flex flex-column my-4">
+          <div>Sie haben sich bereits für den FIT am {{event.eventDate | date:'longDate'}} angemeldet.
           </div>
-          <button class="btn btn-primary text-bold mt-2 mx-auto"
+          <button class="btn btn-success text-bold mt-2 mx-auto"
                   [routerLink]="['/fit','anmelden']">
+            <i class="fa fa-pencil"></i>
             Anmeldung bearbeiten
           </button>
         </div>

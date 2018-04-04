@@ -9,7 +9,7 @@
   min-width: 100vw;
   background: url("../../../../assets/school.jpeg") center;
   background-size: cover;
-  filter: blur(5px);
+  filter: blur(3px);
   overflow: hidden;
 }
 
@@ -17,7 +17,7 @@
   background-color: white;
   min-height: 100%;
   box-shadow: 0 0 2px 2px white;
-  padding: 20px 40px;
+  padding: 20px 80px;
   border-top-left-radius: 0.125rem;
   border-top-right-radius: 0.125rem;
 }
@@ -32,6 +32,6 @@
   }
 }
 
-input:read-only {
+input:read-only, .disabled {
   cursor: not-allowed;
 }

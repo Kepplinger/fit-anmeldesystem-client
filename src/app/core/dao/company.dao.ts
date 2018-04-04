@@ -72,4 +72,14 @@ export class CompanyDAO {
     return this.http.delete<void>(this.appConfig.serverURL + '/company/' + company.id)
       .toPromise();
   }
+
+  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
+    let jsonBody: any = {
+      pendingCompanyId: pendingCompany.id,
+      existingCompanyId: existingCompany.id
+    };
+
+    this.http.put<void>(this.appConfig.serverURL + '/company/assign', jsonBody)
+      .toPromise();
+  }
 }
