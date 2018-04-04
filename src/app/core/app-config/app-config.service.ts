@@ -5,6 +5,7 @@ import { DisplayedValue } from '../app-helper/helper-model/displayed-value';
 export class AppConfig {
    public serverURL = 'http://absleo.htl-leonding.ac.at:8181/api';
    // public serverURL = 'http://86.56.180.228:2552/api';
+   // public serverURL = 'http://10.0.0.10:8080/api';
 
   public genders: DisplayedValue[] = [
     new DisplayedValue('M', 'Herr'),

@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/fo
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
-import { FormValidationHelper } from '../../../../core/app-helper/form-validation-helper';
+import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 
@@ -123,15 +123,15 @@ export class DetailedDataComponent implements OnInit {
   }
 
   public isEmpty(formName: string): boolean {
-    return FormValidationHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
+    return FormHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isNoMail(formName: string): boolean {
-    return FormValidationHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
+    return FormHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {
-    return FormValidationHelper.hasError(formName, this.stepFormGroup) != null &&
-      FormValidationHelper.isTouched(formName, this.stepFormGroup);
+    return FormHelper.hasError(formName, this.stepFormGroup) != null &&
+      FormHelper.isTouched(formName, this.stepFormGroup);
   }
 }

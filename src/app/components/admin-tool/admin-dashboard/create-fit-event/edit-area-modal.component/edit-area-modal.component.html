@@ -14,6 +14,7 @@
           <input type="text"
                  class="form-control col-10 px-2"
                  id="areaDesigantion"
+                 placeholder="Bezeichnung"
                  (focus)="selectAll($event)"
                  [(ngModel)]="area.designation">
         </div>
@@ -36,10 +37,10 @@
           </div>
         </div>
 
-        <div #areaBounds class="position-relative d-inline-block floating-effect w-100">
+        <div #areaBounds class="position-relative d-inline-block floating-effect w-100 blue-border">
           <img [src]="area?.graphicUrl"
                *ngIf="area.graphicUrl != null"
-               class="area-img img-fluid blue-border"
+               class="area-img img-fluid"
                alt="Bild konnte nicht geladen werden">
 
           <div *ngIf="area.graphicUrl == null"
@@ -71,6 +72,7 @@
               <input type="text"
                      class="form-control location-number-input text-center d-inline text-bold"
                      title="locationNumber"
+                     placeholder="Nr."
                      (focus)="selectAll($event)"
                      [(ngModel)]="selectedLocation.number">
             </h4>

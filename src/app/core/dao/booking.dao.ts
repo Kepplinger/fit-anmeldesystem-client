@@ -21,15 +21,15 @@ export class BookingDAO {
       .toPromise();
   }
 
-  public async createBooking(booking: Booking): Promise<void> {
+  public async persistBooking(booking: Booking): Promise<void> {
 
     let json: any = booking;
 
-    if (json.company.folderInfo != null
-      && json.company.folderInfo.establishmentsAut != null
-      && json.company.folderInfo.establishmentsInt != null) {
-      json.company.folderInfo.establishmentsAut = ArrayUtils.concatWithDelimiter(json.company.folderInfo.establishmentsAut, ';');
-      json.company.folderInfo.establishmentsInt = ArrayUtils.concatWithDelimiter(json.company.folderInfo.establishmentsInt, ';');
+    if (json != null
+      && json.establishmentsAut != null
+      && json.establishmentsInt != null) {
+      json.establishmentsAut = ArrayUtils.concatWithDelimiter(json.establishmentsAut, ';');
+      json.establishmentsInt = ArrayUtils.concatWithDelimiter(json.establishmentsInt, ';');
     }
 
     await this.http.post<void>(this.appConfig.serverURL + '/booking', booking)

@@ -16,6 +16,19 @@
   margin-top: 5rem;
 }
 
+.mt-8 {
+  margin-top: 7rem;
+}
+
+.mt-9 {
+  margin-top: 9rem;
+}
+
+.mt-10 {
+  margin-top: 12rem;
+}
+
+
 .flex-1 {
   flex: 1;
 }
@@ -72,4 +85,8 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.bg-main {
+  background-color: $main-background;
 }

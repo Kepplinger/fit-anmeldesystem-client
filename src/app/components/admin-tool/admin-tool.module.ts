@@ -27,6 +27,7 @@ import {
   LocationPickerModalComponent
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
 import { CsvCreatorService } from './services/csv-creator.service';
+import { CustomCheckboxComponent } from './admin-dashboard/booking-list/booking-csv-export/custom-checkbox/custom-checkbox.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { CsvCreatorService } from './services/csv-creator.service';
     BookingCsvExportComponent,
     ChangelogComponent,
     VerifyCompaniesComponent,
-    LocationPickerModalComponent
+    LocationPickerModalComponent,
+    CustomCheckboxComponent
   ],
   providers: [
     CsvCreatorService

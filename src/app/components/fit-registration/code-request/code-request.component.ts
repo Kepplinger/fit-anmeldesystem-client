@@ -9,7 +9,7 @@ import { Company } from '../../../core/model/company';
 import { CompanyDAO } from '../../../core/dao/company.dao';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormValidationHelper } from '../../../core/app-helper/form-validation-helper';
+import { FormHelper } from '../../../core/app-helper/form-helper';
 
 @Component({
   selector: 'fit-code-request',
@@ -52,29 +52,28 @@ export class CodeRequestComponent {
       this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
       this.router.navigate(['']);
     } else {
-      FormValidationHelper.validateAllFormFields(this.formGroup);
+      FormHelper.validateAllFormFields(this.formGroup);
       this.toastr.error('Ihr Eingaben sind nicht noch fehlerhaft.', 'Firmen Antrag fehlgeschalgen!');
     }
   }
 
   public isNoMail(formName: string): boolean {
-    return FormValidationHelper.isNoEmail(formName, this.formGroup) && this.isInvalid(formName);
+    return FormHelper.isNoEmail(formName, this.formGroup) && this.isInvalid(formName);
   }
 
   public isEmpty(formName: string): boolean {
-    return FormValidationHelper.isEmpty(formName, this.formGroup) && this.isInvalid(formName);
+    return FormHelper.isEmpty(formName, this.formGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {
-    return FormValidationHelper.hasError(formName, this.formGroup) != null &&
-      FormValidationHelper.isTouched(formName, this.formGroup);
+    return FormHelper.hasError(formName, this.formGroup) != null &&
+      FormHelper.isTouched(formName, this.formGroup);
   }
 
   private getCompanyFromForm(): Company {
     return new Company(
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
-      null,
       this.formGroup.value.companyName,
       true
     )
@@ -99,5 +98,4 @@ export class CodeRequestComponent {
       this.formGroup.value.phoneNumber
     );
   }
-
 }

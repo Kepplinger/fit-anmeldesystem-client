@@ -19,6 +19,7 @@ import { ModalWindowService } from './app-services/modal-window.service';
 import { BookingTransferService } from './app-services/booking-transfer.service';
 import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
+import { AppLoadingService } from './app-services/app-loading.service';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { ChangeProtocolDAO } from './dao/change-protocol.dao';
     ModalWindowService,
     BookingTransferService,
     RouterService,
-    EventService
+    EventService,
+    AppLoadingService
   ]
 })
 export class CoreModule {

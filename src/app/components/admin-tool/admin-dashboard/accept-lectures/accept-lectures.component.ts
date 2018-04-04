@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {CompanyDAO} from '../../../../core/dao/company.dao';
-import {promise} from 'selenium-webdriver';
-import {ArrayUtils} from '../../../../core/utils/array-utils';
+import { Component, OnInit } from '@angular/core';
+import { CompanyDAO } from '../../../../core/dao/company.dao';
+import { promise } from 'selenium-webdriver';
+import { ArrayUtils } from '../../../../core/utils/array-utils';
+
 declare let $;
+
 @Component({
   selector: 'fit-accept-lectures',
   templateUrl: './accept-lectures.component.html',
@@ -10,17 +12,16 @@ declare let $;
 })
 export class AcceptLecturesComponent implements OnInit {
 
-  public choosenEntry: any;
+  public chosenEntry: any;
   public listOfLectures: any[] = [];
-  public listOfAccepted:any[] = [];
+  public listOfAccepted: any[] = [];
 
   public constructor(private companyDAO: CompanyDAO) {
   }
 
   public async ngOnInit(): Promise<void> {
-     this.listOfLectures = await this.companyDAO.fetchCompaniesAndPresentations(1);
-     console.log(this.listOfLectures);
-
+    this.listOfLectures = await this.companyDAO.fetchCompaniesAndPresentations(1);
+    console.log(this.listOfLectures);
   }
 
   public async removeLecture(entry: any): Promise<void> {
@@ -38,9 +39,8 @@ export class AcceptLecturesComponent implements OnInit {
     this.listOfLectures.push(entry);
   }
 
-  public setChoosenEntry(entry:any){
-    this.choosenEntry = entry;
+  public setChosenEntry(entry: any) {
+    this.chosenEntry = entry;
   }
-
 
 }

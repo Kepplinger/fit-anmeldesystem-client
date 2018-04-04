@@ -14,6 +14,7 @@ export class EventMapper {
       event.registrationEnd = moment(eventJson.registrationEnd);
       event.eventDate = moment(eventJson.eventDate);
       event.isLocked = eventJson.isLocked;
+      event.isCurrent = eventJson.isCurrent;
 
       return event;
     } else {

@@ -1,5 +1,4 @@
 import { Company } from '../company';
-import { FolderInfoMapper } from './folder-info-mapper';
 
 export class CompanyMapper {
 
@@ -13,7 +12,6 @@ export class CompanyMapper {
       company.contact = companyJson.contact;
       company.name = companyJson.name;
       company.isPending = companyJson.isPending;
-      company.folderInfo = FolderInfoMapper.mapJsonToFolderInfo(companyJson.folderInfo);
       company.address = companyJson.address;
 
       return company;

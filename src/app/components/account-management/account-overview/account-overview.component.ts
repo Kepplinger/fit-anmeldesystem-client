@@ -2,12 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '../../../core/model/company';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { DisplayedValue } from '../../../core/app-helper/helper-model/displayed-value';
-import { DisplayedValueMapper } from '../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../core/app-config/app-config.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address } from '../../../core/model/address';
 import { Contact } from '../../../core/model/contact';
 import { CompanyDAO } from '../../../core/dao/company.dao';
+import { Booking } from '../../../core/model/booking';
+import { Event } from '../../../core/model/event';
+import { EventService } from '../../../core/app-services/event.service';
+import { Router } from '@angular/router';
+import { FormHelper } from '../../../core/app-helper/form-helper';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fit-account-overview',
@@ -16,7 +21,10 @@ import { CompanyDAO } from '../../../core/dao/company.dao';
 })
 export class AccountOverviewComponent implements OnInit {
 
-  public company: Company;
+  public company: Company = null;
+  public booking: Booking = null;
+  public event: Event = null;
+
   public companyFormGroup: FormGroup;
   public isEditing: boolean = false;
 
@@ -24,10 +32,13 @@ export class AccountOverviewComponent implements OnInit {
 
   public constructor(private accountManagementService: AccountManagementService,
                      private fb: FormBuilder,
+                     private eventService: EventService,
+                     private router: Router,
                      private companyDAO: CompanyDAO,
+                     private toastr: ToastrService,
                      private appConfig: AppConfig) {
     this.companyFormGroup = this.fb.group({
-      companyName: ['', Validators.required],
+      companyName: ['', [Validators.required, Validators.maxLength(50)]],
       street: ['', Validators.required],
       streetNumber: ['', Validators.required],
       zipCode: ['', Validators.required],
@@ -41,10 +52,25 @@ export class AccountOverviewComponent implements OnInit {
     });
 
     this.genders = this.appConfig.genders;
+    this.event = this.eventService.currentEvent.getValue();
+
+    this.eventService.currentEvent.subscribe((event: Event) => {
+      this.event = event;
+    })
   }
 
   public ngOnInit(): void {
     this.company = this.accountManagementService.getCompany();
+
+    if (this.company == null) {
+      console.log(this.company);
+      this.router.navigate(['/konto', 'login']);
+    }
+
+    if (this.accountManagementService.bookingExists) {
+      this.booking = this.accountManagementService.booking;
+      console.log(this.booking);
+    }
     this.fillFormWithBooking();
   }
 
@@ -70,16 +96,37 @@ export class AccountOverviewComponent implements OnInit {
   }
 
   public updateCompany(): void {
-    this.isEditing = false;
-    this.updateCompanyFromForm();
-    this.companyDAO.updateCompany(this.company);
-    this.companyFormGroup.controls['gender'].disable();
+    if (this.companyFormGroup.valid) {
+      this.isEditing = false;
+      this.updateCompanyFromForm();
+      this.companyDAO.updateCompany(this.company);
+      this.companyFormGroup.controls['gender'].disable();
+    } else {
+      this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!')
+    }
   }
 
   public cancel(): void {
     this.isEditing = false;
     this.fillFormWithBooking();
     this.companyFormGroup.controls['gender'].disable();
+  }
+
+  public isNoMail(formName: string): boolean {
+    return FormHelper.isNoEmail(formName, this.companyFormGroup) && this.isInvalid(formName);
+  }
+
+  public isEmpty(formName: string): boolean {
+    return FormHelper.isEmpty(formName, this.companyFormGroup) && this.isInvalid(formName);
+  }
+
+  public isTooLong(formName: string): boolean {
+    return FormHelper.isTooLong(formName, this.companyFormGroup) && this.isInvalid(formName);
+  }
+
+  public isInvalid(formName: string): boolean {
+    return FormHelper.hasError(formName, this.companyFormGroup) != null &&
+      FormHelper.isTouched(formName, this.companyFormGroup);
   }
 
   private updateCompanyFromForm(): void {

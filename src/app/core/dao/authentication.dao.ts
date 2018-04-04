@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
-import { Observable } from 'rxjs/Observable';
+import { ErrorInterceptor } from './helper/error-interceptor';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
@@ -25,13 +25,7 @@ export class AuthenticationDAO {
 
   public async loginCompany(token: string): Promise<any> {
     return this.http.post<any>(this.appConfig.serverURL + '/authentication/company/token', {token: token})
-      .catch((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          return Observable.of(error.error);
-        } else {
-          return Observable.of(null);
-        }
-      })
+      .catch(ErrorInterceptor.catchErrorMessage)
       .toPromise();
   }
 }

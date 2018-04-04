@@ -28,17 +28,17 @@ export class MainComponent implements OnInit {
     this.hasFailed = false;
     let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
 
-    if (response.errorMessage != null) {
-      this.toastr.error(response.errorMessage);
-      this.hasFailed = true;
-    } else {
-      console.log(response);
-      if (response.booking != null) {
-        this.bookingRegistrationService.setBooking(response.booking);
+    if (response != null && response.error == null) {
+      if (response.oldBooking != null) {
+        this.bookingRegistrationService.setBooking(response.oldBooking, false);
+      } else if (response.currentBooking != null) {
+        this.bookingRegistrationService.setBooking(response.currentBooking, true);
       } else if (response.company != null) {
         this.bookingRegistrationService.setCompany(response.company);
       }
       this.router.navigate(['fit', 'anmelden']);
+    } else {
+      this.hasFailed = true;
     }
   }
 }

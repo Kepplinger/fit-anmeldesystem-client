@@ -22,15 +22,4 @@ export class BookingTransferService {
     return booking;
   }
 
-  public getAllBookings(): Booking[] {
-    return this.bookingBuffer;
-  }
-
-  public setBookings(bookings: Booking[]): void {
-    this.bookingBuffer = bookings;
-  }
-
-  public clearBuffer(): void {
-    this.bookingBuffer = [];
-  }
 }

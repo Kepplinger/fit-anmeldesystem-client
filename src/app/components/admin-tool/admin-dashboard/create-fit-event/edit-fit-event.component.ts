@@ -7,6 +7,7 @@ import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EventService } from '../../../../core/app-services/event.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 declare let $: any;
 
@@ -35,7 +36,10 @@ export class EditFitEventComponent implements OnInit {
 
     if (this.event == null) {
       this.router.navigate(['/admin-tool', 'dash']);
+    } else if (this.event.areas == null || this.event.areas.length === 0) {
+      this.event.areas.push(new Area());
     }
+
   }
 
   public getRegistrationTimeSpan(): number {
@@ -67,7 +71,7 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public addNewArea(): void {
-    this.event.areas.push(new Area('----'));
+    this.event.areas.push(new Area());
   }
 
   public removeArea(area: Area): void {
@@ -77,10 +81,18 @@ export class EditFitEventComponent implements OnInit {
     }
   }
 
+  // TODO errorHandling
   public async persistEvent(): Promise<void> {
     this.isLoading = true;
-    this.event = await this.eventDAO.persistEvent(this.event);
+    let response = await this.eventDAO.persistEvent(this.event);
     this.isLoading = false;
-    this.toastr.info('Request finished', 'Event speichern!');
+
+    if (response != null && response instanceof Event) {
+      this.event = response;
+      this.toastr.info('Request finished', 'Event speichern!');
+
+      this.eventService.selectedEvent.next(this.event);
+      this.eventService.updateEvents();
+    }
   }
 }

@@ -1,3 +1,26 @@
+.school-background {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  //background: url("../../../../assets/school.jpeg") center;
+  background: url("../../../../assets/school-building.jpg") center;
+  background-size: cover;
+}
+
 .card {
   border: none;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  .card-header {
+    background-color: white;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+
+  .btn:disabled {
+    opacity: 1;
+    filter: brightness(80%);
+  }
 }
+

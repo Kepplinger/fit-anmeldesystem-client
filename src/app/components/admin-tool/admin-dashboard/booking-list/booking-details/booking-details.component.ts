@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Booking } from '../../../../../core/model/booking';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
-import { FormValidationHelper } from '../../../../../core/app-helper/form-validation-helper';
+import { FormHelper } from '../../../../../core/app-helper/form-helper';
 import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../../../core/app-config/app-config.service';
 import {Branch} from '../../../../../core/model/branch';
@@ -224,7 +224,7 @@ export class BookingDetailsComponent implements OnInit {
 
   public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
     if (file instanceof PickedFile) {
-      representative.image = file.dataURL;
+      representative.imageUrl = file.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
       console.log('too big');
     } else if (file === FilePickerError.InvalidFileType) {
@@ -273,16 +273,16 @@ export class BookingDetailsComponent implements OnInit {
 
 
   public isEmpty(formName: string): boolean {
-    return FormValidationHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
+    return FormHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
   }
 
   public isNoMail(formName: string): boolean {
-    return FormValidationHelper.isNoEmail(formName, this.bookingFormGroup) && this.isInvalid(formName);
+    return FormHelper.isNoEmail(formName, this.bookingFormGroup) && this.isInvalid(formName);
   }
 
   public isInvalid(formName: string): boolean {
-    return FormValidationHelper.hasError(formName, this.bookingFormGroup) != null &&
-      FormValidationHelper.isTouched(formName, this.bookingFormGroup);
+    return FormHelper.hasError(formName, this.bookingFormGroup) != null &&
+      FormHelper.isTouched(formName, this.bookingFormGroup);
   }
   public createArrayFromString(tmp:string[]):string[]{
     console.log(tmp);
@@ -292,8 +292,8 @@ export class BookingDetailsComponent implements OnInit {
 
 
   private fillFormWithBooking() {
-    console.log(this.booking.company.folderInfo.establishmentsAut);
-    this.createArrayFromString(this.booking.company.folderInfo.establishmentsAut);
+    console.log(this.booking.establishmentsAut);
+    this.createArrayFromString(this.booking.establishmentsAut);
     console.log(this.booking.branches);
     this.bookingFormGroup.patchValue({
       companyName: this.booking.company.name,
@@ -302,16 +302,16 @@ export class BookingDetailsComponent implements OnInit {
       zipCode: this.booking.company.address.zipCode,
       city: this.booking.company.address.city,
       addressAdditions: this.booking.company.address.addition,
-      phoneNumber: this.booking.company.folderInfo.phoneNumber,
-      email: this.booking.company.folderInfo.email,
-      homepage: this.booking.company.folderInfo.homepage,
-      logoUrl: this.booking.company.folderInfo.logo,
-      branch: this.booking.company.folderInfo.branch,
+      phoneNumber: this.booking.phoneNumber,
+      email: this.booking.email,
+      homepage: this.booking.homepage,
+      logoUrl: this.booking.logo,
+      branch: this.booking.branch,
       description: this.booking.companyDescription,
       //establishmentsAut: this.fb.array([]),
-      establishmentsCountAut: this.booking.company.folderInfo.establishmentsCountAut,
-      // establishmentsInt: this.booking.company.folderInfo.establishmentsInt,
-      establishmentsCountInt: this.booking.company.folderInfo.establishmentsCountInt,
+      establishmentsCountAut: this.booking.establishmentsCountAut,
+      // establishmentsInt: this.booking.establishmentsInt,
+      establishmentsCountInt: this.booking.establishmentsCountInt,
      // desiredBranches: new FormArray([]),
       providesSummerJob: this.booking.providesSummerJob,
       providesThesis: this.booking.providesThesis,

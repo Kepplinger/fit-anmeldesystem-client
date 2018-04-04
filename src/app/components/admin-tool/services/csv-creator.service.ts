@@ -6,10 +6,26 @@ import * as FileSaver from 'file-saver';
 @Injectable()
 export class CsvCreatorService {
 
+  public bookings: Booking[] = [];
+
   public constructor(private papa: PapaParseService) {
+    let sessionBookings = JSON.parse(sessionStorage.getItem('csvBookings'));
+
+    if (sessionBookings != null) {
+      this.bookings = sessionBookings;
+    }
   }
 
-  public downloadCsvFromBookings(bookings: Booking[]): void {
+  public setBookings(bookings: Booking[]): void {
+    this.bookings = bookings;
+    sessionStorage.setItem('csvBookings', JSON.stringify(this.bookings));
+  }
+
+  public getBookingCount(): number {
+    return this.bookings.length;
+  }
+
+  public downloadCsvFromBookings(): void {
 
     let bookingData: any[][] = [
       [
@@ -28,7 +44,7 @@ export class CsvCreatorService {
       ]
     ];
 
-    for (let booking of bookings) {
+    for (let booking of this.bookings) {
       let data: any[] = [
         booking.id,
         booking.creationDate.format('LLLL'),

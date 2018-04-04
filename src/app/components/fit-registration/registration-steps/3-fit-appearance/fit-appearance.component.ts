@@ -44,7 +44,6 @@ export class FitAppearanceComponent implements OnInit {
 
   public addRepresentative(representative: Representative): void {
     let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
-    console.log(representativeArray);
     this.representatives.push(representative);
 
     this.touchedRepresentatives.push({
@@ -66,7 +65,6 @@ export class FitAppearanceComponent implements OnInit {
     representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
   }
 
-  // TODO possible outsource (because of code duplication)
   public resourceChanged(resource: Resource, event: any): void {
     if (event.target.checked) {
       this.resourceFormArray.push(new FormControl(resource));
@@ -85,7 +83,7 @@ export class FitAppearanceComponent implements OnInit {
 
   public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
     if (file instanceof PickedFile) {
-      representative.image = file.dataURL;
+      representative.imageUrl = file.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
       console.log('too big');
     } else if (file === FilePickerError.InvalidFileType) {
@@ -130,5 +128,9 @@ export class FitAppearanceComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  private getRepresentativeErrorCount(): number {
+    return 0;
   }
 }

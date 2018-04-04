@@ -2,14 +2,15 @@
 
 <div class="container p-5">
 
-  <div class="d-flex justify-content-center align-items-center">
-    <h2>Fit am {{event?.eventDate | date:'longDate'}}</h2>
+  <div class="d-flex justify-content-center">
+    <h2 class="m-0">Fit am {{event?.eventDate | date:'longDate'}}</h2>
 
     <button type="button"
             id="btnEventModal"
-            class="btn btn-link"
+            class="btn btn-link ml-2 my-auto"
             data-toggle="modal"
-            data-target="#selectEventModal">
+            data-target="#selectEventModal"
+            (click)="openSelectionModal()">
       <i class="fa fa-pencil"></i>
       <span>FIT ändern/erstellen</span>
     </button>

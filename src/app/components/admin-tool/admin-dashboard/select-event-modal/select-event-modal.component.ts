@@ -23,13 +23,13 @@ export class SelectEventModalComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.events = this.eventService.events.getValue();
+    this.events = this.eventService.events.getValue().sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
     this.selectedEvent = this.eventService.selectedEvent.getValue();
 
     this.subscriptions.push(
       this.eventService.events.subscribe(
         (events: Event[]) => {
-          this.events = events;
+          this.events = events.sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
         }
       )
     );
@@ -53,12 +53,15 @@ export class SelectEventModalComponent implements OnInit, OnDestroy {
   }
 
   public createNewFitEventWithTemplate(): void {
-    this.eventService.selectedEvent.next(EventHelper.clone(this.selectedEvent));
+    this.eventService.selectedEvent.next(EventHelper.cloneWithoutIds(this.selectedEvent));
     this.router.navigate(['/admin-tool', 'fit-anlegen']);
   }
 
   public selectEvent(event: Event): void {
     this.selectedEvent = event;
-    this.eventService.selectedEvent.next(event);
+  }
+
+  public submitSelection(): void {
+    this.eventService.selectedEvent.next(this.selectedEvent);
   }
 }

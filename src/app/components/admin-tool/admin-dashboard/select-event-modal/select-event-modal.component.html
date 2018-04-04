@@ -9,38 +9,68 @@
       </div>
       <div class="modal-body">
 
-        <table class="table">
-          <tr>
-            <th>Datum</th>
-            <th>Anmelde-Start</th>
-            <th>Anmelde-Ende</th>
-            <th>Geschoße</th>
-          </tr>
-          <tr *ngFor="let event of events"
-              (click)="selectEvent(event)"
-              class="event-row"
-              [ngClass]="{'selected-row': selectedEvent.id == event.id}">
-            <td>{{event.eventDate | date:'longDate'}}</td>
-            <td>{{event.registrationStart | date:'longDate'}}</td>
-            <td>{{event.registrationEnd | date:'longDate'}}</td>
-            <td>{{event.areas.length}}</td>
-          </tr>
-        </table>
+        <div class="d-flex mb-2">
 
-        <div class="d-flex">
+          <h4 class="text-bold">Neuen FIT anlegen: </h4>
+
           <button class="btn btn-success text-bold ml-auto"
                   (click)="createNewFitEvent()"
                   data-dismiss="modal">
             <i class="fa fa-plus"></i>
-            <span>Neuen Fit erstellen</span>
+            <span>Neuen FIT erstellen</span>
           </button>
 
           <button class="btn btn-primary text-bold ml-2"
                   (click)="createNewFitEventWithTemplate()"
                   data-dismiss="modal">
             <i class="fa fa-clone"></i>
-            <span>Fit mit Vorlage erstellen</span>
+            <span>FIT aus Vorlage erstellen</span>
           </button>
+        </div>
+
+        <table class="table">
+          <tr>
+            <th></th>
+            <th>Datum</th>
+            <th>Anmelde-Zeitraum</th>
+            <th>Geschoße</th>
+          </tr>
+          <tr *ngFor="let event of events"
+              (click)="selectEvent(event)"
+              class="event-row"
+              [ngClass]="{'selected-row': selectedEvent.id == event.id}">
+            <td>
+              <i class="fa fa-fw fa-square-o"
+                 *ngIf="selectedEvent.id != event.id"></i>
+              <i class="fa fa-fw fa-check-square-o"
+                 *ngIf="selectedEvent.id == event.id"></i>
+              <span class="badge badge-danger"
+                    *ngIf="event.isCurrent">Current</span>
+            </td>
+            <td>{{event.eventDate | date:'longDate'}}</td>
+            <td>
+              {{event.registrationStart | date:'longDate'}}
+              <span class="text-bold mx-2">bis</span>
+              {{event.registrationEnd | date:'longDate'}}
+            </td>
+            <td>{{event.areas.length}}</td>
+          </tr>
+        </table>
+
+        <div class="d-flex">
+
+          <h4 class="text-bold mr-3">
+            Auswahl: FIT am {{selectedEvent.eventDate | date:'longDate'}}
+          </h4>
+
+          <div class="flex-1"></div>
+
+          <button class="btn btn-primary text-bold"
+                  (click)="submitSelection()"
+                  data-dismiss="modal">
+            Auswahl bestätigen
+          </button>
+
         </div>
       </div>
     </div>

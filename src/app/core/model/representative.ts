@@ -4,7 +4,7 @@ export class Representative {
 
   public name: string;
   public email: string;
-  public image: string;
+  public imageUrl: string;
 
   public constructor(name?: string,
                      email?: string,
@@ -13,6 +13,6 @@ export class Representative {
     this.id = id;
     this.name = name;
     this.email = email;
-    this.image = image;
+    this.imageUrl = image;
   }
 }
