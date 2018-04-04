@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
@@ -74,12 +74,15 @@ export class CompanyDAO {
   }
 
   public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
-    let jsonBody: any = {
-      pendingCompanyId: pendingCompany.id,
-      existingCompanyId: existingCompany.id
-    };
 
-    this.http.put<void>(this.appConfig.serverURL + '/company/assign', jsonBody)
+    // Initialize Params Object
+    let params = new HttpParams();
+
+    // Begin assigning parameters
+    params = params.append('pendingCompanyId', String(pendingCompany.id));
+    params = params.append('existingCompanyId', String(existingCompany.id));
+
+    this.http.delete<void>(this.appConfig.serverURL + '/company/assign', {params: params})
       .toPromise();
   }
 }

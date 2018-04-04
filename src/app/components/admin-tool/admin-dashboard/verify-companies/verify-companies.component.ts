@@ -54,7 +54,9 @@ export class VerifyCompaniesComponent implements OnInit {
     }
   }
 
-  public assignCompany(pendingCompany: Company, existingCompany: Company): void {
-    this.companyDAO.assignCompany(pendingCompany, existingCompany);
+  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
+    await this.companyDAO.assignCompany(pendingCompany, existingCompany);
+    ArrayUtils.deleteElement(this.pendingCompanies, pendingCompany);
+    this.companyToAssign = null;
   }
 }

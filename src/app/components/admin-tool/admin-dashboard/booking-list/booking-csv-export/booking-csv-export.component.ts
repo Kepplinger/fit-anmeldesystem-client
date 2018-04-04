@@ -36,7 +36,15 @@ export class BookingCsvExportComponent implements OnInit {
       phone: true,
       email: true,
       homepage: true,
-      establishments: true
+      establishments: true,
+      isAccepted: true,
+      remarks: true,
+      additionalInfo: true,
+      companyDescription: true,
+      providesSummerJob: true,
+      providesThesis: true,
+      package: true,
+      representatives: true,
     }
   };
 
