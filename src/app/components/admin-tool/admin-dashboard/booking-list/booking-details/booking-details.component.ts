@@ -159,7 +159,6 @@ export class BookingDetailsComponent implements OnInit {
        this.selectedLocation = this.bookingFormGroup.value.location;
      }
      this.event = this.booking.event;
-     console.log(this.event);
    }
 
   public setLocation(location: Location): void {

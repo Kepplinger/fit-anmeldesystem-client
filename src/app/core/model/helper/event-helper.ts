@@ -5,16 +5,16 @@ import { Area } from '../area';
 export class EventHelper {
   public static clone(event: Event): Event {
     if (event != null) {
-      let newEvent: Event = event;
+      let newEvent: Event = new Event();
 
-      event.id = newEvent.id;
-      event.areas = newEvent.areas;
-      event.timestamp = newEvent.timestamp;
-      event.registrationStart = moment(newEvent.registrationStart);
-      event.registrationEnd = moment(newEvent.registrationEnd);
-      event.eventDate = moment(newEvent.eventDate);
-      event.isLocked = newEvent.isLocked;
-      event.isCurrent = newEvent.isCurrent;
+      newEvent.id = event.id;
+      newEvent.areas = event.areas;
+      newEvent.timestamp = event.timestamp;
+      newEvent.registrationStart = moment(event.registrationStart);
+      newEvent.registrationEnd = moment(event.registrationEnd);
+      newEvent.eventDate = moment(event.eventDate);
+      newEvent.isLocked = event.isLocked;
+      newEvent.isCurrent = event.isCurrent;
 
       return newEvent;
     } else {

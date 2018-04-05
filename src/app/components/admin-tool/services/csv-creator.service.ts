@@ -22,7 +22,11 @@ export class CsvCreatorService {
   }
 
   public getBookingCount(): number {
-    return this.bookings.length;
+    if (this.bookings != null) {
+      return this.bookings.length;
+    } else {
+      return 0;
+    }
   }
 
   public downloadCsvFromBookings(csvFilter: any): void {

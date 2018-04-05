@@ -37,7 +37,6 @@ export class ChangelogComponent implements OnInit {
   }
 
   public toggleChange(change: ChangeProtocol): void {
-    console.log('ahhh');
     if (this.openedChange === change) {
       this.openedChange = null;
     } else {

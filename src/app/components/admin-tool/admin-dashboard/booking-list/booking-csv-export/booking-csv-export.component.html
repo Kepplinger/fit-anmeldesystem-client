@@ -83,7 +83,7 @@
             </fit-custom-checkbox>
 
             <fit-custom-checkbox
-              [message]="'E-Mail'"
+              [message]="'E-Email'"
               [(value)]="csv.contact.email">
             </fit-custom-checkbox>
 
@@ -118,7 +118,7 @@
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
-            [message]="'E-Mail'"
+            [message]="'E-Email'"
             [(value)]="csv.booking.email">
           </fit-custom-checkbox>
 
@@ -154,23 +154,29 @@
 
           <!--TODO do bist-->
           <fit-custom-checkbox
-            [message]="'Homepage'"
+            [message]="'Vergeben (Ferial)'"
             [(value)]="csv.booking.providesSummerJob">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
-            [message]="'Niederlassungen'"
-            [(value)]="csv.booking.establishments">
+            [message]="'Vergeben (Diplomarbeit)'"
+            [(value)]="csv.booking.providesThesis">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
-            [message]="'Sonstige Anmerkungen'"
-            [(value)]="csv.booking.additionalInfo">
+            [message]="'Vertreter'"
+            [(value)]="csv.booking.representatives">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox
-            [message]="'Sonstige Anmerkungen'"
-            [(value)]="csv.booking.additionalInfo">
+            [message]="'Standplatz'"
+            [(value)]="csv.booking.location">
+          </fit-custom-checkbox>
+
+
+          <fit-custom-checkbox
+            [message]="'Benötigte Gegenstände'"
+            [(value)]="csv.booking.resources">
           </fit-custom-checkbox>
         </div>
       </div>

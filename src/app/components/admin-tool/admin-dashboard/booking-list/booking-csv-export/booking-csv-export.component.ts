@@ -45,6 +45,9 @@ export class BookingCsvExportComponent implements OnInit {
       providesThesis: true,
       package: true,
       representatives: true,
+      location: true,
+      desiredBranches: true,
+      resources: true
     }
   };
 

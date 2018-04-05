@@ -1,1 +1,78 @@
-<h1 class="m-5">Mails ... (o_o)</h1>
+<div class="small-container">
+  <h1 class="my-5 text-center">Dynamische Mailvorlagen</h1>
+
+  <div *ngIf="emails.length == 0">
+    <i class="fa fa-pulse fa-spinner"></i>
+  </div>
+
+  <div *ngIf="emails.length > 0">
+
+    <div class="d-flex justify-content-center align-items-center mt-3">
+      <div class="text-bold text-larger d-flex flex-column mr-2">
+        <span>Mail Vorlage:</span>
+        <span class="text-placeholder"></span>
+      </div>
+
+      <div class="d-flex flex-column">
+        <div class="dropdown"
+             #mailDropdown>
+          <button class="btn btn-light dropdown-toggle mail-select"
+                  [disabled]="isTouched"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown">
+            {{selectedEmail.name}}
+          </button>
+
+          <div class="dropdown-menu">
+            <a *ngFor="let email of emails"
+               class="dropdown-item"
+               (click)="selectEmail(email)"
+               [ngClass]="{'mail-selected': selectedEmail.id == email.id}">
+              {{email.name}}
+            </a>
+          </div>
+
+          <div class="text-placeholder text-center text-smaller text-muted">
+            <span *ngIf="isTouched">Ungespeicherte Änderungen!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="editableEmail != null">
+      <p class="text-center mb-5">{{editableEmail.description}}</p>
+
+      <div class="form-group d-flex align-items-center">
+        <label for="subject" class="my-0 mr-3">Betreff:</label>
+        <input class="form-control" style="color: black"
+               [(ngModel)]="editableEmail.subject"
+               (keyup)="emailChanged()"
+               type="text"
+               id="subject">
+      </div>
+
+      <div class="template-editor"
+           (keyup)="emailChanged()"
+           [froalaEditor]="editorOptions"
+           [(froalaModel)]="editableEmail.template">
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center"
+         [ngClass]="{'disabled-element': !isTouched}">
+      <button class="btn btn-danger mail-edit-button"
+              (click)="discardEmail()">
+        <i class="fa fa-times"></i>
+        Verwerfen
+      </button>
+      <button class="btn btn-success mail-edit-button"
+              (click)="saveEmail()">
+        <i class="fa fa-download"></i>
+        Speichern
+      </button>
+    </div>
+
+  </div>
+
+</div>

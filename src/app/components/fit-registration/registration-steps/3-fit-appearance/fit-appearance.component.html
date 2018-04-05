@@ -58,7 +58,7 @@
 
           <tr>
             <td>
-              <label [for]="'representativeEmail' + index">E-Mail:*</label>
+              <label [for]="'representativeEmail' + index">E-Email:*</label>
               <div class="invalid-message invalid-message-container"></div>
             </td>
             <td>
@@ -73,7 +73,7 @@
 
               <div class="invalid-message invalid-message-container">
                 <span *ngIf="isEmpty(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
-                <span *ngIf="isEmpty(representative, 'email')">E-Mail darf nicht leer sein!</span>
+                <span *ngIf="isEmpty(representative, 'email')">E-Email darf nicht leer sein!</span>
               </div>
             </td>
           </tr>

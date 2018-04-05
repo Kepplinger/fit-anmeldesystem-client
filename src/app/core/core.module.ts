@@ -20,6 +20,7 @@ import { BookingTransferService } from './app-services/booking-transfer.service'
 import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
+import { EmailDAO } from './dao/email.dao';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { AppLoadingService } from './app-services/app-loading.service';
     AuthenticationDAO,
     AreaDAO,
     EventDAO,
+    EmailDAO,
     AppConfig,
     ApplicationStateService,
     FitRegistrationService,

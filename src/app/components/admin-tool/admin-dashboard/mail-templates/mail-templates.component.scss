@@ -1,0 +1,40 @@
+@import "../../../../styles/fit-variables";
+
+.mail-select {
+  min-width: 250px;
+  border: $main-border;
+}
+
+.dropdown-item {
+  cursor: pointer;
+
+  &:active, &:focus {
+    color: white !important;
+  }
+}
+
+.dropdown-item.mail-selected {
+  color: white;
+  background-color: $primary-color;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.template-editor {
+  min-height: 400px;
+}
+
+.mail-edit-button {
+  min-width: 250px;
+  margin: 10px 10px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.text-placeholder {
+  height: 1.2rem;
+}

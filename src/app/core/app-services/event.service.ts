@@ -16,7 +16,6 @@ export class EventService {
 
     this.selectedEvent.subscribe(
       (event: Event) => {
-        console.log(event);
         sessionStorage.setItem('selectedEvent', JSON.stringify(event));
       }
     );
@@ -30,8 +29,6 @@ export class EventService {
     );
 
     if (this.fetchSelectedEventFromSessionStorage()) {
-      console.log('from local');
-      console.log(this.selectedEvent.getValue());
       let event = await this.eventDAO.getCurrentEvent();
 
       if (event != null) {
@@ -40,7 +37,6 @@ export class EventService {
         this.currentEvent.next(new Event());
       }
     } else {
-      console.log('from server');
       let event = await this.eventDAO.getCurrentEvent();
       this.currentEvent.next(event);
       this.selectedEvent.next(event);
@@ -52,8 +48,6 @@ export class EventService {
   }
 
   private fetchSelectedEventFromSessionStorage(): boolean {
-    console.log(this.selectedEvent.getValue());
-    console.log(JSON.parse(sessionStorage.getItem('selectedEvent')));
     let event = EventMapper.mapJsonToEvent(JSON.parse(sessionStorage.getItem('selectedEvent')));
 
     if (event != null) {
