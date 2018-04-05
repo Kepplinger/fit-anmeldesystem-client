@@ -19,11 +19,11 @@
   <table class="table" sortable-table (sorted)="onSorted($event)">
   <thead>
     <tr>
-      <th sortable-column="company.name" sort-direction="asc">Firma</th>
-      <th sortable-column="creationDate" sort-direction="asc">Anmeldezeitpunkt</th>
-      <th>Standplatz</th>
+      <th class="hooverable" sortable-column="company.name" sort-direction="asc">Firma</th>
+      <th class="hooverable" sortable-column="creationDate" sort-direction="asc">Anmeldezeitpunkt</th>
+      <th class="hooverable" sortable-column="location.number" sort-direction="asc">Standplatz</th>
       <th>Kontakt - E-Mail</th>
-      <th sortable-column="booking.fitPackage.name" sort-direction="asc">Paket</th>
+      <th class="hooverable" sortable-column="fitPackage.name" sort-direction="asc">Paket</th>
       <th>Abs-Mitglied</th>
       <th>Status</th>
       <th></th>

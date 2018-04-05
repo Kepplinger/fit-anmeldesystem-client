@@ -72,27 +72,47 @@ export class BookingListComponent implements OnInit,OnDestroy {
 
   getCustomers(criteria: CustomerSearchCriteria): Booking[] {
     console.log(criteria.sortColumn);
-    console.log()
+    console.log();
+    var alphas:string[];
+    alphas = criteria.sortColumn.split('.');
     return this.bookings.sort((a,b) => {
-      if(criteria.sortDirection === 'desc'){
-        console.log(a[criteria.sortColumn]);
-
-        if(a[criteria.sortColumn] < b[criteria.sortColumn])
-           return 1;
-        if(a[criteria.sortColumn] == b[criteria.sortColumn])
+    if(alphas.length==1) {
+      if (criteria.sortDirection === 'desc') {
+        if (a[criteria.sortColumn] < b[criteria.sortColumn])
+          return 1;
+        if (a[criteria.sortColumn] == b[criteria.sortColumn])
           return 0;
-        if(a[criteria.sortColumn] > b[criteria.sortColumn])
+        if (a[criteria.sortColumn] > b[criteria.sortColumn])
           return -1;
       }
       else {
 
-        if(a[criteria.sortColumn] < b[criteria.sortColumn])
+        if (a[criteria.sortColumn] < b[criteria.sortColumn])
           return -1;
-        if(a[criteria.sortColumn] == b[criteria.sortColumn])
+        if (a[criteria.sortColumn] == b[criteria.sortColumn])
           return 0;
-        if(a[criteria.sortColumn] > b[criteria.sortColumn])
+        if (a[criteria.sortColumn] > b[criteria.sortColumn])
           return 1;
       }
+    }else{
+      if (criteria.sortDirection === 'desc') {
+        if (a[alphas[0]][alphas[1]] < b[alphas[0]][alphas[1]])
+          return 1;
+        if (a[alphas[0]][alphas[1]] == b[alphas[0]][alphas[1]])
+          return 0;
+        if (a[alphas[0]][alphas[1]] > b[alphas[0]][alphas[1]])
+          return -1;
+      }
+      else {
+
+        if (a[alphas[0]][alphas[1]] < b[alphas[0]][alphas[1]])
+          return -1;
+        if (a[alphas[0]][alphas[1]] == b[alphas[0]][alphas[1]])
+          return 0;
+        if (a[alphas[0]][alphas[1]] > b[alphas[0]][alphas[1]])
+          return 1;
+      }
+    }
     });
   }
 
