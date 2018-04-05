@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -19,7 +19,7 @@ import { FitRegistrationService } from '../../core/app-services/fit-registration
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
-import { ArrayUtils } from '../../core/utils/array-utils';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -206,7 +206,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.phoneNumber,
       this.fitFormGroup.value.detailedData.email,
       this.fitFormGroup.value.detailedData.homepage,
-      this.fitFormGroup.value.detailedData.logo != null ? 'a' : 'b', // TODO replace
+      this.fitFormGroup.value.detailedData.logo,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
       this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
@@ -261,26 +261,26 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private fillFormWithBooking(): void {
-    console.log(this.booking);
+
+    // let temp = new FormArray(this.booking.establishmentsAut.map(e => new FormControl(e)))
+
+    console.log(this.booking.establishmentsAut);
+
     this.fitFormGroup.patchValue({
       detailedData: {
         phoneNumber: this.booking.phoneNumber,
         email: this.booking.email,
         homepage: this.booking.homepage,
-        // logoUrl: this.booking.logo
+        logoUrl: this.booking.logo,
         branch: this.booking.branch,
         description: this.booking.companyDescription,
-        // establishmentsAut: new FormArray(this.booking.establishmentsAut.map(e => new FormControl(e))),
         establishmentsCountAut: this.booking.establishmentsCountAut,
-        // establishmentsInt: new FormArray(this.booking.establishmentsInt.map(e => new FormControl(e))),
         establishmentsCountInt: this.booking.establishmentsCountInt,
-        // desiredBranches: this.booking.branches,
         providesSummerJob: this.booking.providesSummerJob,
         providesThesis: this.booking.providesThesis,
       },
       fitAppearance: {
         additionalInfo: this.booking.additionalInfo,
-        // resources: this.booking.resources
       },
       packagesAndLocation: {
         fitPackage: this.booking.fitPackage,
@@ -291,9 +291,6 @@ export class FitRegistrationComponent implements OnInit {
       }
     });
 
-    // this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives));
-    this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives.map(r => new FormControl(r))));
-
     if (this.booking.presentation != null) {
       this.fitFormGroup.patchValue({
         packagesAndLocation: {
@@ -303,5 +300,22 @@ export class FitRegistrationComponent implements OnInit {
         }
       });
     }
+
+    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+      .setControl('establishmentsAut', this.fb.array(this.booking.establishmentsAut));
+
+    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+      .setControl('establishmentsInt', this.fb.array(this.booking.establishmentsInt));
+
+    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+      .setControl('desiredBranches', this.fb.array(this.booking.branches));
+
+    (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
+      .setControl('representatives', this.fb.array(this.booking.representatives));
+
+    (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
+      .setControl('resources', this.fb.array(this.booking.resources));
+
+    this.bookingRegistrationService.bookingIsFilled();
   }
 }

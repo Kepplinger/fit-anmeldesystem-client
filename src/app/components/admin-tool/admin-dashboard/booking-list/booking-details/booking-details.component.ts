@@ -1,27 +1,27 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Booking } from '../../../../../core/model/booking';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { FormHelper } from '../../../../../core/app-helper/form-helper';
 import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../../../core/app-config/app-config.service';
-import {Branch} from '../../../../../core/model/branch';
-import {BranchDAO} from '../../../../../core/dao/branch.dao';
-import {FormArrayUtils} from '../../../../../core/utils/form-array-utils';
-import {PickedFile} from '../../../../../libs/file-picker/picked-file';
-import {FilePickerError} from '../../../../../libs/file-picker/file-picker-error';
-import {Representative} from '../../../../../core/model/representative';
-import {ArrayUtils} from '../../../../../core/utils/array-utils';
-import {FitPackage} from '../../../../../core/model/enums/fit-package';
-import {Package} from '../../../../../core/model/package';
-import {PackageDAO} from '../../../../../core/dao/package.dao';
-import {Event} from '../../../../../core/model/event';
-import {Input} from '@angular/compiler/src/core';
-import {DisplayedValue} from '../../../../../core/app-helper/helper-model/displayed-value';
+import { Branch } from '../../../../../core/model/branch';
+import { BranchDAO } from '../../../../../core/dao/branch.dao';
+import { FormArrayUtils } from '../../../../../core/utils/form-array-utils';
+import { PickedFile } from '../../../../../libs/file-picker/picked-file';
+import { FilePickerError } from '../../../../../libs/file-picker/file-picker-error';
+import { Representative } from '../../../../../core/model/representative';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { FitPackage } from '../../../../../core/model/enums/fit-package';
+import { Package } from '../../../../../core/model/package';
+import { PackageDAO } from '../../../../../core/dao/package.dao';
+import { Event } from '../../../../../core/model/event';
+import { DisplayedValue } from '../../../../../core/app-helper/helper-model/displayed-value';
+
 declare let $;
-window["$"] = $;
-window["jQuery"] = $;
+window['$'] = $;
+window['jQuery'] = $;
 
 @Component({
   selector: 'fit-booking-detail',
@@ -37,15 +37,15 @@ export class BookingDetailsComponent implements OnInit {
 
   public genders: DisplayedValue[];
 
-  public event:Event = null;
+  public event: Event = null;
 
   public areRepresentativesTouched: boolean = false;
 
-  public options:any;
+  public options: any;
 
   public booking: Booking;
   public bookingFormGroup: FormGroup;
-  public bookingAutArray:string[] = ['Linz','Wien'];
+  public bookingAutArray: string[] = ['Linz', 'Wien'];
 
   public branches: Branch[] = [];
   public branchFormArray: FormArray = new FormArray([]);
@@ -122,15 +122,12 @@ export class BookingDetailsComponent implements OnInit {
       inlineMode: true,
       toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
         'formatUL', 'formatOL', 'clearFormatting', '|', 'superscript', 'outdent', 'indent']
-      // toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-      // toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-      // toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     };
-    this.genders = appConfig.genders;
 
+    this.genders = appConfig.genders;
   }
 
-   public async ngOnInit(): Promise<void> {
+  public async ngOnInit(): Promise<void> {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         if (params.id != null) {
@@ -144,22 +141,22 @@ export class BookingDetailsComponent implements OnInit {
       });
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
-     let packages: Package[] = await this.packageDAO.fetchPackages();
-     this.basicPackage = packages.find(p => p.discriminator === 1);
-     this.sponsorPackage = packages.find(p => p.discriminator === 2);
-     this.lecturePackage = packages.find(p => p.discriminator === 3);
+    let packages: Package[] = await this.packageDAO.fetchPackages();
+    this.basicPackage = packages.find(p => p.discriminator === 1);
+    this.sponsorPackage = packages.find(p => p.discriminator === 2);
+    this.lecturePackage = packages.find(p => p.discriminator === 3);
 
-     if (this.bookingFormGroup.value.fitPackage != null) {
-       this.selectedPackage = this.bookingFormGroup.value.fitPackage;
-     } else {
-       this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
-     }
+    if (this.bookingFormGroup.value.fitPackage != null) {
+      this.selectedPackage = this.bookingFormGroup.value.fitPackage;
+    } else {
+      this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+    }
 
-     if (this.bookingFormGroup.value.location != null) {
-       this.selectedLocation = this.bookingFormGroup.value.location;
-     }
-     this.event = this.booking.event;
-   }
+    if (this.bookingFormGroup.value.location != null) {
+      this.selectedLocation = this.bookingFormGroup.value.location;
+    }
+    this.event = this.booking.event;
+  }
 
   public setLocation(location: Location): void {
     this.selectedLocation = location;
@@ -243,7 +240,7 @@ export class BookingDetailsComponent implements OnInit {
     }
   }
 
-  public isLeer(representative: Representative, attribute: string): boolean {
+  public isRepresentativeEmpty(representative: Representative, attribute: string): boolean {
 
     let input = '';
 
@@ -283,12 +280,11 @@ export class BookingDetailsComponent implements OnInit {
     return FormHelper.hasError(formName, this.bookingFormGroup) != null &&
       FormHelper.isTouched(formName, this.bookingFormGroup);
   }
-  public createArrayFromString(tmp:string[]):string[]{
+
+  public createArrayFromString(tmp: string[]): string[] {
     console.log(tmp);
-    return new Array();
+    return [];
   }
-
-
 
   private fillFormWithBooking() {
     console.log(this.booking.establishmentsAut);
@@ -307,11 +303,11 @@ export class BookingDetailsComponent implements OnInit {
       logoUrl: this.booking.logo,
       branch: this.booking.branch,
       description: this.booking.companyDescription,
-      //establishmentsAut: this.fb.array([]),
+      // establishmentsAut: this.fb.array([]),
       establishmentsCountAut: this.booking.establishmentsCountAut,
       // establishmentsInt: this.booking.establishmentsInt,
       establishmentsCountInt: this.booking.establishmentsCountInt,
-     // desiredBranches: new FormArray([]),
+      // desiredBranches: new FormArray([]),
       providesSummerJob: this.booking.providesSummerJob,
       providesThesis: this.booking.providesThesis,
       // representatives: this.booking.representatives,
@@ -329,7 +325,7 @@ export class BookingDetailsComponent implements OnInit {
 
     this.fillArrays(this.bookingAutArray);
     this.pushFroala();
-    //this.tickBranches();
+    // this.tickBranches();
     // if (this.booking.presentation != null) {
     //   this.fitFormGroup.patchValue({
     //     packagesAndLocation: {
@@ -343,15 +339,16 @@ export class BookingDetailsComponent implements OnInit {
   }
 
 
-
-  fillArrays(establishmentsArrayAut:string[]){
+  fillArrays(establishmentsArrayAut: string[]) {
     const control = <FormArray>this.bookingFormGroup.controls['establishmentsAut'];
     for (let entry of establishmentsArrayAut) {
-      control.push(this.fb.group({"display": entry,
-        "value": entry}));
+      control.push(this.fb.group({
+        'display': entry,
+        'value': entry
+      }));
     }
 
-    for(let entry of this.booking.representatives){
+    for (let entry of this.booking.representatives) {
       this.addRepresentative(new Representative(entry.name, entry.email, '../../../../../assets/contact.png'));
     }
 
@@ -387,16 +384,16 @@ export class BookingDetailsComponent implements OnInit {
   public branchChanged(branch: Branch, event: any): void {
     if (event.target.checked) {
       this.branchFormArray.push(new FormControl(branch));
-      console.log("add");
+      console.log('add');
     } else {
       let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
       console.log(index);
       console.log(branch);
-        this.branchFormArray.removeAt(index);
+      this.branchFormArray.removeAt(index);
 
       console.log(this.branchFormArray);
 
-      console.log("remove");
+      console.log('remove');
     }
   }
 
@@ -407,13 +404,13 @@ export class BookingDetailsComponent implements OnInit {
   public tickBranches() {
     for (let entry of this.booking.branches) {
       this.branchFormArray.push(new FormControl(entry));
-      $('#checkbox'+entry.id).prop("checked", this.isBranchSelected(entry));
-    console.log(this.branchFormArray);
+      $('#checkbox' + entry.id).prop('checked', this.isBranchSelected(entry));
+      console.log(this.branchFormArray);
     }
   }
 
-  public pushFroala(): void{
-    document.getElementById("description").innerHTML = this.booking.companyDescription;
+  public pushFroala(): void {
+    document.getElementById('description').innerHTML = this.booking.companyDescription;
   }
 
   public storeFroala(): void {

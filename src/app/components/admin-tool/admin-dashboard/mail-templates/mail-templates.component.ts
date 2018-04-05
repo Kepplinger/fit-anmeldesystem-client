@@ -26,11 +26,11 @@ export class MailTemplatesComponent implements OnInit {
   public editorOptions: any = {
     charCounterCount: true,
     heightMin: 350,
-    tooltips: true
+    tooltips: true,
+    inlineMode: true
   };
 
-  public constructor(private emailDAO: EmailDAO,
-                     private modalWindowService: ModalWindowService) {
+  public constructor(private emailDAO: EmailDAO) {
   }
 
   public async ngOnInit(): Promise<void> {

@@ -7,7 +7,6 @@ import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EventService } from '../../../../core/app-services/event.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 declare let $: any;
 

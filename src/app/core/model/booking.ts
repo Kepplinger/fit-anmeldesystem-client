@@ -4,7 +4,7 @@ import { Location } from './location';
 import { Event } from './event';
 import { Branch } from './branch';
 import { Representative } from './representative';
-import { Resource } from './resource';
+import { ResourceBooking } from './resource-booking';
 import { Package } from './package';
 import { Moment } from 'moment';
 
@@ -19,9 +19,9 @@ export class Booking {
   public presentation: Presentation;
   public representatives: Representative[];
   public branches: Branch[];
-  public resources: Resource[];
+  public resources: ResourceBooking[];
 
-  public isAccepted: boolean; // TODO add to ERD
+  public isAccepted: boolean;
   public remarks: string;
   public additionalInfo: string;
   public companyDescription: string;
@@ -48,7 +48,7 @@ export class Booking {
                      presentation?: Presentation,
                      representatives?: Representative[],
                      branches?: Branch[],
-                     resources?: Resource[],
+                     resources?: ResourceBooking[],
                      remarks?: string,
                      additionalInfo?: string,
                      companyDescription?: string,

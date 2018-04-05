@@ -3,6 +3,7 @@ import { AuthenticationDAO } from '../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
+import { BookingMapper } from '../../core/model/mapper/booking-mapper';
 
 @Component({
   selector: 'fit-main',
@@ -30,9 +31,9 @@ export class MainComponent implements OnInit {
 
     if (response != null && response.error == null) {
       if (response.oldBooking != null) {
-        this.bookingRegistrationService.setBooking(response.oldBooking, false);
+        this.bookingRegistrationService.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
       } else if (response.currentBooking != null) {
-        this.bookingRegistrationService.setBooking(response.currentBooking, true);
+        this.bookingRegistrationService.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
       } else if (response.company != null) {
         this.bookingRegistrationService.setCompany(response.company);
       }

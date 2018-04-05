@@ -6,6 +6,8 @@ import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
+import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
+import { ToastrService } from 'ngx-toastr';
 
 declare let $;
 
@@ -29,14 +31,15 @@ export class DetailedDataComponent implements OnInit {
   public establishmentAutCount: ElementRef;
 
   public branches: Branch[] = [];
-
   public branchFormArray: FormArray = null;
   public isDrag: boolean = false;
   public companyDescription: string = '';
   public logo: PickedFile;
   public options: any;
 
-  public constructor(private branchDAO: BranchDAO) {
+  public constructor(private branchDAO: BranchDAO,
+                     private bookingRegistrationService: FitRegistrationService,
+                     private toastr: ToastrService) {
     this.options = {
       charCounterCount: true,
       charCounterMax: 1000,
@@ -51,16 +54,25 @@ export class DetailedDataComponent implements OnInit {
       inlineMode: true,
       toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
         'formatUL', 'formatOL', 'clearFormatting', '|', 'superscript', 'outdent', 'indent']
-      // toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-      // toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-      // toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     };
   }
 
   public async ngOnInit(): Promise<void> {
-    this.branches = await this.branchDAO.fetchBranches();
+    this.companyDescription = this.stepFormGroup.value.description;
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
-    // this.companyDescription = this.stepFormGroup.get('description');
+
+    this.bookingRegistrationService.bookingFilled.subscribe(
+      () => {
+        this.companyDescription = this.stepFormGroup.value.description;
+        this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+      }
+    );
+
+    this.branches = await this.branchDAO.fetchBranches();
+
+    $('#description').on('froalaEditor.blur', () => {
+      console.log('hallo');
+    });
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {
@@ -68,11 +80,11 @@ export class DetailedDataComponent implements OnInit {
       this.logo = file;
       this.stepFormGroup.value.logo = this.logo.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
+      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!')
     } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
+      this.toastr.warning('Die angegeben Datei ist kein Bild!')
     } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
     }
   }
 
@@ -118,10 +130,8 @@ export class DetailedDataComponent implements OnInit {
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
   }
 
-  public storeFroala(): void {
-    let html = $('#description').froalaEditor('html.get');
-    this.stepFormGroup.controls['description'].setValue(html.toString());
-    console.log(this.stepFormGroup.controls['description'].value);
+  public updateDescription(): void {
+    this.stepFormGroup.controls['description'].setValue(this.companyDescription);
   }
 
   public isEmpty(formName: string): boolean {

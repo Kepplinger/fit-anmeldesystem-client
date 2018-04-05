@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Resource } from '../../../../core/model/resource';
+import { ResourceBooking } from '../../../../core/model/resource-booking';
 import { ResourceDAO } from '../../../../core/dao/resource.dao';
 import { Representative } from '../../../../core/model/representative';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
 
 @Component({
   selector: 'fit-fit-appearance',
@@ -25,17 +26,33 @@ export class FitAppearanceComponent implements OnInit {
   public areRepresentativesTouched: boolean = false;
 
   public representatives: Representative[] = [];
-  public resources: Resource[] = [];
+  public resources: ResourceBooking[] = [];
   public resourceFormArray: FormArray = null;
   public touchedRepresentatives: any[] = [];
 
-  public constructor(private resourceDAO: ResourceDAO) {
+  public constructor(private resourceDAO: ResourceDAO,
+                     private bookingRegistrationService: FitRegistrationService) {
   }
 
   public async ngOnInit(): Promise<void> {
     this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
     this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
     this.resources = await this.resourceDAO.fetchResources();
+
+    this.bookingRegistrationService.bookingFilled.subscribe(
+      () => {
+        // this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+        // this.representatives = this.resourceFormArray.value;
+        //
+        // this.representatives.forEach(r => {
+        //   this.touchedRepresentatives.push({
+        //     representative: r,
+        //     name: false,
+        //     email: false
+        //   });
+        // })
+      }
+    );
   }
 
   public onRepresentativeAdd(): void {
@@ -65,7 +82,7 @@ export class FitAppearanceComponent implements OnInit {
     representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
   }
 
-  public resourceChanged(resource: Resource, event: any): void {
+  public resourceChanged(resource: ResourceBooking, event: any): void {
     if (event.target.checked) {
       this.resourceFormArray.push(new FormControl(resource));
     } else {
@@ -77,7 +94,7 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
-  public isResourceSelected(resource: Resource): boolean {
+  public isResourceSelected(resource: ResourceBooking): boolean {
     return FormArrayUtils.indexOf(this.resourceFormArray, resource) !== -1;
   }
 
@@ -130,6 +147,7 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
+  // TODO
   private getRepresentativeErrorCount(): number {
     return 0;
   }

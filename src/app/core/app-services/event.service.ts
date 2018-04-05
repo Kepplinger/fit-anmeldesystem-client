@@ -22,12 +22,6 @@ export class EventService {
   }
 
   private async fetchEvents(): Promise<void> {
-    this.eventDAO.fetchEvents().then(
-      (events: Event[]) => {
-        this.events.next(events);
-      }
-    );
-
     if (this.fetchSelectedEventFromSessionStorage()) {
       let event = await this.eventDAO.getCurrentEvent();
 
@@ -41,6 +35,8 @@ export class EventService {
       this.currentEvent.next(event);
       this.selectedEvent.next(event);
     }
+
+    this.events.next(await this.eventDAO.fetchEvents());
   }
 
   public async updateEvents(): Promise<void> {
