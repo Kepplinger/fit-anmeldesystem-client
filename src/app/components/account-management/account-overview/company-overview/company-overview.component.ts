@@ -51,7 +51,7 @@ export class CompanyOverviewComponent implements OnInit {
       gender: [{value: 'M', disabled: !this.isEditing}],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      contactEmail: ['', Validators.required],
+      contactEmail: ['', [Validators.required, Validators.email]],
       contactPhoneNumber: ['', Validators.required],
     });
 
@@ -64,10 +64,10 @@ export class CompanyOverviewComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.fillFormWithBooking();
+    this.fillFormWithCompany();
   }
 
-  private fillFormWithBooking() {
+  private fillFormWithCompany() {
     this.companyFormGroup.patchValue({
       companyName: this.company.name,
       street: this.company.address.street,
@@ -88,11 +88,11 @@ export class CompanyOverviewComponent implements OnInit {
     this.companyFormGroup.controls['gender'].enable();
   }
 
-  public updateCompany(): void {
+  public async updateCompany(): Promise<void> {
     if (this.companyFormGroup.valid) {
       this.isEditing = false;
       this.updateCompanyFromForm();
-      this.companyDAO.updateCompany(this.company);
+      this.company = await this.companyDAO.updateCompany(this.company);
       this.companyFormGroup.controls['gender'].disable();
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!')
@@ -101,7 +101,7 @@ export class CompanyOverviewComponent implements OnInit {
 
   public cancel(): void {
     this.isEditing = false;
-    this.fillFormWithBooking();
+    this.fillFormWithCompany();
     this.companyFormGroup.controls['gender'].disable();
   }
 

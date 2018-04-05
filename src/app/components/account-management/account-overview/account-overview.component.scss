@@ -15,7 +15,7 @@
 
 .account-form-background{
   background-color: white;
-  min-height: 100%;
+  min-height: calc(100vh - 175px);
   box-shadow: 0 0 2px 2px white;
   padding: 20px 80px;
   border-top-left-radius: 0.125rem;

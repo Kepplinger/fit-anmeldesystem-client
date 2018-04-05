@@ -11,13 +11,13 @@ export class AccountManagementService {
   public bookingExists: boolean;
   public graduate: Graduate;
 
-  public isCompany: boolean = false;
   public isGraduate: boolean = false;
 
   public constructor() {
     this.graduate = JSON.parse(sessionStorage.getItem('graduate'));
     this.booking = JSON.parse(sessionStorage.getItem('booking'));
     this.bookingExists = JSON.parse(sessionStorage.getItem('bookingExists'));
+    this.isGraduate = JSON.parse(sessionStorage.getItem('isGraduate'));
   }
 
   public setGraduate(graduate: Graduate): void {

@@ -32,6 +32,7 @@ export class DetailedDataComponent implements OnInit {
 
   public branchFormArray: FormArray = null;
   public isDrag: boolean = false;
+  public companyDescription: string = '';
   public logo: PickedFile;
   public options: any;
 
@@ -59,6 +60,7 @@ export class DetailedDataComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+    // this.companyDescription = this.stepFormGroup.get('description');
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {

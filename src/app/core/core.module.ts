@@ -21,6 +21,7 @@ import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
 import { EmailDAO } from './dao/email.dao';
+import { GraduateDao } from './dao/graduate.dao';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { EmailDAO } from './dao/email.dao';
     AreaDAO,
     EventDAO,
     EmailDAO,
+    GraduateDao,
     AppConfig,
     ApplicationStateService,
     FitRegistrationService,
