@@ -28,6 +28,9 @@ import {
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
 import { CsvCreatorService } from './services/csv-creator.service';
 import { CustomCheckboxComponent } from './admin-dashboard/booking-list/booking-csv-export/custom-checkbox/custom-checkbox.component';
+import {SortService} from '../../core/app-services/sort-service.service';
+import {SortableColumnComponent} from './admin-dashboard/booking-list/sortable-column/sortable-column.component';
+import {SortableTableDirective} from './admin-dashboard/booking-list/sortable-table/sortable-table.component';
 
 @NgModule({
   imports: [
@@ -59,10 +62,13 @@ import { CustomCheckboxComponent } from './admin-dashboard/booking-list/booking-
     ChangelogComponent,
     VerifyCompaniesComponent,
     LocationPickerModalComponent,
-    CustomCheckboxComponent
+    CustomCheckboxComponent,
+    SortableColumnComponent,
+    SortableTableDirective
   ],
   providers: [
-    CsvCreatorService
+    CsvCreatorService,
+    SortService
   ]
 })
 export class AdminToolModule {

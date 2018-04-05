@@ -16,19 +16,20 @@
     </a>
   </div>
 
-  <table class="table">
-
+  <table class="table" sortable-table (sorted)="onSorted($event)">
+  <thead>
     <tr>
-      <th>Firma</th>
-      <th>Anmeldezeitpunkt</th>
+      <th sortable-column="company.name" sort-direction="asc">Firma</th>
+      <th sortable-column="creationDate" sort-direction="asc">Anmeldezeitpunkt</th>
       <th>Standplatz</th>
       <th>Kontakt - E-Mail</th>
-      <th>Paket</th>
+      <th sortable-column="booking.fitPackage.name" sort-direction="asc">Paket</th>
       <th>Abs-Mitglied</th>
       <th>Status</th>
       <th></th>
     </tr>
-
+  </thead>
+<tbody>
     <tr *ngFor="let booking of bookings">
       <td>{{booking.company?.name}}</td>
       <td>{{booking.creationDate | date:'medium'}}</td>
@@ -44,7 +45,7 @@
         </div>
       </td>
     </tr>
-
+</tbody>
   </table>
 
   <div *ngIf="loading" class="text-center mt-3">
