@@ -1,0 +1,237 @@
+<div>
+  <p class="my-4 text-justify">Hier befinden sich Ihre Firmen Stammdaten. Wir bitten Sie dies Daten immer am neusten
+    Stand zu halten, damit es
+    zu keinen Probleme für uns kommt. Sie können sich jederzeit mit Ihren Anmelde-Code in Ihren Konto einloggen und
+    Ihre Daten pfelgen.</p>
+
+  <div>
+    <h1>Stammdaten</h1>
+    <form [formGroup]="companyFormGroup">
+      <!--company name-->
+      <div class="form-group row mb-1">
+        <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 formControlName="companyName"
+                 id="companyName"
+                 [ngClass]="{'is-invalid': isInvalid('companyName')}"
+                 [readonly]="!isEditing">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('companyName')" class="mr-2">Firmenname darf nicht leer sein!</span>
+            <span *ngIf="isTooLong('companyName')" class="mr-2">Firmenname zu lange!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--address additions-->
+      <div class="form-group row mb-1">
+        <label for="addressAdditions" class="col-md-3 col-form-label">Adresszusatz:</label>
+        <div class="col-md-9">
+          <input class="form-control flex-1"
+                 type="text"
+                 formControlName="addressAdditions"
+                 id="addressAdditions"
+                 [ngClass]="{'is-invalid': isInvalid('addressAdditions')}"
+                 [readonly]="!isEditing">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('addressAdditions')" class="mr-2">Adresszusatz darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--street and number-->
+      <div class="form-group row mb-1">
+        <label class="col-md-3 col-form-label">Anschrift:</label>
+        <div class="col-md-9">
+          <div class="d-flex">
+            <input class="form-control flex-2-5 mr-3"
+                   formControlName="street"
+                   id="street"
+                   title="street"
+                   [ngClass]="{'is-invalid': isInvalid('streetNumber')}"
+                   [readonly]="!isEditing">
+
+            <input class="form-control flex-1"
+                   formControlName="streetNumber"
+                   id="streetNumber"
+                   title="streetNumber"
+                   [ngClass]="{'is-invalid': isInvalid('streetNumber')}"
+                   [readonly]="!isEditing">
+          </div>
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('street')" class="mr-2">Straße darf nicht leer sein!</span>
+            <span *ngIf="isEmpty('streetNumber')" class="mr-2">Hausnummer darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--location and zip-->
+      <div class="form-group row mb-1">
+        <label class="col-md-3 col-form-label"></label>
+        <div class="col-md-9">
+          <div class="d-flex">
+            <input class="form-control flex-1 mr-3"
+                   formControlName="zipCode"
+                   id="zipCode"
+                   title="zipCode"
+                   [ngClass]="{'is-invalid': isInvalid('zipCode')}"
+                   [readonly]="!isEditing">
+
+            <input class="form-control flex-2-5"
+                   formControlName="city"
+                   id="city"
+                   title="city"
+                   [ngClass]="{'is-invalid': isInvalid('city')}"
+                   [readonly]="!isEditing">
+          </div>
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('zipCode')" class="mr-2">Postleitzahl darf nicht leer sein!</span>
+            <span *ngIf="isEmpty('city')" class="mr-2">Ort darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Firmenkontakt</h3>
+
+      <!--gender-->
+      <div class="form-row row my-3">
+        <div class="col-md-3">
+          Anrede:
+        </div>
+
+        <div class="col-md-9 px-3">
+          <div *ngFor="let gender of genders"
+               class="custom-control custom-radio custom-control-inline">
+            <!--suppress HtmlFormInputWithoutLabel -->
+            <input class="custom-control-input cursor-pointer"
+                   type="radio"
+                   [id]="'gender' + gender.value"
+                   [value]="gender.value"
+                   formControlName="gender">
+
+            <label class="custom-control-label my-auto cursor-pointer"
+                   [ngClass]="{'disabled': !isEditing}"
+                   [for]="'gender' + gender.value"
+                   [id]="'genderLabel' + gender.value">
+              {{gender.display}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!--location and zip-->
+      <div class="form-group row mb-1">
+        <label for="city" class="col-md-3 col-form-label">Name:</label>
+        <div class="col-md-9">
+          <div class="d-flex">
+            <input class="form-control flex-1 mr-3"
+                   type="text"
+                   formControlName="firstName"
+                   id="firstName"
+                   title="firstName"
+                   [ngClass]="{'is-invalid': isInvalid('firstName')}"
+                   [readonly]="!isEditing">
+
+            <input class="form-control flex-1"
+                   type="text"
+                   formControlName="lastName"
+                   id="lastName"
+                   title="lastName"
+                   [ngClass]="{'is-invalid': isInvalid('lastName')}"
+                   [readonly]="!isEditing">
+          </div>
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('firstName')" class="mr-2">Vorname darf nicht leer sein!</span>
+            <span *ngIf="isEmpty('lastName')" class="mr-2">Nachname darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--email-->
+      <div class="form-group row mb-0">
+        <label for="contactEmail" class="col-md-3 col-form-label">Email:</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="contactEmail"
+                 id="contactEmail"
+                 [ngClass]="{'is-invalid': isInvalid('contactEmail')}"
+                 [readonly]="!isEditing">
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('contactEmail')" class="mr-2">Email darf nicht leer sein!</span>
+            <span *ngIf="isNoMail('contactEmail') && !isEmpty('contactEmail')">Ungültige E-Email!</span>
+          </div>
+        </div>
+      </div>
+
+      <!--phone-->
+      <div class="form-group row mb-0">
+        <label for="contactPhoneNumber" class="col-md-3 col-form-label">Telefonnummer:</label>
+        <div class="col-md-9">
+          <input class="form-control"
+                 type="text"
+                 formControlName="contactPhoneNumber"
+                 id="contactPhoneNumber"
+                 [ngClass]="{'is-invalid': isInvalid('contactPhoneNumber')}"
+                 [readonly]="!isEditing">
+
+          <div class="invalid-message invalid-message-container">
+            <span *ngIf="isEmpty('contactPhoneNumber')" class="mr-2">Telefonnummer darf nicht leer sein!</span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="d-flex">
+      <button class="btn btn-primary text-bold ml-auto"
+              *ngIf="!isEditing"
+              (click)="enableEditing()">
+        <i class="fa fa-pencil"></i>
+        <span>Daten bearbeiten</span>
+      </button>
+
+      <button class="btn btn-danger text-bold ml-auto"
+              *ngIf="isEditing"
+              (click)="cancel()">
+        <i class="fa fa-times"></i>
+        <span>Abbrechen</span>
+      </button>
+
+      <button class="btn btn-success text-bold ml-2"
+              *ngIf="isEditing"
+              (click)="updateCompany()">
+        <i class="fa fa-download"></i>
+        <span>Speichern</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h1>FIT-Anmeldung</h1>
+    <p>Der FIT ist eine jährlich Veranstaltung der HTL-Leonding bei welcher sich die Schüler bei Ihenen als Firma
+      informieren können.</p>
+
+    <div [ngSwitch]="booking == null"
+         class="text-center text-bold text-large">
+      <div *ngSwitchCase="true"
+           class="d-flex flex-column">
+        <div class="text-center">Sie sind nicht für den FIT am {{event.eventDate | date:'longDate'}} angemeldet</div>
+        <button class="btn btn-primary text-bold mt-2 mx-auto"
+                [routerLink]="['/']">
+          Zur FIT-Anmeldung
+        </button>
+      </div>
+
+      <div *ngSwitchDefault
+           class="d-flex flex-column my-4">
+        <div>Sie haben sich bereits für den FIT am {{event.eventDate | date:'longDate'}} angemeldet.
+        </div>
+        <button class="btn btn-success text-bold mt-2 mx-auto"
+                [routerLink]="['/fit','anmelden']">
+          <i class="fa fa-pencil"></i>
+          Anmeldung bearbeiten
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

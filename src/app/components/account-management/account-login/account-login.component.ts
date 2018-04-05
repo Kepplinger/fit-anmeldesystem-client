@@ -27,7 +27,9 @@ export class AccountLoginComponent {
     let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
 
     if (response != null && response.error == null) {
-      if (response.oldBooking != null) {
+      if (response.graduate != null) {
+        this.accountManagementService.setGraduate(response.graduate);
+      } else if (response.oldBooking != null) {
         this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
       } else if (response.currentBooking != null) {
         this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
