@@ -17,7 +17,8 @@ import {SortService} from '../../../../core/app-services/sort-service.service';
   styleUrls: ['./booking-list.component.scss']
 })
 export class BookingListComponent implements OnInit,OnDestroy {
-
+  nameSearch: string ="";
+  placeSearch: string= "";
   @Output()
   sorted = new EventEmitter();
 
@@ -27,6 +28,11 @@ export class BookingListComponent implements OnInit,OnDestroy {
   public bookings: Booking[];
   public loading: boolean = true;
   public imageDownloadLink: string;
+  public tmpBookings:Booking[];
+
+  public checkedBasic:string = '-1';
+  public checkedSponsor:string = '-1';
+  public checkedPremium:string = '-1';
 
   public constructor(private bookingDAO: BookingDAO,
                      private eventService: EventService,
@@ -40,6 +46,7 @@ export class BookingListComponent implements OnInit,OnDestroy {
 
   public async ngOnInit(): Promise<void> {
     this.bookings = await this.bookingDAO.fetchAllBookings();
+    this.tmpBookings = this.bookings;
     this.loading = false;
     this.columnSortedSubscription = this.sortService.columnSorted$.subscribe(event => {
       this.sorted.emit(event);
@@ -114,6 +121,49 @@ export class BookingListComponent implements OnInit,OnDestroy {
       }
     }
     });
+  }
+
+  public searchName(){
+    this.bookings=this.tmpBookings.filter(c => c.company.name.toLowerCase().includes(this.nameSearch.toLowerCase()));//.filter(e=>e.location.number.toLowerCase().includes(this.placeSearch.toLowerCase()));
+  }
+  public helper:Booking[];
+
+  public tickCheckbox(tmp:number){
+    this.helper=[];
+    if(tmp==0)
+    {
+      if(this.checkedBasic=='Basispaket')
+        this.checkedBasic='-1';
+      else
+        this.checkedBasic='Basispaket';
+    }
+    if(tmp==1)
+    {
+      if(this.checkedSponsor=='Sponsorpaket')
+        this.checkedSponsor='-1';
+      else
+        this.checkedSponsor='Sponsorpaket';
+    }
+    if(tmp==2){
+      if(this.checkedPremium=='Vortragspaket')
+        this.checkedPremium='-1';
+      else
+        this.checkedPremium='Vortragspaket';
+    }
+    if(this.checkedBasic=='-1'&&this.checkedSponsor=='-1'&&this.checkedPremium=='-1')
+    {
+      this.bookings=this.tmpBookings;
+    }
+    else {
+      this.bookings = [];
+      console.log(this.helper);
+      this.bookings = this.bookings.concat(this.tmpBookings.filter(c => c.fitPackage.name.toLowerCase()
+        .includes(this.checkedBasic.toLowerCase())), this.tmpBookings.filter(c => c.fitPackage.name.toLowerCase()
+        .includes(this.checkedSponsor.toLowerCase())),this.tmpBookings.filter(c => c.fitPackage.name.toLowerCase()
+        .includes(this.checkedSponsor.toLowerCase())));
+      console.log(this.helper);
+    }
+
   }
 
 }

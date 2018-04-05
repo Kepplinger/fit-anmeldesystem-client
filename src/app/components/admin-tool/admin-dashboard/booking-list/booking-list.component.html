@@ -2,6 +2,14 @@
 
   <div class="d-flex mb-1">
     <h1>Anmeldungen</h1>
+    <input type="text" class="form-control" placeholder="Suche Firma mit Namen..." aria-label="Search" [(ngModel)]="nameSearch" (input)="searchName()">
+    <input type="text" class="form-control" placeholder="Suche Firma mit Standplatz..." aria-label="Search" [(ngModel)]="placeSearch" (input)="searchName()">
+
+
+    <input type="checkbox" (click)="tickCheckbox(0)"> Show all Basic<br>
+    <input type="checkbox" (click)="tickCheckbox(1)"> Show all Sponsor<br>
+    <input type="checkbox" (click)="tickCheckbox(2)"> Show all Premium<br>
+
     <div class="flex-1"></div>
     <div class="booking-tool-btn my-2 mr-3"
          (click)="routeToCsvExport()">
