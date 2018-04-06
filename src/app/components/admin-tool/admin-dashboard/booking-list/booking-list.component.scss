@@ -21,3 +21,7 @@
     transform: translateY(3px) translateX(-3px);
   }
 }
+
+.hooverable:hover{
+  cursor: pointer;
+}

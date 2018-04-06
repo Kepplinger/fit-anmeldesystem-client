@@ -2,6 +2,14 @@
 
   <div class="d-flex mb-1">
     <h1>Anmeldungen</h1>
+    <input type="text" class="form-control" placeholder="Suche Firma mit Namen..." aria-label="Search" [(ngModel)]="nameSearch" (input)="searchName()">
+    <input type="text" class="form-control" placeholder="Suche Firma mit Standplatz..." aria-label="Search" [(ngModel)]="placeSearch" (input)="searchName()">
+
+
+    <input type="checkbox" (click)="tickCheckbox(0)"> Show all Basic<br>
+    <input type="checkbox" (click)="tickCheckbox(1)"> Show all Sponsor<br>
+    <input type="checkbox" (click)="tickCheckbox(2)"> Show all Premium<br>
+
     <div class="flex-1"></div>
     <div class="booking-tool-btn my-2 mr-3"
          (click)="routeToCsvExport()">
@@ -16,19 +24,20 @@
     </a>
   </div>
 
-  <table class="table">
-
+  <table class="table" sortable-table (sorted)="onSorted($event)">
+  <thead>
     <tr>
-      <th>Firma</th>
-      <th>Anmeldezeitpunkt</th>
-      <th>Standplatz</th>
-      <th>Kontakt - E-Email</th>
-      <th>Paket</th>
+      <th class="hooverable" sortable-column="company.name" sort-direction="asc">Firma</th>
+      <th class="hooverable" sortable-column="creationDate" sort-direction="asc">Anmeldezeitpunkt</th>
+      <th class="hooverable" sortable-column="location.number" sort-direction="asc">Standplatz</th>
+      <th>Kontakt - E-Mail</th>
+      <th class="hooverable" sortable-column="fitPackage.name" sort-direction="asc">Paket</th>
       <th>Abs-Mitglied</th>
       <th>Status</th>
       <th></th>
     </tr>
-
+  </thead>
+<tbody>
     <tr *ngFor="let booking of bookings">
       <td>{{booking.company?.name}}</td>
       <td>{{booking.creationDate | date:'medium'}}</td>
@@ -44,7 +53,7 @@
         </div>
       </td>
     </tr>
-
+</tbody>
   </table>
 
   <div *ngIf="loading" class="text-center mt-3">

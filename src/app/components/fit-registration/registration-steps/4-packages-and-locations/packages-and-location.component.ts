@@ -4,6 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { Package } from '../../../../core/model/package';
 import { PackageDAO } from '../../../../core/dao/package.dao';
+import {PickedFile} from '../../../../libs/file-picker/picked-file';
+import {FilePickerError} from '../../../../libs/file-picker/file-picker-error';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -30,6 +32,9 @@ export class PackagesAndLocationComponent implements OnInit {
   public basicPackage: Package = new Package();
   public sponsorPackage: Package = new Package();
   public lecturePackage: Package = new Package();
+
+
+  public logo: PickedFile;
 
   public constructor(private packageDAO: PackageDAO) {
   }
@@ -70,6 +75,19 @@ export class PackagesAndLocationComponent implements OnInit {
 
   public isPackageSelected(packageType: FitPackage): boolean {
     return packageType <= this.selectedPackage;
+  }
+
+  public filePicked(file: PickedFile | FilePickerError): void {
+    if (file instanceof PickedFile) {
+      this.logo = file;
+      this.stepFormGroup.controls['presentationFile'].setValue(this.logo.dataURL);
+    } else if (file === FilePickerError.FileTooBig) {
+      console.log('too big');
+    } else if (file === FilePickerError.InvalidFileType) {
+      console.log('invalid file type');
+    } else if (file === FilePickerError.UndefinedInput) {
+      console.log('undefined input');
+    }
   }
 
   public getSelectedPackage(packageType: FitPackage): Package {
