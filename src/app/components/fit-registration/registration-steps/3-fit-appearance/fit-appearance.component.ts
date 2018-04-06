@@ -41,16 +41,19 @@ export class FitAppearanceComponent implements OnInit {
 
     this.bookingRegistrationService.bookingFilled.subscribe(
       () => {
-        // this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
-        // this.representatives = this.resourceFormArray.value;
-        //
-        // this.representatives.forEach(r => {
-        //   this.touchedRepresentatives.push({
-        //     representative: r,
-        //     name: false,
-        //     email: false
-        //   });
-        // })
+        console.log(this.representatives);
+        this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+        this.representatives = (<FormArray>this.stepFormGroup.get('representatives')).value;
+        console.log(this.representatives);
+
+        this.representatives.forEach(r => {
+          this.touchedRepresentatives.push({
+            representative: r,
+            name: false,
+            email: false
+          });
+        });
+
       }
     );
   }
