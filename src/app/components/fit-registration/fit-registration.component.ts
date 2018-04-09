@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -29,7 +29,7 @@ import 'rxjs/add/operator/map';
 export class FitRegistrationComponent implements OnInit {
 
   // necessary for template-usage
-  Step = FitRegistrationStep;
+  public Step = FitRegistrationStep;
 
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
@@ -261,10 +261,6 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private fillFormWithBooking(): void {
-
-    // let temp = new FormArray(this.booking.establishmentsAut.map(e => new FormControl(e)))
-
-    console.log(this.booking.establishmentsAut);
 
     this.fitFormGroup.patchValue({
       detailedData: {

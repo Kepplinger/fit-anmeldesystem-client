@@ -17,15 +17,12 @@ import { SortService } from '../../../../core/app-services/sort-service.service'
   styleUrls: ['./booking-list.component.scss']
 })
 export class BookingListComponent implements OnInit, OnDestroy {
-  nameSearch: string = '';
-  placeSearch: string = '';
+
   @Output()
-  sorted = new EventEmitter();
-
-  private columnSortedSubscription: Subscription;
-
+  public sorted = new EventEmitter();
 
   public bookings: Booking[];
+
   public loading: boolean = true;
   public imageDownloadLink: string;
   public tmpBookings: Booking[];
@@ -33,6 +30,11 @@ export class BookingListComponent implements OnInit, OnDestroy {
   public checkedBasic: string = '-1';
   public checkedSponsor: string = '-1';
   public checkedPremium: string = '-1';
+
+  public nameSearch: string = '';
+  public placeSearch: string = '';
+
+  private columnSortedSubscription: Subscription;
 
   public constructor(private bookingDAO: BookingDAO,
                      private eventService: EventService,
@@ -64,15 +66,17 @@ export class BookingListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/admin-tool', 'anmeldung', booking.id]);
   }
 
-  ngOnDestroy() {
-    this.columnSortedSubscription.unsubscribe();
+  public ngOnDestroy(): void {
+    if (this.columnSortedSubscription != null) {
+      this.columnSortedSubscription.unsubscribe();
+    }
   }
 
-  onSorted($event) {
-    this.sortList($event);
+  public onSorted(event: any): void {
+    this.sortList(event);
   }
 
-  private sortList($event: CustomerSearchCriteria) {
+  private sortList($event: CustomerSearchCriteria): void {
     this.bookings = this.getCustomers($event);
   }
 

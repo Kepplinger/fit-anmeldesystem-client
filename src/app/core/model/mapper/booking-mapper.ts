@@ -31,8 +31,8 @@ export class BookingMapper {
       booking.homepage = bookingJson.homepage;
       booking.email = bookingJson.email;
       booking.phoneNumber = bookingJson.phoneNumber;
-      booking.establishmentsAut = bookingJson.establishmentsAut.split(';');
-      booking.establishmentsInt = bookingJson.establishmentsInt.split(';');
+      booking.establishmentsAut = bookingJson.establishmentsAut.split(';').filter(e => e !== '');
+      booking.establishmentsInt = bookingJson.establishmentsInt.split(';').filter(e => e !== '');
       booking.establishmentsCountAut = bookingJson.establishmentsCountAut;
       booking.establishmentsCountInt = bookingJson.establishmentsCountInt;
 
