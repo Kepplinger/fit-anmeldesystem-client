@@ -221,8 +221,11 @@
         <label class="my-auto">Firmenbeschreibung:</label>
       </div>
 
-      <div class="my-2" id="description" (keypress)="storeFroala()" (click)="tickBranches()"  [froalaEditor]="options">
-
+      <div class="my-2"
+           id="description"
+           [froalaEditor]="options"
+           [(froalaModel)]="companyDescription"
+           (input)="updateDescription()">
       </div>
 
       <!--establishments-->
@@ -275,25 +278,6 @@
 
       <div class="row">
 
-        <!--desiredBranches-->
-        <!--<div class="col-6">-->
-          <!--<h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>-->
-
-          <!--<div *ngFor="let branch of branches; let index = index"-->
-               <!--class="checkbox mx-2">-->
-            <!--<label [id]="'checkboxBranch' + index">-->
-              <!--<input type="checkbox"-->
-                     <!--(change)="branchChanged(branch, $event)"-->
-                     <!--[checked]="isBranchSelected(branch)">-->
-              <!--<span class="cr"><i class="cr-icon fa fa-check"></i></span>-->
-              <!--{{branch.name}}-->
-            <!--</label>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--provide-->
-
-
           <!--desiredBranches-->
           <div class="col-6">
             <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
@@ -309,7 +293,6 @@
                 {{branch.name}}
               </label>
             </div>
-
           </div>
 
           <!--provide-->
@@ -401,7 +384,7 @@
                      fitFilePicker
                      [accept]="'image/*'"
                      [maxSize]="2000000"
-                     (filePick)="onImagePick($event, representative)"/>
+                     (filePick)="representativeImagePicked($event, representative)"/>
                 <div class="invalid-message invalid-message-container"></div>
               </td>
             </tr>
@@ -452,118 +435,133 @@
       <div class="mb-4">
         <h5 class="text-bold m-0">FIT-Paket</h5>
 
-        <div class="card-deck">
+        <div *ngFor="let fitPackage of packages"
+             class="custom-control custom-radio custom-control-inline">
+          <input class="custom-control-input cursor-pointer"
+                 type="radio"
+                 [id]="'package' + fitPackage.discriminator"
+                 [value]="fitPackage.discriminator"
+                 title="package">
 
-          <!--basic fitPackage-->
-          <div class="pointer card text-white bg-info m-3 disabled" id="basicPack"
-               (click)="togglePackage(Package.BasicPack)">
-            <div class="card-header text-center">
-              <div class="stars">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-              </div>
-              {{basicPackage?.name}}
-            </div>
-
-            <ul class="list-group list-group-flush flex-filler">
-              <li class="list-group-item">
-                Stand am FIT
-              </li>
-              <li class="list-group-item">
-                Kategorie B Platz
-              </li>
-              <li class="list-group-item h-100">
-                Eintrag im Flyer
-              </li>
-            </ul>
-
-            <div class="card-footer d-flex">
-        <span class="flex-filler  my-auto">
-          <i class="fa fa-2x fa-check-square"></i>
-        </span>
-              <span class="package-price">{{basicPackage?.price}} €</span>
-            </div>
-          </div>
-
-          <!--sponsor fitPackage-->
-          <div class="pointer card text-white bg-danger  m-3" id="sponsorPack"
-               [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
-                      'enabled':!isPackageSelected(Package.SponsorPack)}"
-               (click)="togglePackage(Package.SponsorPack)">
-            <div class="card-header text-center">
-              <div class="stars">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-              </div>
-              {{sponsorPackage?.name}}
-            </div>
-
-            <ul class="list-group list-group-flush flex-filler">
-              <li class="list-group-item text-bold">
-                beinhaltet {{basicPackage?.name}}
-              </li>
-              <li class="list-group-item">
-                Kategorie A Platz
-              </li>
-              <li class="list-group-item h-100">
-                Logo auf: Plakat, Homepage, Flyer
-              </li>
-            </ul>
-
-            <div class="card-footer d-flex">
-        <span class="flex-filler  my-auto">
-          <i class="fa fa-2x"
-             [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),
-                         'fa-check-square': isPackageSelected(Package.SponsorPack)}">
-          </i>
-        </span>
-              <span class="mt-auto mb-1 mr-1">+ {{sponsorPackage?.price - basicPackage?.price}} € =</span>
-              <span class="package-price">{{sponsorPackage?.price}} €</span>
-            </div>
-          </div>
-
-          <!--lecture fitPackage-->
-          <div class="pointer card text-white bg-sponsor m-3" id="lecturePack"
-               [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
-                      'enabled':!isPackageSelected(Package.LecturePack)}"
-               (click)="togglePackage(Package.LecturePack)">
-
-            <div class="card-header text-center">
-              <div class="stars">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-              {{lecturePackage?.name}}
-            </div>
-
-            <ul class="list-group list-group-flush flex-filler">
-              <li class="list-group-item text-bold">
-                beinhaltet {{sponsorPackage?.name}}
-              </li>
-              <li class="list-group-item h-100">
-                Antrag für einen Vortrag:
-                <ul>
-                  <li>vor vielen Klassen</li>
-                  <li>eigener Raum</li>
-                </ul>
-              </li>
-            </ul>
-
-            <div class="card-footer d-flex">
-        <span class="flex-filler my-auto">
-          <i class="fa fa-2x"
-             [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
-                         'fa-check-square': isPackageSelected(Package.LecturePack)}">
-          </i>
-        </span>
-              <span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>
-              <span class="package-price">{{lecturePackage?.price}} €</span>
-            </div>
-          </div>
+          <label class="custom-control-label my-auto cursor-pointer"
+                 [for]="'package' + fitPackage.discriminator"
+                 [id]="'packageLabel' + fitPackage.discriminator">
+            {{fitPackage.name}}
+          </label>
         </div>
+
+        <!--<div class="card-deck">-->
+
+          <!--&lt;!&ndash;basic fitPackage&ndash;&gt;-->
+          <!--<div class="pointer card text-white bg-info m-3 disabled" id="basicPack"-->
+               <!--(click)="togglePackage(Package.BasicPack)">-->
+            <!--<div class="card-header text-center">-->
+              <!--<div class="stars">-->
+                <!--<i class="fa fa-star"></i>-->
+                <!--<i class="fa fa-star-o"></i>-->
+                <!--<i class="fa fa-star-o"></i>-->
+              <!--</div>-->
+              <!--{{basicPackage?.name}}-->
+            <!--</div>-->
+
+            <!--<ul class="list-group list-group-flush flex-filler">-->
+              <!--<li class="list-group-item">-->
+                <!--Stand am FIT-->
+              <!--</li>-->
+              <!--<li class="list-group-item">-->
+                <!--Kategorie B Platz-->
+              <!--</li>-->
+              <!--<li class="list-group-item h-100">-->
+                <!--Eintrag im Flyer-->
+              <!--</li>-->
+            <!--</ul>-->
+
+            <!--<div class="card-footer d-flex">-->
+        <!--<span class="flex-filler  my-auto">-->
+          <!--<i class="fa fa-2x fa-check-square"></i>-->
+        <!--</span>-->
+              <!--<span class="package-price">{{basicPackage?.price}} €</span>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--&lt;!&ndash;sponsor fitPackage&ndash;&gt;-->
+          <!--<div class="pointer card text-white bg-danger  m-3" id="sponsorPack"-->
+               <!--[ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),-->
+                      <!--'enabled':!isPackageSelected(Package.SponsorPack)}"-->
+               <!--(click)="togglePackage(Package.SponsorPack)">-->
+            <!--<div class="card-header text-center">-->
+              <!--<div class="stars">-->
+                <!--<i class="fa fa-star"></i>-->
+                <!--<i class="fa fa-star"></i>-->
+                <!--<i class="fa fa-star-o"></i>-->
+              <!--</div>-->
+              <!--{{sponsorPackage?.name}}-->
+            <!--</div>-->
+
+            <!--<ul class="list-group list-group-flush flex-filler">-->
+              <!--<li class="list-group-item text-bold">-->
+                <!--beinhaltet {{basicPackage?.name}}-->
+              <!--</li>-->
+              <!--<li class="list-group-item">-->
+                <!--Kategorie A Platz-->
+              <!--</li>-->
+              <!--<li class="list-group-item h-100">-->
+                <!--Logo auf: Plakat, Homepage, Flyer-->
+              <!--</li>-->
+            <!--</ul>-->
+
+            <!--<div class="card-footer d-flex">-->
+        <!--<span class="flex-filler  my-auto">-->
+          <!--<i class="fa fa-2x"-->
+             <!--[ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),-->
+                         <!--'fa-check-square': isPackageSelected(Package.SponsorPack)}">-->
+          <!--</i>-->
+        <!--</span>-->
+              <!--<span class="mt-auto mb-1 mr-1">+ {{sponsorPackage?.price - basicPackage?.price}} € =</span>-->
+              <!--<span class="package-price">{{sponsorPackage?.price}} €</span>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--&lt;!&ndash;lecture fitPackage&ndash;&gt;-->
+          <!--<div class="pointer card text-white bg-sponsor m-3" id="lecturePack"-->
+               <!--[ngClass]="{'disabled': isPackageSelected(Package.LecturePack),-->
+                      <!--'enabled':!isPackageSelected(Package.LecturePack)}"-->
+               <!--(click)="togglePackage(Package.LecturePack)">-->
+
+            <!--<div class="card-header text-center">-->
+              <!--<div class="stars">-->
+                <!--<i class="fa fa-star"></i>-->
+                <!--<i class="fa fa-star"></i>-->
+                <!--<i class="fa fa-star"></i>-->
+              <!--</div>-->
+              <!--{{lecturePackage?.name}}-->
+            <!--</div>-->
+
+            <!--<ul class="list-group list-group-flush flex-filler">-->
+              <!--<li class="list-group-item text-bold">-->
+                <!--beinhaltet {{sponsorPackage?.name}}-->
+              <!--</li>-->
+              <!--<li class="list-group-item h-100">-->
+                <!--Antrag für einen Vortrag:-->
+                <!--<ul>-->
+                  <!--<li>vor vielen Klassen</li>-->
+                  <!--<li>eigener Raum</li>-->
+                <!--</ul>-->
+              <!--</li>-->
+            <!--</ul>-->
+
+            <!--<div class="card-footer d-flex">-->
+        <!--<span class="flex-filler my-auto">-->
+          <!--<i class="fa fa-2x"-->
+             <!--[ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),-->
+                         <!--'fa-check-square': isPackageSelected(Package.LecturePack)}">-->
+          <!--</i>-->
+        <!--</span>-->
+              <!--<span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>-->
+              <!--<span class="package-price">{{lecturePackage?.price}} €</span>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
 
       <div class="mb-4">

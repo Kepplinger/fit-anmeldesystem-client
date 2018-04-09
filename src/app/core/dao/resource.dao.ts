@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppConfig } from '../app-config/app-config.service';
 import { HttpClient } from '@angular/common/http';
-import { ResourceBooking } from '../model/resource-booking';
+import { Resource } from '../model/resource';
 
 @Injectable()
 export class ResourceDAO {
@@ -10,7 +10,7 @@ export class ResourceDAO {
                      private http: HttpClient) {
   }
 
-  public async fetchResources(): Promise<ResourceBooking[]> {
+  public async fetchResources(): Promise<Resource[]> {
 
     // return [
     //   new Resource('WLAN', '', 1),
@@ -19,7 +19,7 @@ export class ResourceDAO {
     //   new Resource('Sessel', '', 4)
     // ];
 
-    return this.http.get<ResourceBooking[]>(this.appConfig.serverURL + '/resource')
+    return this.http.get<Resource[]>(this.appConfig.serverURL + '/resource')
       .toPromise();
   }
 }

@@ -6,7 +6,7 @@ import { Package } from '../../../../core/model/package';
 import { PackageDAO } from '../../../../core/dao/package.dao';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
-import { ResourceBooking } from '../../../../core/model/resource-booking';
+import { Resource } from '../../../../core/model/resource';
 import { ResourceDAO } from '../../../../core/dao/resource.dao';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { ResourceBooking } from '../../../../core/model/resource-booking';
+import { Resource } from '../../../../core/model/resource';
 import { ResourceDAO } from '../../../../core/dao/resource.dao';
 import { Representative } from '../../../../core/model/representative';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
@@ -27,7 +27,7 @@ export class FitAppearanceComponent implements OnInit {
   public areRepresentativesTouched: boolean = false;
 
   public representatives: Representative[] = [];
-  public resources: ResourceBooking[] = [];
+  public resources: Resource[] = [];
   public resourceFormArray: FormArray = null;
   public touchedRepresentatives: any[] = [];
 
@@ -87,7 +87,7 @@ export class FitAppearanceComponent implements OnInit {
     representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
   }
 
-  public resourceChanged(resource: ResourceBooking, event: any): void {
+  public resourceChanged(resource: Resource, event: any): void {
     if (event.target.checked) {
       this.resourceFormArray.push(new FormControl(resource));
     } else {
@@ -99,7 +99,7 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
-  public isResourceSelected(resource: ResourceBooking): boolean {
+  public isResourceSelected(resource: Resource): boolean {
     return FormArrayUtils.indexOf(this.resourceFormArray, resource) !== -1;
   }
 

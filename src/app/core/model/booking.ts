@@ -4,7 +4,7 @@ import { Location } from './location';
 import { Event } from './event';
 import { Branch } from './branch';
 import { Representative } from './representative';
-import { ResourceBooking } from './resource-booking';
+import { Resource } from './resource';
 import { Package } from './package';
 import { Moment } from 'moment';
 
@@ -19,7 +19,7 @@ export class Booking {
   public presentation: Presentation;
   public representatives: Representative[];
   public branches: Branch[];
-  public resources: ResourceBooking[];
+  public resources: Resource[];
 
   public isAccepted: boolean;
   public remarks: string;
@@ -48,7 +48,7 @@ export class Booking {
                      presentation?: Presentation,
                      representatives?: Representative[],
                      branches?: Branch[],
-                     resources?: ResourceBooking[],
+                     resources?: Resource[],
                      remarks?: string,
                      additionalInfo?: string,
                      companyDescription?: string,
