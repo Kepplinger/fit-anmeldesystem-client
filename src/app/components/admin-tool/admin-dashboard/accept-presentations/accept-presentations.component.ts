@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
-import { promise } from 'selenium-webdriver';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 
 declare let $;
 
 @Component({
-  selector: 'fit-accept-lectures',
-  templateUrl: './accept-lectures.component.html',
-  styleUrls: ['./accept-lectures.component.scss']
+  selector: 'fit-accept-presentations',
+  templateUrl: './accept-presentations.component.html',
+  styleUrls: ['./accept-presentations.component.scss']
 })
-export class AcceptLecturesComponent implements OnInit {
+export class AcceptPresentationsComponent implements OnInit {
 
   public chosenEntry: any;
   public listOfLectures: any[] = [];
@@ -21,7 +20,6 @@ export class AcceptLecturesComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.listOfLectures = await this.companyDAO.fetchCompaniesAndPresentations(1);
-    console.log(this.listOfLectures);
   }
 
   public async removeLecture(entry: any): Promise<void> {

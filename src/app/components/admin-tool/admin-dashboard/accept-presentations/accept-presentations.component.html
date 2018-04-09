@@ -13,24 +13,24 @@
           <th></th>
         </tr>
 
-        <tr *ngFor="let entry of listOfLectures" class="bg-warning">
-          <td class="text-bold align-middle">{{entry.companyName}}</td>
+        <tr *ngFor="let lecture of listOfLectures" class="bg-warning">
+          <td class="text-bold align-middle">{{lecture.companyName}}</td>
           <td>
-           {{entry.presentationTitle}}
+            {{lecture.presentationTitle}}
           </td>
           <td>
-            {{entry.presentationDescr}}
+            {{lecture.presentationDescr}}
           </td>
           <td class="align-middle d-flex flex-column">
             <button class="btn btn-sm btn-success buttonwidth"
-                    (click)="verifyLecture(entry)">
+                    (click)="verifyLecture(lecture)">
               <i class="fa fa-fw fa-check"></i>
             </button>
           </td>
           <td>
             <button class="btn btn-sm btn-danger buttonwidth"
                     data-toggle="modal" data-target="#myModal"
-                    (click)="setChosenEntry(entry)">
+                    (click)="setChosenEntry(lecture)">
               <i class="fa fa-fw fa-times"></i>
             </button>
           </td>

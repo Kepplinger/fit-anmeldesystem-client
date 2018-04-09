@@ -48,7 +48,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.bookings = await this.bookingDAO.fetchAllBookings();
+    this.bookings = await this.bookingDAO.fetchAllBookingsForEvent(this.eventService.selectedEvent.getValue());
     this.tmpBookings = this.bookings;
     this.loading = false;
     this.columnSortedSubscription = this.sortService.columnSorted$.subscribe(event => {

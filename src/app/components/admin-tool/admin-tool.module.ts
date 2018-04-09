@@ -22,7 +22,7 @@ import { ChangelogComponent } from './admin-dashboard/changelog/changelog.compon
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
 import { BookingCsvExportComponent } from './admin-dashboard/booking-list/booking-csv-export/booking-csv-export.component';
 import { PapaParseModule } from 'ngx-papaparse';
-import { AcceptLecturesComponent } from './admin-dashboard/accept-lectures/accept-lectures.component';
+import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
 import {
   LocationPickerModalComponent
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
@@ -49,7 +49,7 @@ import {SortableTableDirective} from './admin-dashboard/booking-list/sortable-ta
     AdminLoginComponent,
     AdminHeaderComponent,
     AdminDashboardComponent,
-    AcceptLecturesComponent,
+    AcceptPresentationsComponent,
     BookingListComponent,
     BookingDetailsComponent,
     EditFitEventComponent,

@@ -10,7 +10,7 @@ import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
 import { BookingCsvExportComponent } from './admin-dashboard/booking-list/booking-csv-export/booking-csv-export.component';
-import { AcceptLecturesComponent } from './admin-dashboard/accept-lectures/accept-lectures.component';
+import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
 
 export const routes: Routes = [
   {
@@ -103,7 +103,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: AcceptLecturesComponent,
+            component: AcceptPresentationsComponent,
             outlet: 'adminOutlet'
           }
         ]
