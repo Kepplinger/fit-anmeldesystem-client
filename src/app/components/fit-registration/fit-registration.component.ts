@@ -103,6 +103,7 @@ export class FitRegistrationComponent implements OnInit {
         location: [null, Validators.required],
         presentationTitle: [''],
         presentationDescription: [''],
+        presentationBranches: this.fb.array([]),
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
@@ -254,6 +255,7 @@ export class FitRegistrationComponent implements OnInit {
         this.fitFormGroup.value.packagesAndLocation.presentationDescription,
         false,
         this.fitFormGroup.value.packagesAndLocation.presentationFile,
+        this.fitFormGroup.value.packagesAndLocation.presentationBranches
       )
     } else {
       return null;
@@ -292,7 +294,8 @@ export class FitRegistrationComponent implements OnInit {
         packagesAndLocation: {
           presentationTitle: this.booking.presentation.title,
           presentationDescription: this.booking.presentation.description,
-          // presentationFile: this.booking.presentation.fileUrl
+          presentationFile: this.booking.presentation.fileUrl,
+          presentationBranches: this.booking.presentation.branches
         }
       });
     }

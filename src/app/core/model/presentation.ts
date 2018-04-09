@@ -7,7 +7,7 @@ export class Presentation {
   public title: string;
   public description: string;
   public roomNumber: string;
-  public isAccepted: boolean; // TODO is accepted
+  public isAccepted: boolean;
   public fileUrl: string;
   public branches: Branch[] = [];
 
