@@ -278,67 +278,47 @@
 
       <div class="row">
 
-          <!--desiredBranches-->
-          <div class="col-6">
-            <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
+        <!--desiredBranches-->
+        <div class="col-6">
+          <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
 
-            <div *ngFor="let branch of branches; let index = index"
-                 class="checkbox mx-2">
-              <label [id]="'checkboxBranch' + index">
-                <input type="checkbox"
-                       [id]="'checkbox' + (index+1)"
-                       (change)="branchChanged(branch, $event)"
-                       [checked]="isBranchSelected(branch)">
-                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                {{branch.name}}
-              </label>
-            </div>
-          </div>
-
-          <!--provide-->
-          <div class="col-6">
-            <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
-
-            <div class="checkbox mx-2">
-              <label id="providesSummerJob">
-                <input type="checkbox"
-                       formControlName="providesSummerJob">
-                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                Ferialjobs/Ferialpraktika
-              </label>
-            </div>
-
-            <div class="checkbox mx-2">
-              <label id="providesThesis">
-                <input type="checkbox"
-                       formControlName="providesThesis">
-                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                Diplomarbeiten
-              </label>
-            </div>
-          </div>
-
-        </div>
-      <!--logo-->
-      <div class="form-group row mb-3 mt-3">
-        <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
-        <div class="input-group col-md-9"
-             fitFilePicker
-             [accept]="'image/*'"
-             [maxSize]="2000000"
-             (filePick)="filePicked($event)">
-          <input class="form-control"
-                 id="logo"
-                 type="text"
-                 [value]="logo?.name"
-                 placeholder="Logo auswählen..."
-                 disabled>
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button">Druchsuchen</button>
+          <div *ngFor="let branch of branches; let index = index"
+               class="checkbox mx-2">
+            <label [id]="'checkboxBranch' + index">
+              <input type="checkbox"
+                     [id]="'checkbox' + (index+1)"
+                     (change)="branchChanged(branch, $event)"
+                     [checked]="isBranchSelected(branch)">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              {{branch.name}}
+            </label>
           </div>
         </div>
+
+        <!--provide-->
+        <div class="col-6">
+          <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
+
+          <div class="checkbox mx-2">
+            <label id="providesSummerJob">
+              <input type="checkbox"
+                     formControlName="providesSummerJob">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              Ferialjobs/Ferialpraktika
+            </label>
+          </div>
+
+          <div class="checkbox mx-2">
+            <label id="providesThesis">
+              <input type="checkbox"
+                     formControlName="providesThesis">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              Diplomarbeiten
+            </label>
+          </div>
+        </div>
+
       </div>
-
 
       <div class="mb-4">
         <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
@@ -405,7 +385,8 @@
                        title="representativeEmail">
 
                 <div class="invalid-message invalid-message-container">
-                  <span *ngIf="isRepresentativeEmpty(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
+                  <span *ngIf="isRepresentativeEmpty(representative, 'name')"
+                        class="mr-1">Name darf nicht leer sein!</span>
                   <span *ngIf="isRepresentativeEmpty(representative, 'email')">E-Email darf nicht leer sein!</span>
                 </div>
               </td>
@@ -422,15 +403,16 @@
       </div>
 
       <div class="form-group row">
-         <label for="remarks" class="col-md-3 col-form-label"><h5>Benötigte Gegenstände</h5></label>
-         <div class="col-md-9">
+        <label for="remarks" class="col-md-3 col-form-label">Benötigte Gegenstände</label>
+        <div class="col-md-9">
        <textarea class="form-control"
                  id="additionalInfo"
                  rows="4"
-                 formControlName="additionalInfo">
+                 formControlName="additionalInfo"
+                 title="additionalInfo">
        </textarea>
-         </div>
-       </div>
+        </div>
+      </div>
 
       <div class="mb-4">
         <h5 class="text-bold m-0">FIT-Paket</h5>
@@ -439,8 +421,9 @@
              class="custom-control custom-radio custom-control-inline">
           <input class="custom-control-input cursor-pointer"
                  type="radio"
+                 formControlName="fitPackage"
                  [id]="'package' + fitPackage.discriminator"
-                 [value]="fitPackage.discriminator"
+                 [value]="fitPackage"
                  title="package">
 
           <label class="custom-control-label my-auto cursor-pointer"
@@ -449,119 +432,6 @@
             {{fitPackage.name}}
           </label>
         </div>
-
-        <!--<div class="card-deck">-->
-
-          <!--&lt;!&ndash;basic fitPackage&ndash;&gt;-->
-          <!--<div class="pointer card text-white bg-info m-3 disabled" id="basicPack"-->
-               <!--(click)="togglePackage(Package.BasicPack)">-->
-            <!--<div class="card-header text-center">-->
-              <!--<div class="stars">-->
-                <!--<i class="fa fa-star"></i>-->
-                <!--<i class="fa fa-star-o"></i>-->
-                <!--<i class="fa fa-star-o"></i>-->
-              <!--</div>-->
-              <!--{{basicPackage?.name}}-->
-            <!--</div>-->
-
-            <!--<ul class="list-group list-group-flush flex-filler">-->
-              <!--<li class="list-group-item">-->
-                <!--Stand am FIT-->
-              <!--</li>-->
-              <!--<li class="list-group-item">-->
-                <!--Kategorie B Platz-->
-              <!--</li>-->
-              <!--<li class="list-group-item h-100">-->
-                <!--Eintrag im Flyer-->
-              <!--</li>-->
-            <!--</ul>-->
-
-            <!--<div class="card-footer d-flex">-->
-        <!--<span class="flex-filler  my-auto">-->
-          <!--<i class="fa fa-2x fa-check-square"></i>-->
-        <!--</span>-->
-              <!--<span class="package-price">{{basicPackage?.price}} €</span>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--&lt;!&ndash;sponsor fitPackage&ndash;&gt;-->
-          <!--<div class="pointer card text-white bg-danger  m-3" id="sponsorPack"-->
-               <!--[ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),-->
-                      <!--'enabled':!isPackageSelected(Package.SponsorPack)}"-->
-               <!--(click)="togglePackage(Package.SponsorPack)">-->
-            <!--<div class="card-header text-center">-->
-              <!--<div class="stars">-->
-                <!--<i class="fa fa-star"></i>-->
-                <!--<i class="fa fa-star"></i>-->
-                <!--<i class="fa fa-star-o"></i>-->
-              <!--</div>-->
-              <!--{{sponsorPackage?.name}}-->
-            <!--</div>-->
-
-            <!--<ul class="list-group list-group-flush flex-filler">-->
-              <!--<li class="list-group-item text-bold">-->
-                <!--beinhaltet {{basicPackage?.name}}-->
-              <!--</li>-->
-              <!--<li class="list-group-item">-->
-                <!--Kategorie A Platz-->
-              <!--</li>-->
-              <!--<li class="list-group-item h-100">-->
-                <!--Logo auf: Plakat, Homepage, Flyer-->
-              <!--</li>-->
-            <!--</ul>-->
-
-            <!--<div class="card-footer d-flex">-->
-        <!--<span class="flex-filler  my-auto">-->
-          <!--<i class="fa fa-2x"-->
-             <!--[ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),-->
-                         <!--'fa-check-square': isPackageSelected(Package.SponsorPack)}">-->
-          <!--</i>-->
-        <!--</span>-->
-              <!--<span class="mt-auto mb-1 mr-1">+ {{sponsorPackage?.price - basicPackage?.price}} € =</span>-->
-              <!--<span class="package-price">{{sponsorPackage?.price}} €</span>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--&lt;!&ndash;lecture fitPackage&ndash;&gt;-->
-          <!--<div class="pointer card text-white bg-sponsor m-3" id="lecturePack"-->
-               <!--[ngClass]="{'disabled': isPackageSelected(Package.LecturePack),-->
-                      <!--'enabled':!isPackageSelected(Package.LecturePack)}"-->
-               <!--(click)="togglePackage(Package.LecturePack)">-->
-
-            <!--<div class="card-header text-center">-->
-              <!--<div class="stars">-->
-                <!--<i class="fa fa-star"></i>-->
-                <!--<i class="fa fa-star"></i>-->
-                <!--<i class="fa fa-star"></i>-->
-              <!--</div>-->
-              <!--{{lecturePackage?.name}}-->
-            <!--</div>-->
-
-            <!--<ul class="list-group list-group-flush flex-filler">-->
-              <!--<li class="list-group-item text-bold">-->
-                <!--beinhaltet {{sponsorPackage?.name}}-->
-              <!--</li>-->
-              <!--<li class="list-group-item h-100">-->
-                <!--Antrag für einen Vortrag:-->
-                <!--<ul>-->
-                  <!--<li>vor vielen Klassen</li>-->
-                  <!--<li>eigener Raum</li>-->
-                <!--</ul>-->
-              <!--</li>-->
-            <!--</ul>-->
-
-            <!--<div class="card-footer d-flex">-->
-        <!--<span class="flex-filler my-auto">-->
-          <!--<i class="fa fa-2x"-->
-             <!--[ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),-->
-                         <!--'fa-check-square': isPackageSelected(Package.LecturePack)}">-->
-          <!--</i>-->
-        <!--</span>-->
-              <!--<span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>-->
-              <!--<span class="package-price">{{lecturePackage?.price}} €</span>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
       </div>
 
       <div class="mb-4">
@@ -590,7 +460,7 @@
       </div>
 
       <h5 class="text-bold">Kontaktperson</h5>
-     <div class="form-row row my-3">
+      <div class="form-row row my-3">
         <div class="col-md-3">
           Anrede:*
         </div>
@@ -648,12 +518,12 @@
 
       <!--email-->
       <div class="form-group row mb-0">
-        <label for="email" class="col-md-3 col-form-label">Email:*</label>
+        <label for="contactEmail" class="col-md-3 col-form-label">Email:*</label>
         <div class="col-md-9">
           <input class="form-control"
                  type="text"
-                 formControlName="email"
-                 id="email"
+                 formControlName="contactEmail"
+                 id="contactEmail"
                  [ngClass]="{'is-invalid': isInvalid('email')}">
 
           <div class="invalid-message invalid-message-container">
@@ -665,12 +535,12 @@
 
       <!--phone-->
       <div class="form-group row mb-0">
-        <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
+        <label for="contactPhoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
         <div class="col-md-9">
           <input class="form-control"
                  type="text"
-                 formControlName="phoneNumber"
-                 id="phoneNumber2"
+                 formControlName="contactPhoneNumber"
+                 id="contactPhoneNumber"
                  [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
 
           <div class="invalid-message invalid-message-container">
@@ -689,10 +559,30 @@
       </textarea>
         </div>
       </div>
+
+      <!--logo-->
+      <div class="form-group row mb-3 mt-3">
+        <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>
+        <div class="input-group col-md-9"
+             fitFilePicker
+             [accept]="'image/*'"
+             [maxSize]="2000000"
+             (filePick)="filePicked($event)">
+          <input class="form-control"
+                 id="logo"
+                 type="text"
+                 [value]="logo?.name"
+                 placeholder="Logo auswählen..."
+                 disabled>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Druchsuchen</button>
+          </div>
+        </div>
+      </div>
     </form>
 
     <div style="overflow: hidden; max-width: inherit">
-    <pre style="word-break: break-all">{{ bookingFormGroup.value | json }}</pre>
+      <pre style="word-break: break-all">{{ bookingFormGroup.value | json }}</pre>
     </div>
   </div>
 </div>
