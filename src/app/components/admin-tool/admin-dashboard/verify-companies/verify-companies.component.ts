@@ -10,8 +10,8 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 })
 export class VerifyCompaniesComponent implements OnInit {
 
-  public pendingCompanies: Company[];
-  public companies: Company[];
+  public pendingCompanies: Company[] = [];
+  public companies: Company[] = [];
 
   public filterText: string = '';
   public isAssigning: boolean = false;

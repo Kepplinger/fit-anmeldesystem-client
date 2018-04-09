@@ -20,6 +20,10 @@ export class ArrayUtils {
 
 
   public static concatWithDelimiter(stringArray: string[], delimiter: string) {
-    return stringArray.map(e => e.replace(delimiter, '\\' + delimiter)).join(delimiter);
+    if (stringArray != null) {
+      return stringArray.map(e => e.replace(delimiter, '\\' + delimiter)).join(delimiter);
+    } else {
+      return '';
+    }
   }
 }

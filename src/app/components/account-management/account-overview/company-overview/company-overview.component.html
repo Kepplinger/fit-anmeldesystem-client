@@ -31,10 +31,8 @@
                  type="text"
                  formControlName="addressAdditions"
                  id="addressAdditions"
-                 [ngClass]="{'is-invalid': isInvalid('addressAdditions')}"
                  [readonly]="!isEditing">
           <div class="invalid-message invalid-message-container">
-            <span *ngIf="isEmpty('addressAdditions')" class="mr-2">Adresszusatz darf nicht leer sein!</span>
           </div>
         </div>
       </div>

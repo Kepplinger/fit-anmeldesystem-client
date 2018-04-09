@@ -8,6 +8,7 @@ import { FitHeaderComponent } from './fit-header/header.component';
 import { FitFooterComponent } from './fit-footer/footer.component';
 import { TagInputComponent } from './tag-input/tag-input.component';
 import { FormsModule } from '@angular/forms';
+import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.component';
 
 @NgModule({
   imports: [
@@ -20,13 +21,15 @@ import { FormsModule } from '@angular/forms';
     HintIconComponent,
     FitHeaderComponent,
     FitFooterComponent,
-    TagInputComponent
+    TagInputComponent,
+    CustomCheckboxComponent
   ],
   exports: [
     HintIconComponent,
     FitHeaderComponent,
     FitFooterComponent,
-    TagInputComponent
+    TagInputComponent,
+    CustomCheckboxComponent
   ]
 })
 export class SharedModule {

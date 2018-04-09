@@ -208,9 +208,9 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.homepage,
       this.fitFormGroup.value.detailedData.logo,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
-      this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
+      this.fitFormGroup.value.detailedData.establishmentsInt,
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
-      this.fitFormGroup.value.detailedData.establishmentsAut.map(e => e.value),
+      this.fitFormGroup.value.detailedData.establishmentsAut,
       false
     );
   }
