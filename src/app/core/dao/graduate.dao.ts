@@ -14,4 +14,11 @@ export class GraduateDao {
     return this.http.put<Graduate>(this.appConfig.serverURL + '/graduate', graduate)
       .toPromise();
   }
+
+  public fetchAllGraduates(): Promise<Graduate[]> {
+    return this.http.get<Graduate[]>(this.appConfig.serverURL + '/graduate')
+      .toPromise();
+  }
+
+
 }

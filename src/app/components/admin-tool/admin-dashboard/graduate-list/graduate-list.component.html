@@ -1,1 +1,35 @@
-<div>Hallo</div>
+<div class="m-5">
+
+    <h1>Absolventen</h1>
+
+  <table class="table table-striped" sortable-table (sorted)="onSorted($event)">
+    <thead>
+    <tr>
+      <th class="hooverable" sortable-column="lastName" sort-direction="asc">Nachname</th>
+      <th class="hooverable" sortable-column="firstName" sort-direction="asc">Vorname</th>
+      <th class="hooverable" sortable-column="email" sort-direction="asc">Email</th>
+      <th class="hooverable" sortable-column="address.zipCode" sort-direction="asc">PLZ</th>
+      <th class="hooverable" sortable-column="address.city" sort-direction="asc">Ort</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let graduate of graduatees">
+      <td>{{graduate?.lastName}}</td>
+      <td>{{graduate?.firstName}}</td>
+      <td>{{graduate?.email}}</td>
+      <td>{{graduate?.address?.zipCode}}</td>
+      <td>{{graduate?.address?.city}}</td>
+      <td>
+        <div class="icon-button">
+          <i class="fa fa-pencil fa-1-5x"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="loading" class="text-center mt-4">
+    <i class="fa fa-4x fa-pulse fa-spinner"></i>
+  </div>
+</div>

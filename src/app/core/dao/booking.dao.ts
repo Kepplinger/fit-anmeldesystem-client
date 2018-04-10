@@ -24,7 +24,7 @@ export class BookingDAO {
   }
 
   public fetchAllBookingsForEvent(event: Event): Promise<Booking[]> {
-    return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking/' + event.id)
+    return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking/event/' + event.id)
       .map((data: any[]) => {
         return BookingMapper.mapJsonToBookingList(data);
       })
