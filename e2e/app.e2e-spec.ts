@@ -61,6 +61,7 @@ describe('log-file-explorer-client App', function () {
     element(by.id('representativeEmail1')).sendKeys('max.mustermann@gmail.com');
 
     await browser.executeScript('window.scrollTo(0,500);');
+    element.all(by.css('.cr')).first().click();
     element(by.id('otherNotes')).sendKeys('Eigener Stand!');
 
     // step 4
@@ -84,14 +85,15 @@ describe('log-file-explorer-client App', function () {
 
     // step 5
     element(by.id('genderLabelF')).click();
-    // element(by.id('firstName')).sendKeys('Simon');
-    // element(by.id('lastName')).sendKeys('Kepplinger');
-    // element(by.id('phoneNumber')).sendKeys('0660 5791261');
+    element(by.id('fitContactFirstName')).sendKeys('Simon');
+    element(by.id('fitContactLastName')).sendKeys('Kepplinger');
+    element(by.id('fitContactPhoneNumber')).sendKeys('0660 5791261');
     element(by.id('remarks')).sendKeys('Erstellt mit Protractor :*');
 
     element(by.id('acceptTerms')).element(by.css('.cr')).click();
     element(by.id('btnSubmitBooking')).click();
 
+    browser.sleep(1000);
     browser.waitForAngular();
 
     expect(element(by.id('submissionSuccessContainer')).isPresent);

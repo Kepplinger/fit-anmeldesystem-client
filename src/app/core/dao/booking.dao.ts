@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AppConfig } from '../app-config/app-config.service';
 import { Booking } from '../model/booking';
@@ -33,16 +33,11 @@ export class BookingDAO {
 
   public async persistBooking(booking: Booking): Promise<void> {
 
-    let json: any = booking;
+    console.log(booking);
+    let json: any = BookingMapper.mapBookingToJson(booking);
+    console.log(json);
 
-    if (json != null
-      && json.establishmentsAut != null
-      && json.establishmentsInt != null) {
-      json.establishmentsAut = ArrayUtils.concatWithDelimiter(json.establishmentsAut, ';');
-      json.establishmentsInt = ArrayUtils.concatWithDelimiter(json.establishmentsInt, ';');
-    }
-
-    await this.http.post<void>(this.appConfig.serverURL + '/booking', booking)
+    await this.http.post<void>(this.appConfig.serverURL + '/booking', json)
       .toPromise();
   }
 }
