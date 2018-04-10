@@ -1,11 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { Package } from '../../../../core/model/package';
 import { PackageDAO } from '../../../../core/dao/package.dao';
-import {PickedFile} from '../../../../libs/file-picker/picked-file';
-import {FilePickerError} from '../../../../libs/file-picker/file-picker-error';
+import { PickedFile } from '../../../../libs/file-picker/picked-file';
+import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
+import { Resource } from '../../../../core/model/resource';
+import { ResourceDAO } from '../../../../core/dao/resource.dao';
+import { Branch } from '../../../../core/model/branch';
+import { BranchDAO } from '../../../../core/dao/branch.dao';
+import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
+import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -29,21 +36,36 @@ export class PackagesAndLocationComponent implements OnInit {
   public selectedLocation: Location;
   public selectedPackage: number = FitPackage.BasicPack;
 
+  public branches: Branch[] = [];
+  public branchFormArray: FormArray = null;
+
   public basicPackage: Package = new Package();
   public sponsorPackage: Package = new Package();
   public lecturePackage: Package = new Package();
 
+  public pickedFile: PickedFile;
 
-  public logo: PickedFile;
-
-  public constructor(private packageDAO: PackageDAO) {
+  public constructor(private packageDAO: PackageDAO,
+                     private branchDAO: BranchDAO,
+                     private toastr: ToastrService,
+                     private fitRegistrationService: FitRegistrationService) {
   }
 
   public async ngOnInit(): Promise<void> {
+    this.branches = await this.branchDAO.fetchBranches();
     let packages: Package[] = await this.packageDAO.fetchPackages();
+
     this.basicPackage = packages.find(p => p.discriminator === 1);
     this.sponsorPackage = packages.find(p => p.discriminator === 2);
     this.lecturePackage = packages.find(p => p.discriminator === 3);
+
+    this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
+
+    this.fitRegistrationService.bookingFilled.subscribe(
+      () => {
+        this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
+      }
+    );
 
     if (this.stepFormGroup.value.fitPackage != null) {
       this.selectedPackage = this.stepFormGroup.value.fitPackage;
@@ -79,14 +101,14 @@ export class PackagesAndLocationComponent implements OnInit {
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
-      this.logo = file;
-      this.stepFormGroup.controls['presentationFile'].setValue(this.logo.dataURL);
+      this.pickedFile = file;
+      this.stepFormGroup.controls['presentationFile'].setValue(this.pickedFile.dataURL);
     } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
+      this.toastr.warning('Das Bild darf nicht größer wie 20MB sein!')
     } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
+      this.toastr.warning('Das Datei-Format wird nicht unterstüzt!')
     } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
     }
   }
 
@@ -99,5 +121,21 @@ export class PackagesAndLocationComponent implements OnInit {
       case FitPackage.LecturePack:
         return this.lecturePackage;
     }
+  }
+
+  public branchChanged(branch: Branch, event: any): void {
+    if (event.target.checked) {
+      this.branchFormArray.push(new FormControl(branch));
+    } else {
+      let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
+
+      if (index !== -1) {
+        this.branchFormArray.removeAt(index);
+      }
+    }
+  }
+
+  public isBranchSelected(branch: Branch): boolean {
+    return FormArrayUtils.indexOf(this.branchFormArray, branch) !== -1;
   }
 }

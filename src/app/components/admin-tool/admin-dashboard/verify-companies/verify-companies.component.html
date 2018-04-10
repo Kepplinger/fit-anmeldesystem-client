@@ -1,6 +1,14 @@
 <div class="m-5">
-  <div class="row">
 
+
+  <div *ngIf="pendingCompanies.length == 0"
+  class="text-center mt-7">
+    <i class="fa fa-frown-o fa-5x"></i>
+    <h1 class="font-weight-light">Es sind leider keine Anträge vorhanden</h1>
+  </div>
+
+  <div class="row"
+       *ngIf="pendingCompanies.length > 0">
     <!--pending companies-->
     <div class="col-md-6 p-3"
          [ngClass]="{'disabled-element': isAssigning}">
@@ -81,7 +89,8 @@
 
         <tr *ngFor="let company of getFilteredCompanies()">
           <td class="align-middle">
-            <button class="btn btn-sm btn-success">
+            <button class="btn btn-sm btn-success"
+                    (click)="assignCompany(companyToAssign, company)">
               <i class="fa fa-fw fa-download"></i>
             </button>
           </td>

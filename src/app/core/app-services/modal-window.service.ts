@@ -15,7 +15,7 @@ export class ModalWindowService {
    * @param options
    * @returns {Promise<boolean>}
    */
-  public async confirm(title: string, message: string, options?: any): Promise<boolean> {
+  public async confirm(title: string, message: string, options: any = {}): Promise<boolean> {
     return new Promise<boolean>(
       (resolve) => {
         alertify.confirm()

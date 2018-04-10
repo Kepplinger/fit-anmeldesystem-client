@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Booking } from '../model/booking';
 import { Company } from '../model/company';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class FitRegistrationService {
 
   public booking: Booking;
   public editMode: boolean;
+
+  public bookingFilled: Subject<void> = new Subject<void>();
 
   public constructor() {
     this.booking = JSON.parse(sessionStorage.getItem('booking'));
@@ -26,5 +29,9 @@ export class FitRegistrationService {
     this.editMode = false;
     sessionStorage.setItem('booking', JSON.stringify(this.booking));
     sessionStorage.setItem('editMode', JSON.stringify(this.editMode));
+  }
+
+  public bookingIsFilled(): void {
+    this.bookingFilled.next();
   }
 }

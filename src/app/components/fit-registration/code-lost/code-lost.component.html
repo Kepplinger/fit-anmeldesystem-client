@@ -2,27 +2,27 @@
 
   <h2 class="text-bold">Code zurücksetzten</h2>
   <p class="mb-1">
-    Geben Sie in das untere Textfeld Ihre registrierte E-Mail Adresse ein, und wir schicken Ihnen dann den
-    neuen Code per Mail.
+    Geben Sie in das untere Textfeld Ihre registrierte E-Email Adresse ein, und wir schicken Ihnen dann den
+    neuen Code per Email.
   </p>
-  
+
   <div class="mx-5">
 
     <div class="message-container">
       <span *ngIf="isValid()"
             class="valid-message">
-        Ihre Mail wurde erfolgreich im System gefunden!
+        Ihre Email wurde erfolgreich im System gefunden!
       </span>
 
       <span *ngIf="isInvalid()"
             class="invalid-message">
-        Die Mail konnte nicht im System gefunden werden!
+        Die Email konnte nicht im System gefunden werden!
       </span>
     </div>
 
     <div class="position-relative mb-2">
       <input type="text"
-             placeholder="E-Mail"
+             placeholder="E-Email"
              title="email"
              [ngClass]="{'is-valid': isValid(),
                          'is-invalid': isInvalid()}"

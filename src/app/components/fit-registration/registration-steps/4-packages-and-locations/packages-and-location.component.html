@@ -148,6 +148,7 @@
                 class="btn btn-primary mx-5"
                 data-toggle="modal"
                 data-target="#locationPickerModal">
+          <i class="fa fa-map-marker mr-1"></i>
           Standplatz wählen
         </button>
 
@@ -195,7 +196,7 @@
                id="title">
       </div>
 
-      <div class="form-group" style="flex: 1">
+      <div class="form-group">
         <label for="otherNotes" class="mb-1">Kurzbeschreibung:</label>
         <textarea class="form-control"
                   formControlName="presentationDescription"
@@ -204,17 +205,31 @@
         </textarea>
       </div>
 
+      <div>Zielgruppe(n):</div>
+      <div class="d-flex mt-2">
+        <div *ngFor="let branch of branches; let index = index"
+             class="checkbox mx-2">
+          <label [id]="'checkboxBranch' + index">
+            <input type="checkbox"
+                   (change)="branchChanged(branch, $event)"
+                   [checked]="isBranchSelected(branch)">
+            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+            {{branch.name}}
+          </label>
+        </div>
+      </div>
 
-      <div class="form-group d-flex align-items-center">
+      <div class="form-group d-flex align-items-center mt-2">
         <label for="presentation" class="my-0 mr-3">Präsentation: </label>
         <div class="input-group"
              fitFilePicker
              [accept]="'file/*'"
+             [maxSize]="20000000"
              (filePick)="filePicked($event)">
           <input class="form-control"
                  id="presentation"
                  type="text"
-                 [value]="logo?.name"
+                 [value]="pickedFile?.name"
                  placeholder="Logo auswählen..."
                  disabled>
           <span class="input-group-append">

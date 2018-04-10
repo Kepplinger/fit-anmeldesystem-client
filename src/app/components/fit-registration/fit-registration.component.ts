@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
@@ -19,7 +19,7 @@ import { FitRegistrationService } from '../../core/app-services/fit-registration
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
-import { ArrayUtils } from '../../core/utils/array-utils';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -29,7 +29,7 @@ import { ArrayUtils } from '../../core/utils/array-utils';
 export class FitRegistrationComponent implements OnInit {
 
   // necessary for template-usage
-  Step = FitRegistrationStep;
+  public Step = FitRegistrationStep;
 
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
@@ -103,14 +103,15 @@ export class FitRegistrationComponent implements OnInit {
         location: [null, Validators.required],
         presentationTitle: [''],
         presentationDescription: [''],
+        presentationBranches: this.fb.array([]),
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
-        gender: [this.booking.company.contact.gender],
-        firstName: [this.booking.company.contact.firstName, Validators.required],
-        lastName: [this.booking.company.contact.lastName, Validators.required],
-        email: [this.booking.company.contact.email, [Validators.required, Validators.email]],
-        phoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
+        fitContactGender: [this.booking.company.contact.gender],
+        fitContactFirstName: [this.booking.company.contact.firstName, Validators.required],
+        fitContactLastName: [this.booking.company.contact.lastName, Validators.required],
+        fitContactEmail: [this.booking.company.contact.email, [Validators.required, Validators.email]],
+        fitContactPhoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
         termsAccepted: [false, Validators.requiredTrue]
       })
@@ -192,7 +193,8 @@ export class FitRegistrationComponent implements OnInit {
       this.event,
       this.fitFormGroup.value.packagesAndLocation.fitPackage,
       this.fitFormGroup.value.packagesAndLocation.location,
-      this.getCompanyFromForm(),
+      this.getContactFromForm(),
+      this.booking.company,
       this.getPresentationFromForm(),
       this.fitFormGroup.value.fitAppearance.representatives,
       this.fitFormGroup.value.detailedData.desiredBranches,
@@ -206,41 +208,22 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.phoneNumber,
       this.fitFormGroup.value.detailedData.email,
       this.fitFormGroup.value.detailedData.homepage,
-      this.fitFormGroup.value.detailedData.logo != null ? 'a' : 'b', // TODO replace
+      this.fitFormGroup.value.detailedData.logo,
       this.fitFormGroup.value.detailedData.establishmentsCountInt,
-      this.fitFormGroup.value.detailedData.establishmentsInt.map(e => e.value),
+      this.fitFormGroup.value.detailedData.establishmentsInt,
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
-      this.fitFormGroup.value.detailedData.establishmentsAut.map(e => e.value),
+      this.fitFormGroup.value.detailedData.establishmentsAut,
       false
-    );
-  }
-
-  private getCompanyFromForm(): Company {
-    return new Company(
-      this.getCompanyAddressFromForm(),
-      this.getContactFromForm(),
-      this.fitFormGroup.value.generalData.companyName,
-      false
-    )
-  }
-
-  private getCompanyAddressFromForm(): Address {
-    return new Address(
-      this.fitFormGroup.value.generalData.city,
-      this.fitFormGroup.value.generalData.zipCode,
-      this.fitFormGroup.value.generalData.street,
-      this.fitFormGroup.value.generalData.streetNumber,
-      this.fitFormGroup.value.generalData.addressAdditions,
     );
   }
 
   private getContactFromForm(): Contact {
     return new Contact(
-      this.fitFormGroup.value.contactAndRemarks.firstName,
-      this.fitFormGroup.value.contactAndRemarks.lastName,
-      this.fitFormGroup.value.contactAndRemarks.gender,
-      this.fitFormGroup.value.contactAndRemarks.email,
-      this.fitFormGroup.value.contactAndRemarks.phoneNumber
+      this.fitFormGroup.value.contactAndRemarks.fitContactGender,
+      this.fitFormGroup.value.contactAndRemarks.fitContactFirstName,
+      this.fitFormGroup.value.contactAndRemarks.fitContactLastName,
+      this.fitFormGroup.value.contactAndRemarks.fitContactEmail,
+      this.fitFormGroup.value.contactAndRemarks.fitContactPhoneNumber
     );
   }
 
@@ -254,6 +237,7 @@ export class FitRegistrationComponent implements OnInit {
         this.fitFormGroup.value.packagesAndLocation.presentationDescription,
         false,
         this.fitFormGroup.value.packagesAndLocation.presentationFile,
+        this.fitFormGroup.value.packagesAndLocation.presentationBranches
       )
     } else {
       return null;
@@ -261,47 +245,63 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private fillFormWithBooking(): void {
-    console.log(this.booking);
+
     this.fitFormGroup.patchValue({
       detailedData: {
         phoneNumber: this.booking.phoneNumber,
         email: this.booking.email,
         homepage: this.booking.homepage,
-        // logoUrl: this.booking.logo
+        logoUrl: this.booking.logo,
         branch: this.booking.branch,
         description: this.booking.companyDescription,
-        // establishmentsAut: new FormArray(this.booking.establishmentsAut.map(e => new FormControl(e))),
         establishmentsCountAut: this.booking.establishmentsCountAut,
-        // establishmentsInt: new FormArray(this.booking.establishmentsInt.map(e => new FormControl(e))),
         establishmentsCountInt: this.booking.establishmentsCountInt,
-        // desiredBranches: this.booking.branches,
         providesSummerJob: this.booking.providesSummerJob,
         providesThesis: this.booking.providesThesis,
       },
       fitAppearance: {
         additionalInfo: this.booking.additionalInfo,
-        // resources: this.booking.resources
       },
       packagesAndLocation: {
         fitPackage: this.booking.fitPackage,
         location: this.booking.location,
       },
       contactAndRemarks: {
+        fitContactGender: this.booking.contact.gender,
+        fitContactFirstName: this.booking.contact.firstName,
+        fitContactLastName: this.booking.contact.lastName,
+        fitContactEmail: this.booking.contact.email,
+        fitContactPhoneNumber: this.booking.contact.phoneNumber,
         remarks: this.booking.remarks
       }
     });
-
-    // this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives));
-    this.fitFormGroup.setControl('representatives', this.fb.array(this.booking.representatives.map(r => new FormControl(r))));
 
     if (this.booking.presentation != null) {
       this.fitFormGroup.patchValue({
         packagesAndLocation: {
           presentationTitle: this.booking.presentation.title,
           presentationDescription: this.booking.presentation.description,
-          // presentationFile: this.booking.presentation.fileUrl
+          presentationFile: this.booking.presentation.fileUrl,
+          presentationBranches: this.booking.presentation.branches
         }
       });
     }
+
+    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+      .setControl('establishmentsAut', this.fb.array(this.booking.establishmentsAut));
+
+    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+      .setControl('establishmentsInt', this.fb.array(this.booking.establishmentsInt));
+
+    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+      .setControl('desiredBranches', this.fb.array(this.booking.branches));
+
+    (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
+      .setControl('representatives', this.fb.array(this.booking.representatives));
+
+    (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
+      .setControl('resources', this.fb.array(this.booking.resources));
+
+    this.bookingRegistrationService.bookingIsFilled();
   }
 }

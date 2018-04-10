@@ -10,8 +10,8 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 })
 export class VerifyCompaniesComponent implements OnInit {
 
-  public pendingCompanies: Company[];
-  public companies: Company[];
+  public pendingCompanies: Company[] = [];
+  public companies: Company[] = [];
 
   public filterText: string = '';
   public isAssigning: boolean = false;
@@ -52,5 +52,11 @@ export class VerifyCompaniesComponent implements OnInit {
     } else {
       return this.companies;
     }
+  }
+
+  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
+    await this.companyDAO.assignCompany(pendingCompany, existingCompany);
+    ArrayUtils.deleteElement(this.pendingCompanies, pendingCompany);
+    this.companyToAssign = null;
   }
 }

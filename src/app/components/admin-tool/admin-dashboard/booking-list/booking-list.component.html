@@ -2,13 +2,6 @@
 
   <div class="d-flex mb-1">
     <h1>Anmeldungen</h1>
-    <input type="text" class="form-control" placeholder="Suche Firma mit Namen..." aria-label="Search" [(ngModel)]="nameSearch" (input)="searchName()">
-    <input type="text" class="form-control" placeholder="Suche Firma mit Standplatz..." aria-label="Search" [(ngModel)]="placeSearch" (input)="searchName()">
-
-
-    <input type="checkbox" (click)="tickCheckbox(0)"> Show all Basic<br>
-    <input type="checkbox" (click)="tickCheckbox(1)"> Show all Sponsor<br>
-    <input type="checkbox" (click)="tickCheckbox(2)"> Show all Premium<br>
 
     <div class="flex-1"></div>
     <div class="booking-tool-btn my-2 mr-3"
@@ -17,15 +10,48 @@
       CSV-Export
     </div>
     <a class="booking-tool-btn my-2"
-         role="link"
-         [href]="imageDownloadLink">
+       role="link"
+       [href]="imageDownloadLink">
       <i class="fa fa-file-image-o text-primary mr-1"></i>
       Bilder-Export
     </a>
   </div>
 
+  <div class="d-flex align-items-center">
+    <input type="text"
+           class="form-control filter-input"
+           placeholder="Suche Firma mit Namen..."
+           [(ngModel)]="nameSearch"
+           (input)="searchName()">
+
+    <input type="text"
+           class="form-control filter-input"
+           placeholder="Suche Firma mit Standplatz..."
+           [(ngModel)]="placeSearch"
+           (input)="searchName()">
+
+    <div class="text-bold mr-2">Pakete:</div>
+    <fit-custom-checkbox class="mx-2"
+                         (valueChange)="tickCheckbox(0)"
+                         [message]="'Basic'"
+                         [preventMargins]="true">
+    </fit-custom-checkbox>
+
+    <fit-custom-checkbox class="mx-2"
+                         (valueChange)="tickCheckbox(1)"
+                         [message]="'Sponsor'"
+                         [preventMargins]="true">
+    </fit-custom-checkbox>
+
+    <fit-custom-checkbox class="mx-2"
+                         (valueChange)="tickCheckbox(2)"
+                         [message]="'Lecture'"
+                         [preventMargins]="true">
+    </fit-custom-checkbox>
+  </div>
+
   <table class="table" sortable-table (sorted)="onSorted($event)">
-  <thead>
+    <thead>
     <tr>
       <th class="hooverable" sortable-column="company.name" sort-direction="asc">Firma</th>
       <th class="hooverable" sortable-column="creationDate" sort-direction="asc">Anmeldezeitpunkt</th>
@@ -36,8 +62,8 @@
       <th>Status</th>
       <th></th>
     </tr>
-  </thead>
-<tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let booking of bookings">
       <td>{{booking.company?.name}}</td>
       <td>{{booking.creationDate | date:'medium'}}</td>
@@ -53,10 +79,10 @@
         </div>
       </td>
     </tr>
-</tbody>
+    </tbody>
   </table>
 
-  <div *ngIf="loading" class="text-center mt-3">
-    <i class="fa fa-5x fa-spin fa-wheelchair"></i>
+  <div *ngIf="loading" class="text-center mt-4">
+    <i class="fa fa-4x fa-pulse fa-spinner"></i>
   </div>
 </div>

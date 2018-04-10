@@ -7,85 +7,113 @@
 
   <form [formGroup]="stepFormGroup">
 
-    <div class="mb-4">
-      <h5 class="text-bold">Am FIT vertreten Ihre Firma:</h5>
+    <div class="mb-4 d-flex justify-content-center">
+      <div class="w-100">
+        <h5 class="text-bold text-center">Am FIT vertreten Ihre Firma</h5>
 
-      <table cellpadding="5" width="60%">
-        <ng-container *ngFor="let representative of representatives; let index = index">
+        <table cellpadding="5">
+          <ng-container *ngFor="let representative of representatives; let index = index">
 
-          <tr>
-            <th colspan="3" class="pt-3">
-              <div class="d-flex">
-                <span>{{index + 1}}. Vertreter/in</span>
-                <button class="ml-auto btn btn-link p-0 text-bold"
-                        style="color: darkred"
-                        *ngIf="representatives.length > 1"
-                        (click)="deleteRepresentative(representative)">
-                  Vertreter löschen <i class="fa fa-trash"></i>
-                </button>
-              </div>
-            </th>
-          </tr>
+            <tr>
+              <th colspan="3" class="pt-3">
+                <div class="d-flex">
+                  <span>{{index + 1}}. Vertreter/in</span>
+                  <button class="ml-auto btn btn-link p-0 text-bold"
+                          style="color: darkred"
+                          *ngIf="representatives.length > 1"
+                          (click)="deleteRepresentative(representative)">
+                    Vertreter löschen <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </th>
+            </tr>
 
-          <tr>
-            <td width="15%">
-              <label [for]="'representativeName' + index">Name:*</label>
-            </td>
-            <td width="85%">
-              <input class="form-control"
-                     [id]="'representativeName' + index"
-                     type="text"
-                     name="name"
-                     [(ngModel)]="representative.name"
-                     [ngModelOptions]="{standalone: true}"
-                     ngDefaultControl
-                     (blur)="onRepresentativeTouch(representative, 'name')"
-                     [ngClass]="{'is-invalid': isEmpty(representative, 'name')}"
-                     title="representativeName">
-            </td>
-            <td rowspan="2">
-              <img [src]="representative.imageUrl"
-                   class="contact-image"
-                   alt="Bild kann nicht angezeigt werden"
-                   width="60" height="86" style="object-fit: cover"
-                   fitFilePicker
-                   [accept]="'image/*'"
-                   [maxSize]="2000000"
-                   (filePick)="onImagePick($event, representative)"/>
-              <div class="invalid-message invalid-message-container"></div>
-            </td>
-          </tr>
+            <tr>
+              <td width="10%">
+                <label [for]="'representativeName' + index">Name:*</label>
+              </td>
+              <td width="90%">
+                <input class="form-control"
+                       [id]="'representativeName' + index"
+                       type="text"
+                       name="name"
+                       placeholder="Vor- und Nachname"
+                       [(ngModel)]="representative.name"
+                       [ngModelOptions]="{standalone: true}"
+                       ngDefaultControl
+                       (blur)="onRepresentativeTouch(representative, 'name')"
+                       [ngClass]="{'is-invalid': isEmpty(representative, 'name')}"
+                       title="representativeName">
+              </td>
+              <td rowspan="3">
+                <img [src]="representative.imageUrl"
+                     class="contact-image"
+                     alt="Fehler"
+                     width="100" style="object-fit: cover"
+                     fitFilePicker
+                     [accept]="'image/*'"
+                     [maxSize]="2000000"
+                     (filePick)="onImagePick($event, representative)"/>
+                <div class="invalid-message invalid-message-container"></div>
+              </td>
+            </tr>
 
-          <tr>
-            <td>
-              <label [for]="'representativeEmail' + index">E-Mail:*</label>
-              <div class="invalid-message invalid-message-container"></div>
-            </td>
-            <td>
-              <input class="form-control"
-                     type="text"
-                     [id]="'representativeEmail' + index"
-                     [(ngModel)]="representative.email"
-                     [ngModelOptions]="{standalone: true}"
-                     (blur)="onRepresentativeTouch(representative, 'email')"
-                     [ngClass]="{'is-invalid': isEmpty(representative, 'email')}"
-                     title="representativeEmail">
+            <tr>
+              <td>
+                <label [for]="'representativeEmail' + index">E-Mail:*</label>
+              </td>
+              <td>
+                <input class="form-control"
+                       type="text"
+                       placeholder="E-Mail"
+                       [id]="'representativeEmail' + index"
+                       [(ngModel)]="representative.email"
+                       [ngModelOptions]="{standalone: true}"
+                       (blur)="onRepresentativeTouch(representative, 'email')"
+                       [ngClass]="{'is-invalid': isEmpty(representative, 'email')}"
+                       title="representativeEmail"/>
+              </td>
+            </tr>
 
-              <div class="invalid-message invalid-message-container">
-                <span *ngIf="isEmpty(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
-                <span *ngIf="isEmpty(representative, 'email')">E-Mail darf nicht leer sein!</span>
-              </div>
-            </td>
-          </tr>
-        </ng-container>
-      </table>
-      <button *ngIf="representatives.length < 3"
-              class="btn btn-success my-2 text-bold"
-              id="btnAddRepresentative"
-              (click)="onRepresentativeAdd()">
-        <i class="fa fa-user-plus mr-1"></i>
-        Vertreter/in hinzufügen
-      </button>
+            <tr>
+              <td>
+                <label [for]="'representativeEmail' + index">Bild:*</label>
+                <div class="invalid-message invalid-message-container"></div>
+              </td>
+              <td>
+                <div class="input-group"
+                     fitFilePicker
+                     [accept]="'image/*'"
+                     [maxSize]="2000000"
+                     (filePick)="filePicked($event, representative)">
+                  <input class="form-control"
+                         id="logo"
+                         type="text"
+                         [value]="representative?.imageUrl"
+                         placeholder="Logo auswählen..."
+                         disabled>
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">Druchsuchen</button>
+                  </div>
+                  <div class="invalid-message invalid-message-container">
+                    <span *ngIf="isEmpty(representative, 'name')" class="mr-1">Name darf nicht leer sein!</span>
+                    <span *ngIf="isEmpty(representative, 'email')">E-Mail darf nicht leer sein!</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+        <div class="w-100">
+          <button *ngIf="representatives.length < 3"
+                  class="btn btn-success mb-2 mt-0 text-bold text-center"
+                  id="btnAddRepresentative"
+                  (click)="onRepresentativeAdd()">
+            <i class="fa fa-user-plus mr-1"></i>
+            Vertreter/in hinzufügen
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="d-flex">
@@ -105,9 +133,10 @@
       </div>
 
       <div class="form-group flex-filler">
-        <label for="otherNotes" class="text-bold mb-1">Sonstige Anmerkungen (z.B. eigener Messestand):</label>
+        <label for="otherNotes" class="text-bold mb-1">Sonstige Anmerkungen:</label>
         <textarea class="form-control"
                   id="otherNotes"
+                  placeholder="Anmerkungen (z.B. eigener Messestand)"
                   formControlName="additionalInfo"
                   rows="5">
         </textarea>

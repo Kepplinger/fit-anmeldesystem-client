@@ -1,27 +1,27 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { Booking } from '../../../../../core/model/booking';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { FormHelper } from '../../../../../core/app-helper/form-helper';
 import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../../../core/app-config/app-config.service';
-import {Branch} from '../../../../../core/model/branch';
-import {BranchDAO} from '../../../../../core/dao/branch.dao';
-import {FormArrayUtils} from '../../../../../core/utils/form-array-utils';
-import {PickedFile} from '../../../../../libs/file-picker/picked-file';
-import {FilePickerError} from '../../../../../libs/file-picker/file-picker-error';
-import {Representative} from '../../../../../core/model/representative';
-import {ArrayUtils} from '../../../../../core/utils/array-utils';
-import {FitPackage} from '../../../../../core/model/enums/fit-package';
-import {Package} from '../../../../../core/model/package';
-import {PackageDAO} from '../../../../../core/dao/package.dao';
-import {Event} from '../../../../../core/model/event';
-import {Input} from '@angular/compiler/src/core';
-import {DisplayedValue} from '../../../../../core/app-helper/helper-model/displayed-value';
+import { Branch } from '../../../../../core/model/branch';
+import { BranchDAO } from '../../../../../core/dao/branch.dao';
+import { FormArrayUtils } from '../../../../../core/utils/form-array-utils';
+import { PickedFile } from '../../../../../libs/file-picker/picked-file';
+import { FilePickerError } from '../../../../../libs/file-picker/file-picker-error';
+import { Representative } from '../../../../../core/model/representative';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { FitPackage } from '../../../../../core/model/enums/fit-package';
+import { Package } from '../../../../../core/model/package';
+import { PackageDAO } from '../../../../../core/dao/package.dao';
+import { Event } from '../../../../../core/model/event';
+import { DisplayedValue } from '../../../../../core/app-helper/helper-model/displayed-value';
+import { ToastrService } from 'ngx-toastr';
+
 declare let $;
-window["$"] = $;
-window["jQuery"] = $;
 
 @Component({
   selector: 'fit-booking-detail',
@@ -29,6 +29,7 @@ window["jQuery"] = $;
   styleUrls: ['./booking-details.component.scss']
 })
 export class BookingDetailsComponent implements OnInit {
+
   @ViewChild('establishmentIntCount')
   public establishmentIntCount: ElementRef;
 
@@ -37,15 +38,15 @@ export class BookingDetailsComponent implements OnInit {
 
   public genders: DisplayedValue[];
 
-  public event:Event = null;
+  public event: Event = null;
 
   public areRepresentativesTouched: boolean = false;
 
-  public options:any;
+  public options: any;
 
   public booking: Booking;
   public bookingFormGroup: FormGroup;
-  public bookingAutArray:string[] = ['Linz','Wien'];
+  public companyDescription: string = '';
 
   public branches: Branch[] = [];
   public branchFormArray: FormArray = new FormArray([]);
@@ -55,12 +56,12 @@ export class BookingDetailsComponent implements OnInit {
 
   public logo: PickedFile;
 
-
   Package = FitPackage;
 
   public selectedLocation: Location;
   public selectedPackage: number = FitPackage.BasicPack;
 
+  public packages: Package[] = [];
   public basicPackage: Package = new Package();
   public sponsorPackage: Package = new Package();
   public lecturePackage: Package = new Package();
@@ -70,6 +71,7 @@ export class BookingDetailsComponent implements OnInit {
                      private appConfig: AppConfig,
                      private router: Router,
                      private fb: FormBuilder,
+                     private toastr: ToastrService,
                      private branchDAO: BranchDAO,
                      private packageDAO: PackageDAO) {
     this.bookingFormGroup = this.fb.group({
@@ -108,6 +110,7 @@ export class BookingDetailsComponent implements OnInit {
       remarks: [''],
       termsAccepted: [false, Validators.requiredTrue]
     });
+
     this.options = {
       charCounterCount: true,
       charCounterMax: 1000,
@@ -122,15 +125,12 @@ export class BookingDetailsComponent implements OnInit {
       inlineMode: true,
       toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
         'formatUL', 'formatOL', 'clearFormatting', '|', 'superscript', 'outdent', 'indent']
-      // toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-      // toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-      // toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     };
-    this.genders = appConfig.genders;
 
+    this.genders = appConfig.genders;
   }
 
-   public async ngOnInit(): Promise<void> {
+  public async ngOnInit(): Promise<void> {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         if (params.id != null) {
@@ -141,26 +141,78 @@ export class BookingDetailsComponent implements OnInit {
             this.fillFormWithBooking();
           }
         }
+      }
+    );
+  }
+
+  private async fillFormWithBooking(): Promise<void> {
+    this.bookingFormGroup.patchValue({
+      companyName: this.booking.company.name,
+      street: this.booking.company.address.street,
+      streetNumber: this.booking.company.address.streetNumber,
+      zipCode: this.booking.company.address.zipCode,
+      city: this.booking.company.address.city,
+      addressAdditions: this.booking.company.address.addition,
+      phoneNumber: this.booking.phoneNumber,
+      email: this.booking.email,
+      homepage: this.booking.homepage,
+      logoUrl: this.booking.logo,
+      branch: this.booking.branch,
+      description: this.booking.companyDescription,
+      establishmentsCountAut: this.booking.establishmentsCountAut,
+      establishmentsCountInt: this.booking.establishmentsCountInt,
+      providesSummerJob: this.booking.providesSummerJob,
+      providesThesis: this.booking.providesThesis,
+      additionalInfo: this.booking.additionalInfo,
+      fitPackage: this.booking.fitPackage,
+      location: this.booking.location,
+      remarks: this.booking.remarks,
+      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).value,
+      firstName: this.booking.company.contact.firstName,
+      lastName: this.booking.company.contact.lastName,
+      contactEmail: this.booking.company.contact.email,
+      contactPhoneNumber: this.booking.company.contact.phoneNumber,
+    });
+
+    (<FormGroup> this.bookingFormGroup).setControl('establishmentsAut', this.fb.array(this.booking.establishmentsAut));
+    (<FormGroup> this.bookingFormGroup).setControl('establishmentsInt', this.fb.array(this.booking.establishmentsInt));
+    (<FormGroup> this.bookingFormGroup).setControl('desiredBranches', this.fb.array(this.booking.branches));
+    (<FormGroup> this.bookingFormGroup).setControl('representatives', this.fb.array(this.booking.representatives));
+    (<FormGroup> this.bookingFormGroup).setControl('resources', this.fb.array(this.booking.resources));
+
+    if (this.booking.presentation != null) {
+      this.bookingFormGroup.patchValue({
+        packagesAndLocation: {
+          presentationTitle: this.booking.presentation.title,
+          presentationDescription: this.booking.presentation.description,
+          presentationFile: this.booking.presentation.fileUrl
+        }
       });
+    }
+
+    this.companyDescription = this.bookingFormGroup.value.description;
+    this.event = this.booking.event;
+
+    if (this.bookingFormGroup.value.fitPackage != null) {
+      this.selectedPackage = this.bookingFormGroup.value.fitPackage;
+    } else {
+      this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+    }
+
+    if (this.bookingFormGroup.value.location != null) {
+      this.selectedLocation = this.bookingFormGroup.value.location;
+    }
+
     this.branches = await this.branchDAO.fetchBranches();
     this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
-     let packages: Package[] = await this.packageDAO.fetchPackages();
-     this.basicPackage = packages.find(p => p.discriminator === 1);
-     this.sponsorPackage = packages.find(p => p.discriminator === 2);
-     this.lecturePackage = packages.find(p => p.discriminator === 3);
 
-     if (this.bookingFormGroup.value.fitPackage != null) {
-       this.selectedPackage = this.bookingFormGroup.value.fitPackage;
-     } else {
-       this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
-     }
-
-     if (this.bookingFormGroup.value.location != null) {
-       this.selectedLocation = this.bookingFormGroup.value.location;
-     }
-     this.event = this.booking.event;
-     console.log(this.event);
-   }
+    this.packages = (await this.packageDAO.fetchPackages())
+      .sort(
+        (a: Package, b: Package) => {
+          return a.discriminator - b.discriminator;
+        }
+      );
+  }
 
   public setLocation(location: Location): void {
     this.selectedLocation = location;
@@ -177,10 +229,6 @@ export class BookingDetailsComponent implements OnInit {
     }
 
     this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
-  }
-
-  public isPackageSelected(packageType: FitPackage): boolean {
-    return packageType <= this.selectedPackage;
   }
 
   public getSelectedPackage(packageType: FitPackage): Package {
@@ -200,7 +248,6 @@ export class BookingDetailsComponent implements OnInit {
 
   public addRepresentative(representative: Representative): void {
     let representativeArray: FormArray = <FormArray>this.bookingFormGroup.get('representatives');
-    console.log(representativeArray);
     this.representatives.push(representative);
 
     this.touchedRepresentatives.push({
@@ -222,18 +269,6 @@ export class BookingDetailsComponent implements OnInit {
     representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
   }
 
-  public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
-    if (file instanceof PickedFile) {
-      representative.imageUrl = file.dataURL;
-    } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
-    } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
-    } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
-    }
-  }
-
   public onRepresentativeTouch(representative: Representative, attribute: string): void {
     let foundRepresentative = this.touchedRepresentatives.find(r => r.representative === representative);
 
@@ -244,7 +279,7 @@ export class BookingDetailsComponent implements OnInit {
     }
   }
 
-  public isLeer(representative: Representative, attribute: string): boolean {
+  public isRepresentativeEmpty(representative: Representative, attribute: string): boolean {
 
     let input = '';
 
@@ -269,94 +304,6 @@ export class BookingDetailsComponent implements OnInit {
     } else {
       return true;
     }
-  }
-
-
-  public isEmpty(formName: string): boolean {
-    return FormHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
-  }
-
-  public isNoMail(formName: string): boolean {
-    return FormHelper.isNoEmail(formName, this.bookingFormGroup) && this.isInvalid(formName);
-  }
-
-  public isInvalid(formName: string): boolean {
-    return FormHelper.hasError(formName, this.bookingFormGroup) != null &&
-      FormHelper.isTouched(formName, this.bookingFormGroup);
-  }
-  public createArrayFromString(tmp:string[]):string[]{
-    console.log(tmp);
-    return new Array();
-  }
-
-
-
-  private fillFormWithBooking() {
-    console.log(this.booking.establishmentsAut);
-    this.createArrayFromString(this.booking.establishmentsAut);
-    console.log(this.booking.branches);
-    this.bookingFormGroup.patchValue({
-      companyName: this.booking.company.name,
-      street: this.booking.company.address.street,
-      streetNumber: this.booking.company.address.streetNumber,
-      zipCode: this.booking.company.address.zipCode,
-      city: this.booking.company.address.city,
-      addressAdditions: this.booking.company.address.addition,
-      phoneNumber: this.booking.phoneNumber,
-      email: this.booking.email,
-      homepage: this.booking.homepage,
-      logoUrl: this.booking.logo,
-      branch: this.booking.branch,
-      description: this.booking.companyDescription,
-      //establishmentsAut: this.fb.array([]),
-      establishmentsCountAut: this.booking.establishmentsCountAut,
-      // establishmentsInt: this.booking.establishmentsInt,
-      establishmentsCountInt: this.booking.establishmentsCountInt,
-     // desiredBranches: new FormArray([]),
-      providesSummerJob: this.booking.providesSummerJob,
-      providesThesis: this.booking.providesThesis,
-      // representatives: this.booking.representatives,
-      additionalInfo: this.booking.additionalInfo,
-      // resources: this.booking.resources,
-      fitPackage: this.booking.fitPackage,
-      location: this.booking.location,
-      remarks: this.booking.remarks,
-      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).display,
-      firstName: this.booking.company.contact.firstName,
-      lastName: this.booking.company.contact.lastName,
-      contactEmail: this.booking.company.contact.email,
-      contactPhoneNumber: this.booking.company.contact.phoneNumber,
-    });
-
-    this.fillArrays(this.bookingAutArray);
-    this.pushFroala();
-    //this.tickBranches();
-    // if (this.booking.presentation != null) {
-    //   this.fitFormGroup.patchValue({
-    //     packagesAndLocation: {
-    //       presentationTitle: this.booking.presentation.title,
-    //       presentationDescription: this.booking.presentation.description,
-    //       // presentationFile: this.booking.presentation.fileUrl
-    //     }
-    //   });
-    // }
-
-  }
-
-
-
-  fillArrays(establishmentsArrayAut:string[]){
-    const control = <FormArray>this.bookingFormGroup.controls['establishmentsAut'];
-    for (let entry of establishmentsArrayAut) {
-      control.push(this.fb.group({"display": entry,
-        "value": entry}));
-    }
-
-    for(let entry of this.booking.representatives){
-      this.addRepresentative(new Representative(entry.name, entry.email, '../../../../../assets/contact.png'));
-    }
-
-
   }
 
   public updateEstablishments(controlName: string, names: string[]): void {
@@ -388,16 +335,12 @@ export class BookingDetailsComponent implements OnInit {
   public branchChanged(branch: Branch, event: any): void {
     if (event.target.checked) {
       this.branchFormArray.push(new FormControl(branch));
-      console.log("add");
     } else {
       let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
-      console.log(index);
-      console.log(branch);
+
+      if (index !== -1) {
         this.branchFormArray.removeAt(index);
-
-      console.log(this.branchFormArray);
-
-      console.log("remove");
+      }
     }
   }
 
@@ -405,34 +348,47 @@ export class BookingDetailsComponent implements OnInit {
     return FormArrayUtils.indexOf(this.branchFormArray, branch) !== -1;
   }
 
-  public tickBranches() {
-    for (let entry of this.booking.branches) {
-      this.branchFormArray.push(new FormControl(entry));
-      $('#checkbox'+entry.id).prop("checked", this.isBranchSelected(entry));
-    console.log(this.branchFormArray);
-    }
-  }
-
-  public pushFroala(): void{
-    document.getElementById("description").innerHTML = this.booking.companyDescription;
-  }
-
-  public storeFroala(): void {
-    let html = $('#description').froalaEditor('html.get');
-    this.bookingFormGroup.controls['description'].setValue(html.toString());
-    console.log(this.bookingFormGroup.controls['description'].value);
+  public updateDescription(): void {
+    this.bookingFormGroup.controls['description'].setValue(this.companyDescription);
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
       this.logo = file;
       this.bookingFormGroup.value.logoUrl = this.logo.dataURL;
-    } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
-    } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
-    } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
+    } else {
+      this.imagePickErrorHandler(file);
+    }
+  }
+
+  public representativeImagePicked(file: PickedFile | FilePickerError, representative: Representative): void {
+    if (file instanceof PickedFile) {
+      representative.imageUrl = file.dataURL;
+    } else {
+      this.imagePickErrorHandler(file);
+    }
+  }
+
+  public isEmpty(formName: string): boolean {
+    return FormHelper.isEmpty(formName, this.bookingFormGroup) && this.isInvalid(formName);
+  }
+
+  public isNoMail(formName: string): boolean {
+    return FormHelper.isNoEmail(formName, this.bookingFormGroup) && this.isInvalid(formName);
+  }
+
+  public isInvalid(formName: string): boolean {
+    return FormHelper.hasError(formName, this.bookingFormGroup) != null &&
+      FormHelper.isTouched(formName, this.bookingFormGroup);
+  }
+
+  private imagePickErrorHandler(error: FilePickerError): void {
+    if (error === FilePickerError.FileTooBig) {
+      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!')
+    } else if (error === FilePickerError.InvalidFileType) {
+      this.toastr.warning('Die angegeben Datei ist kein Bild!')
+    } else if (error === FilePickerError.UndefinedInput) {
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
     }
   }
 }

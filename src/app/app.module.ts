@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de-AT';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 registerLocaleData(localeDe, 'de-AT');
 

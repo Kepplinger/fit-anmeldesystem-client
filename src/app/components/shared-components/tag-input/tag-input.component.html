@@ -1,6 +1,8 @@
 <tag-input [(ngModel)]="tags"
+           [modelAsStrings]="true"
            [placeholder]="'Standort hinzufügen'"
            [secondaryPlaceholder]="'Mit Enter bestätigen'"
+           [separatorKeyCodes]="[13,188]"
            [ripple]="false"
            [addOnBlur]="true"
            [ngModelOptions]="{standalone: true}"
@@ -16,7 +18,7 @@
         <i class="fa fa-times mr-1"></i>
       </div>
       <div class="pb-3">
-        {{ item.value }}
+        {{ item }}
       </div>
     </div>
   </ng-template>

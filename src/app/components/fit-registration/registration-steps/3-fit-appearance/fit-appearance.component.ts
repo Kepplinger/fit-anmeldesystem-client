@@ -7,6 +7,8 @@ import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fit-fit-appearance',
@@ -29,13 +31,33 @@ export class FitAppearanceComponent implements OnInit {
   public resourceFormArray: FormArray = null;
   public touchedRepresentatives: any[] = [];
 
-  public constructor(private resourceDAO: ResourceDAO) {
+  public constructor(private resourceDAO: ResourceDAO,
+                     private bookingRegistrationService: FitRegistrationService,
+                     private toastr: ToastrService) {
   }
 
   public async ngOnInit(): Promise<void> {
     this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
     this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
     this.resources = await this.resourceDAO.fetchResources();
+
+    this.bookingRegistrationService.bookingFilled.subscribe(
+      () => {
+        console.log(this.representatives);
+        this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+        this.representatives = (<FormArray>this.stepFormGroup.get('representatives')).value;
+        console.log(this.representatives);
+
+        this.representatives.forEach(r => {
+          this.touchedRepresentatives.push({
+            representative: r,
+            name: false,
+            email: false
+          });
+        });
+
+      }
+    );
   }
 
   public onRepresentativeAdd(): void {
@@ -130,7 +152,21 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
+  // TODO
   private getRepresentativeErrorCount(): number {
     return 0;
+  }
+
+
+  public filePicked(file: PickedFile | FilePickerError, representative: Representative): void {
+    if (file instanceof PickedFile) {
+      representative.imageUrl = file.dataURL;
+    } else if (file === FilePickerError.FileTooBig) {
+      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!')
+    } else if (file === FilePickerError.InvalidFileType) {
+      this.toastr.warning('Die angegeben Datei ist kein Bild!')
+    } else if (file === FilePickerError.UndefinedInput) {
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
+    }
   }
 }

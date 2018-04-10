@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { BookingDAO } from './dao/booking.dao';
 import { AppConfig } from './app-config/app-config.service';
-import { HttpClientModule } from '@angular/common/http';
 import { BranchDAO } from './dao/branch.dao';
 import { ResourceDAO } from './dao/resource.dao';
 import { PackageDAO } from './dao/package.dao';
@@ -20,6 +19,9 @@ import { BookingTransferService } from './app-services/booking-transfer.service'
 import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
+import { EmailDAO } from './dao/email.dao';
+import { GraduateDao } from './dao/graduate.dao';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -38,6 +40,8 @@ import { AppLoadingService } from './app-services/app-loading.service';
     AuthenticationDAO,
     AreaDAO,
     EventDAO,
+    EmailDAO,
+    GraduateDao,
     AppConfig,
     ApplicationStateService,
     FitRegistrationService,

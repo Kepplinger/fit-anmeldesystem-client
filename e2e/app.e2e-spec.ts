@@ -13,27 +13,19 @@ describe('log-file-explorer-client App', function () {
     element(by.id('codeInput')).sendKeys('FirmenToken1');
     element(by.id('btnFitRegister')).click();
     browser.waitForAngular();
-    element(by.css('.ajs-button.ajs-ok')).click();
-
-    // step 1
-    element(by.id('companyName')).sendKeys('Keppi GmbH');
-    element(by.id('addressAdditions')).sendKeys('Hinter dem Hof');
-    element(by.id('street')).sendKeys('Schotterweg');
-    element(by.id('streetNumber')).sendKeys('12');
-    element(by.id('zipCode')).sendKeys('4060');
-    element(by.id('city')).sendKeys('Leonding');
-    element(by.id('phoneNumber')).sendKeys('0660 5791261');
-    element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
-    element(by.id('homepage')).sendKeys('webpage.at');
+    element(by.css('.ajs-button.ajs-cancel')).click();
 
     await browser.executeScript('window.scrollTo(0,500);');
     element(by.id('btnNext')).click();
     await browser.executeScript('window.scrollTo(0,0);');
 
     // step 2
+    element(by.id('phoneNumber')).sendKeys('0660 5791261');
+    element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
+    element(by.id('homepage')).sendKeys('webpage.at');
     element(by.id('branch')).sendKeys('Automobil');
     element(by.css('.fr-element.fr-view')).sendKeys('Eine kleine nette Firma :)');
-    await browser.executeScript('window.scrollTo(0,500);');
+    await browser.executeScript('window.scrollTo(0,700);');
 
     element(by.id('establishmentsAut')).element(by.css('.ng2-tag-input__text-input')).click();
     element(by.id('establishmentsAut')).element(by.css('.ng2-tag-input__text-input')).sendKeys('Wien');
@@ -48,6 +40,7 @@ describe('log-file-explorer-client App', function () {
     browser.actions().sendKeys(protractor.Key.ENTER).perform();
     element(by.id('establishmentsInt')).element(by.css('.ng2-tag-input__text-input')).sendKeys('New York');
     browser.actions().sendKeys(protractor.Key.ENTER).perform();
+    await browser.executeScript('window.scrollTo(0,1000);');
 
     element(by.id('checkboxBranch0')).element(by.css('.cr')).click();
     element(by.id('checkboxBranch2')).element(by.css('.cr')).click();
@@ -69,7 +62,6 @@ describe('log-file-explorer-client App', function () {
 
     await browser.executeScript('window.scrollTo(0,500);');
     element(by.id('otherNotes')).sendKeys('Eigener Stand!');
-
 
     // step 4
     element(by.id('btnNext')).click();
@@ -94,9 +86,8 @@ describe('log-file-explorer-client App', function () {
     element(by.id('genderLabelF')).click();
     // element(by.id('firstName')).sendKeys('Simon');
     // element(by.id('lastName')).sendKeys('Kepplinger');
-    // element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
     // element(by.id('phoneNumber')).sendKeys('0660 5791261');
-    element(by.id('remarks')).sendKeys('Erstellt mit Protractor');
+    element(by.id('remarks')).sendKeys('Erstellt mit Protractor :*');
 
     element(by.id('acceptTerms')).element(by.css('.cr')).click();
     element(by.id('btnSubmitBooking')).click();

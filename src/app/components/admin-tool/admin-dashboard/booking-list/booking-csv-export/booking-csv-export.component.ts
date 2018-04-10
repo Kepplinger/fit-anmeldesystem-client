@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Booking } from '../../../../../core/model/booking';
 import { Event } from '../../../../../core/model/event';
 import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
@@ -37,7 +36,18 @@ export class BookingCsvExportComponent implements OnInit {
       phone: true,
       email: true,
       homepage: true,
-      establishments: true
+      establishments: true,
+      isAccepted: true,
+      remarks: true,
+      additionalInfo: true,
+      companyDescription: true,
+      providesSummerJob: true,
+      providesThesis: true,
+      package: true,
+      representatives: true,
+      location: true,
+      desiredBranches: true,
+      resources: true
     }
   };
 
@@ -55,7 +65,7 @@ export class BookingCsvExportComponent implements OnInit {
   }
 
   public downloadCSV(): void {
-    this.csvCreatorService.downloadCsvFromBookings();
+    this.csvCreatorService.downloadCsvFromBookings(this.csv);
   }
 
 }

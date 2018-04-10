@@ -24,7 +24,7 @@ export class AuthenticationDAO {
   }
 
   public async loginCompany(token: string): Promise<any> {
-    return this.http.post<any>(this.appConfig.serverURL + '/authentication/company/token', {token: token})
+    return this.http.post<any>(this.appConfig.serverURL + '/authentication/token', {token: token})
       .catch(ErrorInterceptor.catchErrorMessage)
       .toPromise();
   }

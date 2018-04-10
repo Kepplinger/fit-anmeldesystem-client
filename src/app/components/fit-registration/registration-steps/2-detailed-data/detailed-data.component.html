@@ -48,8 +48,8 @@
                  placeholder="Email"
                  [ngClass]="{'is-invalid': isInvalid('email')}">
           <div class="invalid-message invalid-message-container">
-            <span *ngIf="isEmpty('email')" class="mr-2">E-Mail darf nicht leer sein!</span>
-            <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
+            <span *ngIf="isEmpty('email')" class="mr-2">E-Email darf nicht leer sein!</span>
+            <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Email!</span>
           </div>
         </div>
       </div>
@@ -91,8 +91,12 @@
         </fit-hint-icon>
       </div>
 
-      <div class="my-2" (keypress)="storeFroala()" id="description" [froalaEditor]="options"></div>
-
+      <div id="description"
+           [froalaEditor]="options"
+           [(froalaModel)]="companyDescription"
+           (input)="updateDescription()"
+           class="my-2" >
+      </div>
     </div>
 
     <!--establishments-->
