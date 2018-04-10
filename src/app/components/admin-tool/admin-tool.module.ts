@@ -30,6 +30,7 @@ import { CsvCreatorService } from './services/csv-creator.service';
 import {SortService} from '../../core/app-services/sort-service.service';
 import {SortableColumnComponent} from './admin-dashboard/booking-list/sortable-column/sortable-column.component';
 import {SortableTableDirective} from './admin-dashboard/booking-list/sortable-table/sortable-table.component';
+import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import {SortableTableDirective} from './admin-dashboard/booking-list/sortable-ta
     AdminDashboardComponent,
     AcceptPresentationsComponent,
     BookingListComponent,
+    GraduateListComponent,
     BookingDetailsComponent,
     EditFitEventComponent,
     EditAreaModalComponent,

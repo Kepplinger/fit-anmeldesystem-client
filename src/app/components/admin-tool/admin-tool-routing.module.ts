@@ -11,6 +11,7 @@ import { ChangelogComponent } from './admin-dashboard/changelog/changelog.compon
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
 import { BookingCsvExportComponent } from './admin-dashboard/booking-list/booking-csv-export/booking-csv-export.component';
 import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
+import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
 
 export const routes: Routes = [
   {
@@ -29,21 +30,21 @@ export const routes: Routes = [
         ]
       },
       {
-        path: 'anmeldungen',
-        children: [
-          {
-            path: '',
-            component: BookingListComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
         path: 'fit-anlegen',
         children: [
           {
             path: '',
             component: EditFitEventComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'absolventen',
+        children: [
+          {
+            path: '',
+            component: GraduateListComponent,
             outlet: 'adminOutlet'
           }
         ]
