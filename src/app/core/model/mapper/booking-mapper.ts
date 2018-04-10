@@ -1,6 +1,7 @@
 import { Booking } from '../booking';
 import * as moment from 'moment';
 import { CompanyMapper } from './company-mapper';
+import { Contact } from '../contact';
 
 export class BookingMapper {
 
@@ -16,6 +17,7 @@ export class BookingMapper {
       booking.remarks = bookingJson.remarks;
       booking.event = bookingJson.event;
       booking.location = bookingJson.location;
+      booking.contact = bookingJson.contact;
       booking.fitPackage = bookingJson.fitPackage;
       booking.resources = bookingJson.resources;
       booking.additionalInfo = bookingJson.additionalInfo;
@@ -35,6 +37,10 @@ export class BookingMapper {
       booking.establishmentsInt = bookingJson.establishmentsInt.split(';').filter(e => e !== '');
       booking.establishmentsCountAut = bookingJson.establishmentsCountAut;
       booking.establishmentsCountInt = bookingJson.establishmentsCountInt;
+
+      if (booking.contact == null) {
+        booking.contact = new Contact();
+      }
 
       return booking;
     } else {

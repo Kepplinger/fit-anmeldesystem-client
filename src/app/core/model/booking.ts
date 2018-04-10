@@ -7,6 +7,7 @@ import { Representative } from './representative';
 import { Resource } from './resource';
 import { Package } from './package';
 import { Moment } from 'moment';
+import { Contact } from './contact';
 
 export class Booking {
   public id: number;
@@ -16,6 +17,7 @@ export class Booking {
   public fitPackage: Package;
   public company: Company;
   public location: Location;
+  public contact: Contact;
   public presentation: Presentation;
   public representatives: Representative[];
   public branches: Branch[];
@@ -44,6 +46,7 @@ export class Booking {
   public constructor(event?: Event,
                      fitPackage?: Package,
                      location?: Location,
+                     contact?: Contact,
                      company?: Company,
                      presentation?: Presentation,
                      representatives?: Representative[],
@@ -70,6 +73,7 @@ export class Booking {
     this.event = event;
     this.company = company;
     this.location = location;
+    this.contact = contact;
     this.presentation = presentation;
     this.fitPackage = fitPackage;
     this.representatives = representatives;
@@ -94,6 +98,10 @@ export class Booking {
 
     if (company == null) {
       this.company = new Company();
+    }
+
+    if (contact == null) {
+      this.contact = new Contact();
     }
   }
 }

@@ -21,12 +21,12 @@
           <!--suppress HtmlFormInputWithoutLabel -->
           <input class="custom-control-input cursor-pointer"
                  type="radio"
-                 [id]="'gender' + gender.value"
+                 [id]="'fitContactGender' + gender.value"
                  [value]="gender.value"
-                 formControlName="gender">
+                 formControlName="fitContactGender">
 
           <label class="custom-control-label my-auto cursor-pointer"
-                 [for]="'gender' + gender.value"
+                 [for]="'fitContactGender' + gender.value"
                  [id]="'genderLabel' + gender.value">
             {{gender.display}}
           </label>
@@ -36,65 +36,69 @@
 
     <!--first name-->
     <div class="form-group row mb-0">
-      <label for="firstName" class="col-md-3 col-form-label">Vorname:*</label>
+      <label for="fitContactFirstName" class="col-md-3 col-form-label">Vorname:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
-               formControlName="firstName"
-               id="firstName"
-               [ngClass]="{'is-invalid': isInvalid('firstName')}">
+               placeholder="Vorname"
+               formControlName="fitContactFirstName"
+               id="fitContactFirstName"
+               [ngClass]="{'is-invalid': isInvalid('fitContactFirstName')}">
 
         <div class="invalid-message invalid-message-container">
-          <div *ngIf="isEmpty('firstName')">Vorname darf nicht leer sein!</div>
+          <div *ngIf="isEmpty('fitContactFirstName')">Vorname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
 
     <!--last name-->
     <div class="form-group row mb-0">
-      <label for="lastName" class="col-md-3 col-form-label">Nachname:*</label>
+      <label for="fitContactLastName" class="col-md-3 col-form-label">Nachname:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
-               formControlName="lastName"
-               id="lastName"
-               [ngClass]="{'is-invalid': isInvalid('lastName')}">
+               placeholder="Nachname"
+               formControlName="fitContactLastName"
+               id="fitContactLastName"
+               [ngClass]="{'is-invalid': isInvalid('fitContactLastName')}">
 
         <div class="invalid-message invalid-message-container">
-          <div *ngIf="isEmpty('lastName')">Nachname darf nicht leer sein!</div>
+          <div *ngIf="isEmpty('fitContactLastName')">Nachname darf nicht leer sein!</div>
         </div>
       </div>
     </div>
 
     <!--email-->
     <div class="form-group row mb-0">
-      <label for="email" class="col-md-3 col-form-label">Email:*</label>
+      <label for="fitContactEmail" class="col-md-3 col-form-label">Email:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
-               formControlName="email"
-               id="email"
-               [ngClass]="{'is-invalid': isInvalid('email')}">
+               placeholder="E-Mail"
+               formControlName="fitContactEmail"
+               id="fitContactEmail"
+               [ngClass]="{'is-invalid': isInvalid('fitContactEmail')}">
 
         <div class="invalid-message invalid-message-container">
-          <span *ngIf="isEmpty('email')" class="mr-2">Email darf nicht leer sein!</span>
-          <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Email!</span>
+          <span *ngIf="isEmpty('fitContactEmail')" class="mr-2">Email darf nicht leer sein!</span>
+          <span *ngIf="isNoMail('fitContactEmail') && !isEmpty('fitContactEmail')">Ungültige E-Email!</span>
         </div>
       </div>
     </div>
 
     <!--phone-->
     <div class="form-group row mb-0">
-      <label for="phoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
+      <label for="fitContactPhoneNumber" class="col-md-3 col-form-label">Telefonnummer:*</label>
       <div class="col-md-9">
         <input class="form-control"
                type="text"
-               formControlName="phoneNumber"
-               id="phoneNumber"
-               [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
+               placeholder="Telefonnummer"
+               formControlName="fitContactPhoneNumber"
+               id="fitContactPhoneNumber"
+               [ngClass]="{'is-invalid': isInvalid('fitContactPhoneNumber')}">
 
         <div class="invalid-message invalid-message-container">
-          <div *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</div>
+          <div *ngIf="isEmpty('fitContactPhoneNumber')">Telefonnummer darf nicht leer sein!</div>
         </div>
       </div>
     </div>
@@ -104,6 +108,7 @@
       <div class="col-md-9">
       <textarea class="form-control"
                 id="remarks"
+                placeholder="sonstige Anmerkungen ...."
                 rows="4"
                 formControlName="remarks">
       </textarea>

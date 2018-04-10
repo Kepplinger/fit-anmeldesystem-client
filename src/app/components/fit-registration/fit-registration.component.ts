@@ -107,11 +107,11 @@ export class FitRegistrationComponent implements OnInit {
         presentationFile: ['']
       }),
       contactAndRemarks: fb.group({
-        gender: [this.booking.company.contact.gender],
-        firstName: [this.booking.company.contact.firstName, Validators.required],
-        lastName: [this.booking.company.contact.lastName, Validators.required],
-        email: [this.booking.company.contact.email, [Validators.required, Validators.email]],
-        phoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
+        fitContactGender: [this.booking.company.contact.gender],
+        fitContactFirstName: [this.booking.company.contact.firstName, Validators.required],
+        fitContactLastName: [this.booking.company.contact.lastName, Validators.required],
+        fitContactEmail: [this.booking.company.contact.email, [Validators.required, Validators.email]],
+        fitContactPhoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
         termsAccepted: [false, Validators.requiredTrue]
       })
@@ -193,7 +193,8 @@ export class FitRegistrationComponent implements OnInit {
       this.event,
       this.fitFormGroup.value.packagesAndLocation.fitPackage,
       this.fitFormGroup.value.packagesAndLocation.location,
-      this.getCompanyFromForm(),
+      this.getContactFromForm(),
+      this.booking.company,
       this.getPresentationFromForm(),
       this.fitFormGroup.value.fitAppearance.representatives,
       this.fitFormGroup.value.detailedData.desiredBranches,
@@ -216,32 +217,13 @@ export class FitRegistrationComponent implements OnInit {
     );
   }
 
-  private getCompanyFromForm(): Company {
-    return new Company(
-      this.getCompanyAddressFromForm(),
-      this.getContactFromForm(),
-      this.fitFormGroup.value.generalData.companyName,
-      false
-    )
-  }
-
-  private getCompanyAddressFromForm(): Address {
-    return new Address(
-      this.fitFormGroup.value.generalData.city,
-      this.fitFormGroup.value.generalData.zipCode,
-      this.fitFormGroup.value.generalData.street,
-      this.fitFormGroup.value.generalData.streetNumber,
-      this.fitFormGroup.value.generalData.addressAdditions,
-    );
-  }
-
   private getContactFromForm(): Contact {
     return new Contact(
-      this.fitFormGroup.value.contactAndRemarks.firstName,
-      this.fitFormGroup.value.contactAndRemarks.lastName,
-      this.fitFormGroup.value.contactAndRemarks.gender,
-      this.fitFormGroup.value.contactAndRemarks.email,
-      this.fitFormGroup.value.contactAndRemarks.phoneNumber
+      this.fitFormGroup.value.contactAndRemarks.fitContactGender,
+      this.fitFormGroup.value.contactAndRemarks.fitContactFirstName,
+      this.fitFormGroup.value.contactAndRemarks.fitContactLastName,
+      this.fitFormGroup.value.contactAndRemarks.fitContactEmail,
+      this.fitFormGroup.value.contactAndRemarks.fitContactPhoneNumber
     );
   }
 
@@ -285,6 +267,11 @@ export class FitRegistrationComponent implements OnInit {
         location: this.booking.location,
       },
       contactAndRemarks: {
+        fitContactGender: this.booking.contact.gender,
+        fitContactFirstName: this.booking.contact.firstName,
+        fitContactLastName: this.booking.contact.lastName,
+        fitContactEmail: this.booking.contact.email,
+        fitContactPhoneNumber: this.booking.contact.phoneNumber,
         remarks: this.booking.remarks
       }
     });
