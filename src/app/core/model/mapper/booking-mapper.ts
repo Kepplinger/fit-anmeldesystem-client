@@ -2,6 +2,8 @@ import { Booking } from '../booking';
 import * as moment from 'moment';
 import { CompanyMapper } from './company-mapper';
 import { Contact } from '../contact';
+import { ArrayUtils } from '../../utils/array-utils';
+import { Resource } from '../resource';
 
 export class BookingMapper {
 
@@ -19,7 +21,7 @@ export class BookingMapper {
       booking.location = bookingJson.location;
       booking.contact = bookingJson.contact;
       booking.fitPackage = bookingJson.fitPackage;
-      booking.resources = bookingJson.resources;
+      booking.resources = bookingJson.resources.map(r => r.resource);
       booking.additionalInfo = bookingJson.additionalInfo;
       booking.representatives = bookingJson.representatives;
       booking.providesThesis = bookingJson.providesThesis;
@@ -65,4 +67,24 @@ export class BookingMapper {
     }
   }
 
+  public static mapBookingToJson(booking: Booking): any {
+
+    let json: any = booking;
+
+    if (json != null && json.establishmentsAut != null && json.establishmentsInt != null) {
+      json.establishmentsAut = ArrayUtils.concatWithDelimiter(json.establishmentsAut, ';');
+      json.establishmentsInt = ArrayUtils.concatWithDelimiter(json.establishmentsInt, ';');
+    }
+
+    json.resources = booking.resources.map(
+      (resource: Resource) => {
+        return {
+          fK_Booking: booking.id,
+          fK_Resource: resource.id
+        }
+      }
+    );
+
+    return json;
+  }
 }

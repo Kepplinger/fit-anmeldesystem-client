@@ -8,6 +8,7 @@ import { PickedFile } from '../../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../../libs/file-picker/file-picker-error';
 import { AreaHelper } from '../../../../../core/model/helper/area-helper';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 
 declare let $: any;
 
@@ -35,7 +36,8 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   public draggableLocations: any[] = [];
   public pickedFile: PickedFile = new PickedFile();
 
-  public constructor(private changeDetector: ChangeDetectorRef) {
+  public constructor(private changeDetector: ChangeDetectorRef,
+                     private modalWindow: ModalWindowService) {
   }
 
   public ngOnInit(): void {
@@ -91,9 +93,14 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   }
 
   public removeLocation(location: Location): void {
-    ArrayUtils.deleteElement(this.area.locations, location);
-    if (this.selectedLocation === location) {
-      this.selectedLocation = null;
+    if (!location.isOccupied) {
+      ArrayUtils.deleteElement(this.area.locations, location);
+      this.draggableLocations = this.mapLocationsToDraggables();
+      if (this.selectedLocation === location) {
+        this.selectedLocation = null;
+      }
+    } else {
+      this.modalWindow.prompt('Dieser Stand ist bereits gebucht und kann nicht mehr gelöscht werden!')
     }
   }
 

@@ -38,7 +38,8 @@ export const routes: Routes = [
             outlet: 'adminOutlet'
           }
         ]
-      }{
+      },
+      {
         path: 'anmeldungen',
         children: [
           {
