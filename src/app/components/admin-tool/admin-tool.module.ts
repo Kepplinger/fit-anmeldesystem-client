@@ -31,6 +31,7 @@ import {SortService} from '../../core/app-services/sort-service.service';
 import {SortableColumnComponent} from './admin-dashboard/booking-list/sortable-column/sortable-column.component';
 import {SortableTableDirective} from './admin-dashboard/booking-list/sortable-table/sortable-table.component';
 import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
+import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-
     AcceptPresentationsComponent,
     BookingListComponent,
     GraduateListComponent,
+    CompanyListComponent,
     BookingDetailsComponent,
     EditFitEventComponent,
     EditAreaModalComponent,

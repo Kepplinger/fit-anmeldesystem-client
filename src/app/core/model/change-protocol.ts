@@ -10,6 +10,7 @@ export class ChangeProtocol {
   public creationDate: Moment;
   public oldValue: any;
   public newValue: any;
+
   public isPending: boolean;
   public isReverted: boolean;
   public isAdminChange: boolean;

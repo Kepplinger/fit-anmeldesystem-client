@@ -12,6 +12,7 @@ import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-te
 import { BookingCsvExportComponent } from './admin-dashboard/booking-list/booking-csv-export/booking-csv-export.component';
 import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
 import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
+import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +56,16 @@ export const routes: Routes = [
           {
             path: '',
             component: GraduateListComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'firmen',
+        children: [
+          {
+            path: '',
+            component: CompanyListComponent,
             outlet: 'adminOutlet'
           }
         ]
