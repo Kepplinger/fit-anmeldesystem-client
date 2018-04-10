@@ -38,6 +38,15 @@ export const routes: Routes = [
             outlet: 'adminOutlet'
           }
         ]
+      }{
+        path: 'anmeldungen',
+        children: [
+          {
+            path: '',
+            component: BookingListComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
       },
       {
         path: 'absolventen',
