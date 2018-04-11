@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class SortableTableDirective implements OnInit, OnDestroy {
 
   @Output()
-  public sorted = new EventEmitter();
+  public onListSorted = new EventEmitter();
 
   private columnSortedSubscription: Subscription;
 
@@ -18,7 +18,7 @@ export class SortableTableDirective implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.columnSortedSubscription = this.sortService.onColumnSorted
       .subscribe(event => {
-        this.sorted.emit(event);
+        this.onListSorted.emit(event);
       });
   }
 
