@@ -1,25 +1,31 @@
 <div class="m-5">
 
-    <h1>Absolventen</h1>
+  <h1>Absolventen</h1>
 
-  <table class="table table-striped" sortable-table (sorted)="onSorted($event)">
+  <table class="table table-striped" fitSortableTable (sorted)="onSorted($event)">
     <thead>
     <tr>
-      <th class="hooverable" sortable-column="lastName" sort-direction="asc">Nachname</th>
-      <th class="hooverable" sortable-column="firstName" sort-direction="asc">Vorname</th>
-      <th class="hooverable" sortable-column="email" sort-direction="asc">Email</th>
-      <th class="hooverable" sortable-column="address.zipCode" sort-direction="asc">PLZ</th>
-      <th class="hooverable" sortable-column="address.city" sort-direction="asc">Ort</th>
+      <th class="cursor-pointer p-0">
+        <fit-sortable-column [sortColumnName]="'lastName'" [sortDirection]="'asc'">Nachname</fit-sortable-column>
+      </th>
+      <th class="cursor-pointer p-0">
+        <fit-sortable-column [sortColumnName]="'firstName'" [sortDirection]="''">Vorname</fit-sortable-column>
+      </th>
+      <th class="cursor-pointer p-0">
+        <fit-sortable-column [sortColumnName]="'email'" [sortDirection]="''">E-Mail</fit-sortable-column>
+      </th>
+      <th class="cursor-pointer p-0">
+        <fit-sortable-column [sortColumnName]="'address.zipCode'" [sortDirection]="''">Ort</fit-sortable-column>
+      </th>
       <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let graduate of graduatees">
+    <tr *ngFor="let graduate of graduates">
       <td>{{graduate?.lastName}}</td>
       <td>{{graduate?.firstName}}</td>
       <td>{{graduate?.email}}</td>
-      <td>{{graduate?.address?.zipCode}}</td>
-      <td>{{graduate?.address?.city}}</td>
+      <td>{{graduate?.address?.zipCode}} {{graduate?.address?.city}}</td>
       <td>
         <div class="icon-button">
           <i class="fa fa-pencil fa-1-5x"></i>

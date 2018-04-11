@@ -1,3 +1,8 @@
-<i class="fa fa-chevron-up" *ngIf="sortDirection === 'asc'" ></i>
-<i class="fa fa-chevron-down" *ngIf="sortDirection === 'desc'"></i>
-<ng-content></ng-content>
+<div class="d-flex column-header justify-content-center"
+     [ngClass]="{'sort-active': sortDirection != ''}">
+  <ng-content></ng-content>
+  <div class="flex-1"></div>
+  <i class="fa fa-fw fa-1-5x fa-sort-asc" *ngIf="sortDirection == 'asc'"></i>
+  <i class="fa fa-fw fa-1-5x fa-sort-desc" *ngIf="sortDirection == 'desc'"></i>
+  <i class="fa fa-fw fa-1-5x fa-sort" *ngIf="sortDirection == ''"></i>
+</div>

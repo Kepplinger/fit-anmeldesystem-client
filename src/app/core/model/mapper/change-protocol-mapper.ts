@@ -12,7 +12,7 @@ export class ChangeProtocolMapper {
       change.creationDate = moment(changeJSON.creationDate);
       change.newValue = changeJSON.newValue;
       change.oldValue = changeJSON.oldValue;
-      change.columnName = changeJSON.columnName;
+      change.columnName = changeJSON.sortColumnName;
       change.tableName = changeJSON.tableName;
       change.companyId = changeJSON.companyId;
       change.isPending = changeJSON.isPending;

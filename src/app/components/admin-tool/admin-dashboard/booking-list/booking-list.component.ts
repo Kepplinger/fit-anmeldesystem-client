@@ -51,7 +51,7 @@ export class BookingListComponent implements OnInit, OnDestroy {
     this.bookings = await this.bookingDAO.fetchAllBookingsForEvent(this.eventService.selectedEvent.getValue());
     this.tmpBookings = this.bookings;
     this.loading = false;
-    this.columnSortedSubscription = this.sortService.columnSorted$.subscribe(event => {
+    this.columnSortedSubscription = this.sortService.onColumnSorted.subscribe(event => {
       this.sorted.emit(event);
     });
   }

@@ -1,0 +1,12 @@
+.column-header {
+  padding: 0.75rem;
+  user-select: none;
+
+  &:hover:not(.sort-active) {
+    background-color: rgba(118, 188, 255, 0.12);
+  }
+}
+
+.column-header.sort-active {
+  background-color: rgba(118, 188, 255, 0.35);
+}

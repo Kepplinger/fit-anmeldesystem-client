@@ -1,24 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-
-declare let $;
+import { ColumnSortCriteria } from '../app-helper/helper-model/column-sort-criteria';
 
 @Injectable()
 export class SortService {
+  public onColumnSorted = new Subject<ColumnSortCriteria>();
 
-  constructor() { }
-
-  private columnSortedSource = new Subject<ColumnSortedEvent>();
-
-  columnSorted$ = this.columnSortedSource.asObservable();
-
-  columnSorted(event: ColumnSortedEvent) {
-    this.columnSortedSource.next(event);
+  public columnSorted(event: ColumnSortCriteria): void {
+    this.onColumnSorted.next(event);
   }
-
-}
-
-export interface ColumnSortedEvent {
-  sortColumn: string;
-  sortDirection: string;
 }
