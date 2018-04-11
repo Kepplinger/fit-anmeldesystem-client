@@ -1,15 +1,13 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BookingTransferService } from '../../../../core/app-services/booking-transfer.service';
+import { BookingTransferService } from '../../../../core/app-services/transfer-services/booking-transfer.service';
 import { BookingDAO } from '../../../../core/dao/booking.dao';
 import { Booking } from '../../../../core/model/booking';
 import { EventService } from '../../../../core/app-services/event.service';
 import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { CsvCreatorService } from '../../services/csv-creator.service';
 
-import { Subscription } from 'rxjs/Subscription';
-import { SortService } from '../../../../core/app-services/sort-service.service';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { FitPackage } from '../../../../core/model/enums/fit-package';

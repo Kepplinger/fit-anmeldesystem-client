@@ -31,7 +31,7 @@
       <td>{{company?.contact.firstName}} {{company?.contact.lastName}}</td>
       <td>{{company?.contact.email}}</td>
       <td>
-        <div class="icon-button">
+        <div class="icon-button" (click)="routeToCompanyDetails(company)">
           <i class="fa fa-pencil fa-1-5x"></i>
         </div>
       </td>

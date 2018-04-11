@@ -13,6 +13,8 @@ import { BookingCsvExportComponent } from './admin-dashboard/booking-list/bookin
 import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
 import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
 import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
+import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
+import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +53,16 @@ export const routes: Routes = [
         ]
       },
       {
+        path: 'anmeldung/:id',
+        children: [
+          {
+            path: '',
+            component: BookingDetailsComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
         path: 'absolventen',
         children: [
           {
@@ -61,11 +73,31 @@ export const routes: Routes = [
         ]
       },
       {
+        path: 'absolvent/:id',
+        children: [
+          {
+            path: '',
+            component: GraduateDetailsComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
         path: 'firmen',
         children: [
           {
             path: '',
             component: CompanyListComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'firma/:id',
+        children: [
+          {
+            path: '',
+            component: CompanyDetailsComponent,
             outlet: 'adminOutlet'
           }
         ]
@@ -126,16 +158,6 @@ export const routes: Routes = [
           {
             path: '',
             component: AcceptPresentationsComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'anmeldung/:id',
-        children: [
-          {
-            path: '',
-            component: BookingDetailsComponent,
             outlet: 'adminOutlet'
           }
         ]

@@ -27,11 +27,16 @@ import {
   LocationPickerModalComponent
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
 import { CsvCreatorService } from './services/csv-creator.service';
-import {SortService} from '../../core/app-services/sort-service.service';
-import {SortableColumnComponent} from '../shared-components/sortable-column/sortable-column.component';
-import {SortableTableDirective} from '../shared-components/sortable-table/sortable-table.component';
+import { SortService } from '../../core/app-services/sort-service.service';
+import { SortableColumnComponent } from '../shared-components/sortable-column/sortable-column.component';
+import { SortableTableDirective } from '../shared-components/sortable-table/sortable-table.component';
 import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
 import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
+import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
+import { BookingTransferService } from '../../core/app-services/transfer-services/booking-transfer.service';
+import { GraduateTransferService } from '../../core/app-services/transfer-services/graduate-transfer.service';
+import { CompanyTransferService } from '../../core/app-services/transfer-services/company-transfer.service';
+import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
 
 @NgModule({
   imports: [
@@ -53,9 +58,11 @@ import { CompanyListComponent } from './admin-dashboard/company-list/company-lis
     AdminDashboardComponent,
     AcceptPresentationsComponent,
     BookingListComponent,
-    GraduateListComponent,
-    CompanyListComponent,
     BookingDetailsComponent,
+    GraduateListComponent,
+    GraduateDetailsComponent,
+    CompanyListComponent,
+    CompanyDetailsComponent,
     EditFitEventComponent,
     EditAreaModalComponent,
     SelectEventModalComponent,
@@ -70,7 +77,10 @@ import { CompanyListComponent } from './admin-dashboard/company-list/company-lis
   ],
   providers: [
     CsvCreatorService,
-    SortService
+    SortService,
+    BookingTransferService,
+    GraduateTransferService,
+    CompanyTransferService
   ]
 })
 export class AdminToolModule {

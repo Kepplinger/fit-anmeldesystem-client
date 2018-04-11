@@ -27,7 +27,8 @@
       <td>{{graduate?.email}}</td>
       <td>{{graduate?.address?.zipCode}} {{graduate?.address?.city}}</td>
       <td>
-        <div class="icon-button">
+        <div class="icon-button"
+             (click)="routeToGraduateDetails(graduate)">
           <i class="fa fa-pencil fa-1-5x"></i>
         </div>
       </td>

@@ -15,7 +15,7 @@ import { AuthenticationDAO } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
 import { FitRegistrationService } from './app-services/fit-registration.service';
 import { ModalWindowService } from './app-services/modal-window.service';
-import { BookingTransferService } from './app-services/booking-transfer.service';
+import { BookingTransferService } from './app-services/transfer-services/booking-transfer.service';
 import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
@@ -46,7 +46,6 @@ import { HttpClientModule } from '@angular/common/http';
     ApplicationStateService,
     FitRegistrationService,
     ModalWindowService,
-    BookingTransferService,
     RouterService,
     EventService,
     AppLoadingService

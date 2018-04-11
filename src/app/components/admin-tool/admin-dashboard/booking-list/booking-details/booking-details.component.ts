@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Booking } from '../../../../../core/model/booking';
-import { BookingTransferService } from '../../../../../core/app-services/booking-transfer.service';
+import { BookingTransferService } from '../../../../../core/app-services/transfer-services/booking-transfer.service';
 import { FormHelper } from '../../../../../core/app-helper/form-helper';
 import { DisplayedValueMapper } from '../../../../../core/app-helper/helper-model/mapper/displayed-value-mapper';
 import { AppConfig } from '../../../../../core/app-config/app-config.service';
@@ -136,7 +136,7 @@ export class BookingDetailsComponent implements OnInit {
         if (params.id != null) {
           this.booking = this.bookingTransferService.getBooking(Number(params.id));
           if (this.booking == null) {
-            this.router.navigate(['/admin-tool', 'dash'])
+            this.router.navigate(['/admin-tool', 'anmeldungen']);
           } else {
             this.fillFormWithBooking();
           }
