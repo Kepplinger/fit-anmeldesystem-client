@@ -71,6 +71,8 @@ export class BookingMapper {
 
     let json: any = booking;
 
+    json.fK_Company = booking.company.id;
+
     if (json != null && json.establishmentsAut != null && json.establishmentsInt != null) {
       json.establishmentsAut = ArrayUtils.concatWithDelimiter(json.establishmentsAut, ';');
       json.establishmentsInt = ArrayUtils.concatWithDelimiter(json.establishmentsInt, ';');
@@ -84,6 +86,9 @@ export class BookingMapper {
         }
       }
     );
+
+    // delete unnecessary company attribute
+    delete json.company;
 
     return json;
   }

@@ -32,6 +32,7 @@ export class FitRegistrationService {
   }
 
   public bookingIsFilled(): void {
+    console.log('hallo');
     this.bookingFilled.next();
   }
 }

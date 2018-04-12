@@ -39,14 +39,13 @@ export class FitAppearanceComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
     this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
-    this.resources = await this.resourceDAO.fetchResources();
 
     this.bookingRegistrationService.bookingFilled.subscribe(
       () => {
-        console.log(this.representatives);
         this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+        console.log(this.resourceFormArray.value);
+        console.log(this.resources);
         this.representatives = (<FormArray>this.stepFormGroup.get('representatives')).value;
-        console.log(this.representatives);
 
         this.representatives.forEach(r => {
           this.touchedRepresentatives.push({
@@ -55,9 +54,9 @@ export class FitAppearanceComponent implements OnInit {
             email: false
           });
         });
+      });
 
-      }
-    );
+    this.resources = await this.resourceDAO.fetchResources();
   }
 
   public onRepresentativeAdd(): void {
@@ -100,7 +99,7 @@ export class FitAppearanceComponent implements OnInit {
   }
 
   public isResourceSelected(resource: Resource): boolean {
-    return FormArrayUtils.indexOf(this.resourceFormArray, resource) !== -1;
+    return FormArrayUtils.indexOfWithId(this.resourceFormArray, resource) !== -1;
   }
 
   public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
