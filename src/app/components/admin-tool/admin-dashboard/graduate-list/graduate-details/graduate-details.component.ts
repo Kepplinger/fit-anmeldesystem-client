@@ -25,8 +25,6 @@ export class GraduateDetailsComponent implements OnInit {
           this.graduate = this.graduateTransferService.getGraduate(Number(params.id));
           if (this.graduate == null) {
             this.router.navigate(['/admin-tool', 'absolventen']);
-          } else {
-            // this.fillFormWithBooking();
           }
         }
       });

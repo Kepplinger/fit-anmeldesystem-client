@@ -4,7 +4,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
-import { ArrayUtils } from '../utils/array-utils';
 
 @Injectable()
 export class CompanyDAO {

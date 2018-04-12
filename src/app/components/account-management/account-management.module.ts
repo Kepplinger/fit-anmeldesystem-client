@@ -7,8 +7,7 @@ import { AccountLoginComponent } from './account-login/account-login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { AccountOverviewComponent } from './account-overview/account-overview.component';
-import { CompanyOverviewComponent } from './account-overview/company-overview/company-overview.component';
-import { GraduateOverviewComponent } from './account-overview/graduate-overview/graduate-overview.component';
+import { SharedModule } from '../shared-components/shared.module';
 
 @NgModule({
   imports: [
@@ -16,13 +15,12 @@ import { GraduateOverviewComponent } from './account-overview/graduate-overview/
     CommonModule,
     AccountRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   declarations: [
     AccountManagmentComponent,
     AccountOverviewComponent,
     AccountLoginComponent,
-    CompanyOverviewComponent,
-    GraduateOverviewComponent
   ],
   providers: [
     AccountManagementService

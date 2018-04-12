@@ -7,13 +7,16 @@ import { HintIconComponent } from './hint-icon/hint-icon/hint-icon.component';
 import { FitHeaderComponent } from './fit-header/header.component';
 import { FitFooterComponent } from './fit-footer/footer.component';
 import { TagInputComponent } from './tag-input/tag-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.component';
+import { CompanyOverviewComponent } from '../account-management/account-overview/company-overview/company-overview.component';
+import { GraduateOverviewComponent } from '../account-management/account-overview/graduate-overview/graduate-overview.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     TagInputModule,
   ],
@@ -22,14 +25,18 @@ import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.compo
     FitHeaderComponent,
     FitFooterComponent,
     TagInputComponent,
-    CustomCheckboxComponent
+    CustomCheckboxComponent,
+    CompanyOverviewComponent,
+    GraduateOverviewComponent
   ],
   exports: [
     HintIconComponent,
     FitHeaderComponent,
     FitFooterComponent,
     TagInputComponent,
-    CustomCheckboxComponent
+    CustomCheckboxComponent,
+    CompanyOverviewComponent,
+    GraduateOverviewComponent
   ]
 })
 export class SharedModule {

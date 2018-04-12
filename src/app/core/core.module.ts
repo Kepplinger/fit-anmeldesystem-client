@@ -22,6 +22,7 @@ import { AppLoadingService } from './app-services/app-loading.service';
 import { EmailDAO } from './dao/email.dao';
 import { GraduateDao } from './dao/graduate.dao';
 import { HttpClientModule } from '@angular/common/http';
+import { PresentationDAO } from './dao/presentation.dao';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     ChangeProtocolDAO,
     LocationDAO,
     AuthenticationDAO,
+    PresentationDAO,
     AreaDAO,
     EventDAO,
     EmailDAO,

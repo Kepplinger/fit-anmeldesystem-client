@@ -37,6 +37,8 @@ import { BookingTransferService } from '../../core/app-services/transfer-service
 import { GraduateTransferService } from '../../core/app-services/transfer-services/graduate-transfer.service';
 import { CompanyTransferService } from '../../core/app-services/transfer-services/company-transfer.service';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
+import { GraduateOverviewComponent } from '../account-management/account-overview/graduate-overview/graduate-overview.component';
+import { CompanyOverviewComponent } from '../account-management/account-overview/company-overview/company-overview.component';
 
 @NgModule({
   imports: [

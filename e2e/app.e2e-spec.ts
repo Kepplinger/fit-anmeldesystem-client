@@ -13,7 +13,10 @@ describe('log-file-explorer-client App', function () {
     element(by.id('codeInput')).sendKeys('FirmenToken1');
     element(by.id('btnFitRegister')).click();
     browser.waitForAngular();
-    element(by.css('.ajs-button.ajs-cancel')).click();
+
+    // if (element(by.css('.ajs-button.ajs-cancel')).isPresent()) {
+    //   element(by.css('.ajs-button.ajs-cancel')).click();
+    // }
 
     await browser.executeScript('window.scrollTo(0,500);');
     element(by.id('btnNext')).click();
@@ -80,7 +83,7 @@ describe('log-file-explorer-client App', function () {
 
     element(by.id('title')).sendKeys('Wie funktioniert Angular?');
     element(by.id('otherNotes')).sendKeys('Spoiler: gar nicht');
-
+    element(by.id('checkboxBranch0')).element(by.css('.cr')).click();
     element(by.id('btnNext')).click();
 
     // step 5

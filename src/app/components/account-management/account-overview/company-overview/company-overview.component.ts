@@ -34,8 +34,7 @@ export class CompanyOverviewComponent implements OnInit {
 
   public genders: DisplayedValue[];
 
-  public constructor(private accountManagementService: AccountManagementService,
-                     private fb: FormBuilder,
+  public constructor(private fb: FormBuilder,
                      private eventService: EventService,
                      private router: Router,
                      private companyDAO: CompanyDAO,

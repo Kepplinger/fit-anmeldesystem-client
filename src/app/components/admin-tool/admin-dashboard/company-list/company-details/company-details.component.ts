@@ -20,12 +20,11 @@ export class CompanyDetailsComponent implements OnInit {
   public ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
+        console.log(params);
         if (params.id != null) {
           this.company = this.companyTransferService.getCompany(Number(params.id));
           if (this.company == null) {
             this.router.navigate(['/admin-tool', 'firmen']);
-          } else {
-            // this.fillFormWithBooking();
           }
         }
       });

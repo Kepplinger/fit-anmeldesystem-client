@@ -100,7 +100,11 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
         this.selectedLocation = null;
       }
     } else {
-      this.modalWindow.prompt('Dieser Stand ist bereits gebucht und kann nicht mehr gelöscht werden!')
+      this.modalWindow.alert(
+        'Kann nicht gelöscht werden!',
+        'Dieser Stand ist bereits gebucht und kann nicht mehr gelöscht werden!',
+        {movable: false}
+      );
     }
   }
 

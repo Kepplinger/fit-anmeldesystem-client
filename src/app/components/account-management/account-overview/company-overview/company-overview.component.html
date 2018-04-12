@@ -204,32 +204,19 @@
     </div>
   </div>
 
-  <div class="mb-4">
+  <div class="mb-4" *ngIf="booking != null">
     <h1>FIT-Anmeldung</h1>
     <p>Der FIT ist eine jährlich Veranstaltung der HTL-Leonding bei welcher sich die Schüler bei Ihenen als Firma
       informieren können.</p>
 
-    <div [ngSwitch]="booking == null"
-         class="text-center text-bold text-large">
-      <div *ngSwitchCase="true"
-           class="d-flex flex-column">
-        <div class="text-center">Sie sind nicht für den FIT am {{event.eventDate | date:'longDate'}} angemeldet</div>
-        <button class="btn btn-primary text-bold mt-2 mx-auto"
-                [routerLink]="['/']">
-          Zur FIT-Anmeldung
-        </button>
+    <div class="d-flex flex-column text-center text-bold text-large my-4">
+      <div>Sie haben sich bereits für den FIT am {{event.eventDate | date:'longDate'}} angemeldet.
       </div>
-
-      <div *ngSwitchDefault
-           class="d-flex flex-column my-4">
-        <div>Sie haben sich bereits für den FIT am {{event.eventDate | date:'longDate'}} angemeldet.
-        </div>
-        <button class="btn btn-success text-bold mt-2 mx-auto"
-                [routerLink]="['/fit','anmelden']">
-          <i class="fa fa-pencil"></i>
-          Anmeldung bearbeiten
-        </button>
-      </div>
+      <button class="btn btn-success text-bold mt-2 mx-auto"
+              [routerLink]="['/fit','anmelden']">
+        <i class="fa fa-pencil"></i>
+        Anmeldung bearbeiten
+      </button>
     </div>
   </div>
 </div>

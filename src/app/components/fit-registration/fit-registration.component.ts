@@ -121,7 +121,7 @@ export class FitRegistrationComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.event = this.eventService.currentEvent.getValue();
 
-    if (this.booking.id != null) {
+    if (this.booking.id != null && !this.bookingRegistrationService.editMode) {
       let useOldBooking = await this.modalWindowService.confirm(
         'Anmeldung von letzten Mal übernehemen?',
         'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',

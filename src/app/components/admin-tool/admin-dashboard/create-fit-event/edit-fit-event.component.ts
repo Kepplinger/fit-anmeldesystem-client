@@ -7,6 +7,7 @@ import { Area } from '../../../../core/model/area';
 import { EventDAO } from '../../../../core/dao/event.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EventService } from '../../../../core/app-services/event.service';
+import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 
 declare let $: any;
 
@@ -26,6 +27,7 @@ export class EditFitEventComponent implements OnInit {
   public constructor(private changeDetector: ChangeDetectorRef,
                      private toastr: ToastrService,
                      private router: Router,
+                     private modalWindow: ModalWindowService,
                      private eventService: EventService,
                      private eventDAO: EventDAO) {
   }
@@ -74,9 +76,18 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public removeArea(area: Area): void {
-    ArrayUtils.deleteElement(this.event.areas, area);
-    if (this.selectedArea === area) {
-      this.selectedArea = null;
+
+    if (area.locations.find(l => l.isOccupied) == null) {
+      ArrayUtils.deleteElement(this.event.areas, area);
+      if (this.selectedArea === area) {
+        this.selectedArea = null;
+      }
+    } else {
+      this.modalWindow.alert(
+        'Kann nicht gelöscht werden!',
+        'Dieses Geschoss kann nicht mehr gelöscht werden, da mindestens ein Stand darin gebucht ist!',
+        {movable: false}
+      );
     }
   }
 

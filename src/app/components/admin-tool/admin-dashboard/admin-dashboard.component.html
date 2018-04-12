@@ -22,18 +22,27 @@
          [routerLink]="['/admin-tool','fit-bearbeiten']">
       <i class="fa fa-calendar-plus-o dash-icon"></i>
       <div class="dash-text">FIT bearbeiten</div>
+      <div class="text-smaller text-muted">
+        für FIT am {{event.eventDate | date:'mediumDate'}}
+      </div>
     </div>
 
     <div class="dash"
          [routerLink]="['/admin-tool','anmeldungen']">
       <i class="fa fa-book dash-icon"></i>
       <div class="dash-text">FIT Anmeldungen</div>
+      <div class="text-smaller text-muted">
+        für FIT am {{event.eventDate | date:'mediumDate'}}
+      </div>
     </div>
 
     <div class="dash"
-         [routerLink]="['/admin-tool','firmen-bestaetigen']">
-      <i class="fa fa-check-square-o dash-icon"></i>
-      <div class="dash-text">Firmen bestätigen</div>
+         [routerLink]="['/admin-tool','vortraege']">
+      <i class="fa fa-graduation-cap dash-icon"></i>
+      <div class="dash-text">Vorträge</div>
+      <div class="text-smaller text-muted">
+        für FIT am {{event.eventDate | date:'mediumDate'}}
+      </div>
     </div>
 
     <div class="dash"
@@ -49,9 +58,9 @@
     </div>
 
     <div class="dash"
-         [routerLink]="['/admin-tool','vortraege']">
-      <i class="fa fa-graduation-cap dash-icon"></i>
-      <div class="dash-text">Vorträge</div>
+         [routerLink]="['/admin-tool','firmen-bestaetigen']">
+      <i class="fa fa-check-square-o dash-icon"></i>
+      <div class="dash-text">Firmen bestätigen</div>
     </div>
 
     <div class="dash"

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { PresentationDAO } from '../../../../core/dao/presentation.dao';
+import { EventService } from '../../../../core/app-services/event.service';
 
 declare let $;
 
@@ -15,11 +17,12 @@ export class AcceptPresentationsComponent implements OnInit {
   public listOfLectures: any[] = [];
   public listOfAccepted: any[] = [];
 
-  public constructor(private companyDAO: CompanyDAO) {
+  public constructor(private presentationDAO: PresentationDAO,
+                     private eventService: EventService) {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.listOfLectures = await this.companyDAO.fetchCompaniesAndPresentations(1);
+    this.listOfLectures = await this.presentationDAO.fetchPresentations(this.eventService.selectedEvent.getValue().id);
   }
 
   public async removeLecture(entry: any): Promise<void> {
