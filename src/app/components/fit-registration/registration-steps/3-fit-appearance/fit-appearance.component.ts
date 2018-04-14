@@ -37,23 +37,15 @@ export class FitAppearanceComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
-    this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
+    this.fillRepresentativesAndResources();
+
+    if (this.representatives.length === 0) {
+      this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
+    }
 
     this.bookingRegistrationService.bookingFilled.subscribe(
       () => {
-        this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
-        console.log(this.resourceFormArray.value);
-        console.log(this.resources);
-        this.representatives = (<FormArray>this.stepFormGroup.get('representatives')).value;
-
-        this.representatives.forEach(r => {
-          this.touchedRepresentatives.push({
-            representative: r,
-            name: false,
-            email: false
-          });
-        });
+        this.fillRepresentativesAndResources();
       });
 
     this.resources = await this.resourceDAO.fetchResources();
@@ -167,5 +159,18 @@ export class FitAppearanceComponent implements OnInit {
     } else if (file === FilePickerError.UndefinedInput) {
       this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
     }
+  }
+
+  private fillRepresentativesAndResources(): void {
+    this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+    this.representatives = (<FormArray>this.stepFormGroup.get('representatives')).value;
+
+    this.representatives.forEach(r => {
+      this.touchedRepresentatives.push({
+        representative: r,
+        name: false,
+        email: false
+      });
+    });
   }
 }

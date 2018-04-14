@@ -5,6 +5,7 @@ import { RouterService } from './core/app-services/router.service';
 import { EventService } from './core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorInterceptor } from './core/dao/helper/error-interceptor';
+import { AppLoadingService } from './core/app-services/app-loading.service';
 
 @Component({
   selector: 'fit-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
 
   // noinspection JSUnusedLocalSymbols
   public constructor(private applicationStateService: ApplicationStateService,
+                     private appLoadingService: AppLoadingService,
                      private toastr: ToastrService,
                      private eventService: EventService,
                      private routerService: RouterService) {
@@ -28,5 +30,9 @@ export class AppComponent implements OnInit {
 
   public getApplicationState(): FitApplication {
     return this.applicationStateService.activatedApplication;
+  }
+
+  public isAppLoading(): boolean {
+    return this.appLoadingService.isAppLoading();
   }
 }

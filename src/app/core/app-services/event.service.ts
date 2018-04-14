@@ -3,6 +3,7 @@ import { EventDAO } from '../dao/event.dao';
 import { Event } from '../model/event';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { EventMapper } from '../model/mapper/event-mapper';
+import { AppLoadingService } from './app-loading.service';
 
 @Injectable()
 export class EventService {
@@ -11,7 +12,8 @@ export class EventService {
   public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event());
   public events: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
 
-  public constructor(private eventDAO: EventDAO) {
+  public constructor(private eventDAO: EventDAO,
+                     private appLoadingService: AppLoadingService) {
     this.fetchEvents();
 
     this.selectedEvent.subscribe(
@@ -22,6 +24,7 @@ export class EventService {
   }
 
   private async fetchEvents(): Promise<void> {
+    this.appLoadingService.startLoading();
     if (this.fetchSelectedEventFromSessionStorage()) {
       let event = await this.eventDAO.getCurrentEvent();
 
@@ -35,6 +38,7 @@ export class EventService {
       this.currentEvent.next(event);
       this.selectedEvent.next(event);
     }
+    this.appLoadingService.endLoading();
 
     this.events.next(await this.eventDAO.fetchEvents());
   }

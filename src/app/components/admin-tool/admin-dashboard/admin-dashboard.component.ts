@@ -18,7 +18,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.event = this.eventService.selectedEvent.getValue();
+    this.event = this.eventService.currentEvent.getValue();
 
     this.subscriptions.push(
       this.eventService.selectedEvent.subscribe(

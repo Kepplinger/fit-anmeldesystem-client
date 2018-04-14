@@ -1,4 +1,10 @@
-<div class="main-page d-flex flex-column">
+<div *ngIf="isAppLoading()">
+  <div class="text-center d-flex flex-column app-loading-container align-items-center justify-content-center">
+    <h1 class="text-bold">Anwendung lädt ... </h1>
+    <h1><i class="fa fa-pulse fa-spinner"></i></h1>
+  </div>
+</div>
+<div *ngIf="!isAppLoading()" class="main-page d-flex flex-column">
   <fit-header *ngIf="getApplicationState() == FitApplication.FitRegistration"></fit-header>
 
   <router-outlet></router-outlet>
@@ -17,3 +23,4 @@
     <a [routerLink]="['/konto/login']">ACCOUNT</a> |
   </span>
 </div>
+

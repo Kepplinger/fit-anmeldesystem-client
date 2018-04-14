@@ -20,6 +20,7 @@ import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
 import 'rxjs/add/operator/map';
+import { typeIsOrHasBaseType } from 'tslint/lib/language/typeUtils';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -120,9 +121,10 @@ export class FitRegistrationComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.event = this.eventService.currentEvent.getValue();
+    let useOldBooking: boolean = false;
 
     if (this.booking.id != null && !this.bookingRegistrationService.editMode) {
-      let useOldBooking = await this.modalWindowService.confirm(
+      useOldBooking = await this.modalWindowService.confirm(
         'Anmeldung von letzten Mal übernehemen?',
         'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
         {
@@ -131,10 +133,10 @@ export class FitRegistrationComponent implements OnInit {
           labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
         }
       );
+    }
 
-      if (useOldBooking) {
-        this.fillFormWithBooking()
-      }
+    if (this.bookingRegistrationService.editMode || useOldBooking) {
+      this.fillFormWithBooking();
     }
   }
 
@@ -245,6 +247,10 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   private fillFormWithBooking(): void {
+
+    if (this.booking.company.contact.gender == null || this.booking.company.contact.gender == '') {
+      this.booking.company.contact.gender = 'M';
+    }
 
     this.fitFormGroup.patchValue({
       detailedData: {

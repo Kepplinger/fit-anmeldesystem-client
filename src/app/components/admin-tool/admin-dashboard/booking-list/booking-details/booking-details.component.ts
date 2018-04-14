@@ -167,7 +167,7 @@ export class BookingDetailsComponent implements OnInit {
       fitPackage: this.booking.fitPackage,
       location: this.booking.location,
       remarks: this.booking.remarks,
-      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).value,
+      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).display,
       firstName: this.booking.company.contact.firstName,
       lastName: this.booking.company.contact.lastName,
       contactEmail: this.booking.company.contact.email,
