@@ -8,6 +8,8 @@ export class Company {
   public address: Address;
   public contact: Contact;
 
+  public tags: string[];
+
   public name: string;
   public isPending: boolean;
 
@@ -15,6 +17,7 @@ export class Company {
                      contact?: Contact,
                      name?: string,
                      isPending?: boolean,
+                     tags?: string[],
                      id?: number,
                      timestamp?: string) {
     this.id = id;
@@ -22,6 +25,7 @@ export class Company {
     this.address = address;
     this.contact = contact;
     this.name = name;
+    this.tags = tags;
     this.isPending = isPending;
 
     if (this.address == null) {
@@ -30,6 +34,10 @@ export class Company {
 
     if (this.contact == null) {
       this.contact = new Contact();
+    }
+
+    if (this.tags == null) {
+      this.tags = [];
     }
   }
 }

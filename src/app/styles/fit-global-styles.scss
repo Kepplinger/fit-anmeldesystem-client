@@ -134,6 +134,12 @@ body {
   0 1px 18px 0 rgba(0, 0, 0, .24);
 }
 
+.white-shadow {
+  box-shadow: 0 3px 5px -1px #fff,
+  0 6px 10px 0 #fff,
+  0 1px 18px 0 #fff;
+}
+
 .no-floating-effect {
   box-shadow: 0 0 0;
 }
