@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../../../../../core/model/event';
 import { BookingTransferService } from '../../../../../core/app-services/transfer-services/booking-transfer.service';
-import { CsvCreatorService } from '../../../services/csv-creator.service';
+import { BookingCsvCreatorService } from '../../../services/booking-csv-creator.service';
 import { EventService } from '../../../../../core/app-services/event.service';
 
 @Component({
@@ -53,7 +53,7 @@ export class BookingCsvExportComponent implements OnInit {
 
   public constructor(private bookingTransferService: BookingTransferService,
                      private eventService: EventService,
-                     private csvCreatorService: CsvCreatorService) {
+                     private csvCreatorService: BookingCsvCreatorService) {
   }
 
   public ngOnInit(): void {

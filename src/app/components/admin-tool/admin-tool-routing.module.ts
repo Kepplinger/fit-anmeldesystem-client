@@ -15,6 +15,7 @@ import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-
 import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
 import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
+import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,16 @@ export const routes: Routes = [
           {
             path: '',
             component: BookingListComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'einstellungen',
+        children: [
+          {
+            path: '',
+            component: AdminSettingsComponent,
             outlet: 'adminOutlet'
           }
         ]

@@ -13,6 +13,9 @@ export class CompanyMapper {
       company.name = companyJson.name;
       company.isPending = companyJson.isPending;
       company.address = companyJson.address;
+      company.memberSince = companyJson.memberSince;
+      company.memberPaymentAmount = companyJson.memberPaymentAmount;
+      company.memberStatus = companyJson.memberStatus;
 
       return company;
     } else {

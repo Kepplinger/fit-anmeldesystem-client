@@ -3,6 +3,7 @@
            [placeholder]="'Standort hinzufügen'"
            [secondaryPlaceholder]="'Mit Enter bestätigen'"
            [separatorKeyCodes]="[13,188]"
+           [onlyFromAutocomplete]="autoComplete"
            [ripple]="false"
            [addOnBlur]="true"
            [ngModelOptions]="{standalone: true}"
@@ -22,4 +23,8 @@
       </div>
     </div>
   </ng-template>
+  <tag-input-dropdown *ngIf="autoComplete"
+                      [showDropdownIfEmpty]="true"
+                      [autocompleteItems]="autoCompleteItems">
+  </tag-input-dropdown>
 </tag-input>

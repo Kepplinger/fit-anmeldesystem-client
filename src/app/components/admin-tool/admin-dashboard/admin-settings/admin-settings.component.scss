@@ -1,0 +1,47 @@
+@import "../../../../styles/fit-variables";
+
+@mixin badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.left-badge {
+  @include badge;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  margin-right: 0;
+}
+
+.right-badge {
+  @include badge;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  margin-left: 0;
+}
+
+.archive-badge {
+  cursor: pointer;
+  background-color: darken($primary-color,30%);
+  -webkit-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+
+  &:hover {
+    background-color: darken($primary-color,40%);
+  }
+}
+
+.recover-badge {
+  cursor: pointer;
+  background-color: #333;
+  -webkit-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+
+  &:hover {
+    background-color: darken(#111, 10%);
+  }
+}

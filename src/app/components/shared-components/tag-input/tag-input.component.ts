@@ -16,6 +16,12 @@ export class TagInputComponent {
   @Input()
   public tags: string[];
 
+  @Input()
+  public autoComplete: boolean = false;
+
+  @Input()
+  public autoCompleteItems: string[] = [];
+
   public focus = false;
 
   public constructor() {

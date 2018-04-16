@@ -15,7 +15,6 @@ import { AuthenticationDAO } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
 import { FitRegistrationService } from './app-services/fit-registration.service';
 import { ModalWindowService } from './app-services/modal-window.service';
-import { BookingTransferService } from './app-services/transfer-services/booking-transfer.service';
 import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
@@ -23,6 +22,8 @@ import { EmailDAO } from './dao/email.dao';
 import { GraduateDao } from './dao/graduate.dao';
 import { HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
+import { TagDAO } from './dao/tag.dao';
+import { AuthDAO } from './dao/auth.dao';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { PresentationDAO } from './dao/presentation.dao';
   ],
   declarations: [],
   providers: [
+    AuthDAO,
     BookingDAO,
     BranchDAO,
     ResourceDAO,
@@ -40,6 +42,7 @@ import { PresentationDAO } from './dao/presentation.dao';
     LocationDAO,
     AuthenticationDAO,
     PresentationDAO,
+    TagDAO,
     AreaDAO,
     EventDAO,
     EmailDAO,

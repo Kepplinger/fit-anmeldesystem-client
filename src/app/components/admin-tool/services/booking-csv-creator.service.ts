@@ -4,7 +4,7 @@ import { Booking } from '../../../core/model/booking';
 import * as FileSaver from 'file-saver';
 
 @Injectable()
-export class CsvCreatorService {
+export class BookingCsvCreatorService {
 
   public bookings: Booking[] = [];
 

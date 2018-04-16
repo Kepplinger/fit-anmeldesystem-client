@@ -26,7 +26,7 @@ import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentat
 import {
   LocationPickerModalComponent
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
-import { CsvCreatorService } from './services/csv-creator.service';
+import { BookingCsvCreatorService } from './services/booking-csv-creator.service';
 import { SortService } from '../../core/app-services/sort-service.service';
 import { SortableColumnComponent } from '../shared-components/sortable-column/sortable-column.component';
 import { SortableTableDirective } from '../shared-components/sortable-table/sortable-table.component';
@@ -37,8 +37,8 @@ import { BookingTransferService } from '../../core/app-services/transfer-service
 import { GraduateTransferService } from '../../core/app-services/transfer-services/graduate-transfer.service';
 import { CompanyTransferService } from '../../core/app-services/transfer-services/company-transfer.service';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
-import { GraduateOverviewComponent } from '../account-management/account-overview/graduate-overview/graduate-overview.component';
-import { CompanyOverviewComponent } from '../account-management/account-overview/company-overview/company-overview.component';
+import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
+import { CompanyTagService } from '../../core/app-services/company-tag.service';
 
 @NgModule({
   imports: [
@@ -58,6 +58,7 @@ import { CompanyOverviewComponent } from '../account-management/account-overview
     AdminLoginComponent,
     AdminHeaderComponent,
     AdminDashboardComponent,
+    AdminSettingsComponent,
     AcceptPresentationsComponent,
     BookingListComponent,
     BookingDetailsComponent,
@@ -78,11 +79,12 @@ import { CompanyOverviewComponent } from '../account-management/account-overview
     SortableTableDirective
   ],
   providers: [
-    CsvCreatorService,
+    BookingCsvCreatorService,
     SortService,
     BookingTransferService,
     GraduateTransferService,
-    CompanyTransferService
+    CompanyTransferService,
+    CompanyTagService
   ]
 })
 export class AdminToolModule {

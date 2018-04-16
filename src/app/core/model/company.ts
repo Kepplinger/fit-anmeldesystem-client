@@ -1,5 +1,6 @@
 import { Address } from './address';
 import { Contact } from './contact';
+import { Tag } from './tag';
 
 export class Company {
   public id: number;
@@ -8,16 +9,23 @@ export class Company {
   public address: Address;
   public contact: Contact;
 
-  public tags: string[];
-
   public name: string;
   public isPending: boolean;
+
+  public tags: Tag[];
+
+  public memberPaymentAmount: number;
+  public memberSince: number;
+  public memberStatus: number;
 
   public constructor(address?: Address,
                      contact?: Contact,
                      name?: string,
                      isPending?: boolean,
-                     tags?: string[],
+                     tags?: Tag[],
+                     memberPaymentAmount?: number,
+                     memberSince?: number,
+                     memberStatus?: number,
                      id?: number,
                      timestamp?: string) {
     this.id = id;
@@ -27,6 +35,9 @@ export class Company {
     this.name = name;
     this.tags = tags;
     this.isPending = isPending;
+    this.memberPaymentAmount = memberPaymentAmount;
+    this.memberSince = memberSince;
+    this.memberStatus = memberStatus;
 
     if (this.address == null) {
       this.address = new Address();

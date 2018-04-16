@@ -28,6 +28,9 @@ export class CompanyOverviewComponent implements OnInit {
   @Input()
   public booking: Booking = null;
 
+  @Input()
+  public showAdminVersion: boolean = false;
+
   public event: Event = null;
   public companyFormGroup: FormGroup;
   public isEditing: boolean = false;

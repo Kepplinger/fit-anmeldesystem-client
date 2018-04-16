@@ -1,0 +1,67 @@
+<div class="small-container mt-5">
+
+  <div class="d-flex">
+    <h2 class="text-bold">Tags</h2>
+    <div class="flex-1"></div>
+    <button class="btn btn-primary my-2 text-bold"
+            (click)="updateTags()">
+      <i class="fa fa-refresh"></i>
+      Tags am Server updaten
+    </button>
+  </div>
+
+  <form>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-success text-bold"
+                type="submit"
+                [disabled]="tagInput == ''"
+                (click)="addTag()">
+          <i class="fa fa-plus"></i>
+          Hinzufügen
+        </button>
+      </div>
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="tagInput"
+             [ngModelOptions]="{standalone: true}"
+             placeholder="Tag">
+    </div>
+  </form>
+
+  <div [ngSwitch]="tags.length == 0" class="mt-2">
+    <div *ngSwitchCase="true" class="text-muted">
+      ... es sind noch keine Tags vorhanden
+    </div>
+    <div *ngSwitchDefault class="d-flex flex-wrap">
+      <div *ngFor="let tag of tags" class="d-flex mx-1">
+        <div class="left-badge bg-primary text-light">
+          {{tag.value}}
+        </div>
+        <div class="right-badge archive-badge"
+             (click)="archiveTag(tag)">
+          <i class="fa fa-arrow-down text-light"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="text-bold mt-3">Archivierte Tags</h3>
+
+  <div [ngSwitch]="archivedTags.length == 0">
+    <div *ngSwitchCase="true" class="text-muted">
+      ... es sind noch keine Tags archiviert
+    </div>
+    <div *ngSwitchDefault class="d-flex flex-wrap">
+      <div *ngFor="let tag of archivedTags" class="d-flex mx-1">
+        <div class="left-badge bg-secondary text-light">
+          {{tag.value}}
+        </div>
+        <div class="right-badge recover-badge"
+             (click)="recoverTag(tag)">
+          <i class="fa fa-arrow-up text-light"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
