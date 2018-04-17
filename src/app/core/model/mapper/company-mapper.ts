@@ -13,9 +13,14 @@ export class CompanyMapper {
       company.name = companyJson.name;
       company.isPending = companyJson.isPending;
       company.address = companyJson.address;
+      company.tags = companyJson.tags;
       company.memberSince = companyJson.memberSince;
       company.memberPaymentAmount = companyJson.memberPaymentAmount;
       company.memberStatus = companyJson.memberStatus;
+
+      if (company.tags == null) {
+        company.tags = [];
+      }
 
       return company;
     } else {

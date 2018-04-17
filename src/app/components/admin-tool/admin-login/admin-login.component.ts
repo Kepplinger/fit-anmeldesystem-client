@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
-import { AuthDAO } from '../../../core/dao/auth.dao';
+import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
 
 @Component({
   selector: 'fit-admin-login',
@@ -12,15 +11,20 @@ export class AdminLoginComponent implements OnInit {
 
   public email: string;
   public password: string;
+  public hasLoginFailed: boolean = false;
 
   public constructor(private router: Router,
-                     private authDAO: AuthDAO) { }
+                     private adminAuthorizationService: AdminAuthorizationService) {
+  }
 
   public ngOnInit() {
   }
 
   public async loginAdmin(): Promise<void> {
-    // await this.authDAO.loginAdmin(this.email, this.password);
-    this.router.navigate(['admin-tool/dash']);
+    if (await this.adminAuthorizationService.loginAdmin(this.email, this.password)) {
+      this.router.navigate(['admin-tool', 'dash']);
+    } else {
+      this.hasLoginFailed = true;
+    }
   }
 }

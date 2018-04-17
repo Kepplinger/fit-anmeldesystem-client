@@ -249,6 +249,8 @@
                    id="establishmentAutCount" type="number"/>
           </div>
           <fit-tag-input id="establishmentsAut"
+                         [placeholder]="'Standort hinzufügen'"
+                         [secondaryPlaceholder]="'Mit Enter bestätigen'"
                          [tags]="bookingFormGroup.value.establishmentsAut"
                          (tagsChanges)="updateEstablishments('establishmentsAut', $event)">
           </fit-tag-input>
@@ -270,6 +272,8 @@
                    id="establishmentIntCount" type="number"/>
           </div>
           <fit-tag-input id="establishmentsInt"
+                         [placeholder]="'Standort hinzufügen'"
+                         [secondaryPlaceholder]="'Mit Enter bestätigen'"
                          [tags]="bookingFormGroup.value.establishmentsInt"
                          (tagsChanges)="updateEstablishments('establishmentsInt', $event)">
           </fit-tag-input>

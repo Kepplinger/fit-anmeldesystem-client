@@ -20,10 +20,12 @@ import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
 import { EmailDAO } from './dao/email.dao';
 import { GraduateDao } from './dao/graduate.dao';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
 import { TagDAO } from './dao/tag.dao';
 import { AuthDAO } from './dao/auth.dao';
+import { AdminAuthorizationService } from './app-services/admin-authorization.service';
+import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
 
 @NgModule({
   imports: [
@@ -50,10 +52,12 @@ import { AuthDAO } from './dao/auth.dao';
     AppConfig,
     ApplicationStateService,
     FitRegistrationService,
+    AdminAuthorizationService,
     ModalWindowService,
     RouterService,
     EventService,
-    AppLoadingService
+    AppLoadingService,
+    {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
   ]
 })
 export class CoreModule {

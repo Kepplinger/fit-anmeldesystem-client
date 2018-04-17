@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Company } from '../model/company';
 import { Booking } from '../model/booking';
-import { EventService } from './event.service';
 import { Graduate } from '../model/graduate';
 
 @Injectable()

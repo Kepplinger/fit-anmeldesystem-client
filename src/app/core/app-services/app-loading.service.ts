@@ -16,7 +16,9 @@ export class AppLoadingService {
     this.loadingBuffer.pop();
   }
 
+  // TODO
   public isAppLoading(): boolean {
-    return this.loadingBuffer.length > 0;
+    // return this.loadingBuffer.length > 0;
+    return false;
   }
 }

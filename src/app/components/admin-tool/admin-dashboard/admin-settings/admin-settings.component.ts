@@ -48,8 +48,17 @@ export class AdminSettingsComponent implements OnInit {
     ArrayUtils.deleteElement(this.archivedTags, tag);
   }
 
+  public removeTag(array: Tag[], tag: Tag): void {
+    ArrayUtils.deleteElement(array, tag);
+    this.tagService.setTags(this.tags);
+  }
+
   public async updateTags(): Promise<void> {
-    // await this.tagDAO.archiveTag(null);
+    let tags: Tag[] = await this.tagDAO.syncTags([...this.tags, ...this.archivedTags]);
+
+    this.tags = tags.filter(t => !t.isArchive);
+    this.archivedTags = tags.filter(t => t.isArchive);
+
     this.tagService.setTags(this.tags);
   }
 }

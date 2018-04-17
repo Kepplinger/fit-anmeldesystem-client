@@ -22,6 +22,12 @@ export class TagInputComponent {
   @Input()
   public autoCompleteItems: string[] = [];
 
+  @Input()
+  public placeholder: string;
+
+  @Input()
+  public secondaryPlaceholder: string;
+
   public focus = false;
 
   public constructor() {

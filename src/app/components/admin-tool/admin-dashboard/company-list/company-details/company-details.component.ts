@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CompanyTransferService } from '../../../../../core/app-services/transfer-services/company-transfer.service';
 import { Company } from '../../../../../core/model/company';
-import { ArrayUtils } from '../../../../../core/utils/array-utils';
-import { Tag } from '../../../../../core/model/tag';
 import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
+import { CompanyDAO } from '../../../../../core/dao/company.dao';
 
 @Component({
   selector: 'fit-company-details',
@@ -18,6 +17,7 @@ export class CompanyDetailsComponent implements OnInit {
 
   public constructor(private activatedRoute: ActivatedRoute,
                      private router: Router,
+                     private companyDAO: CompanyDAO,
                      private tagService: CompanyTagService,
                      private companyTransferService: CompanyTransferService) {
   }
@@ -38,5 +38,9 @@ export class CompanyDetailsComponent implements OnInit {
 
   public getCompanyTagsAsString(): string[] {
     return this.company.tags.map(t => t.value);
+  }
+
+  public async updateCompany(): Promise<void> {
+    this.company = await this.companyDAO.updateCompany(this.company);
   }
 }

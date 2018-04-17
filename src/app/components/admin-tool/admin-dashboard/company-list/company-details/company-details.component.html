@@ -7,9 +7,19 @@
 
   <fit-tag-input [tags]="company.tags"
                  (tagsChanges)="getCompanyTagsAsString()"
+                 [placeholder]="'... weitere hinzufügen'"
+                 [secondaryPlaceholder]="'Firmen-Tags'"
                  [autoComplete]="true"
                  [autoCompleteItems]="autoCompleteTags">
   </fit-tag-input>
+
+  <div class="d-flex">
+    <button class="btn btn-primary text-bold ml-auto mt-2"
+            (click)="updateCompany()">
+      <i class="fa fa-download"></i>
+      Änderungen übernehmen
+    </button>
+  </div>
 
   <hr>
 
@@ -17,10 +27,4 @@
                         [showAdminVersion]="true">
   </fit-company-overview>
 
-  <!--<div class="d-flex">-->
-  <!--<button class="btn btn-primary text-bold ml-auto">-->
-  <!--<i class="fa fa-download"></i>-->
-  <!--Änderungen übernehmen-->
-  <!--</button>-->
-  <!--</div>-->
 </div>

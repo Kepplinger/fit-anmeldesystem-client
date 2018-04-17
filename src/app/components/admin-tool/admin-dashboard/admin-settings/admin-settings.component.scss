@@ -17,6 +17,12 @@
   margin-right: 0;
 }
 
+.middle-badge {
+  @include badge;
+  margin: 0;
+  border-radius: 0;
+}
+
 .right-badge {
   @include badge;
   border-top-right-radius: 0.25rem;
@@ -43,5 +49,16 @@
 
   &:hover {
     background-color: darken(#111, 10%);
+  }
+}
+
+.delete-badge {
+  cursor: pointer;
+  background-color: $danger-color;
+  -webkit-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+
+  &:hover {
+    background-color: darken($danger-color, 10%);
   }
 }

@@ -10,6 +10,7 @@
         <label for="email">E-Mail:</label>
         <input id="email"
                class="form-control"
+               [ngClass]="{'is-invalid': hasLoginFailed}"
                [(ngModel)]="email"
                [ngModelOptions]="{standalone: true}"
                type="text">
@@ -19,6 +20,7 @@
         <label for="password">Password:</label>
         <input id="password"
                class="form-control"
+               [ngClass]="{'is-invalid': hasLoginFailed}"
                [(ngModel)]="password"
                [ngModelOptions]="{standalone: true}"
                type="password">

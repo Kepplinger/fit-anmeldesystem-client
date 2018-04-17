@@ -38,6 +38,11 @@
         <div class="left-badge bg-primary text-light">
           {{tag.value}}
         </div>
+        <div *ngIf="tag.id == null"
+             class="middle-badge delete-badge text-light"
+             (click)="removeTag(tags, tag)">
+          <i class="fa fa-times"></i>
+        </div>
         <div class="right-badge archive-badge"
              (click)="archiveTag(tag)">
           <i class="fa fa-arrow-down text-light"></i>
@@ -56,6 +61,11 @@
       <div *ngFor="let tag of archivedTags" class="d-flex mx-1">
         <div class="left-badge bg-secondary text-light">
           {{tag.value}}
+        </div>
+        <div *ngIf="tag.id == null"
+             class="middle-badge delete-badge text-light"
+             (click)="removeTag(archivedTags, tag)">
+          <i class="fa fa-times"></i>
         </div>
         <div class="right-badge recover-badge"
              (click)="recoverTag(tag)">

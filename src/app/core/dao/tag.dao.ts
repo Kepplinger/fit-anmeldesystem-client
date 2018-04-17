@@ -15,13 +15,8 @@ export class TagDAO {
       .toPromise();
   }
 
-  public async createTag(tag: Tag): Promise<Tag> {
-    return this.http.post<Tag>(this.appConfig.serverURL + '/tag', tag)
-      .toPromise();
-  }
-
-  public async archiveTag(tag: Tag): Promise<Tag> {
-    return this.http.put<Tag>(this.appConfig.serverURL + '/tag/archive', tag)
+  public async syncTags(tags: Tag[]): Promise<Tag[]> {
+    return this.http.put<Tag[]>(this.appConfig.serverURL + '/tag', tags)
       .toPromise();
   }
 }
