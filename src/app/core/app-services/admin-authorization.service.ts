@@ -22,4 +22,9 @@ export class AdminAuthorizationService {
       return false;
     }
   }
+
+  public logoutAdmin(): void {
+    sessionStorage.removeItem('token');
+    this.token = null;
+  }
 }

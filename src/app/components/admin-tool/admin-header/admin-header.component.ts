@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fit-admin-header',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent {
+
+
+  public constructor(private adminAuthorizationService: AdminAuthorizationService,
+                     private router: Router) {
+  }
+
+  public logout(): void {
+    this.adminAuthorizationService.logoutAdmin();
+    this.router.navigate(['/admin-tool', 'login']);
+  }
 
 }

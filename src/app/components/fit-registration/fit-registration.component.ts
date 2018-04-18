@@ -248,7 +248,7 @@ export class FitRegistrationComponent implements OnInit {
 
   private fillFormWithBooking(): void {
 
-    if (this.booking.company.contact.gender == null || this.booking.company.contact.gender == '') {
+    if (this.booking.company.contact.gender == null || this.booking.company.contact.gender === '') {
       this.booking.company.contact.gender = 'M';
     }
 

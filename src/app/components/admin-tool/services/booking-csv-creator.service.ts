@@ -18,7 +18,10 @@ export class BookingCsvCreatorService {
 
   public setBookings(bookings: Booking[]): void {
     this.bookings = bookings;
-    sessionStorage.setItem('csvBookings', JSON.stringify(this.bookings));
+
+    if (this.bookings != null) {
+      sessionStorage.setItem('csvBookings', JSON.stringify(this.bookings));
+    }
   }
 
   public getBookingCount(): number {

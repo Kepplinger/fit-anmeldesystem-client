@@ -1,56 +1,65 @@
-<nav class="navbar fixed-top navbar-dark text-light bg-primary">
+<div class="fixed-top">
+  <nav class="navbar navbar-dark text-light bg-primary">
 
-  <a class="navbar-brand text-bold"
-     [routerLink]="['/admin-tool', 'dash']">
-    <i class="fa fa-1-3x fa-tachometer mr-1"></i>
-    Dashboard
-  </a>
+    <a class="navbar-brand text-bold"
+       [routerLink]="['/admin-tool', 'dash']">
+      <i class="fa fa-1-3x fa-tachometer mr-1"></i>
+      Dashboard
+    </a>
 
-  <div class="navbar-nav text-bold">
-    <ul class="nav ml-auto">
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" [routerLink]="['/admin-tool', 'fit-bearbeiten']">
-          <i class="fa fa-calendar-plus-o fa-1-5x align-middle"></i>
-          <span class="align-middle">FIT bearbeiten</span>
-        </a>
-      </li>
+    <div class="navbar-nav text-bold">
+      <ul class="nav ml-auto">
+        <li class="nav-item mx-2 active">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'fit-bearbeiten']">
+            <i class="fa fa-calendar-plus-o fa-1-5x align-middle"></i>
+            <span class="align-middle">FIT bearbeiten</span>
+          </a>
+        </li>
 
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" [routerLink]="['/admin-tool', 'anmeldungen']">
-          <i class="fa fa-list fa-1-5x align-middle"></i>
-          <span class="align-middle">FIT Anmeldungen</span>
-        </a>
-      </li>
+        <li class="nav-item mx-2 active">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'anmeldungen']">
+            <i class="fa fa-list fa-1-5x align-middle"></i>
+            <span class="align-middle">FIT Anmeldungen</span>
+          </a>
+        </li>
 
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" [routerLink]="['/admin-tool', 'firmen-bestaetigen']">
-          <i class="fa fa-check-square-o fa-1-5x align-middle"></i>
-          <span class="align-middle">Firmen bestätigen</span>
-        </a>
-      </li>
+        <li class="nav-item mx-2 active">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'firmen-bestaetigen']">
+            <i class="fa fa-check-square-o fa-1-5x align-middle"></i>
+            <span class="align-middle">Firmen bestätigen</span>
+          </a>
+        </li>
 
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" [routerLink]="['/admin-tool', 'aenderungsprotokoll']">
-          <i class="fa fa-code-fork fa-1-5x align-middle"></i>
-          <span class="align-middle">Änderungsprotokoll</span>
-        </a>
-      </li>
+        <li class="nav-item mx-2 active">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'aenderungsprotokoll']">
+            <i class="fa fa-code-fork fa-1-5x align-middle"></i>
+            <span class="align-middle">Änderungsprotokoll</span>
+          </a>
+        </li>
 
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" [routerLink]="['/admin-tool','mail-vorlagen']">
-          <i class="fa fa-envelope fa-1-5x align-middle"></i>
-          <span class="align-middle">Email-Vorlagen</span>
-        </a>
-      </li>
+        <li class="nav-item mx-2 active">
+          <a class="nav-link" [routerLink]="['/admin-tool','mail-vorlagen']">
+            <i class="fa fa-envelope fa-1-5x align-middle"></i>
+            <span class="align-middle">Email-Vorlagen</span>
+          </a>
+        </li>
 
-      <li class="nav-item mx-2 active">
-        <a class="nav-link" [routerLink]="['/admin-tool','vortraege']">
-          <i class="fa fa-graduation-cap fa-1-5x align-middle"></i>
-          <span class="align-middle">Vorträge</span>
-        </a>
-      </li>
+        <li class="nav-item mx-2 active">
+          <a class="nav-link" [routerLink]="['/admin-tool','vortraege']">
+            <i class="fa fa-graduation-cap fa-1-5x align-middle"></i>
+            <span class="align-middle">Vorträge</span>
+          </a>
+        </li>
 
-    </ul>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="d-flex">
+    <button class="btn btn-link ml-auto mr-4 mt-2"
+            (click)="logout()">
+      <i class="fa fa-sign-out"></i>
+      Abmelden
+    </button>
   </div>
-
-</nav>
+</div>
