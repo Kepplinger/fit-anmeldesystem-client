@@ -141,14 +141,14 @@
       <div class="col-md-9">
         <input class="form-control"
                type="text"
-               placeholder="E-Email"
+               placeholder="E-Mail"
                formControlName="email"
                id="email"
                [ngClass]="{'is-invalid': isInvalid('email')}">
 
         <div class="invalid-message invalid-message-container">
           <div *ngIf="isEmpty('email')">Email darf nicht leer sein!</div>
-          <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Email!</span>
+          <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
         </div>
       </div>
     </div>

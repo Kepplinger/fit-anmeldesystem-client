@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
@@ -7,7 +9,6 @@ import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
-import { ToastrService } from 'ngx-toastr';
 
 declare let $;
 

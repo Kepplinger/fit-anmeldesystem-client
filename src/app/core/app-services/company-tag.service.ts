@@ -24,11 +24,13 @@ export class CompanyTagService {
 
   private async loadTags(): Promise<void> {
     this.tags = await this.tagDAO.fetchTags();
+    console.log(this.tags);
     localStorage.setItem('tags', JSON.stringify(this.tags));
   }
 
   private readTagsFromSessionStorage(): boolean {
     let tags = JSON.parse(localStorage.getItem('tags'));
+    console.log(tags);
 
     if (tags != null) {
       this.tags = tags;
