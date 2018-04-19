@@ -13,7 +13,6 @@ import { EventDAO } from './dao/event.dao';
 import { LocationDAO } from './dao/location.dao';
 import { AuthenticationDAO } from './dao/authentication.dao';
 import { CompanyDAO } from './dao/company.dao';
-import { FitRegistrationService } from './app-services/fit-registration.service';
 import { ModalWindowService } from './app-services/modal-window.service';
 import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
@@ -26,6 +25,7 @@ import { TagDAO } from './dao/tag.dao';
 import { AuthDAO } from './dao/auth.dao';
 import { AdminAuthorizationService } from './app-services/admin-authorization.service';
 import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
+import { AccountManagementService } from './app-services/account-managenment.service';
 
 @NgModule({
   imports: [
@@ -40,8 +40,8 @@ import { AdminAuthenticationInterceptor } from './interceptors/admin-authenticat
     ResourceDAO,
     PackageDAO,
     CompanyDAO,
-    ChangeProtocolDAO,
     LocationDAO,
+    ChangeProtocolDAO,
     AuthenticationDAO,
     PresentationDAO,
     TagDAO,
@@ -51,12 +51,12 @@ import { AdminAuthenticationInterceptor } from './interceptors/admin-authenticat
     GraduateDao,
     AppConfig,
     ApplicationStateService,
-    FitRegistrationService,
     AdminAuthorizationService,
+    AccountManagementService,
     ModalWindowService,
+    AppLoadingService,
     RouterService,
     EventService,
-    AppLoadingService,
     {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
   ]
 })

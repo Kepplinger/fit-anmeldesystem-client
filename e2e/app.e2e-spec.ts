@@ -24,7 +24,7 @@ describe('log-file-explorer-client App', function () {
 
     // step 2
     element(by.id('phoneNumber')).sendKeys('0660 5791261');
-    element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
+    // element(by.id('email')).sendKeys('simon.kepplinger@gmail.com');
     element(by.id('homepage')).sendKeys('webpage.at');
     element(by.id('branch')).sendKeys('Automobil');
     element(by.css('.fr-element.fr-view')).sendKeys('Eine kleine nette Firma :)');
@@ -90,8 +90,11 @@ describe('log-file-explorer-client App', function () {
     element(by.id('genderLabelF')).click();
     element(by.id('fitContactFirstName')).sendKeys('Simon');
     element(by.id('fitContactLastName')).sendKeys('Kepplinger');
+    element(by.id('fitContactEmail')).sendKeys('simon.kepplinger@gmail.com');
     element(by.id('fitContactPhoneNumber')).sendKeys('0660 5791261');
     element(by.id('remarks')).sendKeys('Erstellt mit Protractor :*');
+
+    await browser.executeScript('window.scrollTo(0,700);');
 
     element(by.id('acceptTerms')).element(by.css('.cr')).click();
     element(by.id('btnSubmitBooking')).click();

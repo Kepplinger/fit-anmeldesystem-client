@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { ErrorInterceptor } from './helper/error-interceptor';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
 
 @Injectable()
 export class AuthenticationDAO {
@@ -23,8 +24,8 @@ export class AuthenticationDAO {
       .toPromise();
   }
 
-  public async loginCompany(token: string): Promise<any> {
-    return this.http.post<any>(this.appConfig.serverURL + '/authentication/token', {token: token})
+  public async loginCompany(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
+    return this.http.post<MemberLoginResponse>(this.appConfig.serverURL + '/authentication/token', {token: token})
       .catch(ErrorInterceptor.catchErrorMessage)
       .toPromise();
   }

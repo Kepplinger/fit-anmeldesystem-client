@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationDAO } from '../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 import { BookingMapper } from '../../core/model/mapper/booking-mapper';
+import { AccountManagementService } from '../../core/app-services/account-managenment.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'fit-main',
@@ -17,9 +18,8 @@ export class MainComponent implements OnInit {
   public hasFailed: boolean = false;
 
   public constructor(private authenticationDAO: AuthenticationDAO,
-                     private bookingRegistrationService: FitRegistrationService,
-                     private router: Router,
-                     private toastr: ToastrService) {
+                     private accountManagementService: AccountManagementService,
+                     private router: Router) {
   }
 
   public ngOnInit() {
@@ -29,15 +29,9 @@ export class MainComponent implements OnInit {
     this.hasFailed = false;
     let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
 
-    if (response != null && response.error == null) {
-      if (response.oldBooking != null) {
-        this.bookingRegistrationService.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
-      } else if (response.currentBooking != null) {
-        this.bookingRegistrationService.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
-      } else if (response.company != null) {
-        this.bookingRegistrationService.setCompany(response.company);
-      }
-      this.router.navigate(['fit', 'anmelden']);
+    if (response != null && !(response instanceof HttpErrorResponse)) {
+      this.accountManagementService.loginMember(response);
+      this.router.navigate(['/fit', 'anmelden']);
     } else {
       this.hasFailed = true;
     }

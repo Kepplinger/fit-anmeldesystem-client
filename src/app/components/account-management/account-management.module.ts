@@ -22,9 +22,7 @@ import { SharedModule } from '../shared-components/shared.module';
     AccountOverviewComponent,
     AccountLoginComponent,
   ],
-  providers: [
-    AccountManagementService
-  ]
+  providers: []
 })
 export class AccountManagementModule {
 }

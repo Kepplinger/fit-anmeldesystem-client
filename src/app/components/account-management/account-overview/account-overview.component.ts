@@ -45,7 +45,7 @@ export class AccountOverviewComponent implements OnInit {
         this.router.navigate(['/konto', 'login']);
       }
 
-      if (this.accountManagementService.bookingExists) {
+      if (this.accountManagementService.currentBookingExists) {
         this.booking = this.accountManagementService.booking;
       }
     }

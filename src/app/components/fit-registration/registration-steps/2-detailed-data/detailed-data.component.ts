@@ -8,7 +8,7 @@ import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
-import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 
 declare let $;
 
@@ -39,7 +39,7 @@ export class DetailedDataComponent implements OnInit {
   public options: any;
 
   public constructor(private branchDAO: BranchDAO,
-                     private bookingRegistrationService: FitRegistrationService,
+                     private accountManagementService: AccountManagementService,
                      private toastr: ToastrService) {
     this.options = {
       charCounterCount: true,
@@ -62,7 +62,7 @@ export class DetailedDataComponent implements OnInit {
     this.companyDescription = this.stepFormGroup.value.description;
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
 
-    this.bookingRegistrationService.bookingFilled.subscribe(
+    this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.companyDescription = this.stepFormGroup.value.description;
         this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');

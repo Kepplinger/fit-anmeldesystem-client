@@ -6,13 +6,11 @@ import { Package } from '../../../../core/model/package';
 import { PackageDAO } from '../../../../core/dao/package.dao';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
-import { Resource } from '../../../../core/model/resource';
-import { ResourceDAO } from '../../../../core/dao/resource.dao';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
-import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
 import { ToastrService } from 'ngx-toastr';
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -48,7 +46,7 @@ export class PackagesAndLocationComponent implements OnInit {
   public constructor(private packageDAO: PackageDAO,
                      private branchDAO: BranchDAO,
                      private toastr: ToastrService,
-                     private fitRegistrationService: FitRegistrationService) {
+                     private accountManagementService: AccountManagementService) {
   }
 
   public async ngOnInit(): Promise<void> {
@@ -61,7 +59,7 @@ export class PackagesAndLocationComponent implements OnInit {
 
     this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
 
-    this.fitRegistrationService.bookingFilled.subscribe(
+    this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
       }

@@ -15,12 +15,12 @@ import { FitPackage } from '../../core/model/enums/fit-package';
 import { AppConfig } from '../../core/app-config/app-config.service';
 import { EventDAO } from '../../core/dao/event.dao';
 import { ModalWindowService } from '../../core/app-services/modal-window.service';
-import { FitRegistrationService } from '../../core/app-services/fit-registration.service';
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
 import 'rxjs/add/operator/map';
 import { typeIsOrHasBaseType } from 'tslint/lib/language/typeUtils';
+import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -56,14 +56,14 @@ export class FitRegistrationComponent implements OnInit {
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private toastr: ToastrService,
-                     private bookingRegistrationService: FitRegistrationService,
+                     private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.currentStep = FitRegistrationStep.GeneralData;
     this.visitedSteps.push(FitRegistrationStep.GeneralData);
 
-    this.booking = this.bookingRegistrationService.booking;
-    this.isEditMode = this.bookingRegistrationService.editMode;
+    this.booking = this.accountManagementService.booking;
+    this.isEditMode = this.accountManagementService.currentBookingExists;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -96,7 +96,7 @@ export class FitRegistrationComponent implements OnInit {
       }),
       fitAppearance: fb.group({
         representatives: this.fb.array([]),
-        additionalInfo: ['', Validators.required],
+        additionalInfo: [''],
         resources: this.fb.array([])
       }),
       packagesAndLocation: fb.group({
@@ -123,7 +123,7 @@ export class FitRegistrationComponent implements OnInit {
     this.event = this.eventService.currentEvent.getValue();
     let useOldBooking: boolean = false;
 
-    if (this.booking.id != null && !this.bookingRegistrationService.editMode) {
+    if (this.booking.id != null && !this.isEditMode) {
       useOldBooking = await this.modalWindowService.confirm(
         'Anmeldung von letzten Mal übernehemen?',
         'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
@@ -135,7 +135,7 @@ export class FitRegistrationComponent implements OnInit {
       );
     }
 
-    if (this.bookingRegistrationService.editMode || useOldBooking) {
+    if (this.isEditMode || useOldBooking) {
       this.fillFormWithBooking();
     }
   }
@@ -308,6 +308,6 @@ export class FitRegistrationComponent implements OnInit {
     (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
       .setControl('resources', this.fb.array(this.booking.resources));
 
-    this.bookingRegistrationService.bookingIsFilled();
+    this.accountManagementService.bookingIsFilled();
   }
 }

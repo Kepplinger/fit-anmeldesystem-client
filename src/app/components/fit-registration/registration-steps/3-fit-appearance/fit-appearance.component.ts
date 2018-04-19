@@ -7,8 +7,8 @@ import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
-import { FitRegistrationService } from '../../../../core/app-services/fit-registration.service';
 import { ToastrService } from 'ngx-toastr';
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 
 @Component({
   selector: 'fit-fit-appearance',
@@ -32,7 +32,7 @@ export class FitAppearanceComponent implements OnInit {
   public touchedRepresentatives: any[] = [];
 
   public constructor(private resourceDAO: ResourceDAO,
-                     private bookingRegistrationService: FitRegistrationService,
+                     private accountManagementService: AccountManagementService,
                      private toastr: ToastrService) {
   }
 
@@ -43,7 +43,7 @@ export class FitAppearanceComponent implements OnInit {
       this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
     }
 
-    this.bookingRegistrationService.bookingFilled.subscribe(
+    this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.fillRepresentativesAndResources();
       });

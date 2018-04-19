@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { BookingMapper } from '../../../core/model/mapper/booking-mapper';
 import { CompanyMapper } from '../../../core/model/mapper/company-mapper';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MemberLoginResponse } from '../../../core/app-helper/helper-model/member-login-response';
 
 @Component({
   selector: 'fit-account-login',
@@ -26,16 +28,8 @@ export class AccountLoginComponent {
     this.hasFailed = false;
     let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
 
-    if (response != null && response.error == null) {
-      if (response.graduate != null) {
-        this.accountManagementService.setGraduate(response.graduate);
-      } else if (response.oldBooking != null) {
-        this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
-      } else if (response.currentBooking != null) {
-        this.accountManagementService.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
-      } else if (response.company != null) {
-        this.accountManagementService.setCompany(CompanyMapper.mapJsonToCompany(response.company));
-      }
+    if (response != null && !(response instanceof HttpErrorResponse)) {
+      this.accountManagementService.loginMember(response);
       this.router.navigate(['/konto']);
     } else {
       this.hasFailed = true;
