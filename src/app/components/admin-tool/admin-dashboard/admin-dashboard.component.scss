@@ -7,37 +7,5 @@
   grid-template-rows: 200px 200px 200px;
   grid-gap: 25px;
 
-  .dash {
-    @extend .floating-effect-dark;
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: center !important;
-    -ms-flex-pack: center !important;
-    justify-content: center !important;
 
-    padding: 20px;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    text-align: center;
-    user-select: none;
-
-    -webkit-transition: background-color 300ms linear, border 100ms linear, transform 150ms ease-in;
-    transition: background-color 300ms linear, border 100ms linear, transform 150ms ease-in;
-
-    &:hover {
-      @extend .floating-effect-dark;
-      border: solid 4px darken($primary-color, 5%);
-      transform: translateY(-3px);
-    }
-
-    .dash-text {
-      margin-top: 5px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .dash-icon {
-      font-size: 6.2em;
-    }
-  }
 }

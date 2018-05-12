@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import 'rxjs/add/operator/map';
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
 import { BookingDAO } from '../../core/dao/booking.dao';
 import { Booking } from '../../core/model/booking';
-import { Company } from '../../core/model/company';
-import { Address } from '../../core/model/address';
 import { Contact } from '../../core/model/contact';
 import { Presentation } from '../../core/model/presentation';
 import { Event } from '../../core/model/event';
@@ -18,9 +17,8 @@ import { ModalWindowService } from '../../core/app-services/modal-window.service
 import { EventService } from '../../core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
-import 'rxjs/add/operator/map';
-import { typeIsOrHasBaseType } from 'tslint/lib/language/typeUtils';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
+import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
 
 @Component({
   selector: 'fit-fit-registration',
@@ -85,7 +83,7 @@ export class FitRegistrationComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
         logoUrl: [''],
-        description: [''],
+        description: ['', fitCompanyDescriptionValidator(15, 65)],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],
         establishmentsInt: this.fb.array([]),

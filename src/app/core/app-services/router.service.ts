@@ -12,11 +12,11 @@ export class RouterService {
       (event: Event) => {
         if (event instanceof NavigationEnd) {
           if (event.url.includes('admin-tool')) {
-            applicationStateService.activatedApplication = FitApplication.AdminTool;
+            applicationStateService.setApplicationState(FitApplication.AdminTool);
           } else if (event.url.includes('konto')) {
-            applicationStateService.activatedApplication = FitApplication.AccountManagement;
+            applicationStateService.setApplicationState(FitApplication.AccountManagement);
           } else {
-            applicationStateService.activatedApplication = FitApplication.FitRegistration;
+            applicationStateService.setApplicationState(FitApplication.FitRegistration);
           }
         }
       });

@@ -12,22 +12,17 @@
         <div class="d-flex mb-2">
 
           <div class="mr-3">
-            <div class="badge badge-secondary location-legend-badge">&nbsp;</div>
+            <div class="badge badge-occupied location-legend-badge">&nbsp;</div>
             Belegt
           </div>
 
           <div class="mr-3">
-            <div class="badge badge-success location-legend-badge">&nbsp;</div>
-            Ausgewählt
-          </div>
-
-          <div class="mr-3">
-            <div class="badge badge-primary location-legend-badge">&nbsp;</div>
+            <div class="badge badge-category-b location-legend-badge">&nbsp;</div>
             Kategorie B
           </div>
 
           <div class="mr-3">
-            <div class="badge badge-danger location-legend-badge">&nbsp;</div>
+            <div class="badge badge-category-a location-legend-badge">&nbsp;</div>
             Kategorie A
           </div>
 
@@ -60,11 +55,7 @@
               <div *ngFor="let location of area.locations"
                    class="fit-location badge"
                    (click)="selectLocation(location)"
-                   [ngClass]="{'badge-secondary': location.isOccupied,
-                               'badge-primary': location.category == 'B' && !location.isOccupied && location.id != selectedLocation?.id,
-                               'badge-danger': location.category == 'A' && !location.isOccupied && location.id != selectedLocation?.id,
-                               'badge-success': location.id == selectedLocation?.id,
-                               'not-allowed': !isLocationAllowed(location)}"
+                   [ngClass]="getBadgeClass(location)"
                    [style.cursor]="getLocationCursor(location)"
                    [style.top]="location.yCoordinate + '%'"
                    [style.left]="location.xCoordinate + '%'">

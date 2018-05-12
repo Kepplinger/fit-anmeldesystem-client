@@ -85,17 +85,23 @@
       </div>
 
       <div>
-        <label class="my-auto">Firmenbeschreibung:</label>
+        <label for="description" class="my-auto">Firmenbeschreibung:</label>
         <fit-hint-icon
           [message]="'Beschreiben Sie hier bitte Ihre Firma in etwa 15 Zeilen. Diese Beschreibung wird dann im FIT-Folder verwendet.'">
         </fit-hint-icon>
       </div>
 
-      <div id="description"
-           [froalaEditor]="options"
-           [(froalaModel)]="companyDescription"
-           (input)="updateDescription()"
-           class="my-2" >
+      <textarea class="form-control my-2"
+                rows="7"
+                id="description"
+                placeholder="Tätigkeitsbereich der Firma in ca. 15 Zeilen"
+                [ngClass]="{'is-invalid': isDescriptionTooLong('description')}"
+                formControlName="description">
+       </textarea>
+      <div class="invalid-message invalid-message-container">
+        <div *ngIf="isDescriptionTooLong('description')">Die Firmenbeschreibung ist zu lang und kann nicht in den
+          FIT-Folder gedruckt werden! Bitte kürzen sie den Text oder reduzieren Sie die Anzahl der Zeilen.
+        </div>
       </div>
     </div>
 

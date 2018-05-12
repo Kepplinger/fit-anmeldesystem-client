@@ -31,6 +31,15 @@ export class FormHelper {
     }
   }
 
+  public static isDescriptionTooLong(formName: string, formGroup: FormGroup): boolean {
+    let errors = formGroup.controls[formName].errors;
+
+    if (errors != null) {
+      return errors.companyDescription != null
+    } else {
+      return false;
+    }
+  }
 
   public static hasError(formName: string, formGroup: FormGroup): ValidationErrors {
     return formGroup.get(formName).errors;
@@ -66,20 +75,5 @@ export class FormHelper {
     });
 
     return errorCount;
-  }
-
-  public static getControlCount(formGroup: FormGroup): number {
-    let count: number = 0;
-
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        count++;
-      } else if (control instanceof FormGroup) {
-        count += this.getControlCount(control);
-      }
-    });
-
-    return count;
   }
 }

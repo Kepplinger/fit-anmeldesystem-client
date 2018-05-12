@@ -39,6 +39,7 @@ import { CompanyTransferService } from '../../core/app-services/transfer-service
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
 import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
 import { CompanyTagService } from '../../core/app-services/company-tag.service';
+import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { CompanyTagService } from '../../core/app-services/company-tag.service';
     GraduateDetailsComponent,
     CompanyListComponent,
     CompanyDetailsComponent,
+    CsvExportComponent,
     EditFitEventComponent,
     EditAreaModalComponent,
     SelectEventModalComponent,

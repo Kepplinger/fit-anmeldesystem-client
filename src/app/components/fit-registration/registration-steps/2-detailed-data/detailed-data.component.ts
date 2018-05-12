@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -34,46 +34,23 @@ export class DetailedDataComponent implements OnInit {
   public branches: Branch[] = [];
   public branchFormArray: FormArray = null;
   public isDrag: boolean = false;
-  public companyDescription: string = '';
   public logo: PickedFile;
-  public options: any;
 
   public constructor(private branchDAO: BranchDAO,
                      private accountManagementService: AccountManagementService,
                      private toastr: ToastrService) {
-    this.options = {
-      charCounterCount: true,
-      charCounterMax: 1000,
-      quickInsert: false,
-      heightMin: 250,
-      heightMax: 490,
-      enter: $.FroalaEditor.ENTER_BR,
-      tooltips: true,
-      fontSize: '30',
-      placeholderText: 'Bitte Firmenbeschreibung eingeben.......',
-      quickInsertTags: '',
-      inlineMode: true,
-      toolbarButtons: ['undo', 'redo', '|', 'bold', 'italic', 'underline', '|',
-        'formatUL', 'formatOL', 'clearFormatting', '|', 'superscript', 'outdent', 'indent']
-    };
   }
 
   public async ngOnInit(): Promise<void> {
-    this.companyDescription = this.stepFormGroup.value.description;
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
-        this.companyDescription = this.stepFormGroup.value.description;
         this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
       }
     );
 
     this.branches = await this.branchDAO.fetchBranches();
-
-    $('#description').on('froalaEditor.blur', () => {
-      console.log('hallo');
-    });
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {
@@ -131,16 +108,16 @@ export class DetailedDataComponent implements OnInit {
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
   }
 
-  public updateDescription(): void {
-    this.stepFormGroup.controls['description'].setValue(this.companyDescription);
-  }
-
   public isEmpty(formName: string): boolean {
     return FormHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
   }
 
   public isNoMail(formName: string): boolean {
     return FormHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
+  }
+
+  public isDescriptionTooLong(formName: string): boolean {
+    return FormHelper.isDescriptionTooLong(formName, this.stepFormGroup);
   }
 
   public isInvalid(formName: string): boolean {

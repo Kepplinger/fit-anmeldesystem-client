@@ -66,7 +66,6 @@ export class AccountManagementService {
   }
 
   public bookingIsFilled(): void {
-    console.log('hallo');
     this.bookingFilled.next();
   }
 

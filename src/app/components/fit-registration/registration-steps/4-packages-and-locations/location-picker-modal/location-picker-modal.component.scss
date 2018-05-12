@@ -68,3 +68,20 @@
 .location-detail.shown {
   max-height: 100px;
 }
+
+.badge-occupied {
+  background-color: $danger-color;
+}
+
+.badge-category-a {
+  background-color: $info-color;
+}
+
+.badge-category-b {
+  background-color: $primary-color;
+}
+
+.badge-selected {
+  //border: solid 2px $success-color;
+  filter: brightness(110%);
+}

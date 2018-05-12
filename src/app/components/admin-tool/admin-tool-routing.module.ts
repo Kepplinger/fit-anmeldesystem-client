@@ -16,6 +16,7 @@ import { CompanyListComponent } from './admin-dashboard/company-list/company-lis
 import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
 import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
+import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
 
 export const routes: Routes = [
   {
@@ -158,7 +159,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: BookingCsvExportComponent,
+            component: CsvExportComponent,
             outlet: 'adminOutlet'
           }
         ]

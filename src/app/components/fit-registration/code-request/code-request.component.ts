@@ -53,7 +53,7 @@ export class CodeRequestComponent {
       this.router.navigate(['']);
     } else {
       FormHelper.validateAllFormFields(this.formGroup);
-      this.toastr.error('Ihr Eingaben sind nicht noch fehlerhaft.', 'Firmen Antrag fehlgeschalgen!');
+      this.toastr.error('Ihre Eingaben sind fehlerhaft.', 'Firmen Antrag fehlgeschalgen!');
     }
   }
 
