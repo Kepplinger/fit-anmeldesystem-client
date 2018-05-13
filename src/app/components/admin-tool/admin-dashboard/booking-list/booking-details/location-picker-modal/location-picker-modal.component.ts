@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {Area} from '../../../../../../core/model/area';
+import { Area } from '../../../../../../core/model/area';
 
 import { Location } from '../../../../../../core/model/location';
-import {AreaDAO} from '../../../../../../core/dao/area.dao';
-import {Event} from '../../../../../../core/model/event';
-import {ArrayUtils} from '../../../../../../core/utils/array-utils';
+import { Event } from '../../../../../../core/model/event';
+import { ArrayUtils } from '../../../../../../core/utils/array-utils';
 
 declare let $: any;
 
@@ -39,7 +38,7 @@ export class LocationPickerModalComponent implements OnInit {
         let firstArea = ArrayUtils.getFirstElement(this.event.areas);
 
         if (firstArea != null) {
-          this.toggleCollapse(firstArea.id)
+          this.toggleCollapse(firstArea.id);
         }
 
         for (let area of this.event.areas) {

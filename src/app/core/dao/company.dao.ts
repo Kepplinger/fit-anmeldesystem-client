@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CompanyDAO {
@@ -14,51 +15,46 @@ export class CompanyDAO {
 
   public async fetchCompanies(): Promise<Company[]> {
     return this.http.get<any[]>(this.appConfig.serverURL + '/company')
-      .map(
-        (data: any[]) => {
+      .pipe(
+        map((data: any[]) => {
           return CompanyMapper.mapJsonToCompanyList(data);
-        }
-      )
+        }))
       .toPromise();
   }
 
   public async fetchPendingCompanies(): Promise<Company[]> {
     return this.http.get<any[]>(this.appConfig.serverURL + '/company/pending')
-      .map(
-        (data: any[]) => {
+      .pipe(
+        map((data: any[]) => {
           return CompanyMapper.mapJsonToCompanyList(data);
-        }
-      )
+        }))
       .toPromise();
   }
 
   public async persistCompany(company: Company): Promise<Company> {
     return this.http.post<any>(this.appConfig.serverURL + '/company', company)
-      .map(
-        (data: any) => {
+      .pipe(
+        map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
-        }
-      )
+        }))
       .toPromise();
   }
 
   public async updateCompany(company: Company): Promise<Company> {
     return this.http.put<any>(this.appConfig.serverURL + '/company', company)
-      .map(
-        (data: any) => {
+      .pipe(
+        map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
-        }
-      )
+        }))
       .toPromise();
   }
 
   public async verifyCompany(company: Company): Promise<Company> {
     return this.http.put<any>(this.appConfig.serverURL + '/company/accepting', company.id)
-      .map(
-        (data: any) => {
+      .pipe(
+        map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
-        }
-      )
+        }))
       .toPromise();
   }
 

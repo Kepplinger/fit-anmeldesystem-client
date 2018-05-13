@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { ErrorInterceptor } from './helper/error-interceptor';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+
+
 import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationDAO {
@@ -15,7 +16,7 @@ export class AuthenticationDAO {
 
   public async verifyCompanyMail(companyMail: string): Promise<boolean> {
     return this.http.post<any>(this.appConfig.serverURL + '/authentication', {email: companyMail})
-      .map((data: any) => data.existing)
+      .pipe(map((data: any) => data.existing))
       .toPromise();
   }
 
@@ -26,7 +27,7 @@ export class AuthenticationDAO {
 
   public async loginCompany(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
     return this.http.post<MemberLoginResponse>(this.appConfig.serverURL + '/authentication/token', {token: token})
-      .catch(ErrorInterceptor.catchErrorMessage)
+      .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
   }
 }

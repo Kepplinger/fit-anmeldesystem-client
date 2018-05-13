@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventDAO } from '../dao/event.dao';
 import { Event } from '../model/event';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { AppLoadingService } from './app-loading.service';
 

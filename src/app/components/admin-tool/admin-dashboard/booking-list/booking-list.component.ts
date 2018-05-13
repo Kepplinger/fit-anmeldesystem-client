@@ -85,7 +85,7 @@ export class BookingListComponent implements OnInit {
         }
 
         if (condition && booking.location != null) {
-          condition = booking.location.number.toLowerCase().includes(this.locationFilter.toLowerCase())
+          condition = booking.location.number.toLowerCase().includes(this.locationFilter.toLowerCase());
         }
 
         return condition;

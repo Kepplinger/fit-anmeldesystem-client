@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'fit-admin-dashboard',

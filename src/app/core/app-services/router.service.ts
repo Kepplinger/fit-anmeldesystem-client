@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event, NavigationEnd, Router } from '@angular/router';
+import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { ApplicationStateService } from './application-state.service';
 import { FitApplication } from '../model/enums/fit-application';
 
@@ -10,7 +10,7 @@ export class RouterService {
                      private applicationStateService: ApplicationStateService) {
     router.events.subscribe(
       (event: Event) => {
-        if (event instanceof NavigationEnd) {
+        if (event instanceof NavigationStart) {
           if (event.url.includes('admin-tool')) {
             applicationStateService.setApplicationState(FitApplication.AdminTool);
           } else if (event.url.includes('konto')) {

@@ -2,7 +2,7 @@ import { ApplicationStateService } from '../app-services/application-state.servi
 import { AdminAuthorizationService } from '../app-services/admin-authorization.service';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { FitApplication } from '../model/enums/fit-application';
 
 @Injectable()

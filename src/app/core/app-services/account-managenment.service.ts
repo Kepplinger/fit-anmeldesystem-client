@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Company } from '../model/company';
 import { Booking } from '../model/booking';
 import { Graduate } from '../model/graduate';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
 import { BookingMapper } from '../model/mapper/booking-mapper';
 import { CompanyMapper } from '../model/mapper/company-mapper';

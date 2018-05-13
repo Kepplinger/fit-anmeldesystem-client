@@ -19,6 +19,4 @@ export class GraduateDao {
     return this.http.get<Graduate[]>(this.appConfig.serverURL + '/graduate')
       .toPromise();
   }
-
-
 }

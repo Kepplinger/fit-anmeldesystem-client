@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Event } from '../model/event';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { ErrorInterceptor } from './helper/error-interceptor';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class EventDAO {
@@ -14,26 +15,29 @@ export class EventDAO {
 
   public async fetchEvents(): Promise<Event[]> {
     return this.http.get<any[]>(this.appConfig.serverURL + '/event')
-      .map((data: any[]) => {
-        return EventMapper.mapJsonToEventList(data);
-      })
+      .pipe(
+        map((data: any[]) => {
+          return EventMapper.mapJsonToEventList(data);
+        }))
       .toPromise();
   }
 
   public async persistEvent(event: Event): Promise<Event | HttpErrorResponse> {
     return this.http.post<Event>(this.appConfig.serverURL + '/event', event)
-      .map((data: any) => {
-        return EventMapper.mapJsonToEvent(data);
-      })
-      .catch(ErrorInterceptor.catchErrorMessage)
+      .pipe(
+        map((data: any) => {
+          return EventMapper.mapJsonToEvent(data);
+        }),
+        catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
   }
 
   public async getCurrentEvent(): Promise<Event> {
     return this.http.get<Event>(this.appConfig.serverURL + '/event/current')
-      .map((data: any) => {
-        return EventMapper.mapJsonToEvent(data);
-      })
+      .pipe(
+        map((data: any) => {
+          return EventMapper.mapJsonToEvent(data);
+        }))
       .toPromise();
   }
 }

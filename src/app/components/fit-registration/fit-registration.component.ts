@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
+
 
 import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
 import { BookingDAO } from '../../core/dao/booking.dao';

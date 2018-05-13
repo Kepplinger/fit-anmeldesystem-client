@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
-import { Subject } from 'rxjs/Subject';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'fit-code-lost',
@@ -22,13 +23,13 @@ export class CodeLostComponent {
   public constructor(private registrationDAO: AuthenticationDAO,
                      private toastr: ToastrService,
                      private router: Router) {
-    this.emailChanged.debounceTime(1000).subscribe(
+    this.emailChanged.pipe(debounceTime(1000)).subscribe(
       async () => {
         this.isLoading = true;
         this.isExisting = await this.registrationDAO.verifyCompanyMail(this.companyMail);
         this.isLoading = false;
         this.isChecked = true;
-      })
+      });
   }
 
   public onEmailChange(): void {
