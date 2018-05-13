@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../../../../../core/model/event';
-import { BookingTransferService } from '../../../../../core/app-services/transfer-services/booking-transfer.service';
-import { BookingCsvCreatorService } from '../../../services/booking-csv-creator.service';
+import { CsvCreatorService } from '../../../services/csv-creator.service';
 import { EventService } from '../../../../../core/app-services/event.service';
+import { BaseCsvExportComponent } from '../base-csv-export.component';
 
 @Component({
   selector: 'fit-booking-csv-export',
   templateUrl: './booking-csv-export.component.html',
   styleUrls: ['./booking-csv-export.component.scss']
 })
-export class BookingCsvExportComponent implements OnInit {
+export class BookingCsvExportComponent implements OnInit, BaseCsvExportComponent {
 
   public event: Event;
 
@@ -23,7 +23,10 @@ export class BookingCsvExportComponent implements OnInit {
       houseNumber: true,
       zipCode: true,
       location: true,
-      addition: true
+      addition: true,
+      memberPaymentAmount: true,
+      memberSince: true,
+      memberStatus: true,
     },
     contact: {
       gender: true,
@@ -51,9 +54,8 @@ export class BookingCsvExportComponent implements OnInit {
     }
   };
 
-  public constructor(private bookingTransferService: BookingTransferService,
-                     private eventService: EventService,
-                     private csvCreatorService: BookingCsvCreatorService) {
+  public constructor(private eventService: EventService,
+                     private csvCreatorService: CsvCreatorService) {
   }
 
   public ngOnInit(): void {

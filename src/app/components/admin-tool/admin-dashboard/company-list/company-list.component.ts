@@ -22,7 +22,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.companies = await this.companyDAO.fetchCompanies();
+    this.companies = await this.companyDAO.fetchAllCompanies();
     this.loading = false;
   }
 

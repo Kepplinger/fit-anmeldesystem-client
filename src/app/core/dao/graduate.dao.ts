@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Graduate } from '../model/graduate';
 
 @Injectable()
-export class GraduateDao {
+export class GraduateDAO {
 
   public constructor(private appConfig: AppConfig,
                      private http: HttpClient) {

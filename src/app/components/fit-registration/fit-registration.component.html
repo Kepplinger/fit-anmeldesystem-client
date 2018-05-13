@@ -6,7 +6,7 @@
          *ngFor="let step of steps; let index = index"
          (click)="setCurrentPage(step)">
       <div class="step-header justify-content-center d-flex flex-column align-items-center">
-        <i class="fa fa-2x position-relative mr-1 my-auto"
+        <i class="fa fa-2x position-relative my-auto"
            [ngClass]="{'fa-circle-thin': step > currentStep,
                        'fa-circle': step <= currentStep}">
           <span class="position-absolute centered-element step-number"

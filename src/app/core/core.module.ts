@@ -16,7 +16,7 @@ import { EventService } from './app-services/event.service';
 import { ChangeProtocolDAO } from './dao/change-protocol.dao';
 import { AppLoadingService } from './app-services/app-loading.service';
 import { EmailDAO } from './dao/email.dao';
-import { GraduateDao } from './dao/graduate.dao';
+import { GraduateDAO } from './dao/graduate.dao';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
 import { TagDAO } from './dao/tag.dao';
@@ -44,7 +44,7 @@ import { AccountManagementService } from './app-services/account-managenment.ser
     TagDAO,
     EventDAO,
     EmailDAO,
-    GraduateDao,
+    GraduateDAO,
     AppConfig,
     ApplicationStateService,
     AdminAuthorizationService,

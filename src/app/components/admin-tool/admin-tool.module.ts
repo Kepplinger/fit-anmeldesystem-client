@@ -20,13 +20,13 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
-import { BookingCsvExportComponent } from './admin-dashboard/booking-list/booking-csv-export/booking-csv-export.component';
+import { BookingCsvExportComponent } from './admin-dashboard/csv-export/booking-csv-export/booking-csv-export.component';
 import { PapaParseModule } from 'ngx-papaparse';
 import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
 import {
   LocationPickerModalComponent
 } from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
-import { BookingCsvCreatorService } from './services/booking-csv-creator.service';
+import { CsvCreatorService } from './services/csv-creator.service';
 import { SortService } from '../../core/app-services/sort-service.service';
 import { SortableColumnComponent } from '../shared-components/sortable-column/sortable-column.component';
 import { SortableTableDirective } from '../shared-components/sortable-table/sortable-table.component';
@@ -40,6 +40,8 @@ import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-
 import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
 import { CompanyTagService } from '../../core/app-services/company-tag.service';
 import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
+import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
+import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 
 @NgModule({
   imports: [
@@ -68,12 +70,14 @@ import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.comp
     CompanyListComponent,
     CompanyDetailsComponent,
     CsvExportComponent,
+    BookingCsvExportComponent,
+    GraduateCsvExportComponent,
+    CompanyCsvExportComponent,
     EditFitEventComponent,
     EditAreaModalComponent,
     SelectEventModalComponent,
     DateTimePickerComponent,
     MailTemplatesComponent,
-    BookingCsvExportComponent,
     ChangelogComponent,
     VerifyCompaniesComponent,
     LocationPickerModalComponent,
@@ -81,7 +85,7 @@ import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.comp
     SortableTableDirective
   ],
   providers: [
-    BookingCsvCreatorService,
+    CsvCreatorService,
     SortService,
     BookingTransferService,
     GraduateTransferService,

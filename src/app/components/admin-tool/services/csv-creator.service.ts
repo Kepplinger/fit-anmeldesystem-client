@@ -1,26 +1,62 @@
 import { Injectable } from '@angular/core';
 import { PapaParseService } from 'ngx-papaparse';
 import { Booking } from '../../../core/model/booking';
+import { Company } from '../../../core/model/company';
+import { Graduate } from '../../../core/model/graduate';
+import { BookingDAO } from '../../../core/dao/booking.dao';
+import { CompanyDAO } from '../../../core/dao/company.dao';
+import { GraduateDAO } from '../../../core/dao/graduate.dao';
 import * as FileSaver from 'file-saver';
 
 @Injectable()
-export class BookingCsvCreatorService {
+export class CsvCreatorService {
 
   public bookings: Booking[] = [];
+  public companies: Company[] = [];
+  public graduates: Graduate[] = [];
 
-  public constructor(private papa: PapaParseService) {
+  public constructor(private papa: PapaParseService,
+                     private bookingDAO: BookingDAO,
+                     private companyDAO: CompanyDAO,
+                     private graduateDAO: GraduateDAO) {
     let sessionBookings = JSON.parse(sessionStorage.getItem('csvBookings'));
+    let sessionGraduates = JSON.parse(sessionStorage.getItem('csvGraduates'));
+    let sessionCompanies = JSON.parse(sessionStorage.getItem('csvCompanies'));
 
     if (sessionBookings != null) {
       this.bookings = sessionBookings;
     }
+
+    if (sessionGraduates != null) {
+      this.bookings = sessionGraduates;
+    }
+
+    if (sessionCompanies != null) {
+      this.bookings = sessionCompanies;
+    }
   }
 
-  public setBookings(bookings: Booking[]): void {
-    this.bookings = bookings;
+  public async loadBookings(): Promise<void> {
+    this.bookings = await this.bookingDAO.fetchAllBookings();
 
     if (this.bookings != null) {
       sessionStorage.setItem('csvBookings', JSON.stringify(this.bookings));
+    }
+  }
+
+  public async loadGraduates(): Promise<void> {
+    this.graduates = await this.graduateDAO.fetchAllGraduates();
+
+    if (this.graduates != null) {
+      sessionStorage.setItem('csvGraduates', JSON.stringify(this.graduates));
+    }
+  }
+
+  public async loadCompanies(): Promise<void> {
+    this.companies = await this.companyDAO.fetchAllCompanies();
+
+    if (this.companies != null) {
+      sessionStorage.setItem('csvCompanies', JSON.stringify(this.companies));
     }
   }
 
@@ -32,10 +68,26 @@ export class BookingCsvCreatorService {
     }
   }
 
+  public getGraduateCount(): number {
+    if (this.graduates != null) {
+      return this.graduates.length;
+    } else {
+      return 0;
+    }
+  }
+
+  public getCompanyCount(): number {
+    if (this.companies != null) {
+      return this.companies.length;
+    } else {
+      return 0;
+    }
+  }
+
   public downloadCsvFromBookings(csvFilter: any): void {
 
     let csvData: any[][] = [
-      this.getCsvHeaders(csvFilter)
+      this.getBookingCsvHeaders(csvFilter)
     ];
 
     for (let booking of this.bookings) {
@@ -49,6 +101,9 @@ export class BookingCsvCreatorService {
         this.addColumn(csvFilter.company.zipCode, booking.company.address.zipCode, data);
         this.addColumn(csvFilter.company.location, booking.company.address.city, data);
         this.addColumn(csvFilter.company.addition, booking.company.address.addition, data);
+        this.addColumn(csvFilter.company.memberPaymentAmount, booking.company.memberPaymentAmount, data);
+        this.addColumn(csvFilter.company.memberSince, booking.company.memberSince, data);
+        this.addColumn(csvFilter.company.memberStatus, booking.company.memberStatus, data);
       }
 
       if (csvFilter.isContactEnabled) {
@@ -79,13 +134,19 @@ export class BookingCsvCreatorService {
     FileSaver.saveAs(file, 'booking-export.csv');
   }
 
+  public downloadCsvFromGraduates(csvFilter: any): void {
+  }
+
+  public downloadCsvFromCompanies(csvFilter: any): void {
+  }
+
   private addColumn(condition: boolean, column: any, list: any[]): void {
     if (condition) {
       list.push(column);
     }
   }
 
-  private getCsvHeaders(csvFilter: any): any[] {
+  private getBookingCsvHeaders(csvFilter: any): any[] {
 
     let data: any[] = ['ID'];
 
@@ -96,6 +157,9 @@ export class BookingCsvCreatorService {
       this.addColumn(csvFilter.company.zipCode, 'Postleitzahl', data);
       this.addColumn(csvFilter.company.location, 'Ort', data);
       this.addColumn(csvFilter.company.addition, 'Adresszusatz', data);
+      this.addColumn(csvFilter.company.memberPaymentAmount, 'Mitgliedsbeitrag', data);
+      this.addColumn(csvFilter.company.memberSince, 'Mitglied seit', data);
+      this.addColumn(csvFilter.company.memberStatus, 'Mitgliedsstatus', data);
     }
 
     if (csvFilter.isContactEnabled) {

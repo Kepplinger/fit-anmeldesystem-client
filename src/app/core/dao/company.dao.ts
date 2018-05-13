@@ -13,7 +13,7 @@ export class CompanyDAO {
                      private http: HttpClient) {
   }
 
-  public async fetchCompanies(): Promise<Company[]> {
+  public async fetchAllCompanies(): Promise<Company[]> {
     return this.http.get<any[]>(this.appConfig.serverURL + '/company')
       .pipe(
         map((data: any[]) => {

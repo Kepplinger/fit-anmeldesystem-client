@@ -6,7 +6,7 @@ import { DisplayedValue } from '../../../../core/app-helper/helper-model/display
 import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from '../../../../core/model/address';
-import { GraduateDao } from '../../../../core/dao/graduate.dao';
+import { GraduateDAO } from '../../../../core/dao/graduate.dao';
 
 @Component({
   selector: 'fit-graduate-overview',
@@ -25,7 +25,7 @@ export class GraduateOverviewComponent implements OnInit {
 
   public constructor(private fb: FormBuilder,
                      private appConfig: AppConfig,
-                     private graduateDAO: GraduateDao,
+                     private graduateDAO: GraduateDAO,
                      private toastr: ToastrService) {
     this.graduateFormGroup = this.fb.group({
       gender: [{value: 'M', disabled: !this.isEditing}],

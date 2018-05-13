@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Graduate } from '../../../../core/model/graduate';
-import { GraduateDao } from '../../../../core/dao/graduate.dao';
+import { GraduateDAO } from '../../../../core/dao/graduate.dao';
 import { Address } from '../../../../core/model/address';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
@@ -18,7 +18,7 @@ export class GraduateListComponent implements OnInit {
 
   public loading: boolean = true;
 
-  public constructor(private graduateDAO: GraduateDao,
+  public constructor(private graduateDAO: GraduateDAO,
                      private graduateTransferState: GraduateTransferService,
                      private router: Router) {
   }

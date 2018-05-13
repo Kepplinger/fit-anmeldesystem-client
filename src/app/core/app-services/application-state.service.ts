@@ -11,11 +11,11 @@ export class ApplicationStateService {
 
   public setApplicationState(application: FitApplication) {
     if (application === FitApplication.FitRegistration) {
-      this.titleService.setTitle('FIT-Anmeldung');
+      this.titleService.setTitle('HTL-Leonding | FIT');
     } else if (application === FitApplication.AccountManagement) {
-      this.titleService.setTitle('Konto: HTL-Leonding');
+      this.titleService.setTitle('HTL-Leonding | Konto');
     } else if (application === FitApplication.AdminTool) {
-      this.titleService.setTitle('Absleo - Admin');
+      this.titleService.setTitle('HTL-Leonding | Absleo-Admin');
     }
     this.activatedApplication = application;
   }

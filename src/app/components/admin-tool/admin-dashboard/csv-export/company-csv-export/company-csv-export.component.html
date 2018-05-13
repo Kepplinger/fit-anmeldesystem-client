@@ -1,0 +1,117 @@
+<div class="container py-4">
+  <h3 class="text-bold">CSV - Export vom FIT am {{ event?.eventDate | date:'longDate' }}</h3>
+  <div class="w-100 border-bottom"></div>
+
+  <div class="d-flex flex-column justify-content-center align-items-center mt-3 mb-2">
+    <div class="text-bold text-larger mb-1">Einträge: {{getEntryCount()}}</div>
+    <button class="btn btn-success text-bold big-rounded-button"
+            (click)="downloadCSV()">
+      <i class="fa fa-file-excel-o fa-bold mr-1"></i>
+      CSV exportieren
+    </button>
+  </div>
+
+  <div>
+    <h4 class="text-bold">Einschränkungen</h4>
+
+    <div class="d-flex">
+
+      <div class="mr-3">
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-header text-bold">
+            <fit-custom-checkbox
+              [preventMargins]="true"
+              [message]="'Firma'"
+              [(value)]="csv.isCompanyEnabled">
+            </fit-custom-checkbox>
+          </div>
+
+          <div class="card-body"
+               [ngClass]="{'disabled-element': !csv.isCompanyEnabled}">
+
+            <fit-custom-checkbox
+              [message]="'Name'"
+              [(value)]="csv.company.name">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Straße'"
+              [(value)]="csv.company.street">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Hausnummer'"
+              [(value)]="csv.company.houseNumber">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Postleitzahl'"
+              [(value)]="csv.company.zipCode">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Ort'"
+              [(value)]="csv.company.location">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Adresszusatz'"
+              [(value)]="csv.company.addition">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Mitgliedsbeitrag'"
+              [(value)]="csv.company.memberPaymentAmount">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Mitglied seit'"
+              [(value)]="csv.company.memberSince">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Mitgliedsstatus'"
+              [(value)]="csv.company.memberStatus">
+            </fit-custom-checkbox>
+
+          </div>
+        </div>
+
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-header text-bold">
+            <fit-custom-checkbox
+              [preventMargins]="true"
+              [message]="'Firmen-Kontakt'"
+              [(value)]="csv.isContactEnabled">
+            </fit-custom-checkbox>
+          </div>
+
+          <div class="card-body"
+               [ngClass]="{'disabled-element': !csv.isContactEnabled}">
+
+            <fit-custom-checkbox
+              [message]="'Anrede'"
+              [(value)]="csv.contact.gender">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Name'"
+              [(value)]="csv.contact.name">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'E-Mail'"
+              [(value)]="csv.contact.email">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Telefon'"
+              [(value)]="csv.contact.phone">
+            </fit-custom-checkbox>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

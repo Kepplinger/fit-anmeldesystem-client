@@ -22,7 +22,7 @@ export class VerifyCompaniesComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.pendingCompanies = await this.companyDAO.fetchPendingCompanies();
-    this.companies = await this.companyDAO.fetchCompanies();
+    this.companies = await this.companyDAO.fetchAllCompanies();
   }
 
   public selectCompanyForAssigning(company: Company) {

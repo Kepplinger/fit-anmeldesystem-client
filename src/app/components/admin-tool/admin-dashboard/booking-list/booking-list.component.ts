@@ -6,7 +6,6 @@ import { BookingDAO } from '../../../../core/dao/booking.dao';
 import { Booking } from '../../../../core/model/booking';
 import { EventService } from '../../../../core/app-services/event.service';
 import { AppConfig } from '../../../../core/app-config/app-config.service';
-import { BookingCsvCreatorService } from '../../services/booking-csv-creator.service';
 
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
@@ -40,8 +39,7 @@ export class BookingListComponent implements OnInit {
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private router: Router,
-                     private bookingTransferService: BookingTransferService,
-                     private csvCreatorService: BookingCsvCreatorService) {
+                     private bookingTransferService: BookingTransferService) {
     this.imageDownloadLink = this.appConfig.serverURL + '/media';
   }
 
@@ -49,11 +47,6 @@ export class BookingListComponent implements OnInit {
     this.bookings = await this.bookingDAO.fetchAllBookingsForEvent(this.eventService.selectedEvent.getValue());
     this.displayedBookings = this.bookings;
     this.loading = false;
-  }
-
-  public routeToCsvExport(): void {
-    this.csvCreatorService.setBookings(this.bookings);
-    this.router.navigate(['/admin-tool', 'csv-export']);
   }
 
   public routeToBookingDetail(booking: Booking): void {

@@ -253,3 +253,14 @@ body {
 .full-viewport-width {
   min-width: 100vw;
 }
+
+.fa-bold {
+  -webkit-text-stroke-width: 0.35px;
+}
+
+.big-rounded-button{
+  border-radius: 40px;
+  font-size: 1.2rem;
+  padding-left: 1em;
+  padding-right: 1em;
+}
