@@ -148,11 +148,11 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public nextPage() {
-    this.setCurrentPage(this.currentStep + 1)
+    this.setCurrentPage(this.currentStep + 1);
   }
 
   public previousPage() {
-    this.setCurrentPage(this.currentStep - 1)
+    this.setCurrentPage(this.currentStep - 1);
   }
 
   public getProgress(): number {
@@ -238,7 +238,7 @@ export class FitRegistrationComponent implements OnInit {
         false,
         this.fitFormGroup.value.packagesAndLocation.presentationFile,
         this.fitFormGroup.value.packagesAndLocation.presentationBranches
-      )
+      );
     } else {
       return null;
     }

@@ -1,46 +1,64 @@
-<div class="tiny-container mt-5">
+<h2 class="text-bold">Code zurücksetzten</h2>
+<p class="mb-1">
+  Geben Sie in das untere Textfeld Ihre registrierte E-Mail Adresse ein, und wir schicken Ihnen dann den
+  neuen Code per Email.
+</p>
 
-  <h2 class="text-bold">Code zurücksetzten</h2>
-  <p class="mb-1">
-    Geben Sie in das untere Textfeld Ihre registrierte E-Mail Adresse ein, und wir schicken Ihnen dann den
-    neuen Code per Email.
-  </p>
+<div class="w-50 mx-auto mt-5">
 
-  <div class="mx-5">
+  <h4 class="text-bold text-center mb-1">E-Mail Eingabe</h4>
 
-    <div class="message-container">
-      <span *ngIf="isValid()"
-            class="valid-message">
-        Ihre Email wurde erfolgreich im System gefunden!
-      </span>
-
-      <span *ngIf="isInvalid()"
-            class="invalid-message">
-        Die Email konnte nicht im System gefunden werden!
-      </span>
+  <div class="message-container">
+    <div *ngIf="isValid()"
+         class="valid-message mt-0">
+      Ihre Email wurde erfolgreich im System gefunden!
     </div>
 
-    <div class="position-relative mb-2">
-      <input type="text"
-             placeholder="E-Mail"
-             title="email"
-             [ngClass]="{'is-valid': isValid(),
-                         'is-invalid': isInvalid()}"
-             (keydown)="onEmailChange()"
-             [(ngModel)]="companyMail"
-             class="form-control">
-
-      <div class="position-absolute input-loading-icon">
-        <i *ngIf="isLoading" class="fa fa-spin fa-spinner fa-1-3x"></i>
-        <i *ngIf="isValid()" class="fa fa-check fa-1-3x text-success"></i>
-        <i *ngIf="isInvalid()" class="fa fa-times fa-1-3x text-danger"></i>
-      </div>
+    <div *ngIf="isInvalid()"
+         class="invalid-message mt-0">
+      Die Email konnte nicht im System gefunden werden!
     </div>
 
-    <button class="btn btn-primary w-100 text-bold"
-            [disabled]="!isExisting || !isChecked"
-            (click)="sendMail()">
-      Neuen Code schicken lassen
-    </button>
+    <div *ngIf="!isValid() && !isInvalid()"
+         class="muted-message mt-0">
+      Email muss zuerst überprüft werden ...
+    </div>
   </div>
+
+  <div class="position-relative mb-2">
+    <input type="text"
+           placeholder="E-Mail"
+           title="email"
+           [ngClass]="{'is-valid': isValid(),
+                         'is-invalid': isInvalid()}"
+           (keydown)="onEmailChange()"
+           [(ngModel)]="companyMail"
+           class="form-control">
+
+    <div class="position-absolute input-loading-icon">
+      <i *ngIf="isLoading" class="fa fa-spin fa-spinner fa-1-3x"></i>
+      <i *ngIf="isValid()" class="fa fa-check fa-1-3x text-success"></i>
+      <i *ngIf="isInvalid()" class="fa fa-times fa-1-3x text-danger"></i>
+    </div>
+  </div>
+
+  <button class="btn btn-primary w-100 text-bold"
+          [disabled]="!isExisting || !isChecked"
+          [ngClass]="{'cursor-not-allowed': !isExisting || !isChecked}"
+          (click)="sendMail()">
+    Neuen Code schicken lassen
+  </button>
+</div>
+
+<div class="flex-1"></div>
+
+<div class="text-muted my-3 text-smaller text-justify">
+  <h6>Ihre Mail wurde nicht gefunden?</h6>
+  <p>
+    Sollte Ihre E-Mail nicht in unseren System gefunden worden sein, probieren Sie bitte zuerst noch weitere
+    Möglichkeiten aus. Auch E-Mails wie die allgemeinen Office-Mail-Adressen können gefunden werden. Wurde aber
+    keine der angegebenen Mails gefunden, dann können sich auch einfach
+    <button class="btn btn-link" style="font-size: 0.8rem" [routerLink]="['/fit','code-beantragen']">hier</button>
+    einen neuen Code beantragen.
+  </p>
 </div>

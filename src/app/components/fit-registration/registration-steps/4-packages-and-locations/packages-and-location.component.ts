@@ -61,14 +61,15 @@ export class PackagesAndLocationComponent implements OnInit {
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
+        this.selectedPackage = this.stepFormGroup.value.fitPackage.discriminator;
         this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
       }
     );
 
     if (this.stepFormGroup.value.fitPackage != null) {
-      this.selectedPackage = this.stepFormGroup.value.fitPackage;
+      this.selectedPackage = this.stepFormGroup.value.fitPackage.discriminator;
     } else {
-      this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+      this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage());
     }
 
     if (this.stepFormGroup.value.location != null) {
@@ -82,15 +83,14 @@ export class PackagesAndLocationComponent implements OnInit {
   }
 
   public togglePackage(packageNumber: number): void {
-    if (packageNumber-- === this.selectedPackage) {
+
+    if (packageNumber === this.selectedPackage && packageNumber !== FitPackage.BasicPack) {
       this.selectedPackage--;
-    } else if (packageNumber++ === this.selectedPackage) {
-      this.selectedPackage++;
     } else {
       this.selectedPackage = packageNumber;
     }
 
-    this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+    this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage());
   }
 
   public isPackageSelected(packageType: FitPackage): boolean {
@@ -110,8 +110,8 @@ export class PackagesAndLocationComponent implements OnInit {
     }
   }
 
-  public getSelectedPackage(packageType: FitPackage): Package {
-    switch (packageType) {
+  public getSelectedPackage(): Package {
+    switch (this.selectedPackage) {
       case FitPackage.BasicPack:
         return this.basicPackage;
       case FitPackage.SponsorPack:

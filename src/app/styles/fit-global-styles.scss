@@ -87,6 +87,10 @@ body {
   cursor: pointer;
 }
 
+.fit-border {
+  border: $main-border;
+}
+
 .border-top {
   border-top: $main-border;
 }
@@ -174,6 +178,12 @@ body {
   font-size: 0.75em;
   color: $danger;
 }
+.muted-message {
+  margin-top: 0.25rem;
+  font-size: 0.75em;
+  color: $secondary;
+}
+
 
 .invalid-message-container {
   width: 100%;
