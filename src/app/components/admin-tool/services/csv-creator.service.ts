@@ -7,19 +7,26 @@ import { BookingDAO } from '../../../core/dao/booking.dao';
 import { CompanyDAO } from '../../../core/dao/company.dao';
 import { GraduateDAO } from '../../../core/dao/graduate.dao';
 import { Address } from '../../../core/model/address';
+import { Location } from '../../../core/model/location';
+import { Branch } from '../../../core/model/branch';
+import { Resource } from '../../../core/model/resource';
+import { ResourceDAO } from '../../../core/dao/resource.dao';
+import { BranchDAO } from '../../../core/dao/branch.dao';
 import * as FileSaver from 'file-saver';
 
 @Injectable()
 export class CsvCreatorService {
 
-  public bookings: Booking[] = [];
-  public companies: Company[] = [];
-  public graduates: Graduate[] = [];
+  private bookings: Booking[] = [];
+  private companies: Company[] = [];
+  private graduates: Graduate[] = [];
 
   public constructor(private papa: PapaParseService,
                      private bookingDAO: BookingDAO,
                      private companyDAO: CompanyDAO,
-                     private graduateDAO: GraduateDAO) {
+                     private graduateDAO: GraduateDAO,
+                     private resourceDAO: ResourceDAO,
+                     private branchDAO: BranchDAO) {
     let sessionBookings = JSON.parse(sessionStorage.getItem('csvBookings'));
     let sessionGraduates = JSON.parse(sessionStorage.getItem('csvGraduates'));
     let sessionCompanies = JSON.parse(sessionStorage.getItem('csvCompanies'));
@@ -81,13 +88,20 @@ export class CsvCreatorService {
     }
   }
 
-  public downloadCsvFromBookings(csvFilter: any): void {
+  public async downloadCsvFromBookings(csvFilter: any): Promise<void> {
+
+    let branches: Branch[] = await this.branchDAO.fetchBranches();
+    let resources: Resource[] = await this.resourceDAO.fetchResources();
 
     let csvData: any[][] = [
-      this.getBookingCsvHeaders(csvFilter)
+      await this.getBookingCsvHeaders(csvFilter)
     ];
 
     for (let booking of this.bookings) {
+
+      if (booking.location == null) {
+        booking.location = new Location();
+      }
 
       let data: any[] = [booking.id];
 
@@ -102,6 +116,37 @@ export class CsvCreatorService {
         this.addColumn(csvFilter.booking.establishments, booking.establishmentsAut, data);
         this.addColumn(csvFilter.booking.establishments, booking.establishmentsCountInt, data);
         this.addColumn(csvFilter.booking.establishments, booking.establishmentsInt, data);
+        this.addColumn(csvFilter.booking.additionalInfo, booking.additionalInfo, data);
+        this.addColumn(csvFilter.booking.companyDescription, booking.companyDescription, data);
+        this.addColumn(csvFilter.booking.isAccepted, booking.isAccepted, data);
+        this.addColumn(csvFilter.booking.package, booking.fitPackage.name, data);
+        this.addColumn(csvFilter.booking.providesThesis, booking.providesThesis, data);
+        this.addColumn(csvFilter.booking.providesSummerJob, booking.providesSummerJob, data);
+        this.addColumn(csvFilter.booking.contact, booking.contact.gender, data);
+        this.addColumn(csvFilter.booking.contact, booking.contact.firstName + ' ' + booking.contact.lastName, data);
+        this.addColumn(csvFilter.booking.contact, booking.contact.email, data);
+        this.addColumn(csvFilter.booking.contact, booking.contact.phoneNumber, data);
+        this.addColumn(csvFilter.booking.location, booking.location.number, data);
+
+        if (csvFilter.booking.desiredBranches) {
+          for (let branch of branches) {
+            if (booking.branches.findIndex(b => b.id === branch.id) !== -1) {
+              this.addColumn(true, 'x', data);
+            } else {
+              this.addColumn(true, '', data);
+            }
+          }
+        }
+
+        if (csvFilter.booking.resources) {
+          for (let resource of resources) {
+            if (booking.resources.findIndex(r => r.id === resource.id) !== -1) {
+              this.addColumn(true, 'x', data);
+            } else {
+              this.addColumn(true, '', data);
+            }
+          }
+        }
       }
 
       csvData.push(data);
@@ -163,7 +208,10 @@ export class CsvCreatorService {
     }
   }
 
-  private getBookingCsvHeaders(csvFilter: any): any[] {
+  private async getBookingCsvHeaders(csvFilter: any): Promise<any[]> {
+
+    let branches: Branch[] = await this.branchDAO.fetchBranches();
+    let resources: Resource[] = await this.resourceDAO.fetchResources();
 
     let data: any[] = ['ID'];
 
@@ -178,6 +226,25 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.booking.establishments, 'Österreich', data);
       this.addColumn(csvFilter.booking.establishments, 'Anzahl International', data);
       this.addColumn(csvFilter.booking.establishments, 'International', data);
+      this.addColumn(csvFilter.booking.additionalInfo, 'Sonstige Anmerkungen', data);
+      this.addColumn(csvFilter.booking.companyDescription, 'Firmenbeschreibung', data);
+      this.addColumn(csvFilter.booking.isAccepted, 'Ist akzeptiert?', data);
+      this.addColumn(csvFilter.booking.package, 'Paket', data);
+      this.addColumn(csvFilter.booking.providesThesis, 'Vergibt Ferial', data);
+      this.addColumn(csvFilter.booking.providesSummerJob, 'Vergibt Diplomarbeit', data);
+      this.addColumn(csvFilter.booking.contact, 'Anrede', data);
+      this.addColumn(csvFilter.booking.contact, '(FIT-Kontakt) Name', data);
+      this.addColumn(csvFilter.booking.contact, '(FIT-Kontakt) E-Mail', data);
+      this.addColumn(csvFilter.booking.contact, '(FIT-Kontakt) Telefon', data);
+      this.addColumn(csvFilter.booking.location, 'Standplatz', data);
+
+      if (csvFilter.booking.desiredBranches) {
+        branches.forEach(b => this.addColumn(true, b.name, data));
+      }
+
+      if (csvFilter.booking.resources) {
+        resources.forEach(r => this.addColumn(true, r.name, data));
+      }
     }
 
     return data;
