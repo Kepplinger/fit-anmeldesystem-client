@@ -1,6 +1,14 @@
 <div class="m-5">
 
-  <h1>Absolventen</h1>
+  <div class="d-flex">
+    <h1>Absolventen</h1>
+    <div class="flex-1"></div>
+    <a class="admin-tool-fancy-btn my-2"
+       [routerLink]="['/admin-tool', 'csv-export', 'absolventen']">
+      <i class="fa fa-file-excel-o text-success mr-1"></i>
+      CSV-Export
+    </a>
+  </div>
 
   <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
     <thead>

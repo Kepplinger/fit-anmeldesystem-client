@@ -264,3 +264,25 @@ body {
   padding-left: 1em;
   padding-right: 1em;
 }
+
+.admin-tool-fancy-btn {
+  @extend .floating-effect;
+  cursor: pointer;
+  border-radius: .25em;
+  padding: .5em;
+  vertical-align: middle;
+  user-select: none;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+
+  &:active {
+    @extend .no-floating-effect;
+    background-color: #ededed;
+    transform: translateY(3px) translateX(-3px);
+  }
+}

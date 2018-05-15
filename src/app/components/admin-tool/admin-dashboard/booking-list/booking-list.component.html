@@ -4,7 +4,12 @@
     <h1>Anmeldungen</h1>
 
     <div class="flex-1"></div>
-    <a class="booking-tool-btn my-2"
+    <a class="admin-tool-fancy-btn my-2 mr-2"
+            [routerLink]="['/admin-tool', 'csv-export', 'booking']">
+      <i class="fa fa-file-excel-o text-success mr-1"></i>
+      CSV-Export
+    </a>
+    <a class="admin-tool-fancy-btn my-2"
        role="link"
        [href]="imageDownloadLink">
       <i class="fa fa-file-image-o text-primary mr-1"></i>

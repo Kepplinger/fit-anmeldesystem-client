@@ -31,7 +31,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   public routeToCompanyDetails(company: Company): void {
-    console.log(company);
     this.companyTransferState.addCompany(company);
     this.router.navigate(['/admin-tool', 'firma', company.id]);
   }

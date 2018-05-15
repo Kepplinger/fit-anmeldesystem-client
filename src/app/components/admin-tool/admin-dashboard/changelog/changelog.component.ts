@@ -28,7 +28,7 @@ export class ChangelogComponent implements OnInit {
     this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
 
     if (this.companies.length > 0) {
-      this.selectCompany(ArrayUtils.getFirstElement(this.companies))
+      this.selectCompany(ArrayUtils.getFirstElement(this.companies));
     }
   }
 

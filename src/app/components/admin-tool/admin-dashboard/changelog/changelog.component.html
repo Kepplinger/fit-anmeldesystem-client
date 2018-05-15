@@ -77,14 +77,14 @@
             <span class="text-bold">{{change.tableName}}:</span>
             <span>{{change.columnName}}</span>
           </div>
-          <div class="flex-5 overflow-text">
+          <div class="flex-5 overflow-text mr-1">
             <span class="text-danger">{{change.oldValue}}</span>
             <i class="fa fa-long-arrow-right mx-1"></i>
             <span class="text-success">{{change.newValue}}</span>
           </div>
           <div class="flex-1">
             <div *ngIf="change.isPending">
-              <button class="btn btn-sm btn-success py-0 px-1 mx-1"
+              <button class="btn btn-sm btn-success py-0 px-1 mr-1"
                       (click)="applyChange(change)">
                 <i class="fa fa-fw fa-check"></i>
               </button>
@@ -95,6 +95,7 @@
             </div>
           </div>
         </div>
+
         <div class="change-detail-container"
              [ngClass]="{'show-change': change == openedChange}">
           <h5 class="mb-2 mt-3">Änderung:</h5>
@@ -103,6 +104,7 @@
             <div class="flex-1 text-success">{{change.newValue}}</div>
           </div>
         </div>
+        
       </div>
     </div>
   </div>
