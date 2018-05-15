@@ -29,11 +29,11 @@ export class CsvCreatorService {
     }
 
     if (sessionGraduates != null) {
-      this.bookings = sessionGraduates;
+      this.graduates = sessionGraduates;
     }
 
     if (sessionCompanies != null) {
-      this.bookings = sessionCompanies;
+      this.companies = sessionCompanies;
     }
   }
 
@@ -61,6 +61,10 @@ export class CsvCreatorService {
     }
   }
 
+  public getFilteredCompanies(tags: any[]) {
+    return this.companies;
+  }
+
   public getBookingCount(): number {
     if (this.bookings != null) {
       return this.bookings.length;
@@ -72,14 +76,6 @@ export class CsvCreatorService {
   public getGraduateCount(): number {
     if (this.graduates != null) {
       return this.graduates.length;
-    } else {
-      return 0;
-    }
-  }
-
-  public getCompanyCount(): number {
-    if (this.companies != null) {
-      return this.companies.length;
     } else {
       return 0;
     }

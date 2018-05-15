@@ -4,6 +4,7 @@ import { CsvCreatorService } from '../../../services/csv-creator.service';
 import { Tag } from '../../../../../core/model/tag';
 import { TagDAO } from '../../../../../core/dao/tag.dao';
 import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
+import { Company } from '../../../../../core/model/company';
 
 @Component({
   selector: 'fit-company-csv-export',
@@ -12,7 +13,8 @@ import { CompanyTagService } from '../../../../../core/app-services/company-tag.
 })
 export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent {
 
-  public tags: Tag[];
+  public tags: any[] = [];
+  public companies: Company[] = [];
 
   public csv: any = {
     isCompanyEnabled: true,
@@ -41,7 +43,10 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   }
 
   public ngOnInit(): void {
-    this.tags = this.tagService.getTags();
+    this.tags = this.tagService.getTags().map(t => {
+      return {checked: true, tag: t};
+    });
+    this.companies = this.csvCreatorService.getFilteredCompanies(this.tags);
   }
 
   public downloadCSV(): void {
@@ -49,6 +54,21 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   }
 
   public getEntryCount(): number {
-    return this.csvCreatorService.getCompanyCount();
+    return this.companies.length;
+  }
+
+  public updateCompanies(): void {
+    console.log(this.tags);
+    this.companies = this.csvCreatorService.getFilteredCompanies(this.tags);
+  }
+
+  public uncheckAllTags(): void {
+    this.tags.forEach(t => t.checked = false);
+    this.updateCompanies();
+  }
+
+  public checkAllTags(): void {
+    this.tags.forEach(t => t.checked = true);
+    this.updateCompanies();
   }
 }
