@@ -6,6 +6,7 @@ import { Graduate } from '../../../core/model/graduate';
 import { BookingDAO } from '../../../core/dao/booking.dao';
 import { CompanyDAO } from '../../../core/dao/company.dao';
 import { GraduateDAO } from '../../../core/dao/graduate.dao';
+import { Address } from '../../../core/model/address';
 import * as FileSaver from 'file-saver';
 
 @Injectable()
@@ -92,26 +93,9 @@ export class CsvCreatorService {
 
     for (let booking of this.bookings) {
 
-      let data: any[] = [ booking.id ];
+      let data: any[] = [booking.id];
 
-      if (csvFilter.isCompanyEnabled) {
-        this.addColumn(csvFilter.company.name, booking.company.name, data);
-        this.addColumn(csvFilter.company.street, booking.company.address.street, data);
-        this.addColumn(csvFilter.company.houseNumber, booking.company.address.streetNumber, data);
-        this.addColumn(csvFilter.company.zipCode, booking.company.address.zipCode, data);
-        this.addColumn(csvFilter.company.location, booking.company.address.city, data);
-        this.addColumn(csvFilter.company.addition, booking.company.address.addition, data);
-        this.addColumn(csvFilter.company.memberPaymentAmount, booking.company.memberPaymentAmount, data);
-        this.addColumn(csvFilter.company.memberSince, booking.company.memberSince, data);
-        this.addColumn(csvFilter.company.memberStatus, booking.company.memberStatus, data);
-      }
-
-      if (csvFilter.isContactEnabled) {
-        this.addColumn(csvFilter.contact.gender, booking.company.contact.gender, data);
-        this.addColumn(csvFilter.contact.name, booking.company.contact.firstName + '' + booking.company.contact.lastName, data);
-        this.addColumn(csvFilter.contact.email, booking.company.contact.email, data);
-        this.addColumn(csvFilter.contact.phone, booking.company.contact.phoneNumber, data);
-      }
+      data = this.getCompanyCsvColumns(csvFilter, booking.company, data);
 
       if (csvFilter.isBookingEnabled) {
         this.addColumn(csvFilter.booking.branch, booking.branch, data);
@@ -127,17 +111,54 @@ export class CsvCreatorService {
       csvData.push(data);
     }
 
-    let file = new Blob(
-      [this.papa.unparse(csvData, {delimiter: ';', header: true})],
-      {type: 'text/plain;charset=utf-8'}
-    );
-    FileSaver.saveAs(file, 'booking-export.csv');
-  }
-
-  public downloadCsvFromGraduates(csvFilter: any): void {
+    this.downloadCsv(csvData, 'booking-export.csv');
   }
 
   public downloadCsvFromCompanies(csvFilter: any): void {
+    let csvData: any[][] = [
+      this.getCompanyCsvHeaders(csvFilter, true)
+    ];
+
+    for (let company of this.companies) {
+
+      let data: any[] = [company.id];
+
+      data = this.getCompanyCsvColumns(csvFilter, company, data);
+
+      csvData.push(data);
+    }
+
+    this.downloadCsv(csvData, 'company-export.csv');
+  }
+
+  public downloadCsvFromGraduates(csvFilter: any): void {
+    let csvData: any[][] = [
+      this.getGraduateCsvHeaders(csvFilter)
+    ];
+
+    for (let graduate of this.graduates) {
+
+      let data: any[] = [graduate.id];
+
+      if (graduate.address == null) {
+        graduate.address = new Address();
+      }
+
+      this.addColumn(csvFilter.graduate.gender, graduate.gender, data);
+      this.addColumn(csvFilter.graduate.name, graduate.firstName, data);
+      this.addColumn(csvFilter.graduate.name, graduate.lastName, data);
+      this.addColumn(csvFilter.graduate.email, graduate.email, data);
+      this.addColumn(csvFilter.graduate.phone, graduate.phoneNumber, data);
+      this.addColumn(csvFilter.graduate.street, graduate.address.street, data);
+      this.addColumn(csvFilter.graduate.houseNumber, graduate.address.streetNumber, data);
+      this.addColumn(csvFilter.graduate.zipCode, graduate.address.zipCode, data);
+      this.addColumn(csvFilter.graduate.location, graduate.address.city, data);
+      this.addColumn(csvFilter.graduate.addition, graduate.address.addition, data);
+
+      csvData.push(data);
+    }
+
+    this.downloadCsv(csvData, 'graduate-export.csv');
   }
 
   private addColumn(condition: boolean, column: any, list: any[]): void {
@@ -149,6 +170,30 @@ export class CsvCreatorService {
   private getBookingCsvHeaders(csvFilter: any): any[] {
 
     let data: any[] = ['ID'];
+
+    data = [...data, ...this.getCompanyCsvHeaders(csvFilter, false)];
+
+    if (csvFilter.isBookingEnabled) {
+      this.addColumn(csvFilter.booking.branch, 'Branche', data);
+      this.addColumn(csvFilter.booking.phone, 'Telefon', data);
+      this.addColumn(csvFilter.booking.email, 'E-Mail', data);
+      this.addColumn(csvFilter.booking.homepage, 'Homepage', data);
+      this.addColumn(csvFilter.booking.establishments, 'Anzahl Österreich', data);
+      this.addColumn(csvFilter.booking.establishments, 'Österreich', data);
+      this.addColumn(csvFilter.booking.establishments, 'Anzahl International', data);
+      this.addColumn(csvFilter.booking.establishments, 'International', data);
+    }
+
+    return data;
+  }
+
+  private getCompanyCsvHeaders(csvFilter: any, useId: boolean): any[] {
+
+    let data: any[] = [];
+
+    if (useId) {
+      data.push(['ID']);
+    }
 
     if (csvFilter.isCompanyEnabled) {
       this.addColumn(csvFilter.company.name, 'Firmenname', data);
@@ -169,17 +214,58 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.contact.phone, 'Kontakt-Telefon', data);
     }
 
-    if (csvFilter.isBookingEnabled) {
-      this.addColumn(csvFilter.booking.branch, 'Branche', data);
-      this.addColumn(csvFilter.booking.phone, 'Telefon', data);
-      this.addColumn(csvFilter.booking.email, 'E-Mail', data);
-      this.addColumn(csvFilter.booking.homepage, 'Homepage', data);
-      this.addColumn(csvFilter.booking.establishments, 'Anzahl Österreich', data);
-      this.addColumn(csvFilter.booking.establishments, 'Österreich', data);
-      this.addColumn(csvFilter.booking.establishments, 'Anzahl International', data);
-      this.addColumn(csvFilter.booking.establishments, 'International', data);
+    return data;
+  }
+
+  private getGraduateCsvHeaders(csvFilter: any): any[] {
+
+    let data: any[] = ['ID'];
+
+    data = [...data, ...this.getCompanyCsvHeaders(csvFilter, false)];
+
+    this.addColumn(csvFilter.graduate.gender, 'Anrede', data);
+    this.addColumn(csvFilter.graduate.name, 'Vorname', data);
+    this.addColumn(csvFilter.graduate.name, 'Nachname', data);
+    this.addColumn(csvFilter.graduate.email, 'E-Mail', data);
+    this.addColumn(csvFilter.graduate.phone, 'Telefonnummer', data);
+    this.addColumn(csvFilter.graduate.street, 'Straße', data);
+    this.addColumn(csvFilter.graduate.houseNumber, 'Hausnummer', data);
+    this.addColumn(csvFilter.graduate.zipCode, 'Postleitzahl', data);
+    this.addColumn(csvFilter.graduate.location, 'Ort', data);
+    this.addColumn(csvFilter.graduate.addition, 'Adresszusatz', data);
+
+    return data;
+  }
+
+  private getCompanyCsvColumns(csvFilter: any, company: Company, data: any[][]): any[][] {
+
+    if (csvFilter.isCompanyEnabled) {
+      this.addColumn(csvFilter.company.name, company.name, data);
+      this.addColumn(csvFilter.company.street, company.address.street, data);
+      this.addColumn(csvFilter.company.houseNumber, company.address.streetNumber, data);
+      this.addColumn(csvFilter.company.zipCode, company.address.zipCode, data);
+      this.addColumn(csvFilter.company.location, company.address.city, data);
+      this.addColumn(csvFilter.company.addition, company.address.addition, data);
+      this.addColumn(csvFilter.company.memberPaymentAmount, company.memberPaymentAmount, data);
+      this.addColumn(csvFilter.company.memberSince, company.memberSince, data);
+      this.addColumn(csvFilter.company.memberStatus, company.memberStatus, data);
+    }
+
+    if (csvFilter.isContactEnabled) {
+      this.addColumn(csvFilter.contact.gender, company.contact.gender, data);
+      this.addColumn(csvFilter.contact.name, company.contact.firstName + '' + company.contact.lastName, data);
+      this.addColumn(csvFilter.contact.email, company.contact.email, data);
+      this.addColumn(csvFilter.contact.phone, company.contact.phoneNumber, data);
     }
 
     return data;
+  }
+
+  private downloadCsv(csvData: any[][], filename: string) {
+    let file = new Blob(
+      [this.papa.unparse(csvData, {delimiter: ';', header: true})],
+      {type: 'text/plain;charset=utf-8'}
+    );
+    FileSaver.saveAs(file, filename);
   }
 }

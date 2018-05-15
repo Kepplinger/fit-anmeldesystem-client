@@ -15,7 +15,7 @@ export class CompanyTagService {
 
   public setTags(tags: Tag[]): void {
     this.tags = tags;
-    localStorage.setItem('tags', JSON.stringify(this.tags));
+    sessionStorage.setItem('tags', JSON.stringify(this.tags));
   }
 
   public getTags(): Tag[] {
@@ -25,11 +25,11 @@ export class CompanyTagService {
   private async loadTags(): Promise<void> {
     this.tags = await this.tagDAO.fetchTags();
     console.log(this.tags);
-    localStorage.setItem('tags', JSON.stringify(this.tags));
+    sessionStorage.setItem('tags', JSON.stringify(this.tags));
   }
 
   private readTagsFromSessionStorage(): boolean {
-    let tags = JSON.parse(localStorage.getItem('tags'));
+    let tags = JSON.parse(sessionStorage.getItem('tags'));
     console.log(tags);
 
     if (tags != null) {

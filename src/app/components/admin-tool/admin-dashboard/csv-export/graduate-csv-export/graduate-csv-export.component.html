@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="small-container py-4">
   <h3 class="text-bold">
     <i class="fa fa-user"></i> Absolventen CSV-Export
   </h3>
@@ -13,64 +13,62 @@
     </button>
   </div>
 
-  <div>
-    <h4 class="text-bold">Einschränkungen</h4>
+  <div class="d-flex flex-column align-items-center mt-4">
+    <h4 class="text-bold">Spalten-Einschränkungen</h4>
 
     <div class="d-flex">
 
-      <div class="mr-3">
-        <div class="card mb-3" style="width: 18rem;">
-          <div class="card-header text-bold">
-            Absolvent
-          </div>
-          <div class="card-body">
+      <div class="card mb-3" style="width: 18rem;">
+        <div class="card-header text-bold">
+          Absolvent
+        </div>
+        <div class="card-body">
 
-            <fit-custom-checkbox
-              [message]="'Anrede'"
-              [(value)]="csv.graduate.gender">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Anrede'"
+            [(value)]="csv.graduate.gender">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Name'"
-              [(value)]="csv.graduate.name">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Name'"
+            [(value)]="csv.graduate.name">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'E-Mail'"
-              [(value)]="csv.graduate.email">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'E-Mail'"
+            [(value)]="csv.graduate.email">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Telefon'"
-              [(value)]="csv.graduate.phone">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Telefon'"
+            [(value)]="csv.graduate.phone">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Straße'"
-              [(value)]="csv.graduate.street">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Straße'"
+            [(value)]="csv.graduate.street">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Hausnummer'"
-              [(value)]="csv.graduate.houseNumber">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Hausnummer'"
+            [(value)]="csv.graduate.houseNumber">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Postleitzahl'"
-              [(value)]="csv.graduate.zipCode">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Postleitzahl'"
+            [(value)]="csv.graduate.zipCode">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Ort'"
-              [(value)]="csv.graduate.location">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Ort'"
+            [(value)]="csv.graduate.location">
+          </fit-custom-checkbox>
 
-            <fit-custom-checkbox
-              [message]="'Adresszusatz'"
-              [(value)]="csv.graduate.addition">
-            </fit-custom-checkbox>
+          <fit-custom-checkbox
+            [message]="'Adresszusatz'"
+            [(value)]="csv.graduate.addition">
+          </fit-custom-checkbox>
 
-          </div>
         </div>
       </div>
     </div>

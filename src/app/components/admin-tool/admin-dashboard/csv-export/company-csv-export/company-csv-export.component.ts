@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseCsvExportComponent } from '../base-csv-export.component';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
+import { Tag } from '../../../../../core/model/tag';
+import { TagDAO } from '../../../../../core/dao/tag.dao';
+import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
 
 @Component({
   selector: 'fit-company-csv-export',
   templateUrl: './company-csv-export.component.html',
   styleUrls: ['./company-csv-export.component.scss']
 })
-export class CompanyCsvExportComponent implements BaseCsvExportComponent {
+export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent {
+
+  public tags: Tag[];
 
   public csv: any = {
     isCompanyEnabled: true,
@@ -31,7 +36,12 @@ export class CompanyCsvExportComponent implements BaseCsvExportComponent {
     },
   };
 
-  public constructor(private csvCreatorService: CsvCreatorService) {
+  public constructor(private csvCreatorService: CsvCreatorService,
+                     private tagService: CompanyTagService) {
+  }
+
+  public ngOnInit(): void {
+    this.tags = this.tagService.getTags();
   }
 
   public downloadCSV(): void {
