@@ -50,12 +50,10 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
     if (changes['inputArea'] && this.inputArea != null) {
       this.area = AreaHelper.clone(this.inputArea);
       this.draggableLocations = this.mapLocationsToDraggables();
-      console.log(this.draggableLocations);
 
-      if (this.area.graphicUrl != null) {
-        let splittedURL = this.area.graphicUrl.split('/');
-        this.pickedFile.dataURL = this.area.graphicUrl;
-        this.pickedFile.name = splittedURL[splittedURL.length - 1];
+      if (this.area.graphic != null) {
+        this.pickedFile.dataURL = this.area.graphic.dataUrl;
+        this.pickedFile.name = this.area.graphic.name;
       }
     }
   }
@@ -70,7 +68,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
 
     if (file instanceof PickedFile) {
       this.pickedFile = file;
-      this.area.graphicUrl = file.dataURL;
+      this.area.graphic.dataUrl = file.dataURL;
       this.changeDetector.detectChanges();
     } else if (file === FilePickerError.FileTooBig) {
       console.error('Image too big');

@@ -108,7 +108,7 @@
 }
 
 .text-severe-warning {
-  color: adjust_hue($danger, 15%);
+  color: adjust_hue($danger, 15%) !important;
 }
 
 .bg-main {

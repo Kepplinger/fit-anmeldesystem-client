@@ -1,19 +1,20 @@
 import { Location } from './location';
+import { DataFile } from './data-file';
 
 export class Area {
   public id: number;
   public timestamp: string;
 
   public designation: string;
-  public graphicUrl: string;
+  public graphic: DataFile;
   public locations: Location[];
 
   public constructor(designation?: string,
-                     graphicUrl?: string,
+                     graphic?: DataFile,
                      id?: number) {
     this.id = id;
     this.designation = designation;
-    this.graphicUrl = graphicUrl;
+    this.graphic = graphic;
     this.locations = [];
   }
 }

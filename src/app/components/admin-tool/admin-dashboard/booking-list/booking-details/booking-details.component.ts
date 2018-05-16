@@ -20,6 +20,7 @@ import { PackageDAO } from '../../../../../core/dao/package.dao';
 import { Event } from '../../../../../core/model/event';
 import { DisplayedValue } from '../../../../../core/app-helper/helper-model/displayed-value';
 import { ToastrService } from 'ngx-toastr';
+import { DataFile } from '../../../../../core/model/data-file';
 
 declare let $;
 
@@ -84,7 +85,7 @@ export class BookingDetailsComponent implements OnInit {
       phoneNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       homepage: ['', Validators.required],
-      logoUrl: ['', Validators.required],
+      logo: ['', Validators.required],
       branch: ['', Validators.required],
       description: ['', Validators.required],
       establishmentsAut: this.fb.array([]),
@@ -145,75 +146,6 @@ export class BookingDetailsComponent implements OnInit {
     );
   }
 
-  private async fillFormWithBooking(): Promise<void> {
-    this.bookingFormGroup.patchValue({
-      companyName: this.booking.company.name,
-      street: this.booking.company.address.street,
-      streetNumber: this.booking.company.address.streetNumber,
-      zipCode: this.booking.company.address.zipCode,
-      city: this.booking.company.address.city,
-      addressAdditions: this.booking.company.address.addition,
-      phoneNumber: this.booking.phoneNumber,
-      email: this.booking.email,
-      homepage: this.booking.homepage,
-      logoUrl: this.booking.logo,
-      branch: this.booking.branch,
-      description: this.booking.companyDescription,
-      establishmentsCountAut: this.booking.establishmentsCountAut,
-      establishmentsCountInt: this.booking.establishmentsCountInt,
-      providesSummerJob: this.booking.providesSummerJob,
-      providesThesis: this.booking.providesThesis,
-      additionalInfo: this.booking.additionalInfo,
-      fitPackage: this.booking.fitPackage,
-      location: this.booking.location,
-      remarks: this.booking.remarks,
-      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).display,
-      firstName: this.booking.company.contact.firstName,
-      lastName: this.booking.company.contact.lastName,
-      contactEmail: this.booking.company.contact.email,
-      contactPhoneNumber: this.booking.company.contact.phoneNumber,
-    });
-
-    (<FormGroup> this.bookingFormGroup).setControl('establishmentsAut', this.fb.array(this.booking.establishmentsAut));
-    (<FormGroup> this.bookingFormGroup).setControl('establishmentsInt', this.fb.array(this.booking.establishmentsInt));
-    (<FormGroup> this.bookingFormGroup).setControl('desiredBranches', this.fb.array(this.booking.branches));
-    (<FormGroup> this.bookingFormGroup).setControl('representatives', this.fb.array(this.booking.representatives));
-    (<FormGroup> this.bookingFormGroup).setControl('resources', this.fb.array(this.booking.resources));
-
-    if (this.booking.presentation != null) {
-      this.bookingFormGroup.patchValue({
-        packagesAndLocation: {
-          presentationTitle: this.booking.presentation.title,
-          presentationDescription: this.booking.presentation.description,
-          presentationFile: this.booking.presentation.fileUrl
-        }
-      });
-    }
-
-    this.companyDescription = this.bookingFormGroup.value.description;
-    this.event = this.booking.event;
-
-    if (this.bookingFormGroup.value.fitPackage != null) {
-      this.selectedPackage = this.bookingFormGroup.value.fitPackage;
-    } else {
-      this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
-    }
-
-    if (this.bookingFormGroup.value.location != null) {
-      this.selectedLocation = this.bookingFormGroup.value.location;
-    }
-
-    this.branches = await this.branchDAO.fetchBranches();
-    this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
-
-    this.packages = (await this.packageDAO.fetchPackages())
-      .sort(
-        (a: Package, b: Package) => {
-          return a.discriminator - b.discriminator;
-        }
-      );
-  }
-
   public setLocation(location: Location): void {
     this.selectedLocation = location;
     this.bookingFormGroup.controls['location'].setValue(this.selectedLocation);
@@ -243,7 +175,7 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   public onRepresentativeAdd(): void {
-    this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
+    this.addRepresentative(new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png')));
   }
 
   public addRepresentative(representative: Representative): void {
@@ -355,7 +287,7 @@ export class BookingDetailsComponent implements OnInit {
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
       this.logo = file;
-      this.bookingFormGroup.value.logoUrl = this.logo.dataURL;
+      this.bookingFormGroup.value.logo = this.logo.dataURL;
     } else {
       this.imagePickErrorHandler(file);
     }
@@ -363,7 +295,7 @@ export class BookingDetailsComponent implements OnInit {
 
   public representativeImagePicked(file: PickedFile | FilePickerError, representative: Representative): void {
     if (file instanceof PickedFile) {
-      representative.imageUrl = file.dataURL;
+      representative.image.dataUrl = file.dataURL;
     } else {
       this.imagePickErrorHandler(file);
     }
@@ -390,5 +322,75 @@ export class BookingDetailsComponent implements OnInit {
     } else if (error === FilePickerError.UndefinedInput) {
       this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
     }
+  }
+
+
+  private async fillFormWithBooking(): Promise<void> {
+    this.bookingFormGroup.patchValue({
+      companyName: this.booking.company.name,
+      street: this.booking.company.address.street,
+      streetNumber: this.booking.company.address.streetNumber,
+      zipCode: this.booking.company.address.zipCode,
+      city: this.booking.company.address.city,
+      addressAdditions: this.booking.company.address.addition,
+      phoneNumber: this.booking.phoneNumber,
+      email: this.booking.email,
+      homepage: this.booking.homepage,
+      logo: this.booking.logo,
+      branch: this.booking.branch,
+      description: this.booking.companyDescription,
+      establishmentsCountAut: this.booking.establishmentsCountAut,
+      establishmentsCountInt: this.booking.establishmentsCountInt,
+      providesSummerJob: this.booking.providesSummerJob,
+      providesThesis: this.booking.providesThesis,
+      additionalInfo: this.booking.additionalInfo,
+      fitPackage: this.booking.fitPackage,
+      location: this.booking.location,
+      remarks: this.booking.remarks,
+      gender: DisplayedValueMapper.mapToDisplayValue(this.booking.company.contact.gender, this.appConfig.genders).display,
+      firstName: this.booking.company.contact.firstName,
+      lastName: this.booking.company.contact.lastName,
+      contactEmail: this.booking.company.contact.email,
+      contactPhoneNumber: this.booking.company.contact.phoneNumber,
+    });
+
+    (<FormGroup> this.bookingFormGroup).setControl('establishmentsAut', this.fb.array(this.booking.establishmentsAut));
+    (<FormGroup> this.bookingFormGroup).setControl('establishmentsInt', this.fb.array(this.booking.establishmentsInt));
+    (<FormGroup> this.bookingFormGroup).setControl('desiredBranches', this.fb.array(this.booking.branches));
+    (<FormGroup> this.bookingFormGroup).setControl('representatives', this.fb.array(this.booking.representatives));
+    (<FormGroup> this.bookingFormGroup).setControl('resources', this.fb.array(this.booking.resources));
+
+    if (this.booking.presentation != null) {
+      this.bookingFormGroup.patchValue({
+        packagesAndLocation: {
+          presentationTitle: this.booking.presentation.title,
+          presentationDescription: this.booking.presentation.description,
+          presentationFile: this.booking.presentation.file
+        }
+      });
+    }
+
+    this.companyDescription = this.bookingFormGroup.value.description;
+    this.event = this.booking.event;
+
+    if (this.bookingFormGroup.value.fitPackage != null) {
+      this.selectedPackage = this.bookingFormGroup.value.fitPackage;
+    } else {
+      this.bookingFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage(this.selectedPackage));
+    }
+
+    if (this.bookingFormGroup.value.location != null) {
+      this.selectedLocation = this.bookingFormGroup.value.location;
+    }
+
+    this.branches = await this.branchDAO.fetchBranches();
+    this.branchFormArray = <FormArray>this.bookingFormGroup.get('desiredBranches');
+
+    this.packages = (await this.packageDAO.fetchPackages())
+      .sort(
+        (a: Package, b: Package) => {
+          return a.discriminator - b.discriminator;
+        }
+      );
   }
 }

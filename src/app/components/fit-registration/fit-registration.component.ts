@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep, getOrderedFitRegistrationSteps } from '../../core/model/enums/fit-registration-step';
@@ -18,11 +18,13 @@ import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
-import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
+import { DataFile } from '../../core/model/data-file';
 
-interface ValidateStep {
+interface FitStep {
   step: FitRegistrationStep;
-  isValidated: boolean;
+  isValid: boolean;
+  wasValidated: boolean;
+  isVisited: boolean;
 }
 
 @Component({
@@ -39,12 +41,10 @@ export class FitRegistrationComponent implements OnInit {
   public fitFormGroup: FormGroup;
   public event: Event;
 
-  public steps: ValidateStep[];
+  public steps: FitStep[];
 
   public isFormTouched: boolean = false;
   public isEditMode: boolean;
-
-  public visitedSteps: FitRegistrationStep[] = [];
 
   private booking: Booking = new Booking();
 
@@ -57,16 +57,22 @@ export class FitRegistrationComponent implements OnInit {
                      private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
+
+    // creates a FitStep Array out of the ordered steps
+    this.steps = getOrderedFitRegistrationSteps().map(s => {
+      return {
+        step: s,
+        isValid: true,
+        wasValidated: false,
+        isVisited: false
+      } as FitStep;
+    });
+
     this.currentStep = FitRegistrationStep.GeneralData;
-    this.visitedSteps.push(FitRegistrationStep.GeneralData);
+    this.steps.find(s => s.step === this.currentStep).isVisited = true;
 
     this.booking = this.accountManagementService.booking;
     this.isEditMode = this.accountManagementService.currentBookingExists;
-
-    // creates a ValidateStep Array out of the ordered steps
-    this.steps = getOrderedFitRegistrationSteps().map(s => {
-      return {step: s, isValidated: true} as ValidateStep;
-    });
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -87,7 +93,7 @@ export class FitRegistrationComponent implements OnInit {
         phoneNumber: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
-        logoUrl: [''],
+        logo: [new DataFile()],
         description: ['', fitCompanyDescriptionValidator(15, 65)],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],
@@ -108,7 +114,7 @@ export class FitRegistrationComponent implements OnInit {
         presentationTitle: [''],
         presentationDescription: [''],
         presentationBranches: this.fb.array([]),
-        presentationFile: ['']
+        presentationFile: [new DataFile()]
       }),
       contactAndRemarks: fb.group({
         fitContactGender: [this.booking.company.contact.gender],
@@ -143,21 +149,40 @@ export class FitRegistrationComponent implements OnInit {
     }
   }
 
-  public setCurrentPage(step: FitRegistrationStep) {
-    this.currentStep = step;
+  public setCurrentPage(oldStep: FitRegistrationStep, newStep: FitRegistrationStep) {
 
-    if (this.visitedSteps.indexOf(step) === -1) {
-      this.visitedSteps.push(step);
-    }
+    let oldStepFormGroup = this.getFormGroupForStep(oldStep);
+    let oldStepObject: FitStep = this.steps.find(s => s.step === oldStep);
+
+    FormHelper.touchAllFormFields(oldStepFormGroup);
+    oldStepObject.isValid = oldStepFormGroup.valid;
+    oldStepObject.wasValidated = true;
+
+    this.currentStep = newStep;
+
+    this.steps.find(s => s.step === this.currentStep).isVisited = true;
+
     window.scrollTo(0, 0);
   }
 
   public nextPage() {
-    this.setCurrentPage(this.currentStep + 1);
+    this.setCurrentPage(this.currentStep, this.currentStep + 1);
   }
 
   public previousPage() {
-    this.setCurrentPage(this.currentStep - 1);
+    this.setCurrentPage(this.currentStep, this.currentStep - 1);
+  }
+
+  public isCurrentStep(step: FitRegistrationStep): boolean {
+    return step === this.currentStep;
+  }
+
+  public isValid(step: FitStep): boolean {
+    return step.isValid && step.wasValidated;
+  }
+
+  public isInvalid(step: FitStep): boolean {
+    return !step.isValid && step.wasValidated;
   }
 
   public getProgress(): number {
@@ -169,13 +194,13 @@ export class FitRegistrationComponent implements OnInit {
     progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('fitAppearance'));
     progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('packagesAndLocation'));
 
-    if (this.visitedSteps.indexOf(FitRegistrationStep.ContactAndRemarks) !== -1) {
+    if (this.steps.find(s => s.step === FitRegistrationStep.ContactAndRemarks).isVisited) {
       progress += FormHelper.getErrorCount(<FormGroup>this.fitFormGroup.get('contactAndRemarks'));
     } else {
       progress += 5;
     }
 
-    progress += 5 - this.visitedSteps.length;
+    progress += 5 - this.steps.filter(s => s.isVisited).length;
 
     return (progressFactor - progress) / progressFactor;
   }
@@ -198,24 +223,7 @@ export class FitRegistrationComponent implements OnInit {
       FormHelper.touchAllFormFields(this.fitFormGroup);
 
       for (let step of this.steps) {
-
-        switch (step.step) {
-          case FitRegistrationStep.GeneralData:
-            step.isValidated = this.fitFormGroup.get('generalData').valid;
-            break;
-          case FitRegistrationStep.DetailedData:
-            step.isValidated = this.fitFormGroup.get('detailedData').valid;
-            break;
-          case FitRegistrationStep.FitAppearance:
-            step.isValidated = this.fitFormGroup.get('fitAppearance').valid;
-            break;
-          case FitRegistrationStep.PackagesAndLocation:
-            step.isValidated = this.fitFormGroup.get('packagesAndLocation').valid;
-            break;
-          case FitRegistrationStep.ContactAndRemarks:
-            step.isValidated = this.fitFormGroup.get('contactAndRemarks').valid;
-            break;
-        }
+        step.isValid = this.getFormGroupForStep(step.step).valid;
       }
     }
   }
@@ -287,7 +295,7 @@ export class FitRegistrationComponent implements OnInit {
         phoneNumber: this.booking.phoneNumber,
         email: this.booking.email,
         homepage: this.booking.homepage,
-        logoUrl: this.booking.logo,
+        logo: this.booking.logo,
         branch: this.booking.branch,
         description: this.booking.companyDescription,
         establishmentsCountAut: this.booking.establishmentsCountAut,
@@ -317,7 +325,7 @@ export class FitRegistrationComponent implements OnInit {
         packagesAndLocation: {
           presentationTitle: this.booking.presentation.title,
           presentationDescription: this.booking.presentation.description,
-          presentationFile: this.booking.presentation.fileUrl,
+          presentationFile: this.booking.presentation.file,
           presentationBranches: this.booking.presentation.branches
         }
       });
@@ -340,5 +348,20 @@ export class FitRegistrationComponent implements OnInit {
 
     // triggers bookingFilled Event to notify all other components
     this.accountManagementService.bookingIsFilled();
+  }
+
+  private getFormGroupForStep(step: FitRegistrationStep): FormGroup {
+    switch (step) {
+      case FitRegistrationStep.GeneralData:
+        return this.fitFormGroup.get('generalData') as FormGroup;
+      case FitRegistrationStep.DetailedData:
+        return this.fitFormGroup.get('detailedData') as FormGroup;
+      case FitRegistrationStep.FitAppearance:
+        return this.fitFormGroup.get('fitAppearance') as FormGroup;
+      case FitRegistrationStep.PackagesAndLocation:
+        return this.fitFormGroup.get('packagesAndLocation') as FormGroup;
+      case FitRegistrationStep.ContactAndRemarks:
+        return this.fitFormGroup.get('contactAndRemarks') as FormGroup;
+    }
   }
 }

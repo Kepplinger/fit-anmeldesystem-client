@@ -8,6 +8,7 @@ import { Resource } from './resource';
 import { Package } from './package';
 import { Moment } from 'moment';
 import { Contact } from './contact';
+import { DataFile } from './data-file';
 
 export class Booking {
   public id: number;
@@ -34,7 +35,7 @@ export class Booking {
   public phoneNumber: string;
   public email: string;
   public homepage: string;
-  public logo: string;
+  public logo: DataFile;
 
   public establishmentsCountInt?: number;
   public establishmentsInt?: string[];
@@ -61,7 +62,7 @@ export class Booking {
                      phoneNumber?: string,
                      email?: string,
                      homepage?: string,
-                     logo?: string,
+                     logo?: DataFile,
                      establishmentsCountInt?: number,
                      establishmentsInt?: string[],
                      establishmentsCountAut?: number,

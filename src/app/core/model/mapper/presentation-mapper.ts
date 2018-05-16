@@ -11,7 +11,7 @@ export class PresentationMapper {
       presentation.id = presentationJson.id;
       presentation.branches = presentationJson.branches;
       presentation.description = presentationJson.description;
-      presentation.fileUrl = presentationJson.fileUrl;
+      presentation.file = presentationJson.file;
       presentation.isAccepted = presentationJson.isAccepted;
       presentation.roomNumber = presentationJson.roomNumber;
       presentation.title = presentationJson.title;

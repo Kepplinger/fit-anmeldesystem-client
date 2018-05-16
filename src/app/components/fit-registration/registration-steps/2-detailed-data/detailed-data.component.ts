@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,8 +9,7 @@ import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
-
-declare let $;
+import { DataFile } from '../../../../core/model/data-file';
 
 @Component({
   selector: 'fit-detailed-data',
@@ -34,7 +33,7 @@ export class DetailedDataComponent implements OnInit {
   public branches: Branch[] = [];
   public branchFormArray: FormArray = null;
   public isDrag: boolean = false;
-  public logo: PickedFile;
+  public logo: DataFile;
 
   public constructor(private branchDAO: BranchDAO,
                      private accountManagementService: AccountManagementService,
@@ -55,14 +54,14 @@ export class DetailedDataComponent implements OnInit {
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
-      this.logo = file;
-      this.stepFormGroup.value.logo = this.logo.dataURL;
+      this.logo = new DataFile(file.name, file.dataURL);
+      this.stepFormGroup.value.logo = this.logo;
     } else if (file === FilePickerError.FileTooBig) {
-      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!')
+      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');
     } else if (file === FilePickerError.InvalidFileType) {
-      this.toastr.warning('Die angegeben Datei ist kein Bild!')
+      this.toastr.warning('Die angegeben Datei ist kein Bild!');
     } else if (file === FilePickerError.UndefinedInput) {
-      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!');
     }
   }
 

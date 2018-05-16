@@ -38,12 +38,12 @@
         </div>
 
         <div #areaBounds class="position-relative d-inline-block floating-effect w-100 blue-border">
-          <img [src]="area?.graphicUrl"
-               *ngIf="area.graphicUrl != null"
+          <img [src]="area?.graphic"
+               *ngIf="area.graphic != null"
                class="area-img img-fluid"
                alt="Bild konnte nicht geladen werden">
 
-          <div *ngIf="area.graphicUrl == null"
+          <div *ngIf="area.graphic == null"
                class="area-img-placeholder blue-border text-center pt-3">
             Es ist noch kein Bild ausgewählt
           </div>

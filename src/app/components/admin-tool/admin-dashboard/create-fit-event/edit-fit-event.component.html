@@ -62,11 +62,11 @@
         </div>
         <div class="flex-1"></div>
         <div class="area-img-container">
-          <img *ngIf="area.graphicUrl != null"
+          <img *ngIf="area.graphic != null"
                class="area-img"
-               [src]="area.graphicUrl"
+               [src]="area.graphic"
                alt="Bild konnte nicht geladen werden">
-          <div *ngIf="area.graphicUrl == null"
+          <div *ngIf="area.graphic == null"
                class="p-3 blue-border text-center">
             Zum Bearbeiten klicken
           </div>

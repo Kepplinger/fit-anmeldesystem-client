@@ -30,7 +30,7 @@
            placeholder="E-Mail"
            title="email"
            [ngClass]="{'is-valid': isValid(),
-                         'is-invalid': isInvalid()}"
+                       'is-invalid': isInvalid()}"
            (keydown)="onEmailChange()"
            [(ngModel)]="companyMail"
            class="form-control">

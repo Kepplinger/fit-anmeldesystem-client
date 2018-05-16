@@ -9,6 +9,7 @@ import { FilePickerError } from '../../../../libs/file-picker/file-picker-error'
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { ToastrService } from 'ngx-toastr';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
+import { DataFile } from '../../../../core/model/data-file';
 
 @Component({
   selector: 'fit-fit-appearance',
@@ -40,7 +41,7 @@ export class FitAppearanceComponent implements OnInit {
     this.fillRepresentativesAndResources();
 
     if (this.representatives.length === 0) {
-      this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
+      this.addRepresentative(new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png')));
     }
 
     this.accountManagementService.bookingFilled.subscribe(
@@ -52,7 +53,7 @@ export class FitAppearanceComponent implements OnInit {
   }
 
   public onRepresentativeAdd(): void {
-    this.addRepresentative(new Representative('', '', '../../../../../assets/contact.png'));
+    this.addRepresentative(new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png')));
   }
 
   public addRepresentative(representative: Representative): void {
@@ -96,7 +97,7 @@ export class FitAppearanceComponent implements OnInit {
 
   public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
     if (file instanceof PickedFile) {
-      representative.imageUrl = file.dataURL;
+      representative.image.dataUrl = file.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
       console.log('too big');
     } else if (file === FilePickerError.InvalidFileType) {
@@ -143,22 +144,21 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
+  public filePicked(file: PickedFile | FilePickerError, representative: Representative): void {
+    if (file instanceof PickedFile) {
+      representative.image.dataUrl = file.dataURL;
+    } else if (file === FilePickerError.FileTooBig) {
+      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');
+    } else if (file === FilePickerError.InvalidFileType) {
+      this.toastr.warning('Die angegeben Datei ist kein Bild!');
+    } else if (file === FilePickerError.UndefinedInput) {
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!');
+    }
+  }
+
   // TODO
   private getRepresentativeErrorCount(): number {
     return 0;
-  }
-
-
-  public filePicked(file: PickedFile | FilePickerError, representative: Representative): void {
-    if (file instanceof PickedFile) {
-      representative.imageUrl = file.dataURL;
-    } else if (file === FilePickerError.FileTooBig) {
-      this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!')
-    } else if (file === FilePickerError.InvalidFileType) {
-      this.toastr.warning('Die angegeben Datei ist kein Bild!')
-    } else if (file === FilePickerError.UndefinedInput) {
-      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
-    }
   }
 
   private fillRepresentativesAndResources(): void {

@@ -8,7 +8,7 @@ export class AreaHelper {
 
     clone.id = area.id;
     clone.timestamp = area.timestamp;
-    clone.graphicUrl = area.graphicUrl;
+    clone.graphic = area.graphic;
     clone.designation = area.designation;
     clone.locations = [];
 
