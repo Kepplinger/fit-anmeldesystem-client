@@ -5,6 +5,7 @@ import { Contact } from '../contact';
 import { ArrayUtils } from '../../utils/array-utils';
 import { Resource } from '../resource';
 import { Branch } from '../branch';
+import { PresentationMapper } from './presentation-mapper';
 
 export class BookingMapper {
 
@@ -16,7 +17,7 @@ export class BookingMapper {
       booking.id = bookingJson.id;
       booking.timestamp = bookingJson.timestamp;
       booking.company = CompanyMapper.mapJsonToCompany(bookingJson.company);
-      booking.presentation = bookingJson.presentation;
+      booking.presentation = PresentationMapper.mapJsonToPresentation(bookingJson.presentation);
       booking.remarks = bookingJson.remarks;
       booking.event = bookingJson.event;
       booking.location = bookingJson.location;
@@ -78,6 +79,8 @@ export class BookingMapper {
       json.establishmentsAut = ArrayUtils.concatWithDelimiter(json.establishmentsAut, ';');
       json.establishmentsInt = ArrayUtils.concatWithDelimiter(json.establishmentsInt, ';');
     }
+
+    json.presentation = PresentationMapper.mapPresentationToJson(booking.presentation);
 
     json.resources = booking.resources.map(
       (resource: Resource) => {

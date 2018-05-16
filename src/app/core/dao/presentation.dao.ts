@@ -1,6 +1,9 @@
 import { AppConfig } from '../app-config/app-config.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { PresentationMapper } from '../model/mapper/presentation-mapper';
+import { Presentation } from '../model/presentation';
 
 @Injectable()
 export class PresentationDAO {
@@ -9,8 +12,11 @@ export class PresentationDAO {
                      private http: HttpClient) {
   }
 
-  public async fetchPresentations(id: number): Promise<any[]> {
-    return this.http.get<any[]>(this.appConfig.serverURL + '/presentation/' + id)
+  public async fetchPresentations(id: number): Promise<Presentation[]> {
+    return this.http.get<Presentation[]>(this.appConfig.serverURL + '/presentation/' + id)
+      .pipe(
+        map(p => PresentationMapper.mapJsonToPresentationList(p))
+      )
       .toPromise();
   }
 }

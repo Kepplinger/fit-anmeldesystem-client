@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
+import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
 
 interface ValidateStep {
   step: FitRegistrationStep;
@@ -182,6 +183,12 @@ export class FitRegistrationComponent implements OnInit {
   public async submitBooking(): Promise<void> {
 
     if (this.fitFormGroup.valid) {
+
+      // if (true) {
+      //   await this.modalWindowService.confirm('test test 123',
+      //     ModalTemplateCreatorHelper.getRegistrationWarningModalContent(null));
+      // }
+
       let booking: Booking = this.getBookingFromForm();
       await this.bookingDAO.persistBooking(booking);
       this.router.navigateByUrl('fit/anmeldung-erfolgreich');
