@@ -52,7 +52,7 @@ export class CodeRequestComponent {
       this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
       this.router.navigate(['']);
     } else {
-      FormHelper.validateAllFormFields(this.formGroup);
+      FormHelper.touchAllFormFields(this.formGroup);
       this.toastr.error('Ihre Eingaben sind fehlerhaft.', 'Firmen Antrag fehlgeschalgen!');
     }
   }

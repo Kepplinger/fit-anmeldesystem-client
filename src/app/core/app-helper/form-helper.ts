@@ -49,13 +49,17 @@ export class FormHelper {
     return formGroup.get(formName).touched;
   }
 
-  public static validateAllFormFields(formGroup: FormGroup): void {
+  /**
+   * Marks every FormGroup as touched, to display its errors
+   * @param {FormGroup} formGroup
+   */
+  public static touchAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
+        this.touchAllFormFields(control);
       }
     });
   }

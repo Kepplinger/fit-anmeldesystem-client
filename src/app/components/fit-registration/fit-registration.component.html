@@ -3,20 +3,23 @@
 
     <!--step 1-->
     <div class="step-container flex-1 my-3"
-         *ngFor="let step of steps; let index = index"
-         (click)="setCurrentPage(step)">
+         *ngFor="let validateStep of steps; let index = index"
+         (click)="setCurrentPage(validateStep.step)">
       <div class="step-header justify-content-center d-flex flex-column align-items-center">
         <i class="fa fa-2x position-relative my-auto"
-           [ngClass]="{'fa-circle-thin': step > currentStep,
-                       'fa-circle': step <= currentStep}">
+           [ngClass]="{'fa-circle-thin': validateStep.step > currentStep,
+                       'fa-circle': validateStep.step <= currentStep}">
           <span class="position-absolute centered-element step-number"
-                [ngClass]="{'text-dark': step > currentStep,
-                            'text-light': step <= currentStep}">
+                [ngClass]="{'text-dark': validateStep.step > currentStep,
+                            'text-light': validateStep.step <= currentStep}">
             {{index + 1}}
           </span>
+          <i class="fa fa-warning text-severe-warning warning-icon-positioning"
+             *ngIf="!validateStep.isValidated">
+          </i>
         </i>
 
-        <div [ngSwitch]="step">
+        <div [ngSwitch]="validateStep.step">
           <div *ngSwitchCase="Step.GeneralData"
                class="my-auto">
             Firma Stammdaten
@@ -112,6 +115,6 @@
   </div>
 
   <!--<div style="overflow: hidden; max-width: inherit">-->
-    <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
+  <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
   <!--</div>-->
 </div>

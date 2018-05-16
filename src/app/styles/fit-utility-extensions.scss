@@ -107,6 +107,10 @@
   }
 }
 
+.text-severe-warning {
+  color: adjust_hue($danger, 15%);
+}
+
 .bg-main {
   background-color: $main-background;
 }

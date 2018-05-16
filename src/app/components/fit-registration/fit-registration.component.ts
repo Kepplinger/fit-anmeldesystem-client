@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-
-import { FitRegistrationStep } from '../../core/model/enums/fit-registration-step';
+import { FitRegistrationStep, getOrderedFitRegistrationSteps } from '../../core/model/enums/fit-registration-step';
 import { BookingDAO } from '../../core/dao/booking.dao';
 import { Booking } from '../../core/model/booking';
 import { Contact } from '../../core/model/contact';
@@ -20,6 +19,11 @@ import { FormHelper } from '../../core/app-helper/form-helper';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
 
+interface ValidateStep {
+  step: FitRegistrationStep;
+  isValidated: boolean;
+}
+
 @Component({
   selector: 'fit-fit-registration',
   templateUrl: './fit-registration.component.html',
@@ -33,13 +37,8 @@ export class FitRegistrationComponent implements OnInit {
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
   public event: Event;
-  public steps: FitRegistrationStep[] = [
-    FitRegistrationStep.GeneralData,
-    FitRegistrationStep.DetailedData,
-    FitRegistrationStep.FitAppearance,
-    FitRegistrationStep.PackagesAndLocation,
-    FitRegistrationStep.ContactAndRemarks
-  ];
+
+  public steps: ValidateStep[];
 
   public isFormTouched: boolean = false;
   public isEditMode: boolean;
@@ -62,6 +61,11 @@ export class FitRegistrationComponent implements OnInit {
 
     this.booking = this.accountManagementService.booking;
     this.isEditMode = this.accountManagementService.currentBookingExists;
+
+    // creates a ValidateStep Array out of the ordered steps
+    this.steps = getOrderedFitRegistrationSteps().map(s => {
+      return {step: s, isValidated: true} as ValidateStep;
+    });
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -99,7 +103,7 @@ export class FitRegistrationComponent implements OnInit {
       }),
       packagesAndLocation: fb.group({
         fitPackage: [null, Validators.required],
-        location: [null, Validators.required],
+        location: [null],
         presentationTitle: [''],
         presentationDescription: [''],
         presentationBranches: this.fb.array([]),
@@ -184,7 +188,28 @@ export class FitRegistrationComponent implements OnInit {
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
       this.isFormTouched = true;
-      FormHelper.validateAllFormFields(this.fitFormGroup);
+      FormHelper.touchAllFormFields(this.fitFormGroup);
+
+      for (let step of this.steps) {
+
+        switch (step.step) {
+          case FitRegistrationStep.GeneralData:
+            step.isValidated = this.fitFormGroup.get('generalData').valid;
+            break;
+          case FitRegistrationStep.DetailedData:
+            step.isValidated = this.fitFormGroup.get('detailedData').valid;
+            break;
+          case FitRegistrationStep.FitAppearance:
+            step.isValidated = this.fitFormGroup.get('fitAppearance').valid;
+            break;
+          case FitRegistrationStep.PackagesAndLocation:
+            step.isValidated = this.fitFormGroup.get('packagesAndLocation').valid;
+            break;
+          case FitRegistrationStep.ContactAndRemarks:
+            step.isValidated = this.fitFormGroup.get('contactAndRemarks').valid;
+            break;
+        }
+      }
     }
   }
 
@@ -306,6 +331,7 @@ export class FitRegistrationComponent implements OnInit {
     (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
       .setControl('resources', this.fb.array(this.booking.resources));
 
+    // triggers bookingFilled Event to notify all other components
     this.accountManagementService.bookingIsFilled();
   }
 }

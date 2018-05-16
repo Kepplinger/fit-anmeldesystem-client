@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationDAO } from '../../core/dao/authentication.dao';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { BookingMapper } from '../../core/model/mapper/booking-mapper';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EventService } from '../../core/app-services/event.service';
+import { Event } from '../../core/model/event';
 
 @Component({
   selector: 'fit-main',
@@ -13,16 +13,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class MainComponent implements OnInit {
 
-  public registrationAllowed: boolean = true;
   public authenticationToken: string = '';
   public hasFailed: boolean = false;
+  public event: Event;
 
   public constructor(private authenticationDAO: AuthenticationDAO,
                      private accountManagementService: AccountManagementService,
+                     private eventService: EventService,
                      private router: Router) {
   }
 
   public ngOnInit() {
+    this.event = this.eventService.currentEvent.getValue();
+
+    this.eventService.currentEvent.subscribe((event: Event) => {
+      this.event = event;
+    });
   }
 
   public async loginToBooking(): Promise<void> {

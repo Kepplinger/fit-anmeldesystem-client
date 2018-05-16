@@ -97,7 +97,7 @@ export class CompanyOverviewComponent implements OnInit {
       this.company = await this.companyDAO.updateCompany(this.company);
       this.companyFormGroup.controls['gender'].disable();
     } else {
-      FormHelper.validateAllFormFields(this.companyFormGroup);
+      FormHelper.touchAllFormFields(this.companyFormGroup);
       this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!')
     }
   }

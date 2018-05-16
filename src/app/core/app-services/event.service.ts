@@ -23,6 +23,10 @@ export class EventService {
     );
   }
 
+  public async updateEvents(): Promise<void> {
+    this.events.next(await this.eventDAO.fetchEvents());
+  }
+
   private async fetchEvents(): Promise<void> {
     this.appLoadingService.startLoading();
     if (this.fetchSelectedEventFromSessionStorage()) {
@@ -40,10 +44,6 @@ export class EventService {
     }
     this.appLoadingService.endLoading();
 
-    this.events.next(await this.eventDAO.fetchEvents());
-  }
-
-  public async updateEvents(): Promise<void> {
     this.events.next(await this.eventDAO.fetchEvents());
   }
 
