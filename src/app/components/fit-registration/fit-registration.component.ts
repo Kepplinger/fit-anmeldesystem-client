@@ -251,9 +251,9 @@ export class FitRegistrationComponent implements OnInit {
 
   private getContactFromForm(): Contact {
     return new Contact(
-      this.fitFormGroup.value.contactAndRemarks.fitContactGender,
       this.fitFormGroup.value.contactAndRemarks.fitContactFirstName,
       this.fitFormGroup.value.contactAndRemarks.fitContactLastName,
+      this.fitFormGroup.value.contactAndRemarks.fitContactGender,
       this.fitFormGroup.value.contactAndRemarks.fitContactEmail,
       this.fitFormGroup.value.contactAndRemarks.fitContactPhoneNumber
     );
