@@ -1,22 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 import { Resource } from '../../../../core/model/resource';
 import { ResourceDAO } from '../../../../core/dao/resource.dao';
 import { Representative } from '../../../../core/model/representative';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
-import { ArrayUtils } from '../../../../core/utils/array-utils';
-import { ToastrService } from 'ngx-toastr';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { DataFile } from '../../../../core/model/data-file';
+import { BaseFormValidationComponent } from '../base-form-validation.component';
+import { RepresentativeMapper } from '../../../../core/model/mapper/representative-mapper';
 
 @Component({
   selector: 'fit-fit-appearance',
   templateUrl: './fit-appearance.component.html',
   styleUrls: ['./fit-appearance.component.scss']
 })
-export class FitAppearanceComponent implements OnInit {
+export class FitAppearanceComponent extends BaseFormValidationComponent implements OnInit {
 
   @Input()
   public isVisible: boolean = false;
@@ -24,59 +26,49 @@ export class FitAppearanceComponent implements OnInit {
   @Input()
   public stepFormGroup: FormGroup;
 
-  @Input()
-  public areRepresentativesTouched: boolean = false;
+  @Output()
+  public onInput: EventEmitter<void> = new EventEmitter<void>();
 
-  public representatives: Representative[] = [];
   public resources: Resource[] = [];
   public resourceFormArray: FormArray = null;
-  public touchedRepresentatives: any[] = [];
 
   public constructor(private resourceDAO: ResourceDAO,
+                     private formBuilder: FormBuilder,
                      private accountManagementService: AccountManagementService,
                      private toastr: ToastrService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
-    this.fillRepresentativesAndResources();
+    this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
 
-    if (this.representatives.length === 0) {
-      this.addRepresentative(new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png')));
+    if (this.getRepresentativeFormArray().length === 0) {
+      this.addNewRepresentative();
     }
+
+    console.log(this.stepFormGroup.controls['representatives']);
+    console.log((this.stepFormGroup.controls['representatives'] as FormArray).at(0));
+    console.log(this.stepFormGroup.controls['representatives']);
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
-        this.fillRepresentativesAndResources();
+        this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
       });
 
     this.resources = await this.resourceDAO.fetchResources();
   }
 
+
+  public getRepresentativeFormArray(): AbstractControl[] {
+    return (this.stepFormGroup.get('representatives') as FormArray).controls;
+  }
+
   public onRepresentativeAdd(): void {
-    this.addRepresentative(new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png')));
+    this.addNewRepresentative();
   }
 
-  public addRepresentative(representative: Representative): void {
-    let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
-    this.representatives.push(representative);
-
-    this.touchedRepresentatives.push({
-      representative: representative,
-      name: false,
-      email: false
-    });
-
-    representativeArray.push(new FormControl(representative));
-  }
-
-  public deleteRepresentative(representative: Representative): void {
-    let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
-    ArrayUtils.deleteElement(this.representatives, representative);
-    ArrayUtils.deleteElement(
-      this.touchedRepresentatives,
-      this.touchedRepresentatives.find(r => r.representative === representative)
-    );
-    representativeArray.removeAt(FormArrayUtils.indexOf(representativeArray, representative));
+  public deleteRepresentative(index: number): void {
+    (<FormArray>this.stepFormGroup.get('representatives')).removeAt(index);
   }
 
   public resourceChanged(resource: Resource, event: any): void {
@@ -99,55 +91,6 @@ export class FitAppearanceComponent implements OnInit {
     if (file instanceof PickedFile) {
       representative.image.dataUrl = file.dataURL;
     } else if (file === FilePickerError.FileTooBig) {
-      console.log('too big');
-    } else if (file === FilePickerError.InvalidFileType) {
-      console.log('invalid file type');
-    } else if (file === FilePickerError.UndefinedInput) {
-      console.log('undefined input');
-    }
-  }
-
-  public onRepresentativeTouch(representative: Representative, attribute: string): void {
-    let foundRepresentative = this.touchedRepresentatives.find(r => r.representative === representative);
-
-    if (attribute === 'name') {
-      foundRepresentative.name = true;
-    } else if (attribute === 'email') {
-      foundRepresentative.email = true;
-    }
-  }
-
-  public isEmpty(representative: Representative, attribute: string): boolean {
-
-    let input = '';
-
-    if (attribute === 'name') {
-      input = representative.name;
-    } else if (attribute === 'email') {
-      input = representative.email;
-    }
-
-    return (input == null || input === '') && this.isTouched(representative, attribute);
-  }
-
-  public isTouched(representative: Representative, attribute: string): boolean {
-    if (!this.areRepresentativesTouched) {
-      if (attribute === 'name') {
-        return this.touchedRepresentatives.find(r => r.representative === representative).name;
-      } else if (attribute === 'email') {
-        return this.touchedRepresentatives.find(r => r.representative === representative).email;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  }
-
-  public filePicked(file: PickedFile | FilePickerError, representative: Representative): void {
-    if (file instanceof PickedFile) {
-      representative.image.dataUrl = file.dataURL;
-    } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');
     } else if (file === FilePickerError.InvalidFileType) {
       this.toastr.warning('Die angegeben Datei ist kein Bild!');
@@ -156,21 +99,10 @@ export class FitAppearanceComponent implements OnInit {
     }
   }
 
-  // TODO
-  private getRepresentativeErrorCount(): number {
-    return 0;
-  }
-
-  private fillRepresentativesAndResources(): void {
-    this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
-    this.representatives = (<FormArray>this.stepFormGroup.get('representatives')).value;
-
-    this.representatives.forEach(r => {
-      this.touchedRepresentatives.push({
-        representative: r,
-        name: false,
-        email: false
-      });
-    });
+  private addNewRepresentative(): void {
+    let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
+    representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
+      new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png'))
+    ));
   }
 }

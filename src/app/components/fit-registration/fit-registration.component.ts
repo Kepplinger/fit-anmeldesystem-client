@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FitRegistrationStep, getOrderedFitRegistrationSteps } from '../../core/model/enums/fit-registration-step';
@@ -20,6 +20,8 @@ import { AccountManagementService } from '../../core/app-services/account-manage
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
 import { DataFile } from '../../core/model/data-file';
 import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
+import { Representative } from '../../core/model/representative';
+import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -371,7 +373,8 @@ export class FitRegistrationComponent implements OnInit {
       .setControl('desiredBranches', this.fb.array(this.booking.branches));
 
     (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
-      .setControl('representatives', this.fb.array(this.booking.representatives));
+      .setControl('representatives', this.fb.array(this.booking.representatives
+        .map(r => RepresentativeMapper.mapRepresentativeToFormGroup(r))));
 
     (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
       .setControl('resources', this.fb.array(this.booking.resources));

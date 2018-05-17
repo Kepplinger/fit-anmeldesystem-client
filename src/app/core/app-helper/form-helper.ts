@@ -5,7 +5,7 @@ export class FormHelper {
     let errors = formGroup.controls[formName].errors;
 
     if (errors != null) {
-      return errors.required != null
+      return errors.required != null;
     } else {
       return false;
     }
@@ -15,7 +15,7 @@ export class FormHelper {
     let errors = formGroup.controls[formName].errors;
 
     if (errors != null) {
-      return errors.email != null
+      return errors.email != null;
     } else {
       return false;
     }
@@ -25,7 +25,7 @@ export class FormHelper {
     let errors = formGroup.controls[formName].errors;
 
     if (errors != null) {
-      return errors.maxlength != null
+      return errors.maxlength != null;
     } else {
       return false;
     }
@@ -35,7 +35,7 @@ export class FormHelper {
     let errors = formGroup.controls[formName].errors;
 
     if (errors != null) {
-      return errors.companyDescription != null
+      return errors.companyDescription != null;
     } else {
       return false;
     }
