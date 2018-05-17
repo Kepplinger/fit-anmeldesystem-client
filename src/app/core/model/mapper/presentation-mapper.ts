@@ -42,18 +42,22 @@ export class PresentationMapper {
 
   public static mapPresentationToJson(presentation: Presentation): any {
 
-    let json: any = presentation;
+    if (presentation != null) {
+      let json: any = presentation;
 
-    json.branches = presentation.branches.map(
-      (branch: Branch) => {
-        return {
-          fk_Booking: presentation.id,
-          fk_Branch: branch.id
-        };
-      }
-    );
+      json.branches = presentation.branches.map(
+        (branch: Branch) => {
+          return {
+            fk_Booking: presentation.id,
+            fk_Branch: branch.id
+          };
+        }
+      );
+      return json;
+    } else {
+      return null;
+    }
 
-    return json;
   }
 
 }

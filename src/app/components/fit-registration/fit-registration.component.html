@@ -6,13 +6,12 @@
          *ngFor="let fitStep of steps; let index = index"
          (click)="setCurrentPage(currentStep, fitStep.step)">
       <div class="step-header justify-content-center d-flex flex-column align-items-center">
-        <div class="position-relative my-auto step-icon rounded-circle d-flex  justify-content-center align-items-center"
-           [ngClass]="{'selected': isCurrentStep(fitStep.step),
-                       'text-muted': !fitStep.wasValidated,
+        <div class="position-relative my-auto step-icon rounded-circle d-flex justify-content-center align-items-center"
+             [ngClass]="{'selected': isCurrentStep(fitStep.step),
                        'is-invalid-step': isInvalid(fitStep),
                        'is-valid-step': isValid(fitStep)}">
 
-          <div class="step-number text-dark text-center" style="vertical-align: middle">
+          <div class="step-number text-dark text-center">
             {{index + 1}}
           </div>
 
@@ -55,7 +54,7 @@
   <div class="progress mx-4">
     <div id="progBar" class="progress-bar progress-bar-striped"
          [ngClass]="{'bg-danger': getProgress() < 0.25,
-                     'bg-info': getProgress() <= 0.75 && getProgress() >= 0.25,
+                     'bg-lighten-primary': getProgress() <= 0.75 && getProgress() >= 0.25,
                      'bg-success': getProgress() > 0.75}"
          role="progressbar" [style.width]="getProgress() * 100 + '%'">
     </div>
@@ -68,7 +67,8 @@
     </fit-general-data>
 
     <fit-detailed-data [isVisible]="currentStep == Step.DetailedData"
-                       [stepFormGroup]="fitFormGroup.controls['detailedData']">
+                       [stepFormGroup]="fitFormGroup.controls['detailedData']"
+                       (onInput)="validateStep(Step.DetailedData)">
     </fit-detailed-data>
 
     <fit-fit-appearance [isVisible]="currentStep == Step.FitAppearance"
@@ -82,7 +82,8 @@
     </fit-packages-and-location>
 
     <fit-contact-and-remarks [isVisible]="currentStep == Step.ContactAndRemarks"
-                             [stepFormGroup]="fitFormGroup.controls['contactAndRemarks']">
+                             [stepFormGroup]="fitFormGroup.controls['contactAndRemarks']"
+                             (onInput)="validateStep(Step.ContactAndRemarks)">
     </fit-contact-and-remarks>
 
     <div class="d-flex">

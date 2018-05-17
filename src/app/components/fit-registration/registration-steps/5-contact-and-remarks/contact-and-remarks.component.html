@@ -43,6 +43,7 @@
                placeholder="Vorname"
                formControlName="fitContactFirstName"
                id="fitContactFirstName"
+               (change)="onInputChanged()"
                [ngClass]="{'is-invalid': isInvalid('fitContactFirstName')}">
 
         <div class="invalid-message invalid-message-container">
@@ -60,6 +61,7 @@
                placeholder="Nachname"
                formControlName="fitContactLastName"
                id="fitContactLastName"
+               (change)="onInputChanged()"
                [ngClass]="{'is-invalid': isInvalid('fitContactLastName')}">
 
         <div class="invalid-message invalid-message-container">
@@ -77,6 +79,7 @@
                placeholder="E-Mail"
                formControlName="fitContactEmail"
                id="fitContactEmail"
+               (change)="onInputChanged()"
                [ngClass]="{'is-invalid': isInvalid('fitContactEmail')}">
 
         <div class="invalid-message invalid-message-container">
@@ -95,6 +98,7 @@
                placeholder="Telefonnummer"
                formControlName="fitContactPhoneNumber"
                id="fitContactPhoneNumber"
+               (change)="onInputChanged()"
                [ngClass]="{'is-invalid': isInvalid('fitContactPhoneNumber')}">
 
         <div class="invalid-message invalid-message-container">
@@ -119,6 +123,7 @@
       <label [ngClass]="{'is-invalid': isInvalid('termsAccepted')}"
              id="acceptTerms">
         <input type="checkbox"
+               (change)="onInputChanged()"
                formControlName="termsAccepted">
         <span class="cr"><i class="cr-icon fa fa-check"></i></span>
         Ich gestatte hiermit, dass die erfassten Informationen für die Erstellung einer gedruckten FIT Broschüre

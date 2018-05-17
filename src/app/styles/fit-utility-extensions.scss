@@ -114,3 +114,7 @@
 .bg-main {
   background-color: $main-background;
 }
+
+.bg-lighten-primary {
+  background-color: lighten($primary, 20%);
+}

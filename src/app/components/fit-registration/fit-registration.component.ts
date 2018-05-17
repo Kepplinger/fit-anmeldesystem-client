@@ -19,6 +19,7 @@ import { FormHelper } from '../../core/app-helper/form-helper';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
 import { DataFile } from '../../core/model/data-file';
+import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -68,8 +69,10 @@ export class FitRegistrationComponent implements OnInit {
       } as FitStep;
     });
 
+    // visits first step and validates it as true
     this.currentStep = FitRegistrationStep.GeneralData;
     this.steps.find(s => s.step === this.currentStep).isVisited = true;
+    this.steps.find(s => s.step === this.currentStep).wasValidated = true;
 
     this.booking = this.accountManagementService.booking;
     this.isEditMode = this.accountManagementService.currentBookingExists;
@@ -149,20 +152,47 @@ export class FitRegistrationComponent implements OnInit {
     }
   }
 
-  public setCurrentPage(oldStep: FitRegistrationStep, newStep: FitRegistrationStep) {
+  public async setCurrentPage(oldStep: FitRegistrationStep, newStep: FitRegistrationStep): Promise<void> {
 
     let oldStepFormGroup = this.getFormGroupForStep(oldStep);
     let oldStepObject: FitStep = this.steps.find(s => s.step === oldStep);
+    let newStepObject: FitStep = this.steps.find(s => s.step === newStep);
 
     FormHelper.touchAllFormFields(oldStepFormGroup);
     oldStepObject.isValid = oldStepFormGroup.valid;
     oldStepObject.wasValidated = true;
 
-    this.currentStep = newStep;
+    let switchToNextStep: boolean = true;
 
-    this.steps.find(s => s.step === this.currentStep).isVisited = true;
+    if (!oldStepObject.isValid) {
+      switchToNextStep = await this.modalWindowService.confirm(
+        `<h2 class="text-bold text-dark">Vorsicht!</h2>`,
+        ModalTemplateCreatorHelper.getNextStepWarning(),
+        ModalTemplateCreatorHelper.getBasicModalOptions('Trotzdem fortfahren', 'Abbrechen')
+      );
+    }
 
-    window.scrollTo(0, 0);
+    if (switchToNextStep) {
+      if (this.getFormGroupForStep(newStep).valid) {
+        newStepObject.isValid = true;
+        newStepObject.wasValidated = true;
+      }
+      newStepObject.isVisited = true;
+
+      this.currentStep = newStep;
+      window.scrollTo(0, 0);
+    }
+  }
+
+  public validateStep(step: FitRegistrationStep): void {
+    let stepObject: FitStep = this.steps.find(s => s.step === step);
+
+    if (this.getFormGroupForStep(step).valid) {
+      stepObject.isValid = true;
+      stepObject.wasValidated = true;
+    } else {
+      stepObject.isValid = false;
+    }
   }
 
   public nextPage() {
@@ -200,7 +230,7 @@ export class FitRegistrationComponent implements OnInit {
       progress += 5;
     }
 
-    progress += 5 - this.steps.filter(s => s.isVisited).length;
+    progress += 5 - this.steps.filter(s => s.isVisited && s.wasValidated).length;
 
     return (progressFactor - progress) / progressFactor;
   }

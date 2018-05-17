@@ -12,39 +12,39 @@
 .step-number {
   font-weight: bold;
   font-family: $main-font;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .icon-positioning {
   font-size: 0.8rem;
-  bottom: 0;
-  right: -15px;
+  bottom: -20%;
+  right: -70%;
   position: absolute;
 }
 
 .step-icon {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  border: solid 2px $secondary;
+  border: solid 2px lighten($primary, 20%);
   width: 25px;
   height: 25px;
 }
 
 .selected:not(.is-valid-step, .is-invalid-step) {
-  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 0.25rem rgba(lighten($primary, 20%), 0.35);
 }
 
 .is-valid-step {
   border-color: $success;
-}
 
-.is-valid-step.selected {
-  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.35);
+  &.selected {
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.35);
+  }
 }
 
 .is-invalid-step {
   border-color: $danger;
-}
 
-.is-invalid-step.selected {
-  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.35);
+  &.selected {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.35);
+  }
 }

@@ -1,28 +1,31 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
-import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { DataFile } from '../../../../core/model/data-file';
+import { BaseFormValidationComponent } from '../base-form-validation.component';
 
 @Component({
   selector: 'fit-detailed-data',
   templateUrl: './detailed-data.component.html',
   styleUrls: ['./detailed-data.component.scss']
 })
-export class DetailedDataComponent implements OnInit {
+export class DetailedDataComponent extends BaseFormValidationComponent implements OnInit {
 
   @Input()
   public isVisible: boolean = false;
 
   @Input()
   public stepFormGroup: FormGroup;
+
+  @Output()
+  public onInput: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('establishmentIntCount')
   public establishmentIntCount: ElementRef;
@@ -38,6 +41,7 @@ export class DetailedDataComponent implements OnInit {
   public constructor(private branchDAO: BranchDAO,
                      private accountManagementService: AccountManagementService,
                      private toastr: ToastrService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
@@ -75,6 +79,7 @@ export class DetailedDataComponent implements OnInit {
         this.branchFormArray.removeAt(index);
       }
     }
+    this.onInputChanged();
   }
 
   public isBranchSelected(branch: Branch): boolean {
@@ -105,22 +110,5 @@ export class DetailedDataComponent implements OnInit {
 
     this.establishmentIntCount.nativeElement.value = count;
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
-  }
-
-  public isEmpty(formName: string): boolean {
-    return FormHelper.isEmpty(formName, this.stepFormGroup) && this.isInvalid(formName);
-  }
-
-  public isNoMail(formName: string): boolean {
-    return FormHelper.isNoEmail(formName, this.stepFormGroup) && this.isInvalid(formName);
-  }
-
-  public isDescriptionTooLong(formName: string): boolean {
-    return FormHelper.isDescriptionTooLong(formName, this.stepFormGroup);
-  }
-
-  public isInvalid(formName: string): boolean {
-    return FormHelper.hasError(formName, this.stepFormGroup) != null &&
-      FormHelper.isTouched(formName, this.stepFormGroup);
   }
 }

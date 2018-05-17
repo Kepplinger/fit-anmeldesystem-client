@@ -25,6 +25,7 @@
                  formControlName="phoneNumber"
                  id="phoneNumber"
                  placeholder="Telefonnummer"
+                 (change)="onInputChanged()"
                  [ngClass]="{'is-invalid': isInvalid('phoneNumber')}">
           <div class="invalid-message invalid-message-container">
             <span *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</span>
@@ -46,6 +47,7 @@
                  formControlName="email"
                  id="email"
                  placeholder="Email"
+                 (change)="onInputChanged()"
                  [ngClass]="{'is-invalid': isInvalid('email')}">
           <div class="invalid-message invalid-message-container">
             <span *ngIf="isEmpty('email')" class="mr-2">E-Mail darf nicht leer sein!</span>
@@ -62,6 +64,7 @@
                  formControlName="homepage"
                  id="homepage"
                  placeholder="Homepage"
+                 (change)="onInputChanged()"
                  [ngClass]="{'is-invalid': isInvalid('homepage')}">
           <div class="invalid-message invalid-message-container">
             <span *ngIf="isEmpty('homepage')">Homepage darf nicht leer sein!</span>
@@ -76,6 +79,7 @@
                  formControlName="branch"
                  id="branch"
                  placeholder="Tätigkeitsfeld der Firma"
+                 (change)="onInputChanged()"
                  [ngClass]="{'is-invalid': isInvalid('branch')}">
 
           <div class="invalid-message invalid-message-container">
@@ -95,6 +99,7 @@
                 rows="7"
                 id="description"
                 placeholder="Tätigkeitsbereich der Firma in ca. 15 Zeilen"
+                (change)="onInputChanged()"
                 [ngClass]="{'is-invalid': isDescriptionTooLong('description')}"
                 formControlName="description">
        </textarea>
@@ -127,6 +132,7 @@
                  class="number-input form-control"
                  [value]="stepFormGroup.value.establishmentsCountAut"
                  (input)="verifyAutEstablishmentsCount()"
+                 (change)="onInputChanged()"
                  id="establishmentAutCount" type="number"/>
         </div>
         <fit-tag-input id="establishmentsAut"
