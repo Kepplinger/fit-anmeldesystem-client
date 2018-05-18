@@ -9,9 +9,20 @@ export abstract class BaseFormValidationComponent {
   public abstract onInput: EventEmitter<void>;
 
   public isArrayFieldEmpty(formArray: string, index: number, formName: string): boolean {
-    let formGroup: FormGroup = (this.stepFormGroup.controls[formArray] as FormArray).at(0) as FormGroup;
-    console.log(formGroup);
+    let formGroup: FormGroup = this.getArrayFormGroup(formArray, index);
     return FormHelper.isEmpty(formName, formGroup) && this.isInvalid(formName, formGroup);
+  }
+
+  public isArrayFieldNoMail(formArray: string, index: number, formName: string): boolean {
+    let formGroup: FormGroup = this.getArrayFormGroup(formArray, index);
+    return FormHelper.isNoEmail(formName, formGroup) && this.isInvalid(formName, formGroup);
+  }
+
+  public isArrayFieldInvalid(formArray: string, index: number, formName: string): boolean {
+    let formGroup: FormGroup = this.getArrayFormGroup(formArray, index);
+
+    return FormHelper.hasError(formName, formGroup) != null &&
+      FormHelper.isTouched(formName, formGroup);
   }
 
   public isEmpty(formName: string): boolean {
@@ -33,5 +44,9 @@ export abstract class BaseFormValidationComponent {
 
   public onInputChanged(): void {
     this.onInput.emit();
+  }
+
+  private getArrayFormGroup(formArray: string, index: number): FormGroup {
+    return (this.stepFormGroup.controls[formArray] as FormArray).at(index) as FormGroup;
   }
 }

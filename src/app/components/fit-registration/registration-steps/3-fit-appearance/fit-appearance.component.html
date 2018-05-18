@@ -43,19 +43,20 @@
                        name="name"
                        placeholder="Vor- und Nachname"
                        formControlName="name"
-                       [ngClass]="{'is-invalid': isArrayFieldEmpty('representatives', index, 'name')}"
+                       (change)="onInputChanged()"
+                       [ngClass]="{'is-invalid': isArrayFieldInvalid('representatives', index, 'name')}"
                        title="representativeName">
               </td>
               <!--image-->
               <td rowspan="3">
-                <img [src]="representativeControl.image"
-                     class="contact-image"
+                <img [src]="getRepresentativeImage(index).dataUrl"
+                     class="contact-image object-fit-cover"
                      alt="Fehler"
-                     width="100" style="object-fit: cover"
+                     width="100"
                      fitFilePicker
                      [accept]="'image/*'"
                      [maxSize]="2000000"
-                     (filePick)="onImagePick($event, representativeControl)"/>
+                     (filePick)="onImagePick($event, index)"/>
                 <div class="invalid-message invalid-message-container"></div>
               </td>
             </tr>
@@ -71,7 +72,8 @@
                        placeholder="E-Mail"
                        [id]="'representativeEmail' + index"
                        formControlName="email"
-                       [ngClass]="{'is-invalid': isArrayFieldEmpty('representatives', index, 'email')}"
+                       (change)="onInputChanged()"
+                       [ngClass]="{'is-invalid': isArrayFieldInvalid('representatives', index, 'email')}"
                        title="representativeEmail"/>
               </td>
             </tr>
@@ -87,20 +89,30 @@
                      fitFilePicker
                      [accept]="'image/*'"
                      [maxSize]="2000000"
-                     (filePick)="onImagePick($event, representativeControl)">
-                  <input class="form-control"
+                     (filePick)="onImagePick($event, index)">
+                  <input class="form-control cursor-pointer"
                          id="logo"
                          type="text"
-                         [value]="representativeControl?.image"
+                         [value]="getRepresentativeImage(index).name"
                          placeholder="Logo auswählen..."
                          disabled>
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">Durchsuchen</button>
                   </div>
+
+                  <!--error messages-->
                   <div class="invalid-message invalid-message-container">
                     <span *ngIf="isArrayFieldEmpty('representatives', index, 'name')"
-                    class="mr-1">Name darf nicht leer sein!</span>
-                    <span *ngIf="isArrayFieldEmpty('representatives', index, 'email')">E-Mail darf nicht leer sein!</span>
+                          class="mr-2">
+                      Name darf nicht leer sein!
+                    </span>
+                    <span *ngIf="isArrayFieldEmpty('representatives', index, 'email')"
+                          class="mr-2">
+                      E-Mail darf nicht leer sein!
+                    </span>
+                    <span *ngIf="isArrayFieldNoMail('representatives', index, 'email')">
+                      Ungültige E-Mail!
+                    </span>
                   </div>
                 </div>
               </td>

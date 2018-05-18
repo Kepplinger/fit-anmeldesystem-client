@@ -20,7 +20,6 @@ import { AccountManagementService } from '../../core/app-services/account-manage
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
 import { DataFile } from '../../core/model/data-file';
 import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
-import { Representative } from '../../core/model/representative';
 import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
 
 interface FitStep {
@@ -67,7 +66,7 @@ export class FitRegistrationComponent implements OnInit {
         step: s,
         isValid: true,
         wasValidated: false,
-        isVisited: false
+        isVisited: false // TODO is this really needed?
       } as FitStep;
     });
 
@@ -175,10 +174,7 @@ export class FitRegistrationComponent implements OnInit {
     }
 
     if (switchToNextStep) {
-      if (this.getFormGroupForStep(newStep).valid) {
-        newStepObject.isValid = true;
-        newStepObject.wasValidated = true;
-      }
+      this.validateStepWhenTrue(newStep);
       newStepObject.isVisited = true;
 
       this.currentStep = newStep;
@@ -186,7 +182,7 @@ export class FitRegistrationComponent implements OnInit {
     }
   }
 
-  public validateStep(step: FitRegistrationStep): void {
+  public validateStepWhenTrue(step: FitRegistrationStep): void {
     let stepObject: FitStep = this.steps.find(s => s.step === step);
 
     if (this.getFormGroupForStep(step).valid) {
@@ -232,12 +228,17 @@ export class FitRegistrationComponent implements OnInit {
       progress += 5;
     }
 
-    progress += 5 - this.steps.filter(s => s.isVisited && s.wasValidated).length;
+    progress += 5 - this.steps.filter(s => s.wasValidated).length;
 
     return (progressFactor - progress) / progressFactor;
   }
 
   public async submitBooking(): Promise<void> {
+
+    for (let step of this.steps) {
+      this.validateStepWhenTrue(step.step);
+      step.wasValidated = true;
+    }
 
     if (this.fitFormGroup.valid) {
 

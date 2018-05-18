@@ -46,21 +46,12 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
       this.addNewRepresentative();
     }
 
-    console.log(this.stepFormGroup.controls['representatives']);
-    console.log((this.stepFormGroup.controls['representatives'] as FormArray).at(0));
-    console.log(this.stepFormGroup.controls['representatives']);
-
     this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
       });
 
     this.resources = await this.resourceDAO.fetchResources();
-  }
-
-
-  public getRepresentativeFormArray(): AbstractControl[] {
-    return (this.stepFormGroup.get('representatives') as FormArray).controls;
   }
 
   public onRepresentativeAdd(): void {
@@ -87,9 +78,25 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
     return FormArrayUtils.indexOfWithId(this.resourceFormArray, resource) !== -1;
   }
 
-  public onImagePick(file: PickedFile | FilePickerError, representative: Representative): void {
+  public getRepresentativeFormArray(): AbstractControl[] {
+    return (this.stepFormGroup.get('representatives') as FormArray).controls;
+  }
+
+  public getRepresentativeImage(index: number): DataFile {
+    let image = this.getRepresentativeFormArray()[index].value.image as DataFile;
+
+    if (image != null) {
+      return image;
+    } else {
+      return this.getNewPlaceholderImage();
+    }
+  }
+
+  public onImagePick(file: PickedFile | FilePickerError, index: number): void {
     if (file instanceof PickedFile) {
-      representative.image.dataUrl = file.dataURL;
+      this.getRepresentativeFormArray()[index].patchValue({
+        image: new DataFile(file.name, file.dataURL)
+      });
     } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');
     } else if (file === FilePickerError.InvalidFileType) {
@@ -102,7 +109,11 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   private addNewRepresentative(): void {
     let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
     representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
-      new Representative('', '', new DataFile('Bild auswählen ...', '../../../../../assets/contact.png'))
+      new Representative('', '', this.getNewPlaceholderImage())
     ));
+  }
+
+  private getNewPlaceholderImage(): DataFile {
+    return new DataFile('Bild auswählen ...', '../../../../../assets/contact.png');
   }
 }

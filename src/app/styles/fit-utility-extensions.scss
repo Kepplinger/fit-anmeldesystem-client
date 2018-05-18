@@ -118,3 +118,7 @@
 .bg-lighten-primary {
   background-color: lighten($primary, 20%);
 }
+
+.object-fit-cover {
+  object-fit: cover;
+}
