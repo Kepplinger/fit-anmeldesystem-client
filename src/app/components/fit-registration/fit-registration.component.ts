@@ -21,6 +21,7 @@ import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-c
 import { DataFile } from '../../core/model/data-file';
 import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
 import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
+import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -233,8 +234,13 @@ export class FitRegistrationComponent implements OnInit {
     return (progressFactor - progress) / progressFactor;
   }
 
+  /**
+   * Validates the whole form, and submits the booking afterwards.
+   * @returns {Promise<void>}
+   */
   public async submitBooking(): Promise<void> {
 
+    // validate all steps (for visual reasons)
     for (let step of this.steps) {
       this.validateStepWhenTrue(step.step);
       step.wasValidated = true;
@@ -242,14 +248,28 @@ export class FitRegistrationComponent implements OnInit {
 
     if (this.fitFormGroup.valid) {
 
-      // if (true) {
-      //   await this.modalWindowService.confirm('test test 123',
-      //     ModalTemplateCreatorHelper.getRegistrationWarningModalContent(null));
-      // }
+      let submitBooking: boolean;
 
-      let booking: Booking = this.getBookingFromForm();
-      await this.bookingDAO.persistBooking(booking);
-      this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+      let formWarnings = {
+        noLogo: this.fitFormGroup.get('detailedData').value.logo == null,
+        // noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
+        //   .representatives.some(r => r.image.name === 'Bild auswählen ...'),
+        noRepresentativeLogos: false,
+        noLocation: this.fitFormGroup.get('packagesAndLocation').value.location == null
+      } as FormWarnings;
+
+      if (formWarnings.noRepresentativeLogos || formWarnings.noLogo || formWarnings.noLocation) {
+        submitBooking = await this.modalWindowService.confirm(
+          `<h5 class="text-bold">Einige Felder sind noch nicht ausgefüllt!</h5>`,
+          ModalTemplateCreatorHelper.getRegistrationWarning(formWarnings),
+          ModalTemplateCreatorHelper.getBasicModalOptions('Anmeldung durchführen', 'Abbrechen'));
+      }
+
+      if (submitBooking) {
+        let booking: Booking = this.getBookingFromForm();
+        await this.bookingDAO.persistBooking(booking);
+        this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+      }
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
       this.isFormTouched = true;
@@ -319,8 +339,14 @@ export class FitRegistrationComponent implements OnInit {
 
   private fillFormWithBooking(): void {
 
+    // Gender Backup check (if everything breaks)
     if (this.booking.company.contact.gender == null || this.booking.company.contact.gender === '') {
       this.booking.company.contact.gender = 'M';
+    }
+
+    // Gender Backup check
+    if (this.booking.contact.gender == null || this.booking.contact.gender === '') {
+      this.booking.contact.gender = 'M';
     }
 
     this.fitFormGroup.patchValue({

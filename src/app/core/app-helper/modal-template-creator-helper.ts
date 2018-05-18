@@ -1,15 +1,29 @@
-import { FormGroup } from '@angular/forms';
+import { FormWarnings } from './helper-model/form-warnings';
 
 export class ModalTemplateCreatorHelper {
 
-  public static getRegistrationWarning(formGroup: FormGroup): string {
+  public static getRegistrationWarning(formWarnings: FormWarnings): string {
+    let listPoints: string = '';
 
-    if (formGroup.get('packagesAndLocation').value.location == null) {
-      console.log('hallo');
+    if (formWarnings.noLogo) {
+      listPoints += `<li>Firmen-Logo (Schritt 2)</li>`;
+    }
+    if (formWarnings.noRepresentativeLogos) {
+      listPoints += `<li>Vertreter-Bilder (Schritt 3)</li>`;
+    }
+    if (formWarnings.noLocation) {
+      listPoints += `<li>Standplatz (Schritt 4)</li>`;
     }
 
     return `
-    <h1>Hallo</h1>
+    <div class="text-bold">Betroffene Felder: </div>
+
+    <ul>` + listPoints + `</ul>
+
+    <p>
+      Diese Felder müssen bis zum FIT ausgefüllt werden. Sie können die Anmel jetzt abschließen,
+      müssen aber diese Felder im nachhinein noch ausfüllen.
+    </p>
     `;
   }
 
