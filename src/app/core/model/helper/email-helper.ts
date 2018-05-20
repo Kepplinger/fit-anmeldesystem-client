@@ -11,6 +11,7 @@ export class EmailHelper {
       newEmail.description = email.description;
       newEmail.subject = email.subject;
       newEmail.template = email.template;
+      newEmail.availableVariables = email.availableVariables;
 
       return newEmail;
     } else {

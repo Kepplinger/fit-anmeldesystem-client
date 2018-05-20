@@ -15,8 +15,8 @@ export class EmailDAO {
       .toPromise();
   }
 
-  public updateEmail(email: Email): Promise<void> {
-    return this.http.put<void>(this.appConfig.serverURL + '/email', email)
+  public updateEmail(email: Email): Promise<Email> {
+    return this.http.put<Email>(this.appConfig.serverURL + '/email', email)
       .toPromise();
   }
 }

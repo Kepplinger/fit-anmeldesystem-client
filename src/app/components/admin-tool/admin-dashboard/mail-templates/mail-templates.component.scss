@@ -42,4 +42,17 @@ button:disabled {
 .variable-container {
   min-width: 200px;
   max-width: 300px;
+
+  .variable-item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: whitesmoke;
+    }
+
+    &:active {
+      box-shadow: none;
+      background-color: lighten(lightgrey, 10%);
+    }
+  }
 }

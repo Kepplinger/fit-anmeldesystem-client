@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Email } from '../../../../core/model/email';
-import { EmailDAO } from '../../../../core/dao/email.dao';
-import { EmailHelper } from '../../../../core/model/helper/email-helper';
-import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
-import { ArrayUtils } from '../../../../core/utils/array-utils';
-import { EmailVariable } from '../../../../core/model/email-variable';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Email} from '../../../../core/model/email';
+import {EmailDAO} from '../../../../core/dao/email.dao';
+import {EmailHelper} from '../../../../core/model/helper/email-helper';
+import {ModalWindowService} from '../../../../core/app-services/modal-window.service';
+import {ArrayUtils} from '../../../../core/utils/array-utils';
+import {EmailVariable} from '../../../../core/model/email-variable';
 
 @Component({
   selector: 'fit-mail-templates',
@@ -15,6 +15,9 @@ export class MailTemplatesComponent implements OnInit {
 
   @ViewChild('mailDropdown')
   public dropDownRef: ElementRef;
+
+  @ViewChild('editor')
+  public editorRef: ElementRef;
 
   public emails: Email[] = [];
   public selectedEmail: Email;
@@ -51,7 +54,7 @@ export class MailTemplatesComponent implements OnInit {
   }
 
   public async saveEmail(): Promise<void> {
-    await this.emailDAO.updateEmail(this.editableEmail);
+    this.editableEmail = await this.emailDAO.updateEmail(this.editableEmail);
     ArrayUtils.replaceElement(this.selectedEmail, this.editableEmail, this.emails);
     this.selectedEmail = this.editableEmail;
     this.isTouched = false;
@@ -62,7 +65,13 @@ export class MailTemplatesComponent implements OnInit {
     this.editableEmail = EmailHelper.clone(this.selectedEmail);
   }
 
-  public addVariable(variable: EmailVariable): void {
+  public saveCursor(): void {
+    this.editorRef.nativeElement.froalaEditor('selection.save');
+  }
 
+  public addVariable(variable: EmailVariable): void {
+    this.editorRef.nativeElement.froalaEditor('selection.restore');
+    this.editorRef.nativeElement.froalaEditor('html.insert', '{{ ' + variable.value + ' }}', true);
+    this.emailChanged();
   }
 }
