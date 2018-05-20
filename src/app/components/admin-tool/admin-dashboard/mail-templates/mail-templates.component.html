@@ -1,6 +1,7 @@
-<div class="small-container">
+<div class="container">
   <h1 class="my-5 text-center">Dynamische Mailvorlagen</h1>
 
+  <!--loading animation-->
   <div *ngIf="emails.length == 0"
        class="text-center">
     <i class="fa fa-pulse fa-spinner fa-4x"></i>
@@ -8,6 +9,7 @@
 
   <div *ngIf="emails.length > 0">
 
+    <!--mail dropdown-->
     <div class="d-flex justify-content-center align-items-center mt-3">
       <div class="text-bold text-larger d-flex flex-column mr-2">
         <span>Mail Vorlage:</span>
@@ -44,36 +46,56 @@
     <div *ngIf="editableEmail != null">
       <p class="text-center mb-5">{{editableEmail.description}}</p>
 
-      <div class="form-group d-flex align-items-center">
-        <label for="subject" class="my-0 mr-3">Betreff:</label>
-        <input class="form-control" style="color: black"
-               [(ngModel)]="editableEmail.subject"
+      <div class="d-flex">
+        
+        <!--mail edit area-->
+        <div class="flex-1">
+          <div class="form-group d-flex align-items-center">
+            <label for="subject" class="my-0 mr-3">Betreff:</label>
+            <input class="form-control" style="color: black"
+                   [(ngModel)]="editableEmail.subject"
+                   (keyup)="emailChanged()"
+                   type="text"
+                   id="subject">
+          </div>
+
+          <div class="template-editor"
                (keyup)="emailChanged()"
-               type="text"
-               id="subject">
-      </div>
+               [froalaEditor]="editorOptions"
+               [(froalaModel)]="editableEmail.template">
+          </div>
+        </div>
 
-      <div class="template-editor"
-           (keyup)="emailChanged()"
-           [froalaEditor]="editorOptions"
-           [(froalaModel)]="editableEmail.template">
+        <!--mail variables-->
+        <div class="ml-3 variable-container">
+          <h4 class="text-bold">Mail-Variablen</h4>
+
+          <div class="scroll-list-container">
+            <div *ngFor="let variable of editableEmail.availableVariables"
+                 class="floating-effect p-3 mb-2 rounded text-bold">
+              {{variable.name}}
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-danger mail-edit-button"
-              [disabled]="!isTouched"
-              (click)="discardEmail()">
-        <i class="fa fa-times"></i>
-        Verwerfen
-      </button>
-      <button class="btn btn-success mail-edit-button"
-              [disabled]="!isTouched"
-              (click)="saveEmail()">
-        <i class="fa fa-download"></i>
-        Speichern
-      </button>
-    </div>
-
   </div>
+
+  <!--buttons-->
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-danger mail-edit-button"
+            [disabled]="!isTouched"
+            (click)="discardEmail()">
+      <i class="fa fa-times"></i>
+      Verwerfen
+    </button>
+    <button class="btn btn-success mail-edit-button"
+            [disabled]="!isTouched"
+            (click)="saveEmail()">
+      <i class="fa fa-download"></i>
+      Speichern
+    </button>
+  </div>
+
 </div>

@@ -1,3 +1,5 @@
+import { EmailVariable } from './email-variable';
+
 export class Email {
   public id: number;
   public timestamp: string;
@@ -6,6 +8,7 @@ export class Email {
   public description: string;
   public template: string;
   public subject: string;
+  public availableVariables: EmailVariable[];
 
   public constructor(name?: string,
                      description?: string,
@@ -17,5 +20,6 @@ export class Email {
     this.description = description;
     this.template = template;
     this.subject = subject;
+    this.availableVariables = [];
   }
 }

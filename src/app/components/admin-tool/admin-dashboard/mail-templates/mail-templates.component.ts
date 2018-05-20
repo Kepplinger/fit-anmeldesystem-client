@@ -4,8 +4,7 @@ import { EmailDAO } from '../../../../core/dao/email.dao';
 import { EmailHelper } from '../../../../core/model/helper/email-helper';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
-
-declare let $: any;
+import { EmailVariable } from '../../../../core/model/email-variable';
 
 @Component({
   selector: 'fit-mail-templates',
@@ -21,14 +20,14 @@ export class MailTemplatesComponent implements OnInit {
   public selectedEmail: Email;
   public editableEmail: Email;
 
-  private isTouched: boolean = false;
-
   public editorOptions: any = {
     charCounterCount: true,
     heightMin: 350,
     tooltips: true,
     inlineMode: true
   };
+
+  private isTouched: boolean = false;
 
   public constructor(private emailDAO: EmailDAO) {
   }
@@ -37,7 +36,6 @@ export class MailTemplatesComponent implements OnInit {
     this.emails = await this.emailDAO.fetchEmails();
 
     if (this.emails.length !== 0) {
-      console.log(this.emails);
       this.selectEmail(this.emails[0]);
     }
   }
@@ -46,8 +44,6 @@ export class MailTemplatesComponent implements OnInit {
     this.isTouched = false;
     this.selectedEmail = email;
     this.editableEmail = EmailHelper.clone(email);
-    console.log(this.selectedEmail);
-    console.log(this.editableEmail);
   }
 
   public emailChanged(): void {
@@ -64,5 +60,9 @@ export class MailTemplatesComponent implements OnInit {
   public discardEmail(): void {
     this.isTouched = false;
     this.editableEmail = EmailHelper.clone(this.selectedEmail);
+  }
+
+  public addVariable(variable: EmailVariable): void {
+
   }
 }
