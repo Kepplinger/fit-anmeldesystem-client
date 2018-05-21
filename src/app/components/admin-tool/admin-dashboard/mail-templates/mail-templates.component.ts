@@ -25,7 +25,7 @@ export class MailTemplatesComponent implements OnInit {
     heightMin: 350,
     tooltips: true,
     inlineMode: true
-  };
+  };  
 
   private isTouched: boolean = false;
 
