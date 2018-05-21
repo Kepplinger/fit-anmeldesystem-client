@@ -1,11 +1,11 @@
-import { Booking } from '../booking';
+import {Booking} from '../booking';
 import * as moment from 'moment';
-import { CompanyMapper } from './company-mapper';
-import { Contact } from '../contact';
-import { ArrayUtils } from '../../utils/array-utils';
-import { Resource } from '../resource';
-import { Branch } from '../branch';
-import { PresentationMapper } from './presentation-mapper';
+import {CompanyMapper} from './company-mapper';
+import {Contact} from '../contact';
+import {ArrayUtils} from '../../utils/array-utils';
+import {Resource} from '../resource';
+import {Branch} from '../branch';
+import {PresentationMapper} from './presentation-mapper';
 
 export class BookingMapper {
 
@@ -73,8 +73,6 @@ export class BookingMapper {
 
     let json: any = booking;
 
-    json.fk_Company = booking.company.id;
-
     if (json != null && json.establishmentsAut != null && json.establishmentsInt != null) {
       json.establishmentsAut = ArrayUtils.concatWithDelimiter(json.establishmentsAut, ';');
       json.establishmentsInt = ArrayUtils.concatWithDelimiter(json.establishmentsInt, ';');
@@ -100,8 +98,19 @@ export class BookingMapper {
       }
     );
 
-    // delete unnecessary company attribute
+    // workaround to remove null fields in json
+    for (let representative of json.representatives) {
+      if (representative.id == null) {
+        delete representative.id;
+      }
+    }
+
+    json.fk_Company = booking.company.id;
+    json.fk_Event = booking.event.id;
+
+    // delete unnecessary company attribute (because of fk_Company)
     delete json.company;
+    delete json.event;
 
     return json;
   }

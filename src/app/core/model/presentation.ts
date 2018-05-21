@@ -26,5 +26,9 @@ export class Presentation {
     this.file = file;
     this.isAccepted = isAccepted;
     this.branches = branches;
+
+    if (this.roomNumber == null) {
+      this.roomNumber = '';
+    }
   }
 }

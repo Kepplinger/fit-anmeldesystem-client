@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
-import { FitPackage } from '../../../../core/model/enums/fit-package';
-import { Package } from '../../../../core/model/package';
-import { PackageDAO } from '../../../../core/dao/package.dao';
-import { PickedFile } from '../../../../libs/file-picker/picked-file';
-import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
-import { Branch } from '../../../../core/model/branch';
-import { BranchDAO } from '../../../../core/dao/branch.dao';
-import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
-import { ToastrService } from 'ngx-toastr';
-import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
+import {FitPackage} from '../../../../core/model/enums/fit-package';
+import {Package} from '../../../../core/model/package';
+import {PackageDAO} from '../../../../core/dao/package.dao';
+import {PickedFile} from '../../../../libs/file-picker/picked-file';
+import {FilePickerError} from '../../../../libs/file-picker/file-picker-error';
+import {Branch} from '../../../../core/model/branch';
+import {BranchDAO} from '../../../../core/dao/branch.dao';
+import {FormArrayUtils} from '../../../../core/utils/form-array-utils';
+import {ToastrService} from 'ngx-toastr';
+import {AccountManagementService} from '../../../../core/app-services/account-managenment.service';
+import {DataFile} from '../../../../core/model/data-file';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -100,13 +101,13 @@ export class PackagesAndLocationComponent implements OnInit {
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
       this.pickedFile = file;
-      this.stepFormGroup.controls['presentationFile'].setValue(this.pickedFile.dataURL);
+      this.stepFormGroup.controls['presentationFile'].setValue(new DataFile(this.pickedFile.name, this.pickedFile.dataURL));
     } else if (file === FilePickerError.FileTooBig) {
-      this.toastr.warning('Das Bild darf nicht größer wie 20MB sein!')
+      this.toastr.warning('Die Datei darf nicht größer wie 20MB sein!');
     } else if (file === FilePickerError.InvalidFileType) {
-      this.toastr.warning('Das Datei-Format wird nicht unterstüzt!')
+      this.toastr.warning('Das Datei-Format wird nicht unterstüzt!');
     } else if (file === FilePickerError.UndefinedInput) {
-      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!')
+      this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!');
     }
   }
 

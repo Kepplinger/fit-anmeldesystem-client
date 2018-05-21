@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
-import { FitRegistrationStep, getOrderedFitRegistrationSteps } from '../../core/model/enums/fit-registration-step';
-import { BookingDAO } from '../../core/dao/booking.dao';
-import { Booking } from '../../core/model/booking';
-import { Contact } from '../../core/model/contact';
-import { Presentation } from '../../core/model/presentation';
-import { Event } from '../../core/model/event';
-import { Package } from '../../core/model/package';
-import { FitPackage } from '../../core/model/enums/fit-package';
-import { AppConfig } from '../../core/app-config/app-config.service';
-import { EventDAO } from '../../core/dao/event.dao';
-import { ModalWindowService } from '../../core/app-services/modal-window.service';
-import { EventService } from '../../core/app-services/event.service';
-import { ToastrService } from 'ngx-toastr';
-import { FormHelper } from '../../core/app-helper/form-helper';
-import { AccountManagementService } from '../../core/app-services/account-managenment.service';
-import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
-import { DataFile } from '../../core/model/data-file';
-import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
-import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
-import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
+import {FitRegistrationStep, getOrderedFitRegistrationSteps} from '../../core/model/enums/fit-registration-step';
+import {BookingDAO} from '../../core/dao/booking.dao';
+import {Booking} from '../../core/model/booking';
+import {Contact} from '../../core/model/contact';
+import {Presentation} from '../../core/model/presentation';
+import {Event} from '../../core/model/event';
+import {Package} from '../../core/model/package';
+import {FitPackage} from '../../core/model/enums/fit-package';
+import {AppConfig} from '../../core/app-config/app-config.service';
+import {EventDAO} from '../../core/dao/event.dao';
+import {ModalWindowService} from '../../core/app-services/modal-window.service';
+import {EventService} from '../../core/app-services/event.service';
+import {ToastrService} from 'ngx-toastr';
+import {FormHelper} from '../../core/app-helper/form-helper';
+import {AccountManagementService} from '../../core/app-services/account-managenment.service';
+import {fitCompanyDescriptionValidator} from '../../core/form-validators/fit-company-description';
+import {DataFile} from '../../core/model/data-file';
+import {ModalTemplateCreatorHelper} from '../../core/app-helper/modal-template-creator-helper';
+import {RepresentativeMapper} from '../../core/model/mapper/representative-mapper';
+import {FormWarnings} from '../../core/app-helper/helper-model/form-warnings';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -128,13 +128,15 @@ export class FitRegistrationComponent implements OnInit {
         fitContactEmail: [this.booking.company.contact.email, [Validators.required, Validators.email]],
         fitContactPhoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
-        termsAccepted: [false, Validators.requiredTrue]
+        termsAccepted: [this.isEditMode, Validators.requiredTrue]
       })
     });
   }
 
   public async ngOnInit(): Promise<void> {
     this.event = this.eventService.currentEvent.getValue();
+    this.eventService.currentEvent.subscribe((event: Event) => this.event = event);
+
     let useOldBooking: boolean = false;
 
     if (this.booking.id != null && !this.isEditMode) {
@@ -151,6 +153,13 @@ export class FitRegistrationComponent implements OnInit {
 
     if (this.isEditMode || useOldBooking) {
       this.fillFormWithBooking();
+    }
+
+    if (this.isEditMode) {
+      for (let step of this.steps) {
+        this.validateStepWhenTrue(step.step);
+        step.isVisited = true;
+      }
     }
   }
 
@@ -248,7 +257,7 @@ export class FitRegistrationComponent implements OnInit {
 
     if (this.fitFormGroup.valid) {
 
-      let submitBooking: boolean;
+      let submitBooking: boolean = true;
 
       let formWarnings = {
         noLogo: this.fitFormGroup.get('detailedData').value.logo == null,
@@ -267,6 +276,12 @@ export class FitRegistrationComponent implements OnInit {
 
       if (submitBooking) {
         let booking: Booking = this.getBookingFromForm();
+
+        if (this.isEditMode) {
+          booking.id = this.accountManagementService.booking.id;
+          booking.timestamp = this.accountManagementService.booking.timestamp;
+        }
+
         await this.bookingDAO.persistBooking(booking);
         this.router.navigateByUrl('fit/anmeldung-erfolgreich');
       }

@@ -46,10 +46,12 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
 
   public async ngOnInit(): Promise<void> {
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+    this.logo = this.stepFormGroup.value.logo;
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+        this.logo = this.stepFormGroup.value.logo;
       }
     );
 
