@@ -47,7 +47,7 @@
       <p class="text-center mb-5">{{editableEmail.description}}</p>
 
       <div class="d-flex">
-        
+
         <!--mail edit area-->
         <div class="flex-1">
           <div class="form-group d-flex align-items-center">
@@ -59,7 +59,9 @@
                    id="subject">
           </div>
 
-          <div class="template-editor"
+          <div #editor
+               class="template-editor"
+               (mouseleave)="saveCursor()"
                (keyup)="emailChanged()"
                [froalaEditor]="editorOptions"
                [(froalaModel)]="editableEmail.template">
@@ -72,7 +74,8 @@
 
           <div class="scroll-list-container">
             <div *ngFor="let variable of editableEmail.availableVariables"
-                 class="floating-effect p-3 mb-2 rounded text-bold">
+                 class="floating-effect p-3 mb-2 rounded text-bold variable-item"
+                 (click)="addVariable(variable)">
               {{variable.name}}
             </div>
           </div>
