@@ -1,10 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Email} from '../../../../core/model/email';
-import {EmailDAO} from '../../../../core/dao/email.dao';
-import {EmailHelper} from '../../../../core/model/helper/email-helper';
-import {ModalWindowService} from '../../../../core/app-services/modal-window.service';
-import {ArrayUtils} from '../../../../core/utils/array-utils';
-import {EmailVariable} from '../../../../core/model/email-variable';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Email } from '../../../../core/model/email';
+import { EmailDAO } from '../../../../core/dao/email.dao';
+import { EmailHelper } from '../../../../core/model/helper/email-helper';
+import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { EmailVariable } from '../../../../core/model/email-variable';
+
+declare let $: any;
 
 @Component({
   selector: 'fit-mail-templates',
@@ -16,21 +17,19 @@ export class MailTemplatesComponent implements OnInit {
   @ViewChild('mailDropdown')
   public dropDownRef: ElementRef;
 
-  @ViewChild('editor')
-  public editorRef: ElementRef;
-
   public emails: Email[] = [];
+
   public selectedEmail: Email;
   public editableEmail: Email;
-
   public editorOptions: any = {
     charCounterCount: true,
     heightMin: 350,
     tooltips: true,
     inlineMode: true
-  };  
+  };
 
   private isTouched: boolean = false;
+  private editor: any;
 
   public constructor(private emailDAO: EmailDAO) {
   }
@@ -51,6 +50,14 @@ export class MailTemplatesComponent implements OnInit {
 
   public emailChanged(): void {
     this.isTouched = true;
+    // TODO highlight
+    // this.saveCursor();
+    // this.editableEmail.template = this.editableEmail.template.replace(
+    //   /{{[^}}]*}}/g,
+    //   `<span style="background-color: yellow">$&</span>`
+    // );
+    // this.editor.froalaEditor('selection.restore');
+    // console.log(this.editableEmail.template);
   }
 
   public async saveEmail(): Promise<void> {
@@ -66,12 +73,14 @@ export class MailTemplatesComponent implements OnInit {
   }
 
   public saveCursor(): void {
-    this.editorRef.nativeElement.froalaEditor('selection.save');
+    this.editor = $('.template-editor');
+    this.editor.froalaEditor('selection.save');
   }
 
   public addVariable(variable: EmailVariable): void {
-    this.editorRef.nativeElement.froalaEditor('selection.restore');
-    this.editorRef.nativeElement.froalaEditor('html.insert', '{{ ' + variable.value + ' }}', true);
+    this.editor = $('.template-editor');
+    this.editor.froalaEditor('selection.restore');
+    this.editor.froalaEditor('html.insert', '{{ ' + variable.value + ' }}', true);
     this.emailChanged();
   }
 }
