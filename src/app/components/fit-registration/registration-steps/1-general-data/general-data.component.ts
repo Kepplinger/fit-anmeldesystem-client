@@ -17,7 +17,6 @@ export class GeneralDataComponent {
 
   @Input()
   public stepFormGroup: FormGroup;
-
   public genders: DisplayedValue[];
 
   public constructor(private appConfig: AppConfig,

@@ -7,11 +7,19 @@
   </div>
 </div>
 
-<div class="small-container mt-2 mb-4">
-  <div class="d-inline-flex px-4 w-100">
+<div class="small-container my-4">
+  <div class="mb-3">
+    <div class="alert alert-info alert-dismissible" role="alert">
+      <div class="text-bold">Bearbeitungs-Modus!</div>
+      <div>Sie befinden sich im Bearbeitungs-Modus. Die Anmeldung wurde bereits eingereicht, und kann hier im nachhinen
+        überarbeitet bzw. ergäntzt werden.
+      </div>
+    </div>
+  </div>
 
+  <div class="d-inline-flex px-4 w-100">
     <!--step 1-->
-    <div class="step-container flex-1 my-3"
+    <div class="step-container flex-1 mb-3"
          *ngFor="let fitStep of steps; let index = index"
          (click)="setCurrentPage(currentStep, fitStep.step)">
       <div class="step-header justify-content-center d-flex flex-column align-items-center">

@@ -94,8 +94,13 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
 
   public onImagePick(file: PickedFile | FilePickerError, index: number): void {
     if (file instanceof PickedFile) {
+
+      let image = this.getRepresentativeImage(index);
+      image.name = file.name;
+      image.dataUrl = file.dataURL;
+
       this.getRepresentativeFormArray()[index].patchValue({
-        image: new DataFile(file.name, file.dataURL)
+        image: image
       });
     } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');

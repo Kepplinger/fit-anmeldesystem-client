@@ -61,12 +61,18 @@ export class PackagesAndLocationComponent implements OnInit {
     this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
     this.presentationFile = this.stepFormGroup.value.presentationFile;
 
+    if (this.presentationFile == null || this.presentationFile.name == null || this.presentationFile.name === '') {
+      this.presentationFile = new DataFile('Datei auswählen ...', null);
+    }
+
     this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.selectedPackage = this.stepFormGroup.value.fitPackage.discriminator;
         this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
-        console.log(this.stepFormGroup.value.presentationBranches);
-        this.presentationFile = this.stepFormGroup.value.presentationFile;
+
+        if (this.stepFormGroup.value.presentationFile != null) {
+          this.presentationFile = this.stepFormGroup.value.presentationFile;
+        }
       }
     );
 
@@ -87,7 +93,6 @@ export class PackagesAndLocationComponent implements OnInit {
   }
 
   public togglePackage(packageNumber: number): void {
-
     if (packageNumber === this.selectedPackage && packageNumber !== FitPackage.BasicPack) {
       this.selectedPackage--;
     } else {
@@ -103,7 +108,8 @@ export class PackagesAndLocationComponent implements OnInit {
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
-      this.presentationFile = new DataFile(file.name, file.dataURL);
+      this.presentationFile.name = file.name;
+      this.presentationFile.dataUrl = file.dataURL;
       this.stepFormGroup.controls['presentationFile'].setValue(this.presentationFile);
     } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Die Datei darf nicht größer wie 20MB sein!');

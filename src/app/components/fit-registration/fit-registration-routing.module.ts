@@ -5,6 +5,7 @@ import { FitRegistrationComponent } from './fit-registration.component';
 import { CodeRequestComponent } from './code-request/code-request.component';
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { CodeLostComponent } from './code-lost/code-lost.component';
+import { UpdateSuccessComponent } from './update-success/update-success.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'anmeldung-erfolgreich',
     component: SubmissionSuccessComponent
+  },
+  {
+    path: 'änderung-erfolgreich',
+    component: UpdateSuccessComponent
   }
 ];
 

@@ -15,7 +15,6 @@ export class EventService {
   public constructor(private eventDAO: EventDAO,
                      private appLoadingService: AppLoadingService) {
     this.fetchEvents();
-
     this.selectedEvent.subscribe(
       (event: Event) => {
         sessionStorage.setItem('selectedEvent', JSON.stringify(event));
@@ -49,7 +48,6 @@ export class EventService {
 
   private fetchSelectedEventFromSessionStorage(): boolean {
     let event = EventMapper.mapJsonToEvent(JSON.parse(sessionStorage.getItem('selectedEvent')));
-
     if (event != null) {
       this.selectedEvent.next(event);
       return true;

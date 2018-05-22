@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './submission-success.component.html',
   styleUrls: ['./submission-success.component.scss']
 })
-export class SubmissionSuccessComponent {
-
-}
+export class SubmissionSuccessComponent { }

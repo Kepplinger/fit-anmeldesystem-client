@@ -55,7 +55,10 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
     this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
-        this.logo = this.stepFormGroup.value.logo;
+
+        if (this.stepFormGroup.value.logo != null) {
+          this.logo = this.stepFormGroup.value.logo;
+        }
       }
     );
 
@@ -64,7 +67,8 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
-      this.logo = new DataFile(file.name, file.dataURL);
+      this.logo.name = file.name;
+      this.logo.dataUrl = file.dataURL;
       this.stepFormGroup.value.logo = this.logo;
     } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');

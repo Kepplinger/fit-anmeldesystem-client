@@ -107,10 +107,12 @@ export class BookingMapper {
 
     json.fk_Company = booking.company.id;
     json.fk_Event = booking.event.id;
+    json.fk_FitPackage = booking.fitPackage.id;
 
-    // delete unnecessary company attribute (because of fk_Company)
+    // delete unnecessary company attribute (because of foreign keys)
     delete json.company;
     delete json.event;
+    delete json.fitPackage;
 
     return json;
   }

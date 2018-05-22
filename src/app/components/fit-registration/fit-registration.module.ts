@@ -18,6 +18,7 @@ import {
 } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
 import { CodeLostComponent } from './code-lost/code-lost.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { UpdateSuccessComponent } from './update-success/update-success.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     PackagesAndLocationComponent,
     ContactAndRemarksComponent,
     SubmissionSuccessComponent,
+    UpdateSuccessComponent,
     LocationPickerModalComponent
   ]
 })

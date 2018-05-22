@@ -294,7 +294,11 @@ export class FitRegistrationComponent implements OnInit {
         await this.bookingDAO.persistBooking(booking);
         this.isBookingTransmitting = false;
 
-        this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+        if (this.isEditMode) {
+          this.router.navigateByUrl('fit/änderung-erfolgreich');
+        } else {
+          this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+        }
       }
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Anmeldung fehlgeschlagen!');
