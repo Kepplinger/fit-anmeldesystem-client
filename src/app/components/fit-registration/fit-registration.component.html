@@ -1,4 +1,13 @@
-<div class="d-table small-container mt-2 mb-4">
+<div class="position-fixed booking-loading-container"
+     [ngClass]="{'displayed': isBookingTransmitting}">
+  <div class="d-flex justify-content-center align-items-center flex-column h-100">
+    <div class="text-bold">Ihre Daten werden hochgeladen</div>
+    <div class="text-smaller">Bitte warten Sie einen Augenblick</div>
+    <i class="fa fa-spin fa-circle-o-notch mt-2"></i>
+  </div>
+</div>
+
+<div class="small-container mt-2 mb-4">
   <div class="d-inline-flex px-4 w-100">
 
     <!--step 1-->

@@ -53,6 +53,7 @@ export class AccountManagementService {
   public setCompany(company: Company): void {
     this.booking = new Booking();
     this.booking.company = company;
+    this.currentBookingExists = false;
     this.isGraduate = false;
     this.updateSessionStorage();
   }

@@ -7,11 +7,26 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="./assets/htl-leonding.ico">
+
+  <style>
+    .app-loading-container {
+      height: 100vh;
+      width: 100vw;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+  </style>
+
 </head>
 <body>
 <fit-root>
-  <div class="text-center d-flex flex-column app-loading-container align-items-center justify-content-center">
-    <h1 class="text-bold">Anwendung lädt ... </h1>
+  <div class="app-loading-container">
+    <h1>Anwendung lädt ... </h1>
     <h1><i class="fa fa-pulse fa-spinner"></i></h1>
   </div>
 </fit-root>

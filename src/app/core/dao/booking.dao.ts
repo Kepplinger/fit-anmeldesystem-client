@@ -33,10 +33,7 @@ export class BookingDAO {
   }
 
   public async persistBooking(booking: Booking): Promise<void> {
-
-    console.log(booking);
     let json: any = BookingMapper.mapBookingToJson(booking);
-    console.log(json);
 
     await this.http.post<void>(this.appConfig.serverURL + '/booking', json)
       .toPromise();

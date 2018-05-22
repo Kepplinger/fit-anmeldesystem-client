@@ -100,10 +100,11 @@
                 id="description"
                 placeholder="Tätigkeitsbereich der Firma in ca. 15 Zeilen"
                 (change)="onInputChanged()"
-                [ngClass]="{'is-invalid': isDescriptionTooLong('description')}"
+                [ngClass]="{'is-invalid': isInvalid('description')}"
                 formControlName="description">
        </textarea>
       <div class="invalid-message invalid-message-container">
+        <div *ngIf="isEmpty('description')">Firmenbeschreibung darf nicht leer sein!</div>
         <div *ngIf="isDescriptionTooLong('description')">Die Firmenbeschreibung ist zu lang und kann nicht in den
           FIT-Folder gedruckt werden! Bitte kürzen sie den Text oder reduzieren Sie die Anzahl der Zeilen.
         </div>

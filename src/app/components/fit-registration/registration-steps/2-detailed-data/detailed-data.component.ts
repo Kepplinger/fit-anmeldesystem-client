@@ -48,6 +48,10 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
     this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
     this.logo = this.stepFormGroup.value.logo;
 
+    if (this.logo == null || this.logo.name == null || this.logo.name === '') {
+      this.logo = new DataFile('Bild auswählen ...', null);
+    }
+
     this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');

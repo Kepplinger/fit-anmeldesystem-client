@@ -9,7 +9,7 @@ export class PresentationMapper {
       let presentation = new Presentation();
 
       presentation.id = presentationJson.id;
-      presentation.branches = presentationJson.branches;
+      presentation.branches = presentationJson.branches.map(b => b.branch);
       presentation.description = presentationJson.description;
       presentation.file = presentationJson.file;
       presentation.isAccepted = presentationJson.isAccepted;

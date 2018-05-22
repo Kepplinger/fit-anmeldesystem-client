@@ -1,17 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
-import {FitPackage} from '../../../../core/model/enums/fit-package';
-import {Package} from '../../../../core/model/package';
-import {PackageDAO} from '../../../../core/dao/package.dao';
-import {PickedFile} from '../../../../libs/file-picker/picked-file';
-import {FilePickerError} from '../../../../libs/file-picker/file-picker-error';
-import {Branch} from '../../../../core/model/branch';
-import {BranchDAO} from '../../../../core/dao/branch.dao';
-import {FormArrayUtils} from '../../../../core/utils/form-array-utils';
-import {ToastrService} from 'ngx-toastr';
-import {AccountManagementService} from '../../../../core/app-services/account-managenment.service';
-import {DataFile} from '../../../../core/model/data-file';
+import { FitPackage } from '../../../../core/model/enums/fit-package';
+import { Package } from '../../../../core/model/package';
+import { PackageDAO } from '../../../../core/dao/package.dao';
+import { PickedFile } from '../../../../libs/file-picker/picked-file';
+import { FilePickerError } from '../../../../libs/file-picker/file-picker-error';
+import { Branch } from '../../../../core/model/branch';
+import { BranchDAO } from '../../../../core/dao/branch.dao';
+import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
+import { ToastrService } from 'ngx-toastr';
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
+import { DataFile } from '../../../../core/model/data-file';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -42,7 +42,7 @@ export class PackagesAndLocationComponent implements OnInit {
   public sponsorPackage: Package = new Package();
   public lecturePackage: Package = new Package();
 
-  public pickedFile: PickedFile;
+  public presentationFile: DataFile;
 
   public constructor(private packageDAO: PackageDAO,
                      private branchDAO: BranchDAO,
@@ -59,11 +59,14 @@ export class PackagesAndLocationComponent implements OnInit {
     this.lecturePackage = packages.find(p => p.discriminator === 3);
 
     this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
+    this.presentationFile = this.stepFormGroup.value.presentationFile;
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.selectedPackage = this.stepFormGroup.value.fitPackage.discriminator;
         this.branchFormArray = <FormArray>this.stepFormGroup.get('presentationBranches');
+        console.log(this.stepFormGroup.value.presentationBranches);
+        this.presentationFile = this.stepFormGroup.value.presentationFile;
       }
     );
 
@@ -100,8 +103,8 @@ export class PackagesAndLocationComponent implements OnInit {
 
   public filePicked(file: PickedFile | FilePickerError): void {
     if (file instanceof PickedFile) {
-      this.pickedFile = file;
-      this.stepFormGroup.controls['presentationFile'].setValue(new DataFile(this.pickedFile.name, this.pickedFile.dataURL));
+      this.presentationFile = new DataFile(file.name, file.dataURL);
+      this.stepFormGroup.controls['presentationFile'].setValue(this.presentationFile);
     } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Die Datei darf nicht größer wie 20MB sein!');
     } else if (file === FilePickerError.InvalidFileType) {
@@ -135,6 +138,6 @@ export class PackagesAndLocationComponent implements OnInit {
   }
 
   public isBranchSelected(branch: Branch): boolean {
-    return FormArrayUtils.indexOf(this.branchFormArray, branch) !== -1;
+    return FormArrayUtils.indexOfWithId(this.branchFormArray, branch) !== -1;
   }
 }

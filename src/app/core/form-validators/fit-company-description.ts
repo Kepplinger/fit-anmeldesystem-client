@@ -1,26 +1,28 @@
-import { FormControl, ValidationErrors } from '@angular/forms';
+import {FormControl, ValidationErrors} from '@angular/forms';
 
 export function fitCompanyDescriptionValidator(rows: number, columns: number) {
 
   return function (control: FormControl): ValidationErrors {
 
-    let lines: string[] = control.value.split(/\r\n|\r|\n/);
-    let extraLines: number = 0;
+    if (control.value != null) {
 
-    lines.forEach(l => {
-      while (l.length > columns) {
-        extraLines++;
-        l = l.slice(columns, l.length);
-      }
-    });
+      let lines: string[] = control.value.split(/\r\n|\r|\n/);
+      let extraLines: number = 0;
 
-    if (lines.length + extraLines > rows) {
-      return {
-        companyDescription: 'CompanyDescription too long'
+      lines.forEach(l => {
+        while (l.length > columns) {
+          extraLines++;
+          l = l.slice(columns, l.length);
+        }
+      });
+
+      if (lines.length + extraLines > rows) {
+        return {
+          companyDescription: 'CompanyDescription too long'
+        };
       }
-    } else {
-      return null;
     }
-  }
+    return null;
+  };
 }
 
