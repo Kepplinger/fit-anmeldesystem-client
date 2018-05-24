@@ -8,7 +8,8 @@
 </div>
 
 <div class="small-container my-4">
-  <div class="mb-3">
+  <div class="mb-3"
+       *ngIf="isEditMode">
     <div class="alert alert-info alert-dismissible" role="alert">
       <div class="text-bold">Bearbeitungs-Modus!</div>
       <div>Sie befinden sich im Bearbeitungs-Modus. Die Anmeldung wurde bereits eingereicht, und kann hier im nachhinen

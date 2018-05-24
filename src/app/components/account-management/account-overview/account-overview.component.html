@@ -1,7 +1,5 @@
-<div class="school-background"></div>
-
-<div class="small-container" style="min-height: 100vh">
-  <div class="account-header d-flex flex-column justify-content-center align-items-center">
+<div class="account-header">
+  <div class="small-container d-flex flex-column justify-content-center align-items-center h-100">
     <img src="../../../../assets/logo_htl_white_blur.png" class="htl-logo" alt="HTL Leonding">
     <h2 class="text-bold text-light mt-2">
       <span [ngSwitch]="isGraduate">
@@ -13,19 +11,19 @@
       </span>
     </h2>
   </div>
+</div>
 
-  <div class="account-form-background">
-    <div [ngSwitch]="isGraduate">
+<div class="small-container account-form-background mt-2 mb-5">
+  <div [ngSwitch]="isGraduate">
 
-      <fit-graduate-overview *ngSwitchCase="true"
-                             [graduate]="graduate">
-      </fit-graduate-overview>
+    <fit-graduate-overview *ngSwitchCase="true"
+                           [graduate]="graduate">
+    </fit-graduate-overview>
 
-      <fit-company-overview *ngSwitchCase="false"
-                            [booking]="booking"
-                            [company]="company">
-      </fit-company-overview>
+    <fit-company-overview *ngSwitchCase="false"
+                          [booking]="booking"
+                          [company]="company">
+    </fit-company-overview>
 
-    </div>
   </div>
 </div>

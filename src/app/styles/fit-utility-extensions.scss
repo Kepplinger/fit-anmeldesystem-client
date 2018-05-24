@@ -119,6 +119,10 @@
   background-color: lighten($primary, 20%);
 }
 
+.bg-darken-primary {
+  background-color: darken($primary, 20%);
+}
+
 .object-fit-cover {
   object-fit: cover;
 }
