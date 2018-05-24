@@ -9,6 +9,7 @@ import { FilePickerError } from '../../../../../libs/file-picker/file-picker-err
 import { AreaHelper } from '../../../../../core/model/helper/area-helper';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
+import { DataFile } from '../../../../../core/model/data-file';
 
 declare let $: any;
 
@@ -34,7 +35,6 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   public area: Area;
   public selectedLocation: Location = null;
   public draggableLocations: any[] = [];
-  public pickedFile: PickedFile = new PickedFile();
 
   public constructor(private changeDetector: ChangeDetectorRef,
                      private modalWindow: ModalWindowService) {
@@ -51,9 +51,8 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
       this.area = AreaHelper.clone(this.inputArea);
       this.draggableLocations = this.mapLocationsToDraggables();
 
-      if (this.area.graphic != null) {
-        this.pickedFile.dataURL = this.area.graphic.dataUrl;
-        this.pickedFile.name = this.area.graphic.name;
+      if (this.area.graphic == null) {
+        this.area.graphic = new DataFile('Bitte wählen Sie ein Bild aus ...', null);
       }
     }
   }
@@ -67,7 +66,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   public filePicked(file: PickedFile | FilePickerError): void {
 
     if (file instanceof PickedFile) {
-      this.pickedFile = file;
+      this.area.graphic.name = file.name;
       this.area.graphic.dataUrl = file.dataURL;
       this.changeDetector.detectChanges();
     } else if (file === FilePickerError.FileTooBig) {
@@ -110,6 +109,11 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
     this.areaChanged.emit(this.area);
   }
 
+  // noinspection JSMethodCanBeStatic
+  public selectAll(event: any): void {
+    event.target.select();
+  }
+
   private mapLocationsToDraggables(): any[] {
     return this.area.locations.map(
       (location: Location) => {
@@ -117,12 +121,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
           location: location,
           top: location.yCoordinate,
           left: location.xCoordinate
-        }
+        };
       });
-  }
-
-  // noinspection JSMethodCanBeStatic
-  public selectAll(event: any): void {
-    event.target.select();
   }
 }

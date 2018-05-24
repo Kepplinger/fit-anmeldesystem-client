@@ -8,7 +8,7 @@
   <div class="card" [ngClass]="{'disabled-element': isLoading}">
 
     <div class="card-header p-0">
-      <div class="card-header bg-primary text-light">
+      <div class="card-header bg-darken-primary text-light">
         <h1 class="m-0 text-bold">Neuen FIT bearbeiten</h1>
       </div>
 
@@ -64,7 +64,7 @@
         <div class="area-img-container">
           <img *ngIf="area.graphic != null"
                class="area-img"
-               [src]="area.graphic"
+               [src]="area.graphic.dataUrl"
                alt="Bild konnte nicht geladen werden">
           <div *ngIf="area.graphic == null"
                class="p-3 blue-border text-center">
@@ -82,7 +82,7 @@
       </div>
 
       <div class="mt-2 w-100 d-flex">
-        <button class="btn btn-success event-save-btn text-bold mx-auto"
+        <button class="btn btn-success big-rounded-button event-save-btn text-bold mx-auto"
                 (click)="persistEvent()">
           <span *ngIf="event.id != null"><i class="fa fa-download mr-1"></i>Speichern</span>
           <span *ngIf="event.id == null"><i class="fa fa-plus-circle mr-1"></i>Anlegen</span>

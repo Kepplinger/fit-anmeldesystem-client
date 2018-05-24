@@ -28,7 +28,7 @@
             <input class="form-control"
                    id="areaImg"
                    type="text"
-                   [value]="pickedFile.name != null ? pickedFile.name : 'Bitte wählen Sie ein Bild aus'"
+                   [value]="area.graphic.name"
                    placeholder="Hintergrundbild auswählen..."
                    disabled>
             <div class="input-group-append">
@@ -38,12 +38,12 @@
         </div>
 
         <div #areaBounds class="position-relative d-inline-block floating-effect w-100 blue-border">
-          <img [src]="area?.graphic"
-               *ngIf="area.graphic != null"
+          <img [src]="area.graphic.dataUrl"
+               *ngIf="area.graphic != null && area.graphic.dataUrl != null"
                class="area-img img-fluid"
                alt="Bild konnte nicht geladen werden">
 
-          <div *ngIf="area.graphic == null"
+          <div *ngIf="area.graphic == null || area.graphic.dataUrl == null"
                class="area-img-placeholder blue-border text-center pt-3">
             Es ist noch kein Bild ausgewählt
           </div>
@@ -55,7 +55,8 @@
                [inBounds]="true"
                (stopped)="onDragEnd(drag.location, $event)"
                (mousedown)="selectLocation(drag.location)"
-               [ngClass]="{'badge-danger': drag.location.category == 'A' && drag.location != selectedLocation,
+               [ngClass]="{'badge-info': drag.location.category == 'A' && drag.location != selectedLocation,
+                           'badge-danger': drag.location.isOccupied,
                            'badge-success': drag.location == selectedLocation}"
                [style.top]="drag.top + '%'"
                [style.left]="drag.left + '%'">
@@ -77,7 +78,7 @@
                      [(ngModel)]="selectedLocation.number">
             </h4>
 
-            <div class="d-flex">
+            <div class="d-flex justify-content-center align-items-center">
 
               <div class="text-bold my-auto mr-3">Kategorie:</div>
 
@@ -91,10 +92,12 @@
                          [id]="'cat' + category"
                          [value]="category"
                          name="categoryRadio"
-                         [(ngModel)]="selectedLocation.category">
+                         [(ngModel)]="selectedLocation.category"
+                         [disabled]="selectedLocation.isOccupied"
+                         [ngClass]="{'cursor-not-allowed': selectedLocation.isOccupied}">
 
                   <label class="custom-control-label badge badge-primary px-3 my-auto cursor-pointer"
-                         [ngClass]="{'badge-danger': category == 'A'}"
+                         [ngClass]="{'badge-info': category == 'A'}"
                          [for]="'cat' + category">
                     {{category}}
                   </label>

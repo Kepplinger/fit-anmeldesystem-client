@@ -28,7 +28,7 @@ export class MailTemplatesComponent implements OnInit {
     inlineMode: true
   };
 
-  private isTouched: boolean = false;
+  public isTouched: boolean = false;
   private editor: any;
 
   public constructor(private emailDAO: EmailDAO) {
