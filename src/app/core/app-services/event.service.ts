@@ -4,20 +4,25 @@ import { Event } from '../model/event';
 import { BehaviorSubject } from 'rxjs';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { AppLoadingService } from './app-loading.service';
+import { tick } from '@angular/core/testing';
+import { childOfKind } from 'tslint';
 
 @Injectable()
 export class EventService {
 
-  public currentEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event());
-  public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event());
+  public currentEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
+  public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
   public events: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
 
   public constructor(private eventDAO: EventDAO,
                      private appLoadingService: AppLoadingService) {
     this.fetchEvents();
+
     this.selectedEvent.subscribe(
       (event: Event) => {
-        sessionStorage.setItem('selectedEvent', JSON.stringify(event));
+        if (event != null && event.id != null) {
+          sessionStorage.setItem('selectedEvent', JSON.stringify(event));
+        }
       }
     );
   }
@@ -28,21 +33,25 @@ export class EventService {
 
   private async fetchEvents(): Promise<void> {
     this.appLoadingService.startLoading();
-    if (this.fetchSelectedEventFromSessionStorage()) {
-      let event = await this.eventDAO.getCurrentEvent();
 
-      if (event != null) {
-        this.currentEvent.next(event);
-      } else {
-        this.currentEvent.next(new Event());
+    let currentEvent: Event;
+
+    // currentEvent CANNOT be null (app won't run without it)
+    do {
+      try {
+        currentEvent = await this.eventDAO.getCurrentEvent();
+      } catch (e) {
+        console.error('Der Request konnte nicht durchgeführt werden! Erneuter Versuch');
       }
-    } else {
-      let event = await this.eventDAO.getCurrentEvent();
-      this.currentEvent.next(event);
-      this.selectedEvent.next(event);
-    }
-    this.appLoadingService.endLoading();
+    } while (currentEvent == null);
 
+    this.currentEvent.next(currentEvent);
+
+    if (!this.fetchSelectedEventFromSessionStorage() || this.selectedEvent.getValue().id == null) {
+      this.selectedEvent.next(currentEvent);
+    }
+
+    this.appLoadingService.endLoading();
     this.events.next(await this.eventDAO.fetchEvents());
   }
 

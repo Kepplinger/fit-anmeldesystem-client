@@ -43,7 +43,7 @@
               <i class="fa fa-fw fa-check-square-o"
                  *ngIf="selectedEvent.id == event.id"></i>
               <span class="badge badge-danger"
-                    *ngIf="event.isCurrent">Current</span>
+                    *ngIf="event.registrationState.isCurrent">Current</span>
             </td>
             <td>{{event.eventDate | date:'longDate'}}</td>
             <td>

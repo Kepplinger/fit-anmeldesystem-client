@@ -22,11 +22,14 @@ export class EventDAO {
       .toPromise();
   }
 
-  public async persistEvent(event: Event): Promise<Event | HttpErrorResponse> {
-    return this.http.post<Event>(this.appConfig.serverURL + '/event', event)
+  public async persistEvent(event: Event): Promise<any | HttpErrorResponse> {
+    return this.http.post<Event>(this.appConfig.serverURL + '/event', EventMapper.mapEventToJson(event))
       .pipe(
         map((data: any) => {
-          return EventMapper.mapJsonToEvent(data);
+          return {
+            event: EventMapper.mapJsonToEvent(data.changedEvent),
+            events: EventMapper.mapJsonToEventList(data.events)
+          };
         }),
         catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
@@ -36,8 +39,11 @@ export class EventDAO {
     return this.http.get<Event>(this.appConfig.serverURL + '/event/current')
       .pipe(
         map((data: any) => {
-          return EventMapper.mapJsonToEvent(data);
-        }))
+            return EventMapper.mapJsonToEvent(data);
+          },
+          catchError(() => {
+            return null;
+          })))
       .toPromise();
   }
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CompanyTagService {
 
-  private tags: Tag[];
+  private tags: Tag[] = [];
 
   public constructor(private tagDAO: TagDAO) {
     if (!this.readTagsFromSessionStorage()) {
@@ -14,6 +14,9 @@ export class CompanyTagService {
   }
 
   public setTags(tags: Tag[]): void {
+    if (tags == null) {
+      tags = [];
+    }
     this.tags = tags;
     sessionStorage.setItem('tags', JSON.stringify(this.tags));
   }
@@ -23,15 +26,12 @@ export class CompanyTagService {
   }
 
   private async loadTags(): Promise<void> {
-    this.tags = await this.tagDAO.fetchTags();
-    console.log(this.tags);
-    sessionStorage.setItem('tags', JSON.stringify(this.tags));
+    let tags = await this.tagDAO.fetchTags();
+    this.setTags(tags);
   }
 
   private readTagsFromSessionStorage(): boolean {
     let tags = JSON.parse(sessionStorage.getItem('tags'));
-    console.log(tags);
-
     if (tags != null) {
       this.tags = tags;
       return true;

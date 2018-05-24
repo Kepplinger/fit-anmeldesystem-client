@@ -9,12 +9,10 @@ export class EventMapper {
 
       event.id = eventJson.id;
       event.areas = eventJson.areas;
-      event.timestamp = eventJson.timestamp;
       event.registrationStart = moment(eventJson.registrationStart);
       event.registrationEnd = moment(eventJson.registrationEnd);
       event.eventDate = moment(eventJson.eventDate);
-      event.isLocked = eventJson.isLocked;
-      event.isCurrent = eventJson.isCurrent;
+      event.registrationState = eventJson.registrationState;
 
       return event;
     } else {
@@ -37,5 +35,17 @@ export class EventMapper {
     } else {
       return null;
     }
+  }
+
+  public static mapEventToJson(event: Event): any {
+    let eventJson: any = event;
+
+    for (let area of eventJson.areas) {
+      if (area.graphic != null && area.dataUrl == null) {
+        area.graphic = null;
+      }
+    }
+
+    return eventJson;
   }
 }

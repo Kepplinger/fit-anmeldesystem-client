@@ -91,18 +91,45 @@ export class EditFitEventComponent implements OnInit {
     }
   }
 
-  // TODO errorHandling
   public async persistEvent(): Promise<void> {
-    this.isLoading = true;
-    let response = await this.eventDAO.persistEvent(this.event);
-    this.isLoading = false;
+    if (this.validateEvent()) {
+      this.isLoading = true;
+      let response = await this.eventDAO.persistEvent(this.event);
+      this.isLoading = false;
 
-    if (response != null && response instanceof Event) {
-      this.event = response;
-      this.toastr.info('Request finished', 'Event speichern!');
+      if (response != null && response.event != null && response.events != null) {
+        this.event = response.event;
+        this.toastr.info('Request finished', 'Event speichern!');
 
-      this.eventService.selectedEvent.next(this.event);
-      this.eventService.updateEvents();
+        if (this.event.registrationState.isCurrent) {
+          this.eventService.currentEvent.next(this.event);
+        }
+
+        this.eventService.selectedEvent.next(this.event);
+        this.eventService.events.next(response.events);
+        this.eventService.updateEvents();
+      }
+    } else {
+      this.toastr.error(
+        'Nicht alle nötigen Daten wurden angegeben. Stellen Sie sicher, dass auch Plätze und Geschosse beschriftet sind.',
+        'FIT kann nicht gespeichert werden!'
+      );
     }
+  }
+
+  private validateEvent(): boolean {
+    for (let area of this.event.areas) {
+      if (area.designation == null || area.designation === '') {
+        return false;
+      }
+
+      for (let location of area.locations) {
+        if (location.number == null || location.number === '') {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 }

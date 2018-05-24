@@ -31,7 +31,7 @@
 
   <div [ngSwitch]="tags.length == 0" class="mt-2">
     <div *ngSwitchCase="true" class="text-muted">
-      ... es sind noch keine Tags vorhanden
+      ... es sind keine Tags vorhanden
     </div>
     <div *ngSwitchDefault class="d-flex flex-wrap">
       <div *ngFor="let tag of tags" class="d-flex mx-1 my-1">
@@ -55,7 +55,7 @@
 
   <div [ngSwitch]="archivedTags.length == 0">
     <div *ngSwitchCase="true" class="text-muted">
-      ... es sind noch keine Tags archiviert
+      ... es sind keine Tags archiviert
     </div>
     <div *ngSwitchDefault class="d-flex flex-wrap">
       <div *ngFor="let tag of archivedTags" class="d-flex mx-1">

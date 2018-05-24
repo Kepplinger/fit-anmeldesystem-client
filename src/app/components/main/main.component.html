@@ -2,9 +2,9 @@
   <h2 class="text-bold">Anmeldung zum Firmeninformationstag</h2>
 
   <!-- TODO Obligatorischer Beschreibungstext? -->
-  <fit-registration-locked *ngIf="event.isLocked"></fit-registration-locked>
+  <fit-registration-locked *ngIf="event.registrationState.isLocked"></fit-registration-locked>
 
-  <div *ngIf="!event.isLocked">
+  <div *ngIf="!event.registrationState.isLocked">
 
     <p class="text-justify">
       Zur Anmeldung am FIT wird ein spezieller Code benötigt. Dieser Code ist in den schriftlichen Einladungen
