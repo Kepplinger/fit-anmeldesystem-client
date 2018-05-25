@@ -12,10 +12,12 @@ export class ChangeProtocolMapper {
       change.creationDate = moment(changeJSON.creationDate);
       change.newValue = changeJSON.newValue;
       change.oldValue = changeJSON.oldValue;
-      change.columnName = changeJSON.sortColumnName;
+      change.columnName = changeJSON.columnName;
       change.tableName = changeJSON.tableName;
       change.companyId = changeJSON.companyId;
       change.isPending = changeJSON.isPending;
+      change.isReverted = changeJSON.isReverted;
+      change.isAdminChange = changeJSON.isAdminChange;
 
       return change;
     } else {

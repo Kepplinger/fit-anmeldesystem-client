@@ -4,7 +4,6 @@ import { Company } from '../../../../core/model/company';
 import { Booking } from '../../../../core/model/booking';
 import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { Contact } from '../../../../core/model/contact';
-import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { ToastrService } from 'ngx-toastr';
 import { EventService } from '../../../../core/app-services/event.service';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 import { Address } from '../../../../core/model/address';
 import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
 import { Event } from '../../../../core/model/event';
-
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 
 @Component({
   selector: 'fit-company-overview',
@@ -39,6 +38,7 @@ export class CompanyOverviewComponent implements OnInit {
 
   public constructor(private fb: FormBuilder,
                      private eventService: EventService,
+                     private accountManagementService: AccountManagementService,
                      private router: Router,
                      private companyDAO: CompanyDAO,
                      private toastr: ToastrService,
@@ -62,27 +62,11 @@ export class CompanyOverviewComponent implements OnInit {
 
     this.eventService.currentEvent.subscribe((event: Event) => {
       this.event = event;
-    })
+    });
   }
 
   public ngOnInit(): void {
     this.fillFormWithCompany();
-  }
-
-  private fillFormWithCompany() {
-    this.companyFormGroup.patchValue({
-      companyName: this.company.name,
-      street: this.company.address.street,
-      streetNumber: this.company.address.streetNumber,
-      zipCode: this.company.address.zipCode,
-      city: this.company.address.city,
-      addressAdditions: this.company.address.addition,
-      gender: this.company.contact.gender,
-      firstName: this.company.contact.firstName,
-      lastName: this.company.contact.lastName,
-      contactEmail: this.company.contact.email,
-      contactPhoneNumber: this.company.contact.phoneNumber,
-    });
   }
 
   public enableEditing(): void {
@@ -94,11 +78,14 @@ export class CompanyOverviewComponent implements OnInit {
     if (this.companyFormGroup.valid) {
       this.isEditing = false;
       this.updateCompanyFromForm();
+
       this.company = await this.companyDAO.updateCompany(this.company);
+      this.accountManagementService.updateCompany(this.company);
+
       this.companyFormGroup.controls['gender'].disable();
     } else {
       FormHelper.touchAllFormFields(this.companyFormGroup);
-      this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!')
+      this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!');
     }
   }
 
@@ -123,6 +110,22 @@ export class CompanyOverviewComponent implements OnInit {
   public isInvalid(formName: string): boolean {
     return FormHelper.hasError(formName, this.companyFormGroup) != null &&
       FormHelper.isTouched(formName, this.companyFormGroup);
+  }
+
+  private fillFormWithCompany() {
+    this.companyFormGroup.patchValue({
+      companyName: this.company.name,
+      street: this.company.address.street,
+      streetNumber: this.company.address.streetNumber,
+      zipCode: this.company.address.zipCode,
+      city: this.company.address.city,
+      addressAdditions: this.company.address.addition,
+      gender: this.company.contact.gender,
+      firstName: this.company.contact.firstName,
+      lastName: this.company.contact.lastName,
+      contactEmail: this.company.contact.email,
+      contactPhoneNumber: this.company.contact.phoneNumber,
+    });
   }
 
   private updateCompanyFromForm(): void {

@@ -6,7 +6,33 @@
     Ihren Konto einloggen und Ihre Daten pfelgen.</p>
 
   <div>
-    <h1>Stammdaten</h1>
+
+
+    <div class="d-flex">
+      <h1>Stammdaten</h1>
+
+      <button class="btn btn-primary text-bold ml-auto my-auto"
+              *ngIf="!isEditing"
+              (click)="enableEditing()">
+        <i class="fa fa-pencil"></i>
+        <span>Daten bearbeiten</span>
+      </button>
+
+      <button class="btn btn-danger text-bold ml-auto my-auto"
+              *ngIf="isEditing"
+              (click)="cancel()">
+        <i class="fa fa-times"></i>
+        <span>Abbrechen</span>
+      </button>
+
+      <button class="btn btn-success text-bold ml-2 my-auto"
+              *ngIf="isEditing"
+              (click)="updateCompany()">
+        <i class="fa fa-download"></i>
+        <span>Speichern</span>
+      </button>
+    </div>
+
     <form [formGroup]="companyFormGroup">
       <!--company name-->
       <div class="form-group row mb-1">
@@ -180,32 +206,9 @@
         </div>
       </div>
     </form>
-
-    <div class="d-flex">
-      <button class="btn btn-primary text-bold ml-auto"
-              *ngIf="!isEditing"
-              (click)="enableEditing()">
-        <i class="fa fa-pencil"></i>
-        <span>Daten bearbeiten</span>
-      </button>
-
-      <button class="btn btn-danger text-bold ml-auto"
-              *ngIf="isEditing"
-              (click)="cancel()">
-        <i class="fa fa-times"></i>
-        <span>Abbrechen</span>
-      </button>
-
-      <button class="btn btn-success text-bold ml-2"
-              *ngIf="isEditing"
-              (click)="updateCompany()">
-        <i class="fa fa-download"></i>
-        <span>Speichern</span>
-      </button>
-    </div>
   </div>
 
-  <div class="mb-4" *ngIf="booking != null">
+  <div class="my-4" *ngIf="booking != null">
     <h1>FIT-Anmeldung</h1>
     <p>Der FIT ist eine jährlich Veranstaltung der HTL-Leonding bei welcher sich die Schüler bei Ihenen als Firma
       informieren können.</p>
@@ -214,7 +217,8 @@
       <div>Sie haben sich bereits für den FIT am {{event.eventDate | date:'longDate'}} angemeldet.
       </div>
       <button class="btn btn-success text-bold mt-2 mx-auto"
-              [routerLink]="['/fit','anmelden']">
+              [routerLink]="['/fit','anmelden']"
+              *ngIf="!booking.event.registrationState.isLocked">
         <i class="fa fa-pencil"></i>
         Anmeldung bearbeiten
       </button>

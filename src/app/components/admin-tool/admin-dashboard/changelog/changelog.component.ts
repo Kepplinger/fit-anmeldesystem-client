@@ -15,7 +15,9 @@ export class ChangelogComponent implements OnInit {
   public changelog: ChangeProtocol[] = [];
   public companies: Company[] = [];
   public selectedCompany: Company;
+
   public showCompanies: boolean = true;
+  public showPendingOnly: boolean = true;
 
   public openedChange: ChangeProtocol = null;
 
@@ -56,16 +58,20 @@ export class ChangelogComponent implements OnInit {
 
   public getChangeCountForCompany(company: Company): number {
     if (this.changelog != null) {
-      return this.changelog.filter(c => c.companyId === company.id).length;
+      return this.changelog.filter(c => c.companyId === company.id && c.isPending).length;
     } else {
       return 0;
     }
   }
 
+  public setShowPending(value: boolean): void {
+    this.showPendingOnly = value;
+  }
+
   public getDisplayedChangelog(): ChangeProtocol[] {
     if (this.showCompanies) {
       if (this.selectedCompany != null && this.changelog != null) {
-        return this.changelog.filter(c => c.companyId === this.selectedCompany.id);
+        return this.changelog.filter(c => c.companyId === this.selectedCompany.id && (c.isPending || !this.showPendingOnly));
       } else {
         return [];
       }

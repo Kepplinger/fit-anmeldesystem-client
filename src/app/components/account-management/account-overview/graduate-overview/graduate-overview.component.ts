@@ -7,6 +7,7 @@ import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { ToastrService } from 'ngx-toastr';
 import { Address } from '../../../../core/model/address';
 import { GraduateDAO } from '../../../../core/dao/graduate.dao';
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 
 @Component({
   selector: 'fit-graduate-overview',
@@ -24,6 +25,7 @@ export class GraduateOverviewComponent implements OnInit {
   public genders: DisplayedValue[];
 
   public constructor(private fb: FormBuilder,
+                     private accountManagementService: AccountManagementService,
                      private appConfig: AppConfig,
                      private graduateDAO: GraduateDAO,
                      private toastr: ToastrService) {
@@ -47,21 +49,6 @@ export class GraduateOverviewComponent implements OnInit {
     this.fillFormWithGraduate();
   }
 
-  private fillFormWithGraduate() {
-    this.graduateFormGroup.patchValue({
-      gender: this.graduate.gender,
-      firstName: this.graduate.firstName,
-      lastName: this.graduate.lastName,
-      email: this.graduate.email,
-      phoneNumber: this.graduate.phoneNumber,
-      street: this.graduate.address.street,
-      streetNumber: this.graduate.address.streetNumber,
-      zipCode: this.graduate.address.zipCode,
-      city: this.graduate.address.city,
-      addressAdditions: this.graduate.address.addition,
-    });
-  }
-
   public enableEditing(): void {
     this.isEditing = true;
     this.graduateFormGroup.controls['gender'].enable();
@@ -77,10 +64,13 @@ export class GraduateOverviewComponent implements OnInit {
     if (this.graduateFormGroup.valid) {
       this.isEditing = false;
       this.updateGraduateFromForm();
+
       this.graduate = await this.graduateDAO.updateGraduate(this.graduate);
+      this.accountManagementService.updateGraduate(this.graduate);
+
       this.graduateFormGroup.controls['gender'].disable();
     } else {
-      this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!')
+      this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!');
     }
   }
 
@@ -99,6 +89,21 @@ export class GraduateOverviewComponent implements OnInit {
   public isInvalid(formName: string): boolean {
     return FormHelper.hasError(formName, this.graduateFormGroup) != null &&
       FormHelper.isTouched(formName, this.graduateFormGroup);
+  }
+
+  private fillFormWithGraduate() {
+    this.graduateFormGroup.patchValue({
+      gender: this.graduate.gender,
+      firstName: this.graduate.firstName,
+      lastName: this.graduate.lastName,
+      email: this.graduate.email,
+      phoneNumber: this.graduate.phoneNumber,
+      street: this.graduate.address.street,
+      streetNumber: this.graduate.address.streetNumber,
+      zipCode: this.graduate.address.zipCode,
+      city: this.graduate.address.city,
+      addressAdditions: this.graduate.address.addition,
+    });
   }
 
   private updateAddressFromForm(address: Address): Address {

@@ -33,7 +33,7 @@ export class AccountManagementService {
     } else if (response.currentBooking != null) {
       this.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
     } else if (response.company != null) {
-      this.setCompany(CompanyMapper.mapJsonToCompany(response.company));
+      this.setCompanyWithoutBooking(CompanyMapper.mapJsonToCompany(response.company));
     }
   }
 
@@ -50,7 +50,7 @@ export class AccountManagementService {
     this.updateSessionStorage();
   }
 
-  public setCompany(company: Company): void {
+  public setCompanyWithoutBooking(company: Company): void {
     this.booking = new Booking();
     this.booking.company = company;
     this.currentBookingExists = false;
@@ -64,6 +64,16 @@ export class AccountManagementService {
     } else {
       return null;
     }
+  }
+
+  public updateCompany(company: Company): void {
+    this.booking.company = company;
+    this.updateSessionStorage();
+  }
+
+  public updateGraduate(graduate: Graduate): void {
+    this.graduate = graduate;
+    this.updateSessionStorage();
   }
 
   public bookingIsFilled(): void {
