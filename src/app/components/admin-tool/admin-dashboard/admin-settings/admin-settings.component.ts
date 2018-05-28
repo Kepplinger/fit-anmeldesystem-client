@@ -23,6 +23,7 @@ export class AdminSettingsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.tags = this.tagService.getTags();
+    this.archivedTags = this.tagService.getArchivedTags();
   }
 
   public addTag(): void {
@@ -60,5 +61,7 @@ export class AdminSettingsComponent implements OnInit {
     this.archivedTags = tags.filter(t => t.isArchive);
 
     this.tagService.setTags(this.tags);
+    this.tagService.setArchivedTags(this.archivedTags);
+    this.toastr.success('Die Tags wurden erfolgreich gespeichert!', 'Update erfolgreich!');
   }
 }

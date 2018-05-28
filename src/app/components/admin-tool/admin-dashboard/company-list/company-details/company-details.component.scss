@@ -1,0 +1,20 @@
+@import "../../../../../styles/fit-global-styles";
+@import "../../../../../styles/fit-badges";
+
+.tag-scroll-container {
+  @extend .scroll-list-container;
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+
+  .tag-item {
+    padding: .5rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: whitesmoke;
+    }
+  }
+}

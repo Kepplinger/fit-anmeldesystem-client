@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TagInputComponent {
 
   @Output()
-  public tagsChanges: EventEmitter<string[]> = new EventEmitter<string[]>();
+  public tagsChange: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   @Input()
   public tags: string[];
@@ -31,7 +31,7 @@ export class TagInputComponent {
   }
 
   public updatedTags() {
-    this.tagsChanges.emit(this.tags);
+    this.tagsChange.emit(this.tags);
   }
 
   public removeItem(index: number): void {

@@ -1,6 +1,8 @@
 import { Address } from './address';
 import { Contact } from './contact';
-import { Tag } from './tag';
+import { Branch } from './branch';
+import { CompanyTag } from './company-tag';
+import { CompanyBranch } from './company-branch';
 
 export class Company {
   public id: number;
@@ -12,7 +14,8 @@ export class Company {
   public name: string;
   public isPending: boolean;
 
-  public tags: Tag[];
+  public tags: CompanyTag[];
+  public branches: CompanyBranch[];
 
   public memberPaymentAmount: number;
   public memberSince: number;
@@ -22,7 +25,7 @@ export class Company {
                      contact?: Contact,
                      name?: string,
                      isPending?: boolean,
-                     tags?: Tag[],
+                     tags?: CompanyTag[],
                      memberPaymentAmount?: number,
                      memberSince?: number,
                      memberStatus?: number,
@@ -49,6 +52,10 @@ export class Company {
 
     if (this.tags == null) {
       this.tags = [];
+    }
+
+    if (this.branches == null) {
+      this.branches = [];
     }
   }
 }

@@ -4,21 +4,27 @@ import { Company } from '../../model/company';
 @Injectable()
 export class CompanyTransferService {
 
-  private companyBuffer: Company[] = [];
+  private company: Company;
+
+  public constructor() {
+    let company = JSON.parse(sessionStorage.getItem('company'));
+    if (company != null) {
+      this.company = company;
+    }
+  }
 
   public addCompany(company: Company): void {
     if (company.id != null) {
-      this.companyBuffer.push(company);
+      this.company = company;
+      sessionStorage.setItem('company', JSON.stringify(this.company));
     }
   }
 
   public getCompany(companyId: number): Company {
-    let company: Company = this.companyBuffer.find(b => b.id === companyId);
-
-    if (company != null) {
-      this.companyBuffer.splice(this.companyBuffer.indexOf(company), 1);
+    if (this.company.id === companyId) {
+      return this.company;
+    } else {
+      return this.company;
     }
-
-    return company;
   }
 }

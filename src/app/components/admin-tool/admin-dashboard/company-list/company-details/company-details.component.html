@@ -1,17 +1,74 @@
-<div class="small-container mt-5 mb-9">
+<div class="small-container mt-5 mb-9"
+     *ngIf="company != null">
 
   <h2 class="text-bold">Mitglieder-Status</h2>
   <div class="text-muted">gibt nu kan ...</div>
 
+  <h2 class="text-bold">Fachrichtungen</h2>
+  <div class="d-flex">
+    <fit-custom-checkbox *ngFor="let branch of selectedBranches"
+                         [(value)]="branch.selected"
+                         [message]="branch.branch.name">
+    </fit-custom-checkbox>
+  </div>
+
   <h2 class="text-bold">Tags</h2>
 
-  <fit-tag-input [tags]="company.tags"
-                 (tagsChanges)="getCompanyTagsAsString()"
-                 [placeholder]="'... Weitere hinzufügen'"
-                 [secondaryPlaceholder]="'Firmen-Tags'"
-                 [autoComplete]="true"
-                 [autoCompleteItems]="autoCompleteTags">
-  </fit-tag-input>
+  <table>
+    <tr>
+      <td class="p-1">
+        <div class="mb-2">
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="tagFilter"
+                 placeholder="Suche">
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="p-1">
+
+        <div class="tag-scroll-container">
+
+          <div [ngSwitch]="getFilteredTags().length == 0" class="mt-2">
+            <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+              keine Tags vorhanden
+            </div>
+            <div *ngSwitchDefault>
+              <div *ngFor="let tag of getFilteredTags()"
+                   class="tag-item floating-effect mb-2 rounded user-select-none"
+                   (click)="addTagToCompany(tag)">
+                {{tag.value}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </td>
+
+      <td class="p-3 vert-top">
+        <div>
+          <div [ngSwitch]="company.tags.length == 0" class="mt-2">
+            <div *ngSwitchCase="true" class="text-muted">
+              ... es sind keine Tags vorhanden
+            </div>
+            <div *ngSwitchDefault class="d-flex flex-wrap">
+              <div *ngFor="let tag of company.tags" class="d-flex mx-1 my-1">
+                <div class="left-badge bg-primary text-light">
+                  {{tag.tag.value}}
+                </div>
+                <div class="right-badge delete-badge text-light"
+                     (click)="removeTagFromCompany(tag.tag)">
+                  <i class="fa fa-times"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
 
   <div class="d-flex">
     <button class="btn btn-primary text-bold ml-auto mt-2"

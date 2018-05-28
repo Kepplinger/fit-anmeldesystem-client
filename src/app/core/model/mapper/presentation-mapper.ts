@@ -48,7 +48,7 @@ export class PresentationMapper {
       json.branches = presentation.branches.map(
         (branch: Branch) => {
           return {
-            fk_Booking: presentation.id,
+            fk_Presentation: presentation.id,
             fk_Branch: branch.id
           };
         }
@@ -57,7 +57,6 @@ export class PresentationMapper {
     } else {
       return null;
     }
-
   }
 
 }

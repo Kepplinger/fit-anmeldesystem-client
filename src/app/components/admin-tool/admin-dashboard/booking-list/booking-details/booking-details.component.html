@@ -252,7 +252,7 @@
                          [placeholder]="'Standort hinzufügen'"
                          [secondaryPlaceholder]="'Mit Enter bestätigen'"
                          [tags]="bookingFormGroup.value.establishmentsAut"
-                         (tagsChanges)="updateEstablishments('establishmentsAut', $event)">
+                         (tagsChange)="updateEstablishments('establishmentsAut', $event)">
           </fit-tag-input>
         </div>
 
@@ -275,7 +275,7 @@
                          [placeholder]="'Standort hinzufügen'"
                          [secondaryPlaceholder]="'Mit Enter bestätigen'"
                          [tags]="bookingFormGroup.value.establishmentsInt"
-                         (tagsChanges)="updateEstablishments('establishmentsInt', $event)">
+                         (tagsChange)="updateEstablishments('establishmentsInt', $event)">
           </fit-tag-input>
         </div>
       </div>

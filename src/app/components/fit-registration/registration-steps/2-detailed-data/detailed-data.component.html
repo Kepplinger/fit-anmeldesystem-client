@@ -140,7 +140,7 @@
                        [placeholder]="'Standort hinzufügen'"
                        [secondaryPlaceholder]="'Mit Enter bestätigen'"
                        [tags]="stepFormGroup.value.establishmentsAut"
-                       (tagsChanges)="updateEstablishments('establishmentsAut', $event)">
+                       (tagsChange)="updateEstablishments('establishmentsAut', $event)">
         </fit-tag-input>
       </div>
 
@@ -164,7 +164,7 @@
                        [placeholder]="'Standort hinzufügen'"
                        [secondaryPlaceholder]="'Mit Enter bestätigen'"
                        [tags]="stepFormGroup.value.establishmentsInt"
-                       (tagsChanges)="updateEstablishments('establishmentsInt', $event)">
+                       (tagsChange)="updateEstablishments('establishmentsInt', $event)">
         </fit-tag-input>
       </div>
     </div>
@@ -212,6 +212,7 @@
     </div>
 
     <h5 class="text-bold mt-3">Logo</h5>
+
     <!--logo-->
     <div class="form-group row mb-3">
       <label for="logo" class="col-md-3 col-form-label">Logo (max. 2MB):</label>

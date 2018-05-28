@@ -4,6 +4,11 @@ import { CompanyTransferService } from '../../../../../core/app-services/transfe
 import { Company } from '../../../../../core/model/company';
 import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
 import { CompanyDAO } from '../../../../../core/dao/company.dao';
+import { Branch } from '../../../../../core/model/branch';
+import { BranchDAO } from '../../../../../core/dao/branch.dao';
+import { CompanyBranch } from '../../../../../core/model/company-branch';
+import { Tag } from '../../../../../core/model/tag';
+import { CompanyTag } from '../../../../../core/model/company-tag';
 
 @Component({
   selector: 'fit-company-details',
@@ -13,34 +18,68 @@ import { CompanyDAO } from '../../../../../core/dao/company.dao';
 export class CompanyDetailsComponent implements OnInit {
 
   public company: Company;
-  public autoCompleteTags: string[] = [];
+
+  public tags: Tag[] = [];
+  public tagFilter: string = '';
+  public branches: Branch[] = [];
+  public selectedBranches: any[] = [];
 
   public constructor(private activatedRoute: ActivatedRoute,
                      private router: Router,
                      private companyDAO: CompanyDAO,
+                     private branchDAO: BranchDAO,
                      private tagService: CompanyTagService,
                      private companyTransferService: CompanyTransferService) {
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         if (params.id != null) {
           this.company = this.companyTransferService.getCompany(Number(params.id));
+          console.log(this.company);
           if (this.company == null) {
             this.router.navigate(['/admin-tool', 'firmen']);
           }
         }
       });
 
-    this.autoCompleteTags = this.tagService.getTags().map(t => t.value);
-  }
-
-  public getCompanyTagsAsString(): string[] {
-    return this.company.tags.map(t => t.value);
+    this.tags = this.tagService.getTags();
+    this.selectedBranches = (await this.branchDAO.fetchBranches())
+      .map(b => {
+        return {branch: b, selected: this.isBranchSelected(b)};
+      });
   }
 
   public async updateCompany(): Promise<void> {
+    this.company.branches = this.selectedBranches.filter(b => b.selected)
+      .map(b => new CompanyBranch(this.company.id, b.branch.id));
+
+    console.log(this.company.branches);
+
     this.company = await this.companyDAO.updateCompany(this.company);
+    this.companyTransferService.addCompany(this.company);
+  }
+
+  public getFilteredTags(): Tag[] {
+    return this.tags.filter(t => t.value.includes(this.tagFilter) && this.company.tags.find(ct => ct.tag.id === t.id) == null);
+  }
+
+  public addTagToCompany(tag: Tag): void {
+    this.company.tags.push(new CompanyTag(this.company.id, tag.id, tag));
+    this.tagFilter = '';
+  }
+
+  public removeTagFromCompany(tag: Tag): void {
+    this.company.tags = this.company.tags.filter(t => t.tag.id !== tag.id);
+  }
+
+  private isBranchSelected(branch: Branch): boolean {
+    // console.log(this.company.branches);
+    if (this.company != null && this.company.branches != null) {
+      return this.company.branches.find(b => b.branch.id === branch.id) != null;
+    } else {
+      return false;
+    }
   }
 }

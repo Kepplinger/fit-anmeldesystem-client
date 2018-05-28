@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class CompanyTagService {
 
   private tags: Tag[] = [];
+  private archivedTags: Tag[] = [];
 
   public constructor(private tagDAO: TagDAO) {
     if (!this.readTagsFromSessionStorage()) {
@@ -21,23 +22,38 @@ export class CompanyTagService {
     sessionStorage.setItem('tags', JSON.stringify(this.tags));
   }
 
+  public setArchivedTags(tags: Tag[]): void {
+    if (tags == null) {
+      tags = [];
+    }
+    this.archivedTags = tags;
+    sessionStorage.setItem('archivedTags', JSON.stringify(this.archivedTags));
+  }
+
+
   public getTags(): Tag[] {
     return this.tags;
   }
 
+  public getArchivedTags(): Tag[] {
+    return this.archivedTags;
+  }
+
   private async loadTags(): Promise<void> {
     let tags = await this.tagDAO.fetchTags();
-    this.setTags(tags);
+    this.setTags(tags.filter(t => !t.isArchive));
+    this.setArchivedTags(tags.filter(t => t.isArchive));
   }
 
   private readTagsFromSessionStorage(): boolean {
     let tags = JSON.parse(sessionStorage.getItem('tags'));
-    if (tags != null) {
+    let archivedTags = JSON.parse(sessionStorage.getItem('archivedTags'));
+    if (tags != null && archivedTags != null) {
       this.tags = tags;
+      this.archivedTags = archivedTags;
       return true;
     } else {
       return false;
     }
   }
-
 }
