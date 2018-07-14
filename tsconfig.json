@@ -15,6 +15,11 @@
     "lib": [
       "es2016",
       "dom"
-    ]
+    ],
+    "paths": {
+      "stream": [
+        "../node_modules/readable-stream"
+      ]
+    }
   }
 }
