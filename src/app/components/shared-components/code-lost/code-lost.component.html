@@ -52,7 +52,8 @@
 
 <div class="flex-1"></div>
 
-<div class="text-muted my-3 text-smaller text-justify">
+<div *ngIf="fullyDisplayed"
+     class="text-muted my-3 text-smaller text-justify">
   <h6>Ihre Mail wurde nicht gefunden?</h6>
   <p>
     Sollte Ihre E-Mail nicht in unseren System gefunden worden sein, probieren Sie bitte zuerst noch weitere

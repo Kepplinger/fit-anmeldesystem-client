@@ -1,0 +1,18 @@
+<div class="school-background"></div>
+<div class="d-flex flex-column full-viewport-height">
+  <div class="flex-1"></div>
+  <div class="card floating-effect"
+       [ngClass]="{'tiny-container': containerSize == 0,
+                   'smaller-container': containerSize == 1,
+                   'small-container': containerSize == 2}">
+    <div class="card-header d-flex p-0">
+      <img src="../../../../assets/logo_htl.png" class="school-logo mx-auto img-keep-ratio" alt="HTL Leonding">
+    </div>
+    <div class="card-body px-5 pb-5">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div  [ngClass]="{'flex-3': containerSize == 0,
+                    'flex-2': containerSize == 1,
+                    'flex-1': containerSize == 2}"></div>
+</div>

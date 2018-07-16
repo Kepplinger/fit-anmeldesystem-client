@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-management-routing.module';
-import { AccountManagmentComponent } from './account-management.component';
 import { AccountLoginComponent } from './account-login/account-login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { AccountOverviewComponent } from './account-overview/account-overview.component';
 import { SharedModule } from '../shared-components/shared.module';
+import { AccountContainerWrapperComponent } from './account-container-wrapper/account-container-wrapper.component';
+import { AccountCodeLostComponent } from './account-code-lost/account-code-lost.component';
 
 @NgModule({
   imports: [
@@ -18,9 +18,10 @@ import { SharedModule } from '../shared-components/shared.module';
     SharedModule,
   ],
   declarations: [
-    AccountManagmentComponent,
     AccountOverviewComponent,
     AccountLoginComponent,
+    AccountContainerWrapperComponent,
+    AccountCodeLostComponent
   ],
   providers: []
 })

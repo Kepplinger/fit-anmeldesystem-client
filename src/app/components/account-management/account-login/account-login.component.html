@@ -1,48 +1,37 @@
-<div class="school-background"></div>
-<div class="d-flex flex-column full-viewport-height">
-  <div class="flex-1"></div>
-  <div class="tiny-container card floating-effect">
+<fit-account-container-wrapper [containerSize]="0">
+  <form autocomplete="off">
+    <div class="form-group">
 
-    <div class="card-header px-5">
-      <img src="../../../../assets/logo_htl.png" class="img-fluid" alt="HTL Leonding">
-    </div>
-    <div class="card-body px-5 pb-5">
-      <form autocomplete="off">
-        <div class="form-group">
+      <h4 class="text-center text-bold mt-1 mb-4">Mitglieder-Login</h4>
 
-          <h4 class="text-center text-bold mt-1 mb-4">Mitglieder-Login</h4>
+      <label class="d-flex text-bold" for="codeInput">
+        Code Eingabe:
+        <a class="ml-auto cursor-pointer"
+           [routerLink]="['/konto/code-vergessen']">Code vergessen?</a>
+      </label>
 
-          <label class="d-flex text-bold" for="codeInput">
-            Code Eingabe:
-            <a class="ml-auto cursor-pointer"
-               [routerLink]="['/fit/code-vergessen']">Code vergessen?</a>
-          </label>
+      <div class="position-relative">
+        <input type="text"
+               class="form-control"
+               id="codeInput"
+               [ngClass]="{'is-invalid': hasFailed}"
+               [(ngModel)]="authenticationToken"
+               [ngModelOptions]="{standalone: true}"
+               placeholder="12-stelliger Code">
 
-          <div class="position-relative">
-            <input type="text"
-                   class="form-control"
-                   id="codeInput"
-                   [ngClass]="{'is-invalid': hasFailed}"
-                   [(ngModel)]="authenticationToken"
-                   [ngModelOptions]="{standalone: true}"
-                   placeholder="12-stelliger Code">
-
-            <div class="position-absolute input-loading-icon">
-              <i *ngIf="hasFailed" class="fa fa-times fa-1-3x text-danger"></i>
-            </div>
-          </div>
+        <div class="position-absolute input-loading-icon">
+          <i *ngIf="hasFailed" class="fa fa-times fa-1-3x text-danger"></i>
         </div>
-
-        <button class="btn btn-block btn-primary text-bold"
-                id="btnFitRegister"
-                type="submit"
-                [disabled]="authenticationToken.length < 12"
-                [ngClass]="{'cursor-not-allowed': authenticationToken.length < 12}"
-                (click)="loginToCompanyAccount()">
-          Anmelden
-        </button>
-      </form>
+      </div>
     </div>
-  </div>
-  <div class="flex-3"></div>
-</div>
+
+    <button class="btn btn-block btn-primary text-bold"
+            id="btnFitRegister"
+            type="submit"
+            [disabled]="authenticationToken.length < 12"
+            [ngClass]="{'cursor-not-allowed': authenticationToken.length < 12}"
+            (click)="loginToCompanyAccount()">
+      Anmelden
+    </button>
+  </form>
+</fit-account-container-wrapper>

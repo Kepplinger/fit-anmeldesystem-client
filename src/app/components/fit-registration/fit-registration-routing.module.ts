@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FitRegistrationComponent } from './fit-registration.component';
 import { CodeRequestComponent } from './code-request/code-request.component';
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
-import { CodeLostComponent } from './code-lost/code-lost.component';
+import { CodeLostComponent } from '../shared-components/code-lost/code-lost.component';
 import { UpdateSuccessComponent } from './update-success/update-success.component';
 
 const routes: Routes = [

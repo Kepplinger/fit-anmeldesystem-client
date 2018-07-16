@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -11,6 +11,9 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./code-lost.component.scss']
 })
 export class CodeLostComponent {
+
+  @Input()
+  public fullyDisplayed: boolean = true;
 
   public companyMail: string = '';
 

@@ -16,7 +16,7 @@ import { SharedModule } from '../shared-components/shared.module';
 import {
   LocationPickerModalComponent
 } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
-import { CodeLostComponent } from './code-lost/code-lost.component';
+import { CodeLostComponent } from '../shared-components/code-lost/code-lost.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { UpdateSuccessComponent } from './update-success/update-success.component';
 
@@ -34,7 +34,6 @@ import { UpdateSuccessComponent } from './update-success/update-success.componen
   declarations: [
     FitRegistrationComponent,
     CodeRequestComponent,
-    CodeLostComponent,
     GeneralDataComponent,
     DetailedDataComponent,
     FitAppearanceComponent,
