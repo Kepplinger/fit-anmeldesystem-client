@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Company } from '../../../../core/model/company';
 import { Booking } from '../../../../core/model/booking';
@@ -13,6 +13,7 @@ import { Address } from '../../../../core/model/address';
 import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
 import { Event } from '../../../../core/model/event';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
+import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 
 @Component({
   selector: 'fit-company-overview',
@@ -77,12 +78,15 @@ export class CompanyOverviewComponent implements OnInit {
   public async updateCompany(): Promise<void> {
     if (this.companyFormGroup.valid) {
       this.isEditing = false;
-      this.updateCompanyFromForm();
 
-      this.company = await this.companyDAO.updateCompany(this.company);
-      this.accountManagementService.updateCompany(this.company);
+      if (this.companyFormGroup.touched) {
+        this.updateCompanyFromForm();
+        this.company = await this.companyDAO.updateCompany(this.company);
+        this.accountManagementService.updateCompany(this.company);
+      }
 
       this.companyFormGroup.controls['gender'].disable();
+      this.companyFormGroup.markAsUntouched();
     } else {
       FormHelper.touchAllFormFields(this.companyFormGroup);
       this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!');
@@ -151,4 +155,6 @@ export class CompanyOverviewComponent implements OnInit {
     contact.phoneNumber = this.companyFormGroup.value.contactPhoneNumber;
     return contact;
   }
+
+
 }

@@ -5,9 +5,6 @@ declare let alertify: any;
 @Injectable()
 export class ModalWindowService {
 
-  public constructor() {
-  }
-
   /**
    * Similar to the confirm() but fancy
    * @param title

@@ -63,12 +63,15 @@ export class GraduateOverviewComponent implements OnInit {
   public async updateGraduate(): Promise<void> {
     if (this.graduateFormGroup.valid) {
       this.isEditing = false;
-      this.updateGraduateFromForm();
 
-      this.graduate = await this.graduateDAO.updateGraduate(this.graduate);
-      this.accountManagementService.updateGraduate(this.graduate);
+      if (this.graduateFormGroup.touched) {
+        this.updateGraduateFromForm();
+        this.graduate = await this.graduateDAO.updateGraduate(this.graduate);
+        this.accountManagementService.updateGraduate(this.graduate);
+      }
 
       this.graduateFormGroup.controls['gender'].disable();
+      this.graduateFormGroup.markAsUntouched();
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!');
     }

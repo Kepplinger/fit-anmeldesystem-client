@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { Event } from '../../../core/model/event';
@@ -8,6 +8,7 @@ import { Booking } from '../../../core/model/booking';
 import { EventService } from '../../../core/app-services/event.service';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { Graduate } from '../../../core/model/graduate';
+import { ModalWindowService } from '../../../core/app-services/modal-window.service';
 
 @Component({
   selector: 'fit-account-overview',
@@ -22,10 +23,12 @@ export class AccountOverviewComponent implements OnInit {
   public event: Event = null;
 
   public isGraduate: boolean = false;
+  public wereChangesMade: boolean = false;
 
   public constructor(private accountManagementService: AccountManagementService,
                      private fb: FormBuilder,
                      private eventService: EventService,
+                     private modalWindowService: ModalWindowService,
                      private router: Router) {
   }
 
@@ -48,6 +51,17 @@ export class AccountOverviewComponent implements OnInit {
       if (this.accountManagementService.currentBookingExists) {
         this.booking = this.accountManagementService.booking;
       }
+    }
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public unloadNotification() {
+    return !this.wereChangesMade;
+  }
+
+  public async canDeactivate() {
+    if (this.wereChangesMade) {
+      return confirm('You have unsaved changes! If you leave, your changes will be lost.');
     }
   }
 }

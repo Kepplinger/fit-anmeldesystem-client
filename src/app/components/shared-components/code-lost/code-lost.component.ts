@@ -47,7 +47,7 @@ export class CodeLostComponent {
   }
 
   public isValid(): boolean {
-    return !this.isLoading && this.isExisting  && this.isChecked;
+    return !this.isLoading && this.isExisting && this.isChecked;
   }
 
   public isInvalid(): boolean {

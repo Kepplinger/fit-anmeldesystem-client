@@ -24,6 +24,7 @@ import { AuthDAO } from './dao/auth.dao';
 import { AdminAuthorizationService } from './app-services/admin-authorization.service';
 import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
 import { AccountManagementService } from './app-services/account-managenment.service';
+import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { AccountManagementService } from './app-services/account-managenment.ser
     AppLoadingService,
     RouterService,
     EventService,
+    CanDeactivateGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
   ]
 })
