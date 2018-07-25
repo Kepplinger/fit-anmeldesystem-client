@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Graduate } from '../../../../core/model/graduate';
 import { FormHelper } from '../../../../core/app-helper/form-helper';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +18,9 @@ export class GraduateOverviewComponent implements OnInit {
 
   @Input()
   public graduate: Graduate;
+
+  @Output()
+  public editModeChanged: EventEmitter<boolean> = new EventEmitter();
 
   public graduateFormGroup: FormGroup;
   public isEditing: boolean = false;
@@ -50,19 +53,19 @@ export class GraduateOverviewComponent implements OnInit {
   }
 
   public enableEditing(): void {
-    this.isEditing = true;
+    this.setEditMode(true);
     this.graduateFormGroup.controls['gender'].enable();
   }
 
   public cancel(): void {
-    this.isEditing = false;
+    this.setEditMode(false);
     this.fillFormWithGraduate();
     this.graduateFormGroup.controls['gender'].disable();
   }
 
   public async updateGraduate(): Promise<void> {
     if (this.graduateFormGroup.valid) {
-      this.isEditing = false;
+      this.setEditMode(false);
 
       if (this.graduateFormGroup.touched) {
         this.updateGraduateFromForm();
@@ -127,4 +130,8 @@ export class GraduateOverviewComponent implements OnInit {
     this.graduate.address = this.updateAddressFromForm(this.graduate.address);
   }
 
+  private setEditMode(mode: boolean): void {
+    this.isEditing = mode;
+    this.editModeChanged.emit(mode);
+  }
 }

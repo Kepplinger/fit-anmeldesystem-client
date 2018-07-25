@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Company } from '../../../../core/model/company';
 import { Booking } from '../../../../core/model/booking';
@@ -30,6 +30,9 @@ export class CompanyOverviewComponent implements OnInit {
 
   @Input()
   public showAdminVersion: boolean = false;
+
+  @Output()
+  public editModeChanged: EventEmitter<boolean> = new EventEmitter();
 
   public event: Event = null;
   public companyFormGroup: FormGroup;
@@ -71,13 +74,13 @@ export class CompanyOverviewComponent implements OnInit {
   }
 
   public enableEditing(): void {
-    this.isEditing = true;
+    this.setEditMode(true);
     this.companyFormGroup.controls['gender'].enable();
   }
 
   public async updateCompany(): Promise<void> {
     if (this.companyFormGroup.valid) {
-      this.isEditing = false;
+      this.setEditMode(false);
 
       if (this.companyFormGroup.touched) {
         this.updateCompanyFromForm();
@@ -94,7 +97,7 @@ export class CompanyOverviewComponent implements OnInit {
   }
 
   public cancel(): void {
-    this.isEditing = false;
+    this.setEditMode(false);
     this.fillFormWithCompany();
     this.companyFormGroup.controls['gender'].disable();
   }
@@ -156,5 +159,8 @@ export class CompanyOverviewComponent implements OnInit {
     return contact;
   }
 
-
+  private setEditMode(mode: boolean): void {
+    this.isEditing = mode;
+    this.editModeChanged.emit(mode);
+  }
 }

@@ -17,12 +17,14 @@
   <div [ngSwitch]="isGraduate">
 
     <fit-graduate-overview *ngSwitchCase="true"
-                           [graduate]="graduate">
+                           [graduate]="graduate"
+                           (editModeChanged)="wereChangesMade = $event">
     </fit-graduate-overview>
 
     <fit-company-overview *ngSwitchCase="false"
                           [booking]="booking"
-                          [company]="company">
+                          [company]="company"
+                          (editModeChanged)="wereChangesMade = $event">
     </fit-company-overview>
 
   </div>
