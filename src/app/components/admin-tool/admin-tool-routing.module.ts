@@ -4,7 +4,7 @@ import { AdminToolComponent } from './admin-tool.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { EditFitEventComponent } from './admin-dashboard/create-fit-event/edit-fit-event.component';
+import { EditFitEventComponent } from './admin-dashboard/edit-fit-event/edit-fit-event.component';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
 import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
@@ -19,6 +19,7 @@ import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-s
 import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
+import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 
 export const routes: Routes = [
   {
@@ -32,16 +33,6 @@ export const routes: Routes = [
           {
             path: '',
             component: AdminDashboardComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'fit-anlegen',
-        children: [
-          {
-            path: '',
-            component: EditFitEventComponent,
             outlet: 'adminOutlet'
           }
         ]
@@ -122,6 +113,16 @@ export const routes: Routes = [
           {
             path: '',
             component: EditFitEventComponent,
+            outlet: 'adminOutlet'
+          }
+        ]
+      },
+      {
+        path: 'fit-anlegen',
+        children: [
+          {
+            path: '',
+            component: CreateFitEventComponent,
             outlet: 'adminOutlet'
           }
         ]

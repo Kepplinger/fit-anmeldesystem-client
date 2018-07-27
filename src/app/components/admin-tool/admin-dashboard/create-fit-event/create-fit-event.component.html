@@ -1,0 +1,37 @@
+<div class="container mt-6">
+  <h1>Neuen FIT anlegen</h1>
+
+  <div class="d-flex my-3">
+    <button class="btn big-rounded-button btn-success text-bold mx-auto"
+         (click)="createNewFitEvent()">
+      <i class="fa fa-plus mr-2"></i>
+      <span>Neuen FIT erstellen</span>
+    </button>
+  </div>
+
+  <h3>FIT aus Vorlage erstellen</h3>
+  <table class="table">
+    <tr>
+      <th>Datum</th>
+      <th>Anmelde-Zeitraum</th>
+      <th class="text-center">Geschoße</th>
+      <th class="text-center">Als Vorlage verwenden</th>
+    </tr>
+    <tr *ngFor="let event of events">
+      <td>{{event.eventDate | date:'longDate'}}</td>
+      <td>
+        {{event.registrationStart | date:'longDate'}}
+        <span class="text-bold mx-2">bis</span>
+        {{event.registrationEnd | date:'longDate'}}
+      </td>
+      <td class="text-center">{{event.areas.length}}</td>
+      <td class="text-center">
+        <button class="btn btn-primary text-bold ml-2"
+                (click)="createNewFitEventWithTemplate(event)"
+                data-dismiss="modal">
+          <i class="fa fa-files-o text-bold"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

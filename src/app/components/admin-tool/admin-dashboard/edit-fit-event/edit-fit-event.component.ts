@@ -8,11 +8,12 @@ import { EventDAO } from '../../../../core/dao/event.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EventService } from '../../../../core/app-services/event.service';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
+import { EventHelper } from '../../../../core/model/helper/event-helper';
 
 declare let $: any;
 
 @Component({
-  selector: 'fit-create-fit-event',
+  selector: 'fit-edit-fit-event',
   templateUrl: './edit-fit-event.component.html',
   styleUrls: ['./edit-fit-event.component.scss']
 })
@@ -40,7 +41,6 @@ export class EditFitEventComponent implements OnInit {
     } else if (this.event.areas == null || this.event.areas.length === 0) {
       this.event.areas.push(new Area());
     }
-
   }
 
   public getRegistrationTimeSpan(): number {
@@ -115,6 +115,11 @@ export class EditFitEventComponent implements OnInit {
         'FIT kann nicht gespeichert werden!'
       );
     }
+  }
+
+  public noChangesExist(): boolean {
+    console.log(EventHelper.compare(this.event, this.eventService.selectedEvent.getValue()));
+    return EventHelper.compare(this.event, this.eventService.selectedEvent.getValue());
   }
 
   private validateEvent(): boolean {

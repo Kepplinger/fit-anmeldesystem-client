@@ -1,6 +1,8 @@
 import { Event } from '../event';
 import * as moment from 'moment';
 import { Area } from '../area';
+import { LocationHelper } from './location-helper';
+import { AreaHelper } from './area-helper';
 
 export class EventHelper {
 
@@ -41,5 +43,15 @@ export class EventHelper {
     }
 
     return clonedEvent;
+  }
+
+  public static compare(first: Event, second: Event): boolean {
+    return first.id === second.id &&
+      first.registrationState === second.registrationState &&
+      first.registrationEnd.isSame(second.registrationEnd, 'day') &&
+      first.registrationStart.isSame(second.registrationStart, 'day') &&
+      first.eventDate.isSame(second.eventDate, 'day') &&
+      first.areas.every(a1 => second.areas.some(a2 => AreaHelper.compare(a1, a2))) &&
+      second.areas.every(a1 => second.areas.some(a2 => AreaHelper.compare(a1, a2)));
   }
 }
