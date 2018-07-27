@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   public event: Event;
+  public events: Event[];
 
   private subscriptions: Subscription[] = [];
 
@@ -19,6 +20,15 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.event = this.eventService.currentEvent.getValue();
+    this.events = this.eventService.events.getValue().sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
+
+    this.subscriptions.push(
+      this.eventService.events.subscribe(
+        (events: Event[]) => {
+          this.events = events.sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
+        }
+      )
+    );
 
     this.subscriptions.push(
       this.eventService.selectedEvent.subscribe(
@@ -33,8 +43,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  public openSelectionModal(): void {
-    // triggers selectedEvent Subject to fix display bug in modal
-    this.eventService.selectedEvent.next(this.eventService.selectedEvent.getValue());
+  public selectEvent(event: Event): void {
+    this.event = event;
+    this.eventService.selectedEvent.next(this.event);
   }
 }

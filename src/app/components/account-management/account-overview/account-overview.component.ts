@@ -9,6 +9,7 @@ import { EventService } from '../../../core/app-services/event.service';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { Graduate } from '../../../core/model/graduate';
 import { ModalWindowService } from '../../../core/app-services/modal-window.service';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'fit-account-overview',
@@ -29,11 +30,16 @@ export class AccountOverviewComponent implements OnInit {
                      private fb: FormBuilder,
                      private eventService: EventService,
                      private modalWindowService: ModalWindowService,
+                     public platformLocation: PlatformLocation,
                      private router: Router) {
   }
 
   public ngOnInit(): void {
     this.isGraduate = this.accountManagementService.isGraduate;
+
+    this.platformLocation.onPopState(() => {
+      this.accountManagementService.logoutMember();
+    });
 
     if (this.isGraduate) {
       this.graduate = this.accountManagementService.graduate;
@@ -52,6 +58,11 @@ export class AccountOverviewComponent implements OnInit {
         this.booking = this.accountManagementService.booking;
       }
     }
+  }
+
+  public logout(): void {
+    this.accountManagementService.logoutMember();
+    this.router.navigate(['konto', 'login']);
   }
 
   @HostListener('window:beforeunload', ['$event'])

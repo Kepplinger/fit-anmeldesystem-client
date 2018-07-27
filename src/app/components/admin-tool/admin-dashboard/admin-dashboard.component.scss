@@ -6,6 +6,14 @@
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: 200px 200px 200px;
   grid-gap: 25px;
+}
 
+.active > .text-muted,
+.dropdown-item:active > .text-muted {
+  color: #eaeaea !important;
+}
 
+.active > div,
+.dropdown-item:active > div{
+  font-weight: bold;
 }

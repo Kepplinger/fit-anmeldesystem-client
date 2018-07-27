@@ -36,8 +36,11 @@ export class MainComponent implements OnInit {
     let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
 
     if (response != null && !(response instanceof HttpErrorResponse)) {
-      this.accountManagementService.loginMember(response);
-      this.router.navigate(['/fit', 'anmelden']);
+      if (this.accountManagementService.loginMember(response, true)) {
+        this.router.navigate(['/fit', 'anmelden']);
+      } else {
+        this.hasFailed = true;
+      }
     } else {
       this.hasFailed = true;
     }

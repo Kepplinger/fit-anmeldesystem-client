@@ -1,7 +1,6 @@
 <div class="container mt-3 p-3">
   <h2 class="text-bold">Anmeldung zum Firmeninformationstag</h2>
 
-  <!-- TODO Obligatorischer Beschreibungstext? -->
   <fit-registration-locked *ngIf="event.registrationState.isLocked"></fit-registration-locked>
 
   <div *ngIf="!event.registrationState.isLocked">

@@ -25,16 +25,29 @@ export class AccountManagementService {
     this.isGraduate = JSON.parse(sessionStorage.getItem('isGraduate'));
   }
 
-  public loginMember(response: MemberLoginResponse): void {
-    if (response.graduate != null) {
+  public loginMember(response: MemberLoginResponse, companyOnly: boolean = false): boolean {
+    if (response.graduate != null && !companyOnly) {
       this.setGraduate(response.graduate);
+      return true;
     } else if (response.oldBooking != null) {
       this.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
+      return true;
     } else if (response.currentBooking != null) {
       this.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
+      return true;
     } else if (response.company != null) {
       this.setCompanyWithoutBooking(CompanyMapper.mapJsonToCompany(response.company));
+      return true;
     }
+
+    return false;
+  }
+
+  public logoutMember(): void {
+    this.booking = null;
+    this.graduate = null;
+    this.currentBookingExists = false;
+    this.updateSessionStorage();
   }
 
   public setGraduate(graduate: Graduate): void {

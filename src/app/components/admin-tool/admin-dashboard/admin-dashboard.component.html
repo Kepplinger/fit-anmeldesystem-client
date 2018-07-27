@@ -5,22 +5,43 @@
   <div class="d-flex justify-content-center">
     <h2 class="m-0">Fit am {{event?.eventDate | date:'longDate'}}</h2>
 
-    <button type="button"
-            id="btnEventModal"
-            class="btn btn-link ml-2 my-auto"
-            data-toggle="modal"
-            data-target="#selectEventModal"
-            (click)="openSelectionModal()">
-      <i class="fa fa-pencil"></i>
-      <span>FIT ändern/erstellen</span>
-    </button>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle text-bold ml-3"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown">
+        Anderen FIT auswählen
+      </button>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div *ngFor="let dropdownEvent of events, let last = last">
+          <div class="dropdown-item cursor-pointer py-3 px-4"
+               [ngClass]="{'active': dropdownEvent.id == event.id}"
+               (click)="selectEvent(dropdownEvent)">
+            <div>{{ dropdownEvent.eventDate | date:'longDate' }}</div>
+            <div class="text-muted text-smaller">
+              Anmeldung von <span class="text-bold">{{ dropdownEvent.registrationStart | date:'longDate' }}</span>
+              bis <span class="text-bold">{{ dropdownEvent.registrationEnd| date:'longDate' }}</span>
+            </div>
+          </div>
+          <hr *ngIf="!last" class="m-0">
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="dashboard-grid mt-4">
 
+
     <div class="dash"
          [routerLink]="['/admin-tool','fit-bearbeiten']">
       <i class="fa fa-calendar-plus-o dash-icon"></i>
+      <div class="dash-text">Neuen FIT anlegen</div>
+    </div>
+
+    <div class="dash"
+         [routerLink]="['/admin-tool','fit-bearbeiten']">
+      <i class="fa fa-calendar dash-icon"></i>
       <div class="dash-text">FIT bearbeiten</div>
       <div class="text-smaller text-muted">
         für FIT am {{event.eventDate | date:'mediumDate'}}
@@ -43,11 +64,6 @@
       <div class="text-smaller text-muted">
         für FIT am {{event.eventDate | date:'mediumDate'}}
       </div>
-    </div>
-
-    <div class="dash"
-         [routerLink]="['/admin-tool','aenderungsprotokoll']">
-      <i class="fa fa-wheelchair-alt dash-icon"></i>
     </div>
 
     <div class="dash"
