@@ -84,6 +84,10 @@ export class GraduateOverviewComponent implements OnInit {
     return FormHelper.isNoEmail(formName, this.graduateFormGroup) && this.isInvalid(formName);
   }
 
+  public isNoPhone(formName: string): boolean {
+    return FormHelper.isNoPhoneNumber(formName, this.graduateFormGroup) && this.isInvalid(formName);
+  }
+
   public isEmpty(formName: string): boolean {
     return FormHelper.isEmpty(formName, this.graduateFormGroup) && this.isInvalid(formName);
   }

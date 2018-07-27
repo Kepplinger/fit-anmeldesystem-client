@@ -2,7 +2,7 @@ import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 export class FormHelper {
   public static isEmpty(formName: string, formGroup: FormGroup): boolean {
-    let errors = formGroup.controls[formName].errors;
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
 
     if (errors != null) {
       return errors.required != null;
@@ -12,7 +12,7 @@ export class FormHelper {
   }
 
   public static isNoEmail(formName: string, formGroup: FormGroup): boolean {
-    let errors = formGroup.controls[formName].errors;
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
 
     if (errors != null) {
       return errors.email != null;
@@ -21,8 +21,18 @@ export class FormHelper {
     }
   }
 
+  public static isNoPhoneNumber(formName: string, formGroup: FormGroup): boolean {
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
+
+    if (errors != null) {
+      return errors.phone != null;
+    } else {
+      return false;
+    }
+  }
+
   public static isTooLong(formName: string, formGroup: FormGroup): boolean {
-    let errors = formGroup.controls[formName].errors;
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
 
     if (errors != null) {
       return errors.maxlength != null;
@@ -32,7 +42,7 @@ export class FormHelper {
   }
 
   public static isDescriptionTooLong(formName: string, formGroup: FormGroup): boolean {
-    let errors = formGroup.controls[formName].errors;
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
 
     if (errors != null) {
       return errors.companyDescription != null;
@@ -79,5 +89,9 @@ export class FormHelper {
     });
 
     return errorCount;
+  }
+
+  private static getValidationErrors(formName: string, formGroup: FormGroup): ValidationErrors {
+    return formGroup.controls[formName].errors;
   }
 }

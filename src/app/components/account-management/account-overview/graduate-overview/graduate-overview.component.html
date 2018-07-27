@@ -86,7 +86,7 @@
 
         <div class="invalid-message invalid-message-container">
           <span *ngIf="isEmpty('phoneNumber')" class="mr-2">Telefonnummer darf nicht leer sein!</span>
-          <span *ngIf="isEmpty('phoneNumber')" class="mr-2">Telefonnummer darf nicht leer sein!</span>
+          <span *ngIf="isNoPhone('phoneNumber')" class="mr-2">Ungültige Telefonnummer!</span>
         </div>
       </div>
     </div>
