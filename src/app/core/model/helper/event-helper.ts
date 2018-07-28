@@ -8,16 +8,18 @@ export class EventHelper {
 
   public static clone(event: Event): Event {
     if (event != null) {
-      let newEvent: Event = new Event();
+      let clone: Event = new Event();
 
-      newEvent.id = event.id;
-      newEvent.areas = event.areas;
-      newEvent.registrationStart = moment(event.registrationStart);
-      newEvent.registrationEnd = moment(event.registrationEnd);
-      newEvent.eventDate = moment(event.eventDate);
-      newEvent.registrationState = event.registrationState;
+      clone.id = event.id;
+      clone.registrationStart = moment(event.registrationStart);
+      clone.registrationEnd = moment(event.registrationEnd);
+      clone.eventDate = moment(event.eventDate);
+      clone.registrationState = event.registrationState;
 
-      return newEvent;
+      clone.areas = [];
+      event.areas.forEach(a => clone.areas.push(AreaHelper.clone(a)));
+
+      return clone;
     } else {
       return null;
     }

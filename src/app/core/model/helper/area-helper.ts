@@ -15,7 +15,7 @@ export class AreaHelper {
     clone.locations = [];
 
     area.locations.forEach((l: Location) => {
-      clone.locations.push(l);
+      clone.locations.push(LocationHelper.clone(l));
     });
 
     return clone;

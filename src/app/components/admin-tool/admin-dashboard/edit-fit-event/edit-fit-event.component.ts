@@ -34,7 +34,7 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.event = this.eventService.selectedEvent.getValue();
+    this.event = EventHelper.clone(this.eventService.selectedEvent.getValue());
 
     if (this.event == null) {
       this.router.navigate(['/admin-tool', 'dash']);
@@ -118,6 +118,8 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public noChangesExist(): boolean {
+    console.log(this.event);
+    console.log(this.eventService.selectedEvent.getValue());
     console.log(EventHelper.compare(this.event, this.eventService.selectedEvent.getValue()));
     return EventHelper.compare(this.event, this.eventService.selectedEvent.getValue());
   }

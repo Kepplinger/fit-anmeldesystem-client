@@ -1,6 +1,18 @@
 import { Location } from '../location';
 
 export class LocationHelper {
+
+  public static clone(location: Location): Location {
+    return new Location(
+      location.number,
+      location.isOccupied,
+      location.category,
+      location.xCoordinate,
+      location.yCoordinate,
+      location.id
+    );
+  }
+
   public static compare(first: Location, second: Location): boolean {
     return first.id === second.id &&
       first.category === second.category &&
