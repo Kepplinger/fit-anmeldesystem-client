@@ -1,4 +1,4 @@
-<div class="fixed-top">
+<div id="header" class="fixed-top">
   <nav class="navbar navbar-dark text-light bg-darken-primary">
 
     <a class="navbar-brand text-bold"
@@ -9,45 +9,80 @@
 
     <div class="navbar-nav text-bold">
       <ul class="nav ml-auto">
-        <li class="nav-item mx-2 active">
-          <a class="nav-link" [routerLink]="['/admin-tool', 'fit-bearbeiten']">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'fit-anlegen']">
             <i class="fa fa-calendar-plus-o fa-1-5x align-middle"></i>
-            <span class="align-middle ml-2">FIT bearbeiten</span>
           </a>
         </li>
 
-        <li class="nav-item mx-2 active">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'fit-bearbeiten']">
+            <i class="fa fa-calendar fa-1-5x align-middle"></i>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/admin-tool', 'anmeldungen']">
-            <i class="fa fa-list fa-1-5x align-middle"></i>
-            <span class="align-middle ml-2">FIT Anmeldungen</span>
+            <i class="fa fa-book fa-1-5x align-middle"></i>
           </a>
         </li>
 
-        <li class="nav-item mx-2 active">
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'firmen-bestaetigen']">
+            <i class="fa fa-graduation-cap fa-1-5x align-middle"></i>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'absolventen']">
+            <i class="fa fa-user fa-1-5x align-middle"></i>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'firmen']">
+            <i class="fa fa-users fa-1-5x align-middle"></i>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/admin-tool', 'firmen-bestaetigen']">
             <i class="fa fa-check-square-o fa-1-5x align-middle"></i>
-            <span class="align-middle ml-2">Firmen bestätigen</span>
           </a>
         </li>
 
-        <li class="nav-item mx-2 active">
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/admin-tool', 'aenderungsprotokoll']">
             <i class="fa fa-code-fork fa-1-5x align-middle"></i>
-            <span class="align-middle ml-2">Änderungsprotokoll</span>
           </a>
         </li>
 
-        <li class="nav-item mx-2 active">
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'csv-export']">
+            <i class="fa fa-file-excel-o fa-1-5x align-middle"></i>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/admin-tool','mail-vorlagen']">
             <i class="fa fa-envelope fa-1-5x align-middle"></i>
-            <span class="align-middle ml-2">Email-Vorlagen</span>
           </a>
         </li>
 
-        <li class="nav-item mx-2 active">
-          <a class="nav-link" [routerLink]="['/admin-tool','vortraege']">
-            <i class="fa fa-graduation-cap fa-1-5x align-middle"></i>
-            <span class="align-middle ml-2">Vorträge</span>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool', 'firmen-bestaetigen']">
+            <i class="fa fa-envelope-open fa-1-5x align-middle"></i>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin-tool','einstellungen']">
+            <i class="fa fa-cog fa-1-5x align-middle"></i>
           </a>
         </li>
 

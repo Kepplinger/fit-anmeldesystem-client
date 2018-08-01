@@ -6,7 +6,7 @@ import * as CryptoJS from 'crypto-js';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class AuthDAO {
+export class AdminDAO {
 
   public constructor(private appConfig: AppConfig,
                      private http: HttpClient) {
@@ -14,9 +14,7 @@ export class AuthDAO {
 
   // admin PassMe123!
   public async loginAdmin(email: string, password: string): Promise<any> {
-
     // password = CryptoJS.SHA256(password).toString();
-
     return this.http.post<any>(this.appConfig.serverURL + '/auth/login', {userName: email, password: password})
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();

@@ -20,7 +20,7 @@ import { GraduateDAO } from './dao/graduate.dao';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
 import { TagDAO } from './dao/tag.dao';
-import { AuthDAO } from './dao/auth.dao';
+import { AdminDAO } from './dao/admin.dao';
 import { AdminAuthorizationService } from './app-services/admin-authorization.service';
 import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
 import { AccountManagementService } from './app-services/account-managenment.service';
@@ -33,7 +33,7 @@ import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
   ],
   declarations: [],
   providers: [
-    AuthDAO,
+    AdminDAO,
     BookingDAO,
     BranchDAO,
     ResourceDAO,
