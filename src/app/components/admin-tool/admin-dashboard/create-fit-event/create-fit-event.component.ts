@@ -37,12 +37,12 @@ export class CreateFitEventComponent implements OnInit, OnDestroy {
   }
 
   public createNewFitEvent(): void {
-    this.eventService.selectedEvent.next(new Event());
+    this.eventService.eventToEdit = new Event();
     this.router.navigate(['/admin-tool', 'fit-bearbeiten']);
   }
 
   public createNewFitEventWithTemplate(event: Event): void {
-    this.eventService.selectedEvent.next(EventHelper.cloneWithoutIds(event));
+    this.eventService.eventToEdit = EventHelper.cloneWithoutIds(event);
     this.router.navigate(['/admin-tool', 'fit-bearbeiten']);
   }
 }

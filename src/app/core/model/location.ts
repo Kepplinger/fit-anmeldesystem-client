@@ -13,12 +13,14 @@ export class Location {
                      category?: string,
                      xCoordinate?: number,
                      yCoordinate?: number,
-                     id?: number) {
+                     id?: number,
+                     timestamp?: string) {
     this.id = id;
     this.isOccupied = isOccupied;
     this.number = number;
     this.category = category;
     this.xCoordinate = xCoordinate;
     this.yCoordinate = yCoordinate;
+    this.timestamp = timestamp;
   }
 }

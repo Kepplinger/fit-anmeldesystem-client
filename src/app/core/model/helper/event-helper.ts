@@ -35,7 +35,9 @@ export class EventHelper {
         clonedEvent.areas.forEach(
           (area: Area) => {
             delete area.id;
-            delete area.graphic.id;
+            if (area.graphic != null) {
+              delete area.graphic.id;
+            }
 
             if (area.locations != null) {
               area.locations.forEach(l => delete l.id);

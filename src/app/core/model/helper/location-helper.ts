@@ -9,7 +9,8 @@ export class LocationHelper {
       location.category,
       location.xCoordinate,
       location.yCoordinate,
-      location.id
+      location.id,
+      location.timestamp
     );
   }
 

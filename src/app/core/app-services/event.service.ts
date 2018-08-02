@@ -14,6 +14,8 @@ export class EventService {
   public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
   public events: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
 
+  public eventToEdit: Event = null;
+
   public constructor(private eventDAO: EventDAO,
                      private appLoadingService: AppLoadingService) {
     this.fetchEvents();
@@ -21,6 +23,7 @@ export class EventService {
     this.selectedEvent.subscribe(
       (event: Event) => {
         if (event != null && event.id != null) {
+          this.eventToEdit = event;
           sessionStorage.setItem('selectedEvent', JSON.stringify(event));
         }
       }

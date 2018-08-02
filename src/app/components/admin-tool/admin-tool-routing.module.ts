@@ -20,6 +20,7 @@ import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.comp
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
+import { CanDeactivateGuard } from '../../core/guards/can-deactivate-guard.service';
 
 export const routes: Routes = [
   {
