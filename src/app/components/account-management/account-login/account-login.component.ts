@@ -3,10 +3,7 @@ import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
-import { BookingMapper } from '../../../core/model/mapper/booking-mapper';
-import { CompanyMapper } from '../../../core/model/mapper/company-mapper';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MemberLoginResponse } from '../../../core/app-helper/helper-model/member-login-response';
 
 @Component({
   selector: 'fit-account-login',

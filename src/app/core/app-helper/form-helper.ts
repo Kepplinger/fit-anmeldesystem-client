@@ -21,16 +21,6 @@ export class FormHelper {
     }
   }
 
-  public static isNoPhoneNumber(formName: string, formGroup: FormGroup): boolean {
-    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
-
-    if (errors != null) {
-      return errors.phone != null;
-    } else {
-      return false;
-    }
-  }
-
   public static isTooLong(formName: string, formGroup: FormGroup): boolean {
     let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
 

@@ -85,8 +85,7 @@
                [readonly]="!isEditing">
 
         <div class="invalid-message invalid-message-container">
-          <span *ngIf="isEmpty('phoneNumber')" class="mr-2">Telefonnummer darf nicht leer sein!</span>
-          <span *ngIf="isNoPhone('phoneNumber')" class="mr-2">Ungültige Telefonnummer!</span>
+          <span *ngIf="isEmpty('phoneNumber')">Telefonnummer darf nicht leer sein!</span>
         </div>
       </div>
     </div>
@@ -102,7 +101,6 @@
                [ngClass]="{'is-invalid': isInvalid('addressAdditions')}"
                [readonly]="!isEditing">
         <div class="invalid-message invalid-message-container">
-          <span *ngIf="isEmpty('addressAdditions')" class="mr-2">Adresszusatz darf nicht leer sein!</span>
         </div>
       </div>
     </div>

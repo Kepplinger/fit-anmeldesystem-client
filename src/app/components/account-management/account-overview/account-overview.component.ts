@@ -30,7 +30,7 @@ export class AccountOverviewComponent implements OnInit {
                      private fb: FormBuilder,
                      private eventService: EventService,
                      private modalWindowService: ModalWindowService,
-                     public platformLocation: PlatformLocation,
+                     private platformLocation: PlatformLocation,
                      private router: Router) {
   }
 
@@ -43,26 +43,21 @@ export class AccountOverviewComponent implements OnInit {
 
     if (this.isGraduate) {
       this.graduate = this.accountManagementService.graduate;
-
-      if (this.graduate == null) {
-        this.router.navigate(['/konto', 'login']);
-      }
     } else {
       this.company = this.accountManagementService.getCompany();
-
-      if (this.company == null) {
-        this.router.navigate(['/konto', 'login']);
-      }
-
       if (this.accountManagementService.currentBookingExists) {
         this.booking = this.accountManagementService.booking;
       }
+    }
+
+    if (this.graduate == null && this.company == null) {
+      this.router.navigate(['/konto', 'login']);
     }
   }
 
   public logout(): void {
     this.accountManagementService.logoutMember();
-    this.router.navigate(['konto', 'login']);
+    this.router.navigate(['/konto', 'login']);
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -73,6 +68,8 @@ export class AccountOverviewComponent implements OnInit {
   public async canDeactivate() {
     if (this.wereChangesMade) {
       return confirm('You have unsaved changes! If you leave, your changes will be lost.');
+    } else {
+      return true;
     }
   }
 }

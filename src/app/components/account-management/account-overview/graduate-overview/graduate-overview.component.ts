@@ -42,7 +42,7 @@ export class GraduateOverviewComponent implements OnInit {
       streetNumber: ['', Validators.required],
       zipCode: ['', Validators.required],
       city: ['', Validators.required],
-      addressAdditions: ['', Validators.required],
+      addressAdditions: [''],
     });
 
     this.genders = this.appConfig.genders;
@@ -82,10 +82,6 @@ export class GraduateOverviewComponent implements OnInit {
 
   public isNoMail(formName: string): boolean {
     return FormHelper.isNoEmail(formName, this.graduateFormGroup) && this.isInvalid(formName);
-  }
-
-  public isNoPhone(formName: string): boolean {
-    return FormHelper.isNoPhoneNumber(formName, this.graduateFormGroup) && this.isInvalid(formName);
   }
 
   public isEmpty(formName: string): boolean {

@@ -22,7 +22,7 @@ export class AdminLoginComponent implements OnInit {
 
   public async loginAdmin(): Promise<void> {
     if (await this.adminAuthorizationService.loginAdmin(this.email, this.password)) {
-      this.router.navigate(['admin-tool', 'dash']);
+      this.router.navigate(['/admin-tool', 'dash']);
     } else {
       this.hasLoginFailed = true;
     }

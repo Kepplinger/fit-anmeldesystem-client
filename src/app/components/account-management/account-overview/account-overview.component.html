@@ -1,7 +1,8 @@
-<div class="account-header">
-  <div class="small-container d-flex flex-column justify-content-center align-items-center h-100">
-    <img src="../../../../assets/logo_htl_white_blur.png" class="htl-logo" alt="HTL Leonding">
-    <h2 class="text-bold text-light mt-2">
+<div *ngIf="graduate != null || company != null">
+  <div class="account-header">
+    <div class="small-container d-flex flex-column justify-content-center align-items-center h-100">
+      <img src="../../../../assets/logo_htl_white_blur.png" class="htl-logo" alt="HTL Leonding">
+      <h2 class="text-bold text-light mt-2">
       <span [ngSwitch]="isGraduate">
         <span *ngSwitchCase="true">
           <i class="fa fa-user"></i>
@@ -9,32 +10,33 @@
         </span>
         <span *ngSwitchCase="false">{{company.name}}</span>
       </span>
-    </h2>
-  </div>
-</div>
-
-<div class="small-container account-form-background mt-2 mb-5">
-
-  <div class="d-flex">
-    <button class="btn btn-link ml-auto mt-2"
-            (click)="logout()">
-      <i class="fa fa-sign-out"></i>
-      Ausloggen
-    </button>
+      </h2>
+    </div>
   </div>
 
-  <div [ngSwitch]="isGraduate">
+  <div class="small-container account-form-background mt-2 mb-5">
 
-    <fit-graduate-overview *ngSwitchCase="true"
-                           [graduate]="graduate"
-                           (editModeChanged)="wereChangesMade = $event">
-    </fit-graduate-overview>
+    <div class="d-flex">
+      <button class="btn btn-link ml-auto mt-2"
+              (click)="logout()">
+        <i class="fa fa-sign-out"></i>
+        Ausloggen
+      </button>
+    </div>
 
-    <fit-company-overview *ngSwitchCase="false"
-                          [booking]="booking"
-                          [company]="company"
-                          (editModeChanged)="wereChangesMade = $event">
-    </fit-company-overview>
+    <div [ngSwitch]="isGraduate">
 
+      <fit-graduate-overview *ngSwitchCase="true"
+                             [graduate]="graduate"
+                             (editModeChanged)="wereChangesMade = $event">
+      </fit-graduate-overview>
+
+      <fit-company-overview *ngSwitchCase="false"
+                            [booking]="booking"
+                            [company]="company"
+                            (editModeChanged)="wereChangesMade = $event">
+      </fit-company-overview>
+
+    </div>
   </div>
 </div>
