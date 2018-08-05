@@ -76,6 +76,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
     } else if (file === FilePickerError.UndefinedInput) {
       console.error('Undefined file input');
     }
+    console.log(this.area.graphic);
   }
 
   public selectLocation(location: Location): void {
@@ -107,6 +108,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
 
   public updateArea(): void {
     this.areaChanged.emit(this.area);
+    console.log(this.area);
   }
 
   // noinspection JSMethodCanBeStatic

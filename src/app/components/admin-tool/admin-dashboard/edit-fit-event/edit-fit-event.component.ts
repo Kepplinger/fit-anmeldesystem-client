@@ -69,6 +69,7 @@ export class EditFitEventComponent implements OnInit {
     this.event.areas[index] = area;
 
     this.selectedArea = area;
+    console.log(this.event);
   }
 
   public addNewArea(): void {
@@ -99,13 +100,13 @@ export class EditFitEventComponent implements OnInit {
 
       if (response != null && response.event != null && response.events != null) {
         this.event = response.event;
-        this.toastr.info('Request finished', 'Event speichern!');
+        this.toastr.success('Request finished', 'Event wurde gespeichert!');
 
         if (this.event.registrationState.isCurrent) {
-          this.eventService.currentEvent.next(this.event);
+          this.eventService.currentEvent.next(EventHelper.clone(this.event));
         }
 
-        this.eventService.selectedEvent.next(this.event);
+        this.eventService.selectedEvent.next(EventHelper.clone(this.event));
         this.eventService.events.next(response.events);
         this.eventService.updateEvents();
       }

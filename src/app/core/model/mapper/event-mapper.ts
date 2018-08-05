@@ -41,7 +41,7 @@ export class EventMapper {
     let eventJson: any = event;
 
     for (let area of eventJson.areas) {
-      if (area.graphic != null && area.dataUrl == null) {
+      if (area.graphic != null && area.graphic.dataUrl == null) {
         area.graphic = null;
       }
     }

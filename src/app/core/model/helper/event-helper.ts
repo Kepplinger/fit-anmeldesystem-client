@@ -1,7 +1,6 @@
 import { Event } from '../event';
 import * as moment from 'moment';
 import { Area } from '../area';
-import { LocationHelper } from './location-helper';
 import { AreaHelper } from './area-helper';
 
 export class EventHelper {
@@ -31,16 +30,24 @@ export class EventHelper {
     if (clonedEvent != null) {
       delete clonedEvent.id;
 
+      if (clonedEvent.registrationState != null) {
+        delete clonedEvent.registrationState.id;
+      }
+
       if (clonedEvent.areas != null) {
         clonedEvent.areas.forEach(
           (area: Area) => {
             delete area.id;
+            delete area.timestamp;
             if (area.graphic != null) {
               delete area.graphic.id;
             }
 
             if (area.locations != null) {
-              area.locations.forEach(l => delete l.id);
+              area.locations.forEach(l => {
+                delete l.id;
+                delete l.timestamp;
+              });
             }
           });
       }
@@ -56,6 +63,6 @@ export class EventHelper {
       first.registrationStart.isSame(second.registrationStart, 'day') &&
       first.eventDate.isSame(second.eventDate, 'day') &&
       first.areas.every(a1 => second.areas.some(a2 => AreaHelper.compare(a1, a2))) &&
-      second.areas.every(a1 => second.areas.some(a2 => AreaHelper.compare(a1, a2)));
+      second.areas.every(a1 => first.areas.some(a2 => AreaHelper.compare(a1, a2)));
   }
 }
