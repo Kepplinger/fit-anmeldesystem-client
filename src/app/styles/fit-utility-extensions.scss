@@ -48,7 +48,6 @@
   margin-top: 12rem;
 }
 
-
 .flex-1 {
   flex: 1;
 }
@@ -123,8 +122,8 @@
   background-color: lighten($primary, 20%);
 }
 
-.bg-darken-primary {
-  background-color: darken($primary, 20%);
+.bg-black {
+  background-color: #35394b;
 }
 
 .object-fit-cover {
@@ -137,4 +136,18 @@
 
 .user-select-none {
   user-select: none;
+}
+
+.border-rounded {
+  border-radius: 0.5rem;
+}
+
+.border-rounded-b {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.border-rounded-t {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }

@@ -53,7 +53,6 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
       locale: 'de-at'
     });
 
-    // TODO event date incorrect
     $(this.dateTimePicker.nativeElement).on('change.datetimepicker', (event: any) => {
       this.dateChange.emit(event.date.add(1, 'day').startOf('day'));
     });
