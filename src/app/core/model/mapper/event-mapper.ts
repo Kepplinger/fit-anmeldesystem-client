@@ -9,9 +9,9 @@ export class EventMapper {
 
       event.id = eventJson.id;
       event.areas = eventJson.areas;
-      event.registrationStart = moment(eventJson.registrationStart);
-      event.registrationEnd = moment(eventJson.registrationEnd);
-      event.eventDate = moment(eventJson.eventDate);
+      event.registrationStart = moment.utc(eventJson.registrationStart).startOf('day');
+      event.registrationEnd = moment.utc(eventJson.registrationEnd).startOf('day');
+      event.eventDate = moment.utc(eventJson.eventDate).startOf('day');
       event.registrationState = eventJson.registrationState;
 
       return event;

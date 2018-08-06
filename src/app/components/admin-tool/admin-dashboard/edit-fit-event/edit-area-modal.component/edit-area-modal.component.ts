@@ -108,7 +108,6 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
 
   public updateArea(): void {
     this.areaChanged.emit(this.area);
-    console.log(this.area);
   }
 
   // noinspection JSMethodCanBeStatic

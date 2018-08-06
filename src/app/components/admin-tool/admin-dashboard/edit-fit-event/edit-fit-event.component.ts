@@ -69,7 +69,6 @@ export class EditFitEventComponent implements OnInit {
     this.event.areas[index] = area;
 
     this.selectedArea = area;
-    console.log(this.event);
   }
 
   public addNewArea(): void {

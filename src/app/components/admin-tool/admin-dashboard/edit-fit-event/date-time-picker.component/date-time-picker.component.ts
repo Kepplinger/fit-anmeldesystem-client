@@ -46,7 +46,7 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
 
   public ngOnInit() {
     $(this.dateTimePicker.nativeElement).datetimepicker({
-      date: this.date,
+      date: this.date.startOf('day'),
       minDate: this.minDate != null ? this.minDate : false,
       maxDate: this.maxDate != null ? this.maxDate : false,
       format: this.useTime ? '' : 'L',
@@ -55,7 +55,7 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
 
     // TODO event date incorrect
     $(this.dateTimePicker.nativeElement).on('change.datetimepicker', (event: any) => {
-      this.dateChange.emit(moment(event.date));
+      this.dateChange.emit(event.date.add(1, 'day').startOf('day'));
     });
   }
 }
