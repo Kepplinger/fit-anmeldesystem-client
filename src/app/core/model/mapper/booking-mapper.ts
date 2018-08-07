@@ -1,11 +1,11 @@
-import {Booking} from '../booking';
+import { Booking } from '../booking';
 import * as moment from 'moment';
-import {CompanyMapper} from './company-mapper';
-import {Contact} from '../contact';
-import {ArrayUtils} from '../../utils/array-utils';
-import {Resource} from '../resource';
-import {Branch} from '../branch';
-import {PresentationMapper} from './presentation-mapper';
+import { CompanyMapper } from './company-mapper';
+import { Contact } from '../contact';
+import { ArrayUtils } from '../../utils/array-utils';
+import { Resource } from '../resource';
+import { Branch } from '../branch';
+import { PresentationMapper } from './presentation-mapper';
 
 export class BookingMapper {
 
@@ -23,12 +23,28 @@ export class BookingMapper {
       booking.location = bookingJson.location;
       booking.contact = bookingJson.contact;
       booking.fitPackage = bookingJson.fitPackage;
-      booking.resources = bookingJson.resources.map(r => r.resource);
+
+      booking.resources = bookingJson.resources.map(r => {
+        if (r.resource != null) {
+          return r.resource;
+        } else {
+          return r;
+        }
+      });
+
       booking.additionalInfo = bookingJson.additionalInfo;
       booking.representatives = bookingJson.representatives;
       booking.providesThesis = bookingJson.providesThesis;
       booking.providesSummerJob = bookingJson.providesSummerJob;
-      booking.branches = bookingJson.branches.map(b => b.branch);
+
+      booking.branches = bookingJson.branches.map(b => {
+        if (b.branch != null) {
+          return b.branch;
+        } else {
+          return b;
+        }
+      });
+
       booking.companyDescription = bookingJson.companyDescription;
       booking.isAccepted = bookingJson.isAccepted;
       booking.creationDate = moment(bookingJson.creationDate);
@@ -37,8 +53,21 @@ export class BookingMapper {
       booking.homepage = bookingJson.homepage;
       booking.email = bookingJson.email;
       booking.phoneNumber = bookingJson.phoneNumber;
-      booking.establishmentsAut = bookingJson.establishmentsAut.split(';').filter(e => e !== '');
-      booking.establishmentsInt = bookingJson.establishmentsInt.split(';').filter(e => e !== '');
+
+      // noinspection SuspiciousInstanceOfGuard
+      if (!(bookingJson.establishmentsAut instanceof Array)) {
+        booking.establishmentsAut = bookingJson.establishmentsAut.split(';').filter(e => e !== '');
+      } else {
+        booking.establishmentsAut = bookingJson.establishmentsAut;
+      }
+
+      // noinspection SuspiciousInstanceOfGuard
+      if (!(bookingJson.establishmentsInt instanceof Array)) {
+        booking.establishmentsInt = bookingJson.establishmentsInt.split(';').filter(e => e !== '');
+      } else {
+        booking.establishmentsInt = bookingJson.establishmentsInt;
+      }
+
       booking.establishmentsCountAut = bookingJson.establishmentsCountAut;
       booking.establishmentsCountInt = bookingJson.establishmentsCountInt;
 

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BookingTransferService } from '../../../../core/app-services/transfer-services/booking-transfer.service';
 import { BookingDAO } from '../../../../core/dao/booking.dao';
 import { Booking } from '../../../../core/model/booking';
 import { EventService } from '../../../../core/app-services/event.service';
@@ -11,6 +10,8 @@ import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
+import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/member-login-response';
 
 @Component({
   selector: 'fit-booking-list',
@@ -39,7 +40,7 @@ export class BookingListComponent implements OnInit {
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private router: Router,
-                     private bookingTransferService: BookingTransferService) {
+                     private accountManagementService: AccountManagementService) {
     this.imageDownloadLink = this.appConfig.serverURL + '/media';
   }
 
@@ -50,7 +51,7 @@ export class BookingListComponent implements OnInit {
   }
 
   public routeToBookingDetail(booking: Booking): void {
-    this.bookingTransferService.addBooking(booking);
+    this.accountManagementService.loginMember({adminBooking: booking} as MemberLoginResponse, true);
     this.router.navigate(['/admin-tool', 'anmeldung', booking.id]);
   }
 

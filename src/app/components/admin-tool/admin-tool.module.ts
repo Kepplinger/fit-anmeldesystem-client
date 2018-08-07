@@ -14,7 +14,6 @@ import { DateTimePickerComponent } from './admin-dashboard/edit-fit-event/date-t
 import { EditAreaModalComponent } from './admin-dashboard/edit-fit-event/edit-area-modal.component/edit-area-modal.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
-import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
@@ -22,9 +21,6 @@ import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-te
 import { BookingCsvExportComponent } from './admin-dashboard/csv-export/booking-csv-export/booking-csv-export.component';
 import { PapaParseModule } from 'ngx-papaparse';
 import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
-import {
-  LocationPickerModalComponent
-} from './admin-dashboard/booking-list/booking-details/location-picker-modal/location-picker-modal.component';
 import { CsvCreatorService } from './services/csv-creator.service';
 import { SortService } from '../../core/app-services/sort-service.service';
 import { SortableColumnComponent } from '../shared-components/sortable-column/sortable-column.component';
@@ -32,7 +28,6 @@ import { SortableTableDirective } from '../shared-components/sortable-table/sort
 import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
 import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
 import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
-import { BookingTransferService } from '../../core/app-services/transfer-services/booking-transfer.service';
 import { GraduateTransferService } from '../../core/app-services/transfer-services/graduate-transfer.service';
 import { CompanyTransferService } from '../../core/app-services/transfer-services/company-transfer.service';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
@@ -42,6 +37,13 @@ import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.comp
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
+import { FitRegistrationComponent } from '../fit-registration/fit-registration.component';
+import { GeneralDataComponent } from '../fit-registration/registration-steps/1-general-data/general-data.component';
+import { DetailedDataComponent } from '../fit-registration/registration-steps/2-detailed-data/detailed-data.component';
+import { FitAppearanceComponent } from '../fit-registration/registration-steps/3-fit-appearance/fit-appearance.component';
+import { ContactAndRemarksComponent } from '../fit-registration/registration-steps/5-contact-and-remarks/contact-and-remarks.component';
+import { PackagesAndLocationComponent } from '../fit-registration/registration-steps/4-packages-and-locations/packages-and-location.component';
+import { LocationPickerModalComponent } from '../fit-registration/registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
 
 @NgModule({
   imports: [
@@ -64,7 +66,6 @@ import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/crea
     AdminSettingsComponent,
     AcceptPresentationsComponent,
     BookingListComponent,
-    BookingDetailsComponent,
     GraduateListComponent,
     GraduateDetailsComponent,
     CompanyListComponent,
@@ -80,14 +81,19 @@ import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/crea
     MailTemplatesComponent,
     ChangelogComponent,
     VerifyCompaniesComponent,
-    LocationPickerModalComponent,
     SortableColumnComponent,
-    SortableTableDirective
+    SortableTableDirective,
+    LocationPickerModalComponent,
+    FitRegistrationComponent,
+    GeneralDataComponent,
+    DetailedDataComponent,
+    FitAppearanceComponent,
+    PackagesAndLocationComponent,
+    ContactAndRemarksComponent
   ],
   providers: [
     CsvCreatorService,
     SortService,
-    BookingTransferService,
     GraduateTransferService,
     CompanyTransferService,
     CompanyTagService

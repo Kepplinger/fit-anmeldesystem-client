@@ -58,7 +58,6 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   }
 
   public updateCompanies(): void {
-    console.log(this.tags);
     this.companies = this.csvCreatorService.getFilteredCompanies(this.tags);
   }
 

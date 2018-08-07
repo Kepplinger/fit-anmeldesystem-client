@@ -9,6 +9,7 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EventService } from '../../../../core/app-services/event.service';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 import { EventHelper } from '../../../../core/model/helper/event-helper';
+import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
 
 declare let $: any;
 
@@ -93,21 +94,35 @@ export class EditFitEventComponent implements OnInit {
 
   public async persistEvent(): Promise<void> {
     if (this.validateEvent()) {
-      this.isLoading = true;
-      let response = await this.eventDAO.persistEvent(this.event);
-      this.isLoading = false;
 
-      if (response != null && response.event != null && response.events != null) {
-        this.event = response.event;
-        this.toastr.success('Request finished', 'Event wurde gespeichert!');
+      let validDates = this.validateDates();
 
-        if (this.event.registrationState.isCurrent) {
-          this.eventService.currentEvent.next(EventHelper.clone(this.event));
+      if (!validDates) {
+        validDates = await this.modalWindow.confirm(
+          `<h3>Die Daten sind nicht korrekt</h3>`,
+          `Der Registrierungszeitraum ist entweder <b>kein gültiger Zeitruam</b>, oder findet nicht vor dem FIT statt.
+          Wollen Sie trotzdem fortfahren?`,
+          ModalTemplateCreatorHelper.getBasicModalOptions('Trotzdem fortfahren', 'Abbrechen')
+        );
+      }
+
+      if (validDates) {
+        this.isLoading = true;
+        let response = await this.eventDAO.persistEvent(this.event);
+        this.isLoading = false;
+
+        if (response != null && response.event != null && response.events != null) {
+          this.event = response.event;
+          this.toastr.success('Request finished', 'Event wurde gespeichert!');
+
+          if (this.event.registrationState.isCurrent) {
+            this.eventService.currentEvent.next(EventHelper.clone(this.event));
+          }
+
+          this.eventService.selectedEvent.next(EventHelper.clone(this.event));
+          this.eventService.events.next(response.events);
+          this.eventService.updateEvents();
         }
-
-        this.eventService.selectedEvent.next(EventHelper.clone(this.event));
-        this.eventService.events.next(response.events);
-        this.eventService.updateEvents();
       }
     } else {
       this.toastr.error(
@@ -135,5 +150,10 @@ export class EditFitEventComponent implements OnInit {
     }
 
     return true;
+  }
+
+  private validateDates(): boolean {
+    return this.event.eventDate.isSameOrAfter(this.event.registrationEnd, 'day') &&
+      this.event.registrationEnd.isSameOrAfter(this.event.registrationStart, 'day');
   }
 }

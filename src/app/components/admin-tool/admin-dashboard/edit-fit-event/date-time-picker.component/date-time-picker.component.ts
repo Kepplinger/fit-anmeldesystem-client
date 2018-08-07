@@ -9,19 +9,13 @@ declare let $: any;
   templateUrl: 'date-time-picker.component.html',
   styleUrls: ['date-time-picker.component.scss']
 })
-export class DateTimePickerComponent implements OnInit, OnChanges {
+export class DateTimePickerComponent implements OnInit {
 
   @ViewChild('dateTimePicker')
   public dateTimePicker: ElementRef;
 
   @Input()
   public useTime: boolean = false;
-
-  @Input()
-  public minDate: Moment = null;
-
-  @Input()
-  public maxDate: Moment = null;
 
   @Input()
   public placeholder: string = '';
@@ -34,22 +28,10 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
 
   public uniqueId: string = Math.random().toString(36).substr(2, 9);
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['minDate'] != null) {
-    //   $(this.dateTimePicker.nativeElement).datetimepicker('minDate', this.minDate);
-    // }
-    //
-    // if (changes['maxDate'] != null) {
-    //   $(this.dateTimePicker.nativeElement).datetimepicker('maxDate', this.maxDate);
-    // }
-  }
-
   public ngOnInit() {
     $(this.dateTimePicker.nativeElement).datetimepicker({
       date: this.date.startOf('day'),
-      minDate: this.minDate != null ? this.minDate : false,
-      maxDate: this.maxDate != null ? this.maxDate : false,
-      format: this.useTime ? '' : 'L',
+      format: this.useTime ? '' : 'DD. MMMM YYYY',
       locale: 'de-at'
     });
 

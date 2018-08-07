@@ -48,6 +48,7 @@ export class FitRegistrationComponent implements OnInit {
 
   public isFormTouched: boolean = false;
   public isEditMode: boolean;
+  public isAdminMode: boolean;
   public isBookingTransmitting: boolean = false;
 
   private booking: Booking = new Booking();
@@ -79,6 +80,7 @@ export class FitRegistrationComponent implements OnInit {
 
     this.booking = this.accountManagementService.booking;
     this.isEditMode = this.accountManagementService.currentBookingExists;
+    this.isAdminMode = this.accountManagementService.isAdminMode;
 
     this.fitFormGroup = fb.group({
       generalData: fb.group({
@@ -129,7 +131,7 @@ export class FitRegistrationComponent implements OnInit {
         fitContactEmail: [this.booking.company.contact.email, [Validators.required, Validators.email]],
         fitContactPhoneNumber: [this.booking.company.contact.phoneNumber, Validators.required],
         remarks: [''],
-        termsAccepted: [this.isEditMode, Validators.requiredTrue]
+        termsAccepted: [this.isEditMode || this.isAdminMode, Validators.requiredTrue]
       })
     });
   }
@@ -140,7 +142,7 @@ export class FitRegistrationComponent implements OnInit {
 
     let useOldBooking: boolean = false;
 
-    if (this.booking.id != null && !this.isEditMode) {
+    if (this.booking.id != null && !this.isEditMode && !this.isAdminMode) {
       useOldBooking = await this.modalWindowService.confirm(
         'Anmeldung von letzten Mal übernehemen?',
         'Wollen Sie die Daten von Ihrer letzten Anmeldung beim FIT als Vorlage nehmen?',
@@ -152,11 +154,12 @@ export class FitRegistrationComponent implements OnInit {
       );
     }
 
-    if (this.isEditMode || useOldBooking) {
+    if (useOldBooking || this.isAdminMode || this.isEditMode) {
+      console.log('yeah!!');
       this.fillFormWithBooking();
     }
 
-    if (this.isEditMode) {
+    if (this.isEditMode || this.isAdminMode) {
       for (let step of this.steps) {
         this.validateStepWhenTrue(step.step);
         step.isVisited = true;
@@ -278,7 +281,7 @@ export class FitRegistrationComponent implements OnInit {
       if (submitBooking) {
         let booking: Booking = this.getBookingFromForm();
 
-        if (this.isEditMode) {
+        if (this.isEditMode || this.isAdminMode) {
           let initialBooking = this.accountManagementService.booking;
           booking.id = initialBooking.id;
           booking.timestamp = initialBooking.timestamp;
@@ -294,10 +297,12 @@ export class FitRegistrationComponent implements OnInit {
         await this.bookingDAO.persistBooking(booking);
         this.isBookingTransmitting = false;
 
-        if (this.isEditMode) {
-          this.router.navigateByUrl('fit/änderung-erfolgreich');
+        if (this.isAdminMode) {
+          this.router.navigate(['/admin-tool', 'anmeldungen']);
+        } else if (this.isEditMode || this.isAdminMode) {
+          this.router.navigate(['/fit', 'änderung-erfolgreich']);
         } else {
-          this.router.navigateByUrl('fit/anmeldung-erfolgreich');
+          this.router.navigate(['/fit', 'anmeldung-erfolgreich']);
         }
       }
     } else {

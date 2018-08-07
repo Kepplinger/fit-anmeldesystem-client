@@ -6,7 +6,6 @@ import { BookingListComponent } from './admin-dashboard/booking-list/booking-lis
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { EditFitEventComponent } from './admin-dashboard/edit-fit-event/edit-fit-event.component';
 import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
-import { BookingDetailsComponent } from './admin-dashboard/booking-list/booking-details/booking-details.component';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
 import { BookingCsvExportComponent } from './admin-dashboard/csv-export/booking-csv-export/booking-csv-export.component';
@@ -20,7 +19,7 @@ import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.comp
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
-import { CanDeactivateGuard } from '../../core/guards/can-deactivate-guard.service';
+import { FitRegistrationComponent } from '../fit-registration/fit-registration.component';
 
 export const routes: Routes = [
   {
@@ -63,7 +62,7 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: BookingDetailsComponent,
+            component: FitRegistrationComponent,
             outlet: 'adminOutlet'
           }
         ]

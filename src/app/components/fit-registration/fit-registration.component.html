@@ -8,12 +8,26 @@
 </div>
 
 <div class="small-container my-4">
+
   <div class="mb-3"
        *ngIf="isEditMode">
     <div class="alert alert-info alert-dismissible" role="alert">
-      <div class="text-bold">Bearbeitungs-Modus!</div>
+      <div class="text-bold">
+        <i class="fa fa-pencil"></i>
+        Bearbeitungs-Modus!
+      </div>
       <div>Sie befinden sich im Bearbeitungs-Modus. Die Anmeldung wurde bereits eingereicht, und kann hier im nachhinen
         überarbeitet bzw. ergäntzt werden.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3"
+       *ngIf="isAdminMode">
+    <div class="alert alert-info alert-dismissible" role="alert">
+      <div class="text-bold">
+        <i class="fa fa-user-secret"></i>
+        Admin-Modus
       </div>
     </div>
   </div>
@@ -134,7 +148,7 @@
             (click)="submitBooking()">
       <span *ngIf="!isEditMode">Anmelden</span>
       <span *ngIf="isEditMode">Speichern</span>
-      <i class="fa fa-arrow-right"></i>
+      <i class="fa fa-arrow-right ml-1"></i>
     </button>
   </div>
 

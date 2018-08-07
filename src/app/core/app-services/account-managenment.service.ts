@@ -14,6 +14,7 @@ export class AccountManagementService {
   public graduate: Graduate;
 
   public currentBookingExists: boolean;
+  public isAdminMode: boolean = false;
   public isGraduate: boolean = false;
 
   public bookingFilled: Subject<void> = new Subject<void>();
@@ -22,6 +23,7 @@ export class AccountManagementService {
     this.graduate = JSON.parse(sessionStorage.getItem('graduate'));
     this.booking = JSON.parse(sessionStorage.getItem('booking'));
     this.currentBookingExists = JSON.parse(sessionStorage.getItem('currentBookingExists'));
+    this.isAdminMode = JSON.parse(sessionStorage.getItem('isAdminMode'));
     this.isGraduate = JSON.parse(sessionStorage.getItem('isGraduate'));
   }
 
@@ -38,6 +40,9 @@ export class AccountManagementService {
     } else if (response.company != null) {
       this.setCompanyWithoutBooking(CompanyMapper.mapJsonToCompany(response.company));
       return true;
+    } else if (response.adminBooking != null) {
+      this.setAdminBooking(response.adminBooking);
+      return true;
     }
 
     return false;
@@ -53,6 +58,7 @@ export class AccountManagementService {
   public setGraduate(graduate: Graduate): void {
     this.graduate = graduate;
     this.isGraduate = true;
+    this.isAdminMode = false;
     this.updateSessionStorage();
   }
 
@@ -60,6 +66,7 @@ export class AccountManagementService {
     this.booking = booking;
     this.currentBookingExists = bookingExists;
     this.isGraduate = false;
+    this.isAdminMode = false;
     this.updateSessionStorage();
   }
 
@@ -68,6 +75,16 @@ export class AccountManagementService {
     this.booking.company = company;
     this.currentBookingExists = false;
     this.isGraduate = false;
+    this.isAdminMode = false;
+    this.updateSessionStorage();
+  }
+
+  public setAdminBooking(booking: Booking): void {
+    console.log(booking);
+    this.booking = booking;
+    this.currentBookingExists = false;
+    this.isGraduate = false;
+    this.isAdminMode = true;
     this.updateSessionStorage();
   }
 
@@ -97,6 +114,7 @@ export class AccountManagementService {
     sessionStorage.setItem('graduate', JSON.stringify(this.graduate));
     sessionStorage.setItem('booking', JSON.stringify(this.booking));
     sessionStorage.setItem('currentBookingExists', JSON.stringify(this.currentBookingExists));
+    sessionStorage.setItem('isAdminMode', JSON.stringify(this.isAdminMode));
     sessionStorage.setItem('isGraduate', JSON.stringify(this.isGraduate));
   }
 }

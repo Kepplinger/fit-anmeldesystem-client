@@ -13,10 +13,7 @@ import { SubmissionSuccessComponent } from './submission-success/submission-succ
 import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { SharedModule } from '../shared-components/shared.module';
-import {
-  LocationPickerModalComponent
-} from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
-import { CodeLostComponent } from '../shared-components/code-lost/code-lost.component';
+import { LocationPickerModalComponent } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { UpdateSuccessComponent } from './update-success/update-success.component';
 

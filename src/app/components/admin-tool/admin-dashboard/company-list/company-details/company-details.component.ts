@@ -37,7 +37,6 @@ export class CompanyDetailsComponent implements OnInit {
       (params: Params) => {
         if (params.id != null) {
           this.company = this.companyTransferService.getCompany(Number(params.id));
-          console.log(this.company);
           if (this.company == null) {
             this.router.navigate(['/admin-tool', 'firmen']);
           }
@@ -54,8 +53,6 @@ export class CompanyDetailsComponent implements OnInit {
   public async updateCompany(): Promise<void> {
     this.company.branches = this.selectedBranches.filter(b => b.selected)
       .map(b => new CompanyBranch(this.company.id, b.branch.id));
-
-    console.log(this.company.branches);
 
     this.company = await this.companyDAO.updateCompany(this.company);
     this.companyTransferService.addCompany(this.company);
