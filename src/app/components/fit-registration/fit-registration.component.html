@@ -11,7 +11,7 @@
 
   <div class="mb-3"
        *ngIf="isEditMode">
-    <div class="alert alert-info alert-dismissible" role="alert">
+    <div class="alert alert-info" role="alert">
       <div class="text-bold">
         <i class="fa fa-pencil"></i>
         Bearbeitungs-Modus!
@@ -24,10 +24,41 @@
 
   <div class="mb-3"
        *ngIf="isAdminMode">
-    <div class="alert alert-info alert-dismissible" role="alert">
-      <div class="text-bold">
+    <div class="alert alert-info d-flex" role="alert">
+      <div class="text-bold my-auto">
         <i class="fa fa-user-secret"></i>
         Admin-Modus
+      </div>
+      <div class="ml-auto">
+
+        <div [ngSwitch]="booking.isAccepted">
+          <div *ngSwitchCase="IsAccepted.Pending" class="d-flex">
+            <span class="text-muted my-auto">Anmeldung noch ausstehend: </span>
+            <button class="btn btn-sm btn-success mx-2"
+                    (click)="acceptBooking()">
+              <i class="fa fa-check"></i>
+              Annehmen
+            </button>
+            <button class="btn btn-sm btn-danger"
+                    (click)="rejectBooking()">
+              <i class="fa fa-times"></i>
+              Ablehnen
+            </button>
+          </div>
+          <div *ngSwitchCase="IsAccepted.Accepted" class="d-flex">
+            <div class="text-muted mr-2">Status:</div>
+            <div class="text-success text-bold">
+              <i class="fa fa-check"></i> Akzeptiert
+            </div>
+          </div>
+          <div *ngSwitchCase="IsAccepted.Rejected" class="d-flex">
+            <div class="text-muted mr-2">Status:</div>
+            <div class="text-danger text-bold">
+              <i class="fa fa-times"></i> Abgelehnt
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

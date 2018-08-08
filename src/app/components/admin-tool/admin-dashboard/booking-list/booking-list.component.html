@@ -5,7 +5,7 @@
 
     <div class="flex-1"></div>
     <a class="admin-tool-fancy-btn my-2 mr-2"
-            [routerLink]="['/admin-tool', 'csv-export', 'booking']">
+       [routerLink]="['/admin-tool', 'csv-export', 'booking']">
       <i class="fa fa-file-excel-o text-success mr-1"></i>
       CSV-Export
     </a>
@@ -102,7 +102,19 @@
       <td>{{booking.company?.contact?.email}}</td>
       <td>{{booking.fitPackage?.name}}</td>
       <td>Groß</td>
-      <td>Austehend</td>
+      <td>
+        <div [ngSwitch]="booking.isAccepted">
+          <div *ngSwitchCase="IsAccepted.Pending" class="text-muted">
+            <i class="fa fa-clock-o"></i> Ausstehend
+          </div>
+          <div *ngSwitchCase="IsAccepted.Accepted" class="text-success">
+            <i class="fa fa-check"></i> Akzeptiert
+          </div>
+          <div *ngSwitchCase="IsAccepted.Rejected" class="text-danger">
+            <i class="fa fa-times"></i> Abgelehnt
+          </div>
+        </div>
+      </td>
       <td>
         <div class="icon-button"
              (click)="routeToBookingDetail(booking)">

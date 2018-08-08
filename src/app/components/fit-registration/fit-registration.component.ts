@@ -22,6 +22,7 @@ import { DataFile } from '../../core/model/data-file';
 import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
 import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
 import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
+import { IsAccepted } from '../../core/model/enums/is-accepted';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -39,6 +40,7 @@ export class FitRegistrationComponent implements OnInit {
 
   // necessary for template-usage
   public Step = FitRegistrationStep;
+  public IsAccepted = IsAccepted;
 
   public currentStep: FitRegistrationStep;
   public fitFormGroup: FormGroup;
@@ -227,6 +229,20 @@ export class FitRegistrationComponent implements OnInit {
     return !step.isValid && step.wasValidated;
   }
 
+  public async acceptBooking(): Promise<void> {
+    let booking = await this.bookingDAO.acceptBooking(this.booking, IsAccepted.Accepted);
+    this.booking.isAccepted = booking.isAccepted;
+    this.booking.timestamp = booking.timestamp;
+    this.accountManagementService.setAdminBooking(this.booking);
+  }
+
+  public async rejectBooking(): Promise<void> {
+    let booking = await this.bookingDAO.acceptBooking(this.booking, IsAccepted.Rejected);
+    this.booking.isAccepted = booking.isAccepted;
+    this.booking.timestamp = booking.timestamp;
+    this.accountManagementService.setAdminBooking(this.booking);
+  }
+
   public getProgress(): number {
 
     const progressFactor: number = 15;
@@ -287,6 +303,7 @@ export class FitRegistrationComponent implements OnInit {
           booking.timestamp = initialBooking.timestamp;
           booking.contact.id = initialBooking.contact.id;
           booking.contact.timestamp = initialBooking.contact.timestamp;
+          booking.isAccepted = initialBooking.isAccepted;
           if (this.booking.presentation != null) {
             booking.presentation.id = initialBooking.presentation.id;
             booking.presentation.timestamp = initialBooking.presentation.timestamp;
@@ -341,7 +358,7 @@ export class FitRegistrationComponent implements OnInit {
       this.fitFormGroup.value.detailedData.establishmentsInt,
       this.fitFormGroup.value.detailedData.establishmentsCountAut,
       this.fitFormGroup.value.detailedData.establishmentsAut,
-      false
+      IsAccepted.Pending
     );
   }
 

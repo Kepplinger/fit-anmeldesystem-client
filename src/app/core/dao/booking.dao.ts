@@ -6,6 +6,7 @@ import { Booking } from '../model/booking';
 import { Event } from '../model/event';
 import { BookingMapper } from '../model/mapper/booking-mapper';
 import { map } from 'rxjs/operators';
+import { IsAccepted } from '../model/enums/is-accepted';
 
 @Injectable()
 export class BookingDAO {
@@ -36,6 +37,11 @@ export class BookingDAO {
     let json: any = BookingMapper.mapBookingToJson(booking);
 
     await this.http.post<void>(this.appConfig.serverURL + '/booking', json)
+      .toPromise();
+  }
+
+  public async acceptBooking(booking: Booking, status: IsAccepted): Promise<Booking> {
+    return this.http.put<Booking>(this.appConfig.serverURL + '/booking/accept/' + booking.id, status)
       .toPromise();
   }
 }

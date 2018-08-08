@@ -12,6 +12,7 @@ import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/member-login-response';
+import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 
 @Component({
   selector: 'fit-booking-list',
@@ -19,6 +20,9 @@ import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/me
   styleUrls: ['./booking-list.component.scss']
 })
 export class BookingListComponent implements OnInit {
+
+  // for template use
+  public IsAccepted = IsAccepted;
 
   @Output()
   public sorted = new EventEmitter();

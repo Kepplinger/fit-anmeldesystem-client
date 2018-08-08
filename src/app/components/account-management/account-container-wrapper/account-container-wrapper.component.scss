@@ -13,23 +13,25 @@
   overflow: hidden;
 }
 
-.school-logo {
-  width: 20rem;
-}
-
-.card {
-  border: none;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.7);
-
-  .card-header {
-    background-color: white;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+#account-container {
+  .school-logo {
+    width: 20rem;
   }
 
-  .btn:disabled {
-    opacity: 1;
-    filter: brightness(80%);
+  .card {
+    border: none;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.7);
+
+    .card-header {
+      background-color: white;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+
+    .btn:disabled {
+      opacity: 1;
+      filter: brightness(80%);
+    }
   }
 }

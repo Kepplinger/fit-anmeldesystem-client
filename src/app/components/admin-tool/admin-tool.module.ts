@@ -44,6 +44,7 @@ import { FitAppearanceComponent } from '../fit-registration/registration-steps/3
 import { ContactAndRemarksComponent } from '../fit-registration/registration-steps/5-contact-and-remarks/contact-and-remarks.component';
 import { PackagesAndLocationComponent } from '../fit-registration/registration-steps/4-packages-and-locations/packages-and-location.component';
 import { LocationPickerModalComponent } from '../fit-registration/registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
+import { FitRegistrationModule } from '../fit-registration/fit-registration.module';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { LocationPickerModalComponent } from '../fit-registration/registration-s
     ReactiveFormsModule,
     PapaParseModule,
     SharedModule,
+    FitRegistrationModule,
   ],
   declarations: [
     AdminToolComponent,
@@ -82,14 +84,7 @@ import { LocationPickerModalComponent } from '../fit-registration/registration-s
     ChangelogComponent,
     VerifyCompaniesComponent,
     SortableColumnComponent,
-    SortableTableDirective,
-    LocationPickerModalComponent,
-    FitRegistrationComponent,
-    GeneralDataComponent,
-    DetailedDataComponent,
-    FitAppearanceComponent,
-    PackagesAndLocationComponent,
-    ContactAndRemarksComponent
+    SortableTableDirective
   ],
   providers: [
     CsvCreatorService,

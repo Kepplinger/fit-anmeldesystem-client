@@ -9,6 +9,7 @@ import { Package } from './package';
 import { Moment } from 'moment';
 import { Contact } from './contact';
 import { DataFile } from './data-file';
+import { IsAccepted } from './enums/is-accepted';
 
 export class Booking {
   public id: number;
@@ -24,7 +25,7 @@ export class Booking {
   public branches: Branch[];
   public resources: Resource[];
 
-  public isAccepted: boolean;
+  public isAccepted: IsAccepted;
   public remarks: string;
   public additionalInfo: string;
   public companyDescription: string;
@@ -67,7 +68,7 @@ export class Booking {
                      establishmentsInt?: string[],
                      establishmentsCountAut?: number,
                      establishmentsAut?: string[],
-                     isAccepted?: boolean,
+                     isAccepted?: IsAccepted,
                      creationDate?: Moment,
                      id?: number) {
     this.id = id;
