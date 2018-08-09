@@ -283,7 +283,6 @@ export class FitRegistrationComponent implements OnInit {
         noLogo: this.fitFormGroup.get('detailedData').value.logo == null,
         // noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
         //   .representatives.some(r => r.image.name === 'Bild auswählen ...'),
-        noRepresentativeLogos: false,
         noLocation: this.fitFormGroup.get('packagesAndLocation').value.location == null
       } as FormWarnings;
 
@@ -307,6 +306,7 @@ export class FitRegistrationComponent implements OnInit {
           if (this.booking.presentation != null) {
             booking.presentation.id = initialBooking.presentation.id;
             booking.presentation.timestamp = initialBooking.presentation.timestamp;
+            booking.presentation.roomNumber = initialBooking.presentation.roomNumber;
           }
         }
 

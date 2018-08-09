@@ -86,7 +86,7 @@ export class AcceptPresentationsComponent implements OnInit {
       presentation.presentation.roomNumber,
       ModalTemplateCreatorHelper.getBasicModalOptions('Speichern', 'Abbrechen')
     );
-    await this.presentationDAO.updatePresentation(presentation.presentation);
+    presentation.presentation = await this.presentationDAO.updatePresentation(presentation.presentation);
     this.toastr.success('Der Raum wurde erfolgreich geändert.', 'Raum geändert!');
   }
 }

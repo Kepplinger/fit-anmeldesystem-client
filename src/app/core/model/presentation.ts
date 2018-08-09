@@ -1,6 +1,6 @@
-import { Branch } from './branch';
 import { DataFile } from './data-file';
 import { IsAccepted } from './enums/is-accepted';
+import { Branch } from './branch';
 
 export class Presentation {
   public id: number;

@@ -2,12 +2,12 @@ import { AppConfig } from '../app-config/app-config.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+
 import { PresentationMapper } from '../model/mapper/presentation-mapper';
 import { CompanyPresentation } from '../app-helper/helper-model/company-presentation';
 import { CompanyMapper } from '../model/mapper/company-mapper';
 import { Presentation } from '../model/presentation';
 import { IsAccepted } from '../model/enums/is-accepted';
-import { subscribeToPromise } from 'rxjs/internal-compatibility';
 
 @Injectable()
 export class PresentationDAO {
