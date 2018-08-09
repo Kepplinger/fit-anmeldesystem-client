@@ -5,3 +5,12 @@
   width: 100%;
   cursor:pointer;
 }
+
+.pending-tab {
+  cursor: pointer;
+
+  .active {
+    color: $primary;
+    text-decoration: underline;
+  }
+}

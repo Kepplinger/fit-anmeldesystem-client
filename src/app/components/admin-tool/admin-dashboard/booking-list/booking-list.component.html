@@ -90,7 +90,9 @@
         <fit-sortable-column [sortColumnName]="'fitPackage.name'" [sortDirection]="''">Paket</fit-sortable-column>
       </th>
       <th>Abs-Mitglied</th>
-      <th>Status</th>
+      <th class="cursor-pointer p-0">
+        <fit-sortable-column [sortColumnName]="'isAccepted'" [sortDirection]="''">Status</fit-sortable-column>
+      </th>
       <th></th>
     </tr>
     </thead>

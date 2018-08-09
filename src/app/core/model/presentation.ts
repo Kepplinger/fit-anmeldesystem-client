@@ -1,5 +1,6 @@
 import { Branch } from './branch';
 import { DataFile } from './data-file';
+import { IsAccepted } from './enums/is-accepted';
 
 export class Presentation {
   public id: number;
@@ -8,14 +9,14 @@ export class Presentation {
   public title: string;
   public description: string;
   public roomNumber: string;
-  public isAccepted: boolean;
+  public isAccepted: IsAccepted;
   public file: DataFile;
   public branches: Branch[] = [];
 
   public constructor(roomNumber?: string,
                      title?: string,
                      description?: string,
-                     isAccepted?: boolean,
+                     isAccepted?: IsAccepted,
                      file?: DataFile,
                      branches?: Branch[],
                      id?: number) {

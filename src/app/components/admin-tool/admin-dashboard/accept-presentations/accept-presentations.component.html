@@ -1,93 +1,71 @@
 <div class="m-5">
-    <!--pending companies-->
-    <div class="p-3">
 
-      <h2 class="mb-4">Nicht bestätigte Vorträge</h2>
+  <!--pending companies-->
+  <div class="p-3">
 
-      <table class="table">
-        <tr>
-          <th>Firmenname</th>
-          <th>Vortrag</th>
-          <th>Beschreibung</th>
-          <th></th>
-          <th></th>
-        </tr>
-
-        <tr *ngFor="let lecture of listOfLectures" class="bg-warning">
-          <td class="text-bold align-middle">{{lecture.companyName}}</td>
-          <td>
-            {{lecture.presentationTitle}}
-          </td>
-          <td>
-            {{lecture.presentationDescr}}
-          </td>
-          <td class="align-middle d-flex flex-column">
-            <button class="btn btn-sm btn-success buttonwidth"
-                    (click)="verifyLecture(lecture)">
-              <i class="fa fa-fw fa-check"></i>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-sm btn-danger buttonwidth"
-                    data-toggle="modal" data-target="#myModal"
-                    (click)="setChosenEntry(lecture)">
-              <i class="fa fa-fw fa-times"></i>
-            </button>
-          </td>
-        </tr>
-
-      </table>
-
-      <h2 class="mb-4">Bestätigte Vorträge</h2>
-
-      <table class="table">
-        <tr>
-          <th>Firmenname</th>
-          <th>Vortrag</th>
-          <th>Beschreibung</th>
-          <th></th>
-        </tr>
-
-        <tr *ngFor="let entry of listOfAccepted" class="bg-success">
-          <td class="text-bold align-middle">{{entry.companyName}}</td>
-          <td>
-            {{entry.presentationTitle}}
-          </td>
-          <td>
-            {{entry.presentationDescr}}
-          </td>
-          <td>
-            <button class="btn btn-sm btn-danger buttonwidth"
-                    (click)="kickLecture(entry)">
-              <i class="fa fa-fw fa-times"></i>
-            </button>
-          </td>
-        </tr>
-
-      </table>
-
-
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Bestätigen</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Wollen Sie den ausgewählten Vortrag der Firma {{chosenEntry.companyName}} wirklich löschen?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-              <button type="button" class="btn btn-danger" (click)="removeLecture(this.chosenEntry)">Akzeptieren</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
+    <!--header-->
+    <div [ngSwitch]="displayedList"
+         class="mb-4">
+      <h2 *ngSwitchCase="IsAccepted.Accepted">Bestätigte Vorträge</h2>
+      <h2 *ngSwitchCase="IsAccepted.Pending">Offene Vorträge</h2>
+      <h2 *ngSwitchCase="IsAccepted.Rejected">Abgelehnte Vorträge</h2>
     </div>
+
+    <!--tabs-->
+    <ul class="nav nav-tabs">
+      <li class="nav-item pending-tab">
+        <a class="nav-link"
+           [ngClass]="{'active': displayedList == IsAccepted.Accepted}"
+           (click)="displayedList = IsAccepted.Accepted">
+          <i class="fa fa-check text-success mr-1"></i>Bestätigte Vorträge
+        </a>
+      </li>
+      <li class="nav-item pending-tab">
+        <a class="nav-link"
+           [ngClass]="{'active': displayedList == IsAccepted.Pending}"
+           (click)="displayedList = IsAccepted.Pending">
+          <i class="fa fa-clock-o text-muted mr-1"></i>Offene Vorträge
+        </a>
+      </li>
+      <li class="nav-item pending-tab">
+        <a class="nav-link"
+           [ngClass]="{'active': displayedList == IsAccepted.Rejected}"
+           (click)="displayedList = IsAccepted.Rejected">
+          <i class="fa fa-times text-danger mr-1"></i>Abgelehnte Vorträge
+        </a>
+      </li>
+    </ul>
+
+    <!--list-->
+    <table class="table">
+      <tr>
+        <th>Firma</th>
+        <th>Titel</th>
+        <th>Beschreibung</th>
+        <th>Abteilungen</th>
+        <th>Datei</th>
+        <th></th>
+      </tr>
+
+      <tr *ngFor="let cp of getPresentations()">
+        <td class="text-bold align-middle">{{cp.company.name}}</td>
+        <td>{{cp.presentation.title}}</td>
+        <td>{{cp.presentation.description}}</td>
+        <td></td>
+        <td></td>
+        <td class="align-middle d-flex">
+          <button class="btn btn-sm btn-success buttonwidth"
+                  (click)="cp.presentation.isAccepted = IsAccepted.Accepted">
+            <i class="fa fa-fw fa-check"></i>
+          </button>
+          <button class="btn btn-sm btn-danger buttonwidth"
+                  data-toggle="modal" data-target="#myModal"
+                  (click)="cp.presentation.isAccepted = IsAccepted.Rejected">
+            <i class="fa fa-fw fa-times"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+
+  </div>
 </div>

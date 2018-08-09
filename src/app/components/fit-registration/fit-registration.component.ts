@@ -380,7 +380,7 @@ export class FitRegistrationComponent implements OnInit {
         '',
         this.fitFormGroup.value.packagesAndLocation.presentationTitle,
         this.fitFormGroup.value.packagesAndLocation.presentationDescription,
-        false,
+        0,
         this.fitFormGroup.value.packagesAndLocation.presentationFile,
         this.fitFormGroup.value.packagesAndLocation.presentationBranches
       );
