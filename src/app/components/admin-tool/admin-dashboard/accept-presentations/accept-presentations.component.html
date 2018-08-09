@@ -18,6 +18,7 @@
            [ngClass]="{'active': displayedList == IsAccepted.Accepted}"
            (click)="displayedList = IsAccepted.Accepted">
           <i class="fa fa-check text-success mr-1"></i>Bestätigte Vorträge
+          <span class="badge badge-pill badge-counter ml-1">{{ getListCount(IsAccepted.Accepted) }}</span>
         </a>
       </li>
       <li class="nav-item pending-tab">
@@ -25,6 +26,7 @@
            [ngClass]="{'active': displayedList == IsAccepted.Pending}"
            (click)="displayedList = IsAccepted.Pending">
           <i class="fa fa-clock-o text-muted mr-1"></i>Offene Vorträge
+          <span class="badge badge-pill badge-counter ml-1">{{ getListCount(IsAccepted.Pending) }}</span>
         </a>
       </li>
       <li class="nav-item pending-tab">
@@ -32,6 +34,7 @@
            [ngClass]="{'active': displayedList == IsAccepted.Rejected}"
            (click)="displayedList = IsAccepted.Rejected">
           <i class="fa fa-times text-danger mr-1"></i>Abgelehnte Vorträge
+          <span class="badge badge-pill badge-counter ml-1">{{ getListCount(IsAccepted.Rejected) }}</span>
         </a>
       </li>
     </ul>
@@ -44,25 +47,56 @@
         <th>Beschreibung</th>
         <th>Abteilungen</th>
         <th>Datei</th>
-        <th></th>
+        <th>
+          <div *ngIf="displayedList == IsAccepted.Accepted">Raum</div>
+        </th>
       </tr>
 
       <tr *ngFor="let cp of getPresentations()">
-        <td class="text-bold align-middle">{{cp.company.name}}</td>
-        <td>{{cp.presentation.title}}</td>
-        <td>{{cp.presentation.description}}</td>
-        <td></td>
-        <td></td>
-        <td class="align-middle d-flex">
-          <button class="btn btn-sm btn-success buttonwidth"
-                  (click)="cp.presentation.isAccepted = IsAccepted.Accepted">
-            <i class="fa fa-fw fa-check"></i>
+        <td class="text-bold">{{cp.company.name}}</td>
+        <td>
+          {{cp.presentation.title}}
+        </td>
+        <td>
+          <div class="column-restriction text-muted text-smaller text-justify">
+            {{cp.presentation.description | fitTruncate:[300 , ' ...']}}
+          </div>
+        </td>
+        <td>
+          <ul class="text-muted m-0">
+            <li *ngFor="let branch of cp.presentation.branches">
+              {{branch.name}}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <a *ngIf="cp.presentation.file != null"
+             [href]="serverUrl + '/' + cp.presentation.file?.dataUrl">
+            <i class="fa fa-download"></i> {{cp.presentation.file?.name}}
+          </a>
+        </td>
+        <td *ngIf="cp.presentation.isAccepted == IsAccepted.Accepted">
+          <div class="d-flex">
+            <div class="icon-button mr-2" (click)="editRoomNumber(cp)">
+              <i class="fa fa-pencil"></i>
+            </div>
+            <div [ngSwitch]="cp.presentation.roomNumber">
+              <div *ngSwitchCase="''" class="text-muted">ausstehend ... </div>
+              <div *ngSwitchDefault>{{cp.presentation.roomNumber}}</div>
+            </div>
+          </div>
+        </td>
+        <td *ngIf="cp.presentation.isAccepted == IsAccepted.Pending" class="text-right">
+          <button class="btn btn-sm btn-success text-bold mr-2 ml-auto"
+                  (click)="acceptPresentation(cp)">
+            Bestätigen <i class="fa fa-fw fa-check"></i>
           </button>
-          <button class="btn btn-sm btn-danger buttonwidth"
-                  data-toggle="modal" data-target="#myModal"
-                  (click)="cp.presentation.isAccepted = IsAccepted.Rejected">
-            <i class="fa fa-fw fa-times"></i>
+          <button class="btn btn-sm btn-danger text-bold"
+                  (click)="rejectPresentation(cp)">
+            Ablehnen <i class="fa fa-fw fa-times"></i>
           </button>
+        </td>
+        <td *ngIf="cp.presentation.isAccepted == IsAccepted.Rejected">
         </td>
       </tr>
     </table>

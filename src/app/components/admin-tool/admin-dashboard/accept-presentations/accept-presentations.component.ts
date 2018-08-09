@@ -3,6 +3,10 @@ import { PresentationDAO } from '../../../../core/dao/presentation.dao';
 import { EventService } from '../../../../core/app-services/event.service';
 import { CompanyPresentation } from '../../../../core/app-helper/helper-model/company-presentation';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
+import { AppConfig } from '../../../../core/app-config/app-config.service';
+import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
+import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
+import { ToastrService } from 'ngx-toastr';
 
 declare let $;
 
@@ -17,11 +21,15 @@ export class AcceptPresentationsComponent implements OnInit {
   public IsAccepted = IsAccepted;
 
   public displayedList: IsAccepted = IsAccepted.Accepted;
-
   public presentations: CompanyPresentation[] = [];
+  public serverUrl: string;
 
   public constructor(private presentationDAO: PresentationDAO,
-                     private eventService: EventService) {
+                     private eventService: EventService,
+                     private toastr: ToastrService,
+                     private modalWindowService: ModalWindowService,
+                     private appConfig: AppConfig) {
+    this.serverUrl = this.appConfig.serverURL;
   }
 
   public async ngOnInit(): Promise<void> {
@@ -39,5 +47,46 @@ export class AcceptPresentationsComponent implements OnInit {
       default:
         return [];
     }
+  }
+
+  public getListCount(status: IsAccepted): number {
+    return this.presentations.filter(p => p.presentation.isAccepted === status).length;
+  }
+
+  public async acceptPresentation(presentation: CompanyPresentation): Promise<void> {
+    let result: boolean = await this.modalWindowService.confirm(
+      'Vortrag bestätigen',
+      `Sind sie sicher dass Sie den <span class="text-success">Vortrag bestätigen</span> wollen?`,
+      ModalTemplateCreatorHelper.getBasicModalOptions('Bestätigen', 'Abbrechen')
+    );
+
+    if (result) {
+      presentation.presentation = await this.presentationDAO.acceptPresentation(presentation.presentation, IsAccepted.Accepted);
+      this.toastr.success('Der Vortrag wurde erfolgreich bestätigt.', 'Erfolgreich!');
+    }
+  }
+
+  public async rejectPresentation(presentation: CompanyPresentation): Promise<void> {
+    let result: boolean = await this.modalWindowService.confirm(
+      'Vortrag ablehnen',
+      `Sind sie sicher dass Sie den <span class="text-danger">Vortrag ablehnen</span> wollen?`,
+      ModalTemplateCreatorHelper.getBasicModalOptions('Vortrag ablehnen', 'Abbrechen')
+    );
+
+    if (result) {
+      presentation.presentation = await this.presentationDAO.acceptPresentation(presentation.presentation, IsAccepted.Rejected);
+      this.toastr.info('Der Vortrag wurde abgelehnt.', 'Abgelehnt!');
+    }
+  }
+
+  public async editRoomNumber(presentation: CompanyPresentation): Promise<void> {
+    presentation.presentation.roomNumber = await this.modalWindowService.prompt(
+      'Raumnummer',
+      'Geben Sie in das untere Feld die Raumnummer ein, in der der Vortrag gehalten werden soll.',
+      presentation.presentation.roomNumber,
+      ModalTemplateCreatorHelper.getBasicModalOptions('Speichern', 'Abbrechen')
+    );
+    await this.presentationDAO.updatePresentation(presentation.presentation);
+    this.toastr.success('Der Raum wurde erfolgreich geändert.', 'Raum geändert!');
   }
 }

@@ -37,13 +37,6 @@ import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.comp
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
-import { FitRegistrationComponent } from '../fit-registration/fit-registration.component';
-import { GeneralDataComponent } from '../fit-registration/registration-steps/1-general-data/general-data.component';
-import { DetailedDataComponent } from '../fit-registration/registration-steps/2-detailed-data/detailed-data.component';
-import { FitAppearanceComponent } from '../fit-registration/registration-steps/3-fit-appearance/fit-appearance.component';
-import { ContactAndRemarksComponent } from '../fit-registration/registration-steps/5-contact-and-remarks/contact-and-remarks.component';
-import { PackagesAndLocationComponent } from '../fit-registration/registration-steps/4-packages-and-locations/packages-and-location.component';
-import { LocationPickerModalComponent } from '../fit-registration/registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
 import { FitRegistrationModule } from '../fit-registration/fit-registration.module';
 
 @NgModule({
@@ -58,7 +51,7 @@ import { FitRegistrationModule } from '../fit-registration/fit-registration.modu
     ReactiveFormsModule,
     PapaParseModule,
     SharedModule,
-    FitRegistrationModule,
+    FitRegistrationModule
   ],
   declarations: [
     AdminToolComponent,

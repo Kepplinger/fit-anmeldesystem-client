@@ -17,3 +17,7 @@ $fa-font-path: '~font-awesome/fonts' !default;
 .ajs-cancel {
   @extend .btn-dark;
 }
+
+.ajs-input {
+  @extend .form-control;
+}

@@ -12,6 +12,7 @@ import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.compo
 import { CompanyOverviewComponent } from '../account-management/account-overview/company-overview/company-overview.component';
 import { GraduateOverviewComponent } from '../account-management/account-overview/graduate-overview/graduate-overview.component';
 import { CodeLostComponent } from './code-lost/code-lost.component';
+import { TruncatePipe } from './truncate-pipe/truncate.pipe';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { CodeLostComponent } from './code-lost/code-lost.component';
     TagInputComponent,
     CustomCheckboxComponent,
     CompanyOverviewComponent,
-    GraduateOverviewComponent
+    GraduateOverviewComponent,
+    TruncatePipe
   ],
   exports: [
     HintIconComponent,
@@ -39,7 +41,8 @@ import { CodeLostComponent } from './code-lost/code-lost.component';
     CodeLostComponent,
     CustomCheckboxComponent,
     CompanyOverviewComponent,
-    GraduateOverviewComponent
+    GraduateOverviewComponent,
+    TruncatePipe
   ]
 })
 export class SharedModule {

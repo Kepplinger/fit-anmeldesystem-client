@@ -36,16 +36,19 @@ export class ModalWindowService {
    * Similar to the prompt() but fancy
    * @param title
    * @param message
+   * @param value
    * @param options
    * @returns {Promise<string>}
    */
-  public async prompt(title: string, options: any = {}): Promise<string> {
+  public async prompt(title: string, message: string, value: string, options: any = {}): Promise<string> {
     return new Promise<string>(
       (resolve) => {
         alertify.prompt()
           .setting({
             title: title,
-            onok: (result: string) => {
+            message: message,
+            value: value,
+            onok: (event: any, result: string) => {
               resolve(result);
             },
           })
