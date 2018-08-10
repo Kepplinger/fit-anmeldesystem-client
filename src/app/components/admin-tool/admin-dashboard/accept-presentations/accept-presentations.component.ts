@@ -24,6 +24,8 @@ export class AcceptPresentationsComponent implements OnInit {
   public presentations: CompanyPresentation[] = [];
   public serverUrl: string;
 
+  public openedPresentation: CompanyPresentation = null;
+
   public constructor(private presentationDAO: PresentationDAO,
                      private eventService: EventService,
                      private toastr: ToastrService,

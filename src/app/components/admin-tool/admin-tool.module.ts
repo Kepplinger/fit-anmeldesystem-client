@@ -38,6 +38,7 @@ import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduat
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 import { FitRegistrationModule } from '../fit-registration/fit-registration.module';
+import { PresentationDetailModalComponent } from './admin-dashboard/accept-presentations/presentation-detail-modal/presentation-detail-modal.component';
 
 @NgModule({
   imports: [
@@ -77,7 +78,8 @@ import { FitRegistrationModule } from '../fit-registration/fit-registration.modu
     ChangelogComponent,
     VerifyCompaniesComponent,
     SortableColumnComponent,
-    SortableTableDirective
+    SortableTableDirective,
+    PresentationDetailModalComponent
   ],
   providers: [
     CsvCreatorService,

@@ -1,3 +1,5 @@
+<fit-presentation-detail-modal [presentation]="openedPresentation"></fit-presentation-detail-modal>
+
 <div class="m-5">
 
   <!--pending companies-->
@@ -42,6 +44,7 @@
     <!--list-->
     <table class="table">
       <tr>
+        <th></th>
         <th>Firma</th>
         <th>Titel</th>
         <th>Beschreibung</th>
@@ -53,13 +56,21 @@
       </tr>
 
       <tr *ngFor="let cp of getPresentations()">
+        <td class="text-center">
+          <button class="btn btn-sm btn-primary details-button"
+                  (click)="openedPresentation = cp"
+                  data-toggle="modal"
+                  data-target="#presentationDetailModal">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </td>
         <td class="text-bold">{{cp.company.name}}</td>
         <td>
           {{cp.presentation.title}}
         </td>
         <td>
           <div class="column-restriction text-muted text-smaller text-justify">
-            {{cp.presentation.description | fitTruncate:[300 , ' ...']}}
+            {{cp.presentation.description | fitTruncate:[180 , ' ...']}}
           </div>
         </td>
         <td>
@@ -82,7 +93,7 @@
               <i class="fa fa-pencil"></i>
             </div>
             <div [ngSwitch]="cp.presentation.roomNumber">
-              <div *ngSwitchCase="''" class="text-muted">ausstehend ... </div>
+              <div *ngSwitchCase="''" class="text-muted">ausstehend ...</div>
               <div *ngSwitchDefault>{{cp.presentation.roomNumber}}</div>
             </div>
           </div>
