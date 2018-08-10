@@ -303,7 +303,8 @@ export class FitRegistrationComponent implements OnInit {
           booking.contact.id = initialBooking.contact.id;
           booking.contact.timestamp = initialBooking.contact.timestamp;
           booking.isAccepted = initialBooking.isAccepted;
-          if (this.booking.presentation != null) {
+
+          if (this.booking.presentation != null && booking.presentation != null) {
             booking.presentation.id = initialBooking.presentation.id;
             booking.presentation.timestamp = initialBooking.presentation.timestamp;
             booking.presentation.roomNumber = initialBooking.presentation.roomNumber;

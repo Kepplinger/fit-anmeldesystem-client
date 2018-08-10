@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
 import { BookingMapper } from '../model/mapper/booking-mapper';
 import { CompanyMapper } from '../model/mapper/company-mapper';
+import { tryCatch } from 'rxjs/internal-compatibility';
 
 @Injectable()
 export class AccountManagementService {
@@ -111,10 +112,15 @@ export class AccountManagementService {
   }
 
   private updateSessionStorage(): void {
-    sessionStorage.setItem('graduate', JSON.stringify(this.graduate));
-    sessionStorage.setItem('booking', JSON.stringify(this.booking));
-    sessionStorage.setItem('currentBookingExists', JSON.stringify(this.currentBookingExists));
-    sessionStorage.setItem('isAdminMode', JSON.stringify(this.isAdminMode));
-    sessionStorage.setItem('isGraduate', JSON.stringify(this.isGraduate));
+    try {
+      sessionStorage.setItem('graduate', JSON.stringify(this.graduate));
+      sessionStorage.setItem('booking', JSON.stringify(this.booking));
+      sessionStorage.setItem('currentBookingExists', JSON.stringify(this.currentBookingExists));
+      sessionStorage.setItem('isAdminMode', JSON.stringify(this.isAdminMode));
+      sessionStorage.setItem('isGraduate', JSON.stringify(this.isGraduate));
+    } catch (e) {
+      console.error('An Error occurred! There might be a problem when refreshing the page.');
+      console.error(e.message);
+    }
   }
 }

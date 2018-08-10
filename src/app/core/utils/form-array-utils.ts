@@ -1,4 +1,5 @@
-import { FormArray } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
+import { Branch } from '../model/branch';
 
 export class FormArrayUtils {
   public static indexOf(array: FormArray, element: any): number {
@@ -23,4 +24,16 @@ export class FormArrayUtils {
     return -1;
   }
 
+
+  public static elementChanged(element: any, formArray: FormArray, event: any): void {
+    if (event.target.checked) {
+      formArray.push(new FormControl(element));
+    } else {
+      let index = FormArrayUtils.indexOfWithId(formArray, element);
+
+      if (index !== -1) {
+        formArray.removeAt(index);
+      }
+    }
+  }
 }

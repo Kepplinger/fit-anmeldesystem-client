@@ -132,15 +132,7 @@ export class PackagesAndLocationComponent implements OnInit {
   }
 
   public branchChanged(branch: Branch, event: any): void {
-    if (event.target.checked) {
-      this.branchFormArray.push(new FormControl(branch));
-    } else {
-      let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
-
-      if (index !== -1) {
-        this.branchFormArray.removeAt(index);
-      }
-    }
+    FormArrayUtils.elementChanged(branch, this.branchFormArray, event);
   }
 
   public isBranchSelected(branch: Branch): boolean {

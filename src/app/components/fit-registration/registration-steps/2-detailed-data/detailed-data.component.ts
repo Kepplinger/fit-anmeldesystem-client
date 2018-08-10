@@ -35,6 +35,7 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
 
   public branches: Branch[] = [];
   public branchFormArray: FormArray = null;
+
   public isDrag: boolean = false;
   public logo: DataFile;
 
@@ -79,23 +80,6 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
     }
   }
 
-  public branchChanged(branch: Branch, event: any): void {
-    if (event.target.checked) {
-      this.branchFormArray.push(new FormControl(branch));
-    } else {
-      let index = FormArrayUtils.indexOf(this.branchFormArray, branch);
-
-      if (index !== -1) {
-        this.branchFormArray.removeAt(index);
-      }
-    }
-    this.onInputChanged();
-  }
-
-  public isBranchSelected(branch: Branch): boolean {
-    return FormArrayUtils.indexOf(this.branchFormArray, branch) !== -1;
-  }
-
   public updateEstablishments(controlName: string, names: string[]): void {
     this.stepFormGroup.setControl(controlName, new FormArray(names.map(n => new FormControl(n))));
     this.verifyAutEstablishmentsCount();
@@ -120,5 +104,15 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
 
     this.establishmentIntCount.nativeElement.value = count;
     this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
+  }
+
+
+  public branchChanged(branch: Branch, event: any): void {
+    FormArrayUtils.elementChanged(branch, this.branchFormArray, event);
+    this.onInputChanged();
+  }
+
+  public isBranchSelected(branch: Branch): boolean {
+    return FormArrayUtils.indexOfWithId(this.branchFormArray, branch) !== -1;
   }
 }

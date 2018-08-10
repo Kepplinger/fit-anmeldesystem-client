@@ -62,22 +62,6 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
     (<FormArray>this.stepFormGroup.get('representatives')).removeAt(index);
   }
 
-  public resourceChanged(resource: Resource, event: any): void {
-    if (event.target.checked) {
-      this.resourceFormArray.push(new FormControl(resource));
-    } else {
-      for (let i = 0; i < this.resourceFormArray.length; i++) {
-        if (this.resourceFormArray.value[i] === resource) {
-          this.resourceFormArray.removeAt(i);
-        }
-      }
-    }
-  }
-
-  public isResourceSelected(resource: Resource): boolean {
-    return FormArrayUtils.indexOfWithId(this.resourceFormArray, resource) !== -1;
-  }
-
   public getRepresentativeFormArray(): AbstractControl[] {
     return (this.stepFormGroup.get('representatives') as FormArray).controls;
   }
@@ -109,6 +93,14 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
     } else if (file === FilePickerError.UndefinedInput) {
       this.toastr.warning('Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es erneut!');
     }
+  }
+
+  public resourceChanged(resource: Resource, event: any): void {
+    FormArrayUtils.elementChanged(resource, this.resourceFormArray, event);
+  }
+
+  public isResourceSelected(resource: Resource): boolean {
+    return FormArrayUtils.indexOfWithId(this.resourceFormArray, resource) !== -1;
   }
 
   private addNewRepresentative(): void {
