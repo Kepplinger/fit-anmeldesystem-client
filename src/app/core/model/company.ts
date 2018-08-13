@@ -1,8 +1,8 @@
 import { Address } from './address';
 import { Contact } from './contact';
-import { Branch } from './branch';
 import { CompanyTag } from './company-tag';
 import { CompanyBranch } from './company-branch';
+import { MemberStatus } from './enums/member-status';
 
 export class Company {
   public id: number;
@@ -19,7 +19,7 @@ export class Company {
 
   public memberPaymentAmount: number;
   public memberSince: number;
-  public memberStatus: number;
+  public memberStatus: MemberStatus;
 
   public constructor(address?: Address,
                      contact?: Contact,
@@ -28,7 +28,7 @@ export class Company {
                      tags?: CompanyTag[],
                      memberPaymentAmount?: number,
                      memberSince?: number,
-                     memberStatus?: number,
+                     memberStatus?: MemberStatus,
                      id?: number,
                      timestamp?: string) {
     this.id = id;

@@ -9,6 +9,7 @@ import { BranchDAO } from '../../../../../core/dao/branch.dao';
 import { CompanyBranch } from '../../../../../core/model/company-branch';
 import { Tag } from '../../../../../core/model/tag';
 import { CompanyTag } from '../../../../../core/model/company-tag';
+import { getOrderedMemberStatus, MemberStatus } from '../../../../../core/model/enums/member-status';
 
 @Component({
   selector: 'fit-company-details',
@@ -16,6 +17,10 @@ import { CompanyTag } from '../../../../../core/model/company-tag';
   styleUrls: ['./company-details.component.scss']
 })
 export class CompanyDetailsComponent implements OnInit {
+
+  // for template use
+  public MemberStatus = MemberStatus;
+  public orderedMemberStatus: MemberStatus[] = getOrderedMemberStatus();
 
   public company: Company;
 
