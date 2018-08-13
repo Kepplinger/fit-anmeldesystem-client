@@ -5,23 +5,6 @@
   border: $main-border;
 }
 
-.dropdown-item {
-  cursor: pointer;
-
-  &:active, &:focus {
-    color: white !important;
-  }
-}
-
-.dropdown-item.mail-selected {
-  color: white;
-  background-color: $primary-color;
-
-  &:hover {
-    color: white;
-  }
-}
-
 .template-editor {
   min-height: 400px;
 }

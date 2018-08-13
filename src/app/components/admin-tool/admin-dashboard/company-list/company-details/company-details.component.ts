@@ -9,7 +9,7 @@ import { BranchDAO } from '../../../../../core/dao/branch.dao';
 import { CompanyBranch } from '../../../../../core/model/company-branch';
 import { Tag } from '../../../../../core/model/tag';
 import { CompanyTag } from '../../../../../core/model/company-tag';
-import { getOrderedMemberStatus, MemberStatus } from '../../../../../core/model/enums/member-status';
+import { getMemberStatusHTML, getOrderedMemberStatus, MemberStatus } from '../../../../../core/model/enums/member-status';
 
 @Component({
   selector: 'fit-company-details',
@@ -74,6 +74,10 @@ export class CompanyDetailsComponent implements OnInit {
 
   public removeTagFromCompany(tag: Tag): void {
     this.company.tags = this.company.tags.filter(t => t.tag.id !== tag.id);
+  }
+
+  public getMemberStatusHTML(status: MemberStatus): string {
+    return getMemberStatusHTML(status);
   }
 
   private isBranchSelected(branch: Branch): boolean {

@@ -31,7 +31,7 @@
             <a *ngFor="let email of emails"
                class="dropdown-item"
                (click)="selectEmail(email)"
-               [ngClass]="{'mail-selected': selectedEmail.id == email.id}">
+               [ngClass]="{'selected': selectedEmail.id == email.id}">
               {{email.name}}
             </a>
           </div>

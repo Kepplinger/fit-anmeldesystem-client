@@ -5,6 +5,7 @@ import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/col
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { CompanyTransferService } from '../../../../core/app-services/transfer-services/company-transfer.service';
 import { Router } from '@angular/router';
+import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 
 @Component({
   selector: 'fit-company-list',
@@ -28,6 +29,10 @@ export class CompanyListComponent implements OnInit {
 
   public onSorted(criteria: ColumnSortCriteria): void {
     this.companies = this.companies.sort((a, b) => SortHelper.sortHandler(a, b, criteria));
+  }
+
+  public getMemberStatusHTML(status: MemberStatus): string {
+    return getMemberStatusHTML(status);
   }
 
   public routeToCompanyDetails(company: Company): void {

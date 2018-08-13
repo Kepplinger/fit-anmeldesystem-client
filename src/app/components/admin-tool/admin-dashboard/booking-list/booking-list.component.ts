@@ -13,6 +13,7 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/member-login-response';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
+import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 
 @Component({
   selector: 'fit-booking-list',
@@ -70,6 +71,10 @@ export class BookingListComponent implements OnInit {
       ArrayUtils.deleteElement(this.displayedPackages, fitPackage);
     }
     this.filterBookings();
+  }
+
+  public getMemberStatusHTML(status: MemberStatus): string {
+    return getMemberStatusHTML(status);
   }
 
   public filterBookings(): void {

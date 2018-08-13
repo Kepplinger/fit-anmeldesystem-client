@@ -303,3 +303,21 @@ body {
   padding: 0.5rem 0.5rem 0;
   border-radius: 0.25rem;
 }
+
+
+.dropdown-item {
+  cursor: pointer;
+
+  &:active, &:focus {
+    color: white !important;
+  }
+}
+
+.dropdown-item.selected {
+  color: white;
+  background-color: $primary-color;
+
+  &:hover {
+    color: white;
+  }
+}
