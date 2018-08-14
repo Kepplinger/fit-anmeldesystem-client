@@ -12,7 +12,7 @@ export class CompanyTag {
   public tag: Tag;
 
 
-  public constructor(fk_Company: number, fk_Tag: number, tag: Tag) {
+  public constructor(fk_Company: number, fk_Tag: number, tag?: Tag) {
     this.fk_Company = fk_Company;
     this.fk_Tag = fk_Tag;
     this.tag = tag;

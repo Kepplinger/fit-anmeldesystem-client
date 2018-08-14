@@ -25,6 +25,9 @@ export class CompanyOverviewComponent implements OnInit {
   @Input()
   public company: Company = null;
 
+  @Output()
+  public companyChange: EventEmitter<Company> = new EventEmitter();
+
   @Input()
   public booking: Booking = null;
 
@@ -85,7 +88,9 @@ export class CompanyOverviewComponent implements OnInit {
       if (this.companyFormGroup.touched) {
         this.updateCompanyFromForm();
         this.company = await this.companyDAO.updateCompany(this.company);
+        this.companyChange.emit(this.company);
         this.accountManagementService.updateCompany(this.company);
+        this.toastr.success('Die Änderungen wurden erfolgreich gespeichert.', 'Daten gespeichert!');
       }
 
       this.companyFormGroup.controls['gender'].disable();

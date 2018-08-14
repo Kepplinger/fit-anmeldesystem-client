@@ -1,13 +1,14 @@
 <div class="small-container mt-5 mb-9"
      *ngIf="company != null">
 
-  <fit-company-overview [company]="company"
+  <fit-company-overview [(company)]="company"
                         [showAdminVersion]="true">
   </fit-company-overview>
 
   <hr>
 
   <div class="row mt-4">
+    <!--member-->
     <div class="col-md-6">
       <h3 class="text-bold">Mitglieder-Status</h3>
 
@@ -25,7 +26,7 @@
             <a *ngFor="let memberStatus of orderedMemberStatus"
                [ngClass]="{'selected': memberStatus == company.memberStatus}"
                class="dropdown-item"
-               (click)="company.memberStatus = memberStatus"
+               (click)="changeMemberStatus(memberStatus)"
                [innerHTML]="getMemberStatusHTML(memberStatus)">
             </a>
           </div>
@@ -34,76 +35,71 @@
 
     </div>
 
+    <!--branches-->
     <div class="col-md-6">
       <h3 class="text-bold">Fachrichtungen</h3>
       <fit-custom-checkbox *ngFor="let branch of selectedBranches"
                            [(value)]="branch.selected"
+                           (valueChange)="isCompanyChanged = true"
                            [message]="branch.branch.name">
       </fit-custom-checkbox>
     </div>
 
   </div>
 
+  <!--tags-->
   <h3 class="text-bold">Tags</h3>
 
-  <div class="fit-border" style="max-width: 400px">
+  <div class="d-flex">
+    <div class="fit-border tag-search-container">
+      <input type="text"
+             title="tagSearchBar"
+             class="form-control form-control-lg search-bar"
+             placeholder=" &#xf002; Suche"
+             [(ngModel)]="tagFilter">
 
-    <input type="text"
-           title="tagSearchBar"
-           class="form-control form-control-lg"
-           style="border-radius: 0"
-           placeholder="Suche"
-           [(ngModel)]="tagFilter">
-
-    <div class="tag-scroll-container border-top">
-
-      <div [ngSwitch]="getFilteredTags().length == 0" class="mt-2">
-        <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
-          ... es wurden keine Tags gefunden
+      <div class="tag-scroll-container">
+        <div [ngSwitch]="getFilteredTags().length == 0" class="mt-2">
+          <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+            ... es wurden keine Tags gefunden
+          </div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let tag of getFilteredTags()"
+                 class="tag-item floating-effect mb-2 rounded user-select-none"
+                 (click)="addTagToCompany(tag)">
+              {{tag.value}}
+            </div>
+          </div>
         </div>
-        <div *ngSwitchDefault>
-          <div *ngFor="let tag of getFilteredTags()"
-               class="tag-item floating-effect mb-2 rounded user-select-none"
-               (click)="addTagToCompany(tag)">
-            {{tag.value}}
+
+      </div>
+    </div>
+
+    <div class="ml-4">
+      <div [ngSwitch]="company.tags.length == 0" class="mt-2">
+        <div *ngSwitchCase="true" class="text-muted">
+          ... es sind keine Tags vorhanden
+        </div>
+        <div *ngSwitchDefault class="d-flex flex-wrap">
+          <div *ngFor="let tag of company.tags" class="d-flex mx-1 my-1">
+            <div class="left-badge fit-border">
+              {{tag.tag.value}}
+            </div>
+            <div class="right-badge delete-badge text-light"
+                 (click)="removeTagFromCompany(tag.tag)">
+              <i class="fa fa-times vert-middle"></i>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
-
-  <table style="width: 100%">
-
-    <tr>
-      <td class="p-3 vert-top">
-        <div>
-          <div [ngSwitch]="company.tags.length == 0" class="mt-2">
-            <div *ngSwitchCase="true" class="text-muted">
-              ... es sind keine Tags vorhanden
-            </div>
-            <div *ngSwitchDefault class="d-flex flex-wrap">
-              <div *ngFor="let tag of company.tags" class="d-flex mx-1 my-1">
-                <div class="left-badge bg-primary text-light">
-                  {{tag.tag.value}}
-                </div>
-                <div class="right-badge delete-badge text-light"
-                     (click)="removeTagFromCompany(tag.tag)">
-                  <i class="fa fa-times"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </table>
 
   <div class="d-flex">
     <button class="btn btn-success text-bold ml-auto mt-2"
+            [disabled]="!isCompanyChanged"
             (click)="updateCompany()">
-      <i class="fa fa-download"></i>
+      <i class="fa fa-download mr-1"></i>
       Änderungen übernehmen
     </button>
   </div>

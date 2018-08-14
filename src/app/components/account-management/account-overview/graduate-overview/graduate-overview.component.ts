@@ -71,6 +71,7 @@ export class GraduateOverviewComponent implements OnInit {
         this.updateGraduateFromForm();
         this.graduate = await this.graduateDAO.updateGraduate(this.graduate);
         this.accountManagementService.updateGraduate(this.graduate);
+        this.toastr.success('Die Änderungen wurden erfolgreich gespeichert.', 'Daten gespeichert!');
       }
 
       this.graduateFormGroup.controls['gender'].disable();

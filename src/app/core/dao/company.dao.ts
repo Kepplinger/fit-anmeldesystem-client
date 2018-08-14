@@ -5,6 +5,7 @@ import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
 import { map } from 'rxjs/operators';
+import { CompanyTag } from '../model/company-tag';
 
 @Injectable()
 export class CompanyDAO {
