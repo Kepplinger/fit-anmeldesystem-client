@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminToolComponent } from './admin-tool.component';
+
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
@@ -24,7 +24,6 @@ import { CanDeactivateGuard } from '../../core/guards/can-deactivate-guard.servi
 
 export const routes: Routes = [
   {
-    // 'children' workaround because of internal angular bug
     path: 'dash',
     component: AdminDashboardComponent
   },

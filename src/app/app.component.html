@@ -6,6 +6,9 @@
 </div>
 <div *ngIf="!isAppLoading()" class="main-page d-flex flex-column">
   <fit-header *ngIf="getApplicationState() == FitApplication.FitRegistration"></fit-header>
+  <fit-admin-header *ngIf="getApplicationState() == FitApplication.AdminTool"
+                    class="admin-header-spacing">
+  </fit-admin-header>
 
   <router-outlet></router-outlet>
 

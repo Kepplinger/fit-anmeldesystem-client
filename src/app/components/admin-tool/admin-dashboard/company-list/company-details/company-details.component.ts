@@ -104,7 +104,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   private isBranchSelected(branch: Branch): boolean {
-    if (this.company != null && this.company.branches != null) {
+    if (this.company != null && this.company.branches != null && branch != null) {
       return this.company.branches.find(b => b.branch.id === branch.id) != null;
     } else {
       return false;

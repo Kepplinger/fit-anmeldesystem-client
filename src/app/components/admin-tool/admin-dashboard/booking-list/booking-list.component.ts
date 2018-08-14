@@ -35,7 +35,6 @@ export class BookingListComponent implements OnInit {
   public imageDownloadLink: string;
 
   public companyFilter: string = '';
-  public locationFilter: string = '';
 
   public displayedPackages: FitPackage[] = [FitPackage.BasicPack, FitPackage.SponsorPack, FitPackage.LecturePack];
 
@@ -85,10 +84,6 @@ export class BookingListComponent implements OnInit {
 
         if (condition && booking.company != null) {
           condition = booking.company.name.toLowerCase().includes(this.companyFilter.toLowerCase());
-        }
-
-        if (condition && booking.location != null) {
-          condition = booking.location.number.toLowerCase().includes(this.locationFilter.toLowerCase());
         }
 
         return condition;

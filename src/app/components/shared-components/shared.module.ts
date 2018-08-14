@@ -24,8 +24,6 @@ import { TruncatePipe } from './truncate-pipe/truncate.pipe';
   ],
   declarations: [
     HintIconComponent,
-    FitHeaderComponent,
-    FitFooterComponent,
     CodeLostComponent,
     TagInputComponent,
     CustomCheckboxComponent,
@@ -35,8 +33,6 @@ import { TruncatePipe } from './truncate-pipe/truncate.pipe';
   ],
   exports: [
     HintIconComponent,
-    FitHeaderComponent,
-    FitFooterComponent,
     TagInputComponent,
     CodeLostComponent,
     CustomCheckboxComponent,

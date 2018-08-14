@@ -12,6 +12,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de-AT';
+import { AdminHeaderComponent } from './components/shared-components/admin-header/admin-header.component';
+import { FitHeaderComponent } from './components/shared-components/fit-header/header.component';
+import { FitFooterComponent } from './components/shared-components/fit-footer/footer.component';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -27,7 +30,10 @@ registerLocaleData(localeDe, 'de-AT');
   ], declarations: [
     AppComponent,
     MainComponent,
-    RegistrationLockedComponent
+    RegistrationLockedComponent,
+    AdminHeaderComponent,
+    FitHeaderComponent,
+    FitFooterComponent
   ],
   providers: [{provide: LOCALE_ID, useValue: 'de-AT'}],
   bootstrap: [AppComponent]
