@@ -24,192 +24,78 @@ import { CanDeactivateGuard } from '../../core/guards/can-deactivate-guard.servi
 
 export const routes: Routes = [
   {
-    path: '',
-    component: AdminToolComponent,
-    children: [
-      {
-        // 'children' workaround because of internal angular bug
-        path: 'dash',
-        children: [
-          {
-            path: '',
-            component: AdminDashboardComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'anmeldungen',
-        children: [
-          {
-            path: '',
-            component: BookingListComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'einstellungen',
-        children: [
-          {
-            path: '',
-            component: AdminSettingsComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'anmeldung/:id',
-        children: [
-          {
-            path: '',
-            component: FitRegistrationComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'absolventen',
-        children: [
-          {
-            path: '',
-            component: GraduateListComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'absolvent/:id',
-        children: [
-          {
-            path: '',
-            component: GraduateDetailsComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'firmen',
-        children: [
-          {
-            path: '',
-            component: CompanyListComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'firma/:id',
-        children: [
-          {
-            path: '',
-            component: CompanyDetailsComponent,
-            outlet: 'adminOutlet',
-            canDeactivate: [CanDeactivateGuard]
-          }
-        ]
-      },
-      {
-        path: 'fit-bearbeiten',
-        children: [
-          {
-            path: '',
-            component: EditFitEventComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'fit-anlegen',
-        children: [
-          {
-            path: '',
-            component: CreateFitEventComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'firmen-bestaetigen',
-        children: [
-          {
-            path: '',
-            component: VerifyCompaniesComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'aenderungsprotokoll',
-        children: [
-          {
-            path: '',
-            component: ChangelogComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'mail-vorlagen',
-        children: [
-          {
-            path: '',
-            component: MailTemplatesComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'csv-export',
-        children: [
-          {
-            path: '',
-            component: CsvExportComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'csv-export/booking',
-        children: [
-          {
-            path: '',
-            component: BookingCsvExportComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'csv-export/absolventen',
-        children: [
-          {
-            path: '',
-            component: GraduateCsvExportComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'csv-export/firmen',
-        children: [
-          {
-            path: '',
-            component: CompanyCsvExportComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      },
-      {
-        path: 'vortraege',
-        children: [
-          {
-            path: '',
-            component: AcceptPresentationsComponent,
-            outlet: 'adminOutlet'
-          }
-        ]
-      }
-    ]
+    // 'children' workaround because of internal angular bug
+    path: 'dash',
+    component: AdminDashboardComponent
+  },
+  {
+    path: 'anmeldungen',
+    component: BookingListComponent
+  },
+  {
+    path: 'einstellungen',
+    component: AdminSettingsComponent
+  },
+  {
+    path: 'anmeldung/:id',
+    component: FitRegistrationComponent
+  },
+  {
+    path: 'absolventen',
+    component: GraduateListComponent
+  },
+  {
+    path: 'absolvent/:id',
+    component: GraduateDetailsComponent
+  },
+  {
+    path: 'firmen',
+    component: CompanyListComponent
+  },
+  {
+    path: 'firma/:id',
+    component: CompanyDetailsComponent,
+    canDeactivate: [CanDeactivateGuard]
+  },
+  {
+    path: 'fit-bearbeiten',
+    component: EditFitEventComponent
+  },
+  {
+    path: 'fit-anlegen',
+    component: CreateFitEventComponent
+  },
+  {
+    path: 'firmen-bestaetigen',
+    component: VerifyCompaniesComponent
+  },
+  {
+    path: 'aenderungsprotokoll',
+    component: ChangelogComponent
+  },
+  {
+    path: 'mail-vorlagen',
+    component: MailTemplatesComponent
+  },
+  {
+    path: 'csv-export',
+    component: CsvExportComponent
+  },
+  {
+    path: 'csv-export/booking',
+    component: BookingCsvExportComponent
+  },
+  {
+    path: 'csv-export/absolventen',
+    component: GraduateCsvExportComponent
+  },
+  {
+    path: 'csv-export/firmen',
+    component: CompanyCsvExportComponent
+  },
+  {
+    path: 'vortraege',
+    component: AcceptPresentationsComponent
   },
   {
     path: 'login',

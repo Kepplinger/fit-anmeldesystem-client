@@ -55,7 +55,6 @@ import { PresentationDetailModalComponent } from './admin-dashboard/accept-prese
     FitRegistrationModule
   ],
   declarations: [
-    AdminToolComponent,
     AdminLoginComponent,
     AdminHeaderComponent,
     AdminDashboardComponent,
