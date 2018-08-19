@@ -1,0 +1,23 @@
+<div class="my-5 container mx-auto">
+  <h2><i class="fa fa-times text-danger"></i> Abgelehnte Firmenanträge</h2>
+
+  <table class="table table-striped mt-4">
+    <tr>
+      <th>Firmenname</th>
+      <th>Adresse</th>
+      <th>Kontaktperson</th>
+    </tr>
+
+    <tr *ngFor="let company of rejectedCompanies">
+      <td class="text-bold align-middle">{{company.name}}</td>
+      <td>
+        <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
+        <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
+      </td>
+      <td>
+        <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
+        <span>{{company.contact.email}}</span>
+      </td>
+    </tr>
+  </table>
+</div>

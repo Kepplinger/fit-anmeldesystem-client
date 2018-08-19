@@ -11,7 +11,7 @@ export class CompanyMapper {
       company.timestamp = companyJson.timestamp;
       company.contact = companyJson.contact;
       company.name = companyJson.name;
-      company.isPending = companyJson.isPending;
+      company.isAccepted = companyJson.isAccepted;
       company.address = companyJson.address;
       company.tags = companyJson.tags;
       company.branches = companyJson.branches;

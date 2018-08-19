@@ -10,6 +10,7 @@ import { CompanyDAO } from '../../../core/dao/company.dao';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../../core/app-helper/form-helper';
+import { CompaniesService } from '../../../core/app-services/companies.service';
 
 @Component({
   selector: 'fit-code-request',
@@ -25,6 +26,7 @@ export class CodeRequestComponent {
   public constructor(private appConfig: AppConfig,
                      private company: CompanyDAO,
                      private router: Router,
+                     private companiesService: CompaniesService,
                      private toastr: ToastrService,
                      private formBuilder: FormBuilder) {
     this.genders = appConfig.genders;
@@ -40,15 +42,18 @@ export class CodeRequestComponent {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
-    })
+    });
   }
 
   public async persistCompany(): Promise<void> {
 
     if (this.formGroup.valid) {
+      let company = this.getCompanyFromForm();
+
       this.isLoading = true;
-      await this.company.persistCompany(this.getCompanyFromForm());
+      company = await this.company.persistCompany(company);
       this.isLoading = false;
+      this.companiesService.addCompany(company);
       this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
       this.router.navigate(['']);
     } else {
@@ -75,8 +80,8 @@ export class CodeRequestComponent {
       this.getCompanyAddressFromForm(),
       this.getContactFromForm(),
       this.formGroup.value.companyName,
-      true
-    )
+      0
+    );
   }
 
   private getCompanyAddressFromForm(): Address {

@@ -61,7 +61,7 @@ export class CsvCreatorService {
   }
 
   public async loadCompanies(): Promise<void> {
-    this.companies = await this.companyDAO.fetchAllCompanies();
+    this.companies = await this.companyDAO.fetchCompanies();
 
     if (this.companies != null) {
       sessionStorage.setItem('csvCompanies', JSON.stringify(this.companies));

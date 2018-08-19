@@ -1,30 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { Company } from '../../../../core/model/company';
-import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { CompanyTransferService } from '../../../../core/app-services/transfer-services/company-transfer.service';
-import { Router } from '@angular/router';
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
+import { CompaniesService } from '../../../../core/app-services/companies.service';
+import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
 
 @Component({
   selector: 'fit-company-list',
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
-export class CompanyListComponent implements OnInit {
+export class CompanyListComponent implements OnInit, OnDestroy {
 
   public companies: Company[];
   public loading: boolean = true;
 
-  public constructor(private companyDAO: CompanyDAO,
+  private sub: Subscription;
+
+  public constructor(private companiesService: CompaniesService,
                      private companyTransferState: CompanyTransferService,
                      private router: Router) {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.companies = await this.companyDAO.fetchAllCompanies();
+    this.companies = this.companiesService.companies.getValue();
     this.loading = false;
+
+    this.sub = this.companiesService.companies.subscribe(c => this.companies = c);
+  }
+
+  public ngOnDestroy(): void {
+    SubscriptionUtils.unsubscribe(this.sub);
   }
 
   public onSorted(criteria: ColumnSortCriteria): void {

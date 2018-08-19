@@ -3,6 +3,7 @@ import { Contact } from './contact';
 import { CompanyTag } from './company-tag';
 import { CompanyBranch } from './company-branch';
 import { MemberStatus } from './enums/member-status';
+import { IsAccepted } from './enums/is-accepted';
 
 export class Company {
   public id: number;
@@ -12,7 +13,7 @@ export class Company {
   public contact: Contact;
 
   public name: string;
-  public isPending: boolean;
+  public isAccepted: IsAccepted;
 
   public tags: CompanyTag[];
   public branches: CompanyBranch[];
@@ -24,7 +25,7 @@ export class Company {
   public constructor(address?: Address,
                      contact?: Contact,
                      name?: string,
-                     isPending?: boolean,
+                     isAccepted?: IsAccepted,
                      tags?: CompanyTag[],
                      memberPaymentAmount?: number,
                      memberSince?: number,
@@ -37,7 +38,7 @@ export class Company {
     this.contact = contact;
     this.name = name;
     this.tags = tags;
-    this.isPending = isPending;
+    this.isAccepted = isAccepted;
     this.memberPaymentAmount = memberPaymentAmount;
     this.memberSince = memberSince;
     this.memberStatus = memberStatus;

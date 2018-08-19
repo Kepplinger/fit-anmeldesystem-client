@@ -4,6 +4,7 @@ import { ChangeProtocolDAO } from '../../../../core/dao/change-protocol.dao';
 import { Company } from '../../../../core/model/company';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
+import { CompaniesService } from '../../../../core/app-services/companies.service';
 
 @Component({
   selector: 'fit-changelog',
@@ -22,11 +23,13 @@ export class ChangelogComponent implements OnInit {
   public openedChange: ChangeProtocol = null;
 
   public constructor(private changeProtocolDAO: ChangeProtocolDAO,
-                     private companyDAO: CompanyDAO) {
+                     private companiesService: CompaniesService) {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.companies = await this.companyDAO.fetchAllCompanies();
+    this.companies = this.companiesService.companies.getValue();
+    this.companiesService.companies.subscribe(c => this.companies = c);
+
     this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
 
     if (this.companies.length > 0) {

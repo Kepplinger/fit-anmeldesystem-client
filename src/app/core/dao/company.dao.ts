@@ -6,6 +6,7 @@ import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
 import { map } from 'rxjs/operators';
 import { CompanyTag } from '../model/company-tag';
+import { IsAccepted } from '../model/enums/is-accepted';
 
 @Injectable()
 export class CompanyDAO {
@@ -14,17 +15,8 @@ export class CompanyDAO {
                      private http: HttpClient) {
   }
 
-  public async fetchAllCompanies(): Promise<Company[]> {
+  public async fetchCompanies(): Promise<Company[]> {
     return this.http.get<any[]>(this.appConfig.serverURL + '/company')
-      .pipe(
-        map((data: any[]) => {
-          return CompanyMapper.mapJsonToCompanyList(data);
-        }))
-      .toPromise();
-  }
-
-  public async fetchPendingCompanies(): Promise<Company[]> {
-    return this.http.get<any[]>(this.appConfig.serverURL + '/company/pending')
       .pipe(
         map((data: any[]) => {
           return CompanyMapper.mapJsonToCompanyList(data);
@@ -50,17 +42,12 @@ export class CompanyDAO {
       .toPromise();
   }
 
-  public async verifyCompany(company: Company): Promise<Company> {
-    return this.http.put<any>(this.appConfig.serverURL + '/company/accepting', company.id)
+  public async acceptCompany(company: Company, status: IsAccepted): Promise<Company> {
+    return this.http.put<any>(this.appConfig.serverURL + '/company/accept/' + company.id, status)
       .pipe(
         map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
         }))
-      .toPromise();
-  }
-
-  public async deleteCompany(company: Company): Promise<void> {
-    return this.http.delete<void>(this.appConfig.serverURL + '/company/' + company.id)
       .toPromise();
   }
 

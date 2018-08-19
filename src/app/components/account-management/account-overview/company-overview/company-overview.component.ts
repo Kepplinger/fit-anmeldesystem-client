@@ -14,6 +14,7 @@ import { DisplayedValue } from '../../../../core/app-helper/helper-model/display
 import { Event } from '../../../../core/model/event';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
+import { CompaniesService } from '../../../../core/app-services/companies.service';
 
 @Component({
   selector: 'fit-company-overview',
@@ -48,6 +49,7 @@ export class CompanyOverviewComponent implements OnInit {
                      private accountManagementService: AccountManagementService,
                      private router: Router,
                      private companyDAO: CompanyDAO,
+                     private companiesService: CompaniesService,
                      private toastr: ToastrService,
                      private appConfig: AppConfig) {
     this.companyFormGroup = this.fb.group({
@@ -89,6 +91,7 @@ export class CompanyOverviewComponent implements OnInit {
         this.updateCompanyFromForm();
         this.company = await this.companyDAO.updateCompany(this.company);
         this.companyChange.emit(this.company);
+        this.companiesService.updateCompany(this.company);
         this.accountManagementService.updateCompany(this.company);
         this.toastr.success('Die Änderungen wurden erfolgreich gespeichert.', 'Daten gespeichert!');
       }

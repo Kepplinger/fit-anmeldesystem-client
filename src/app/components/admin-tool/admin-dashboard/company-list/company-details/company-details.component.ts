@@ -11,6 +11,7 @@ import { Tag } from '../../../../../core/model/tag';
 import { CompanyTag } from '../../../../../core/model/company-tag';
 import { getMemberStatusHTML, getOrderedMemberStatus, MemberStatus } from '../../../../../core/model/enums/member-status';
 import { ToastrService } from 'ngx-toastr';
+import { CompaniesService } from '../../../../../core/app-services/companies.service';
 
 @Component({
   selector: 'fit-company-details',
@@ -34,6 +35,7 @@ export class CompanyDetailsComponent implements OnInit {
                      private toastr: ToastrService,
                      private companyDAO: CompanyDAO,
                      private branchDAO: BranchDAO,
+                     private companiesService: CompaniesService,
                      private tagService: CompanyTagService,
                      private companyTransferService: CompanyTransferService) {
   }
@@ -62,6 +64,7 @@ export class CompanyDetailsComponent implements OnInit {
       .map(b => new CompanyBranch(this.company.id, b.branch.id));
 
     this.company = await this.companyDAO.updateCompany(this.company);
+    this.companiesService.updateCompany(this.company);
     this.companyTransferService.addCompany(this.company);
     this.toastr.success('Die Firma wurde erfolgreich gespeichert.', 'Firma gespeichert!');
   }

@@ -11,7 +11,7 @@ import { EditFitEventComponent } from './admin-dashboard/edit-fit-event/edit-fit
 import { DateTimePickerComponent } from './admin-dashboard/edit-fit-event/date-time-picker.component/date-time-picker.component';
 import { EditAreaModalComponent } from './admin-dashboard/edit-fit-event/edit-area-modal.component/edit-area-modal.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
-import { VerifyCompaniesComponent } from './admin-dashboard/verify-companies/verify-companies.component';
+import { AcceptCompaniesComponent } from './admin-dashboard/accept-companies/accept-companies.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
@@ -37,6 +37,7 @@ import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 import { FitRegistrationModule } from '../fit-registration/fit-registration.module';
 import { PresentationDetailModalComponent } from './admin-dashboard/accept-presentations/presentation-detail-modal/presentation-detail-modal.component';
+import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies/copmany-rejected-list/company-rejected-list.component';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { PresentationDetailModalComponent } from './admin-dashboard/accept-prese
     DateTimePickerComponent,
     MailTemplatesComponent,
     ChangelogComponent,
-    VerifyCompaniesComponent,
+    AcceptCompaniesComponent,
+    CompanyRejectedListComponent,
     SortableColumnComponent,
     SortableTableDirective,
     PresentationDetailModalComponent
