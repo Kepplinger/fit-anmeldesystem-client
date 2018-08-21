@@ -57,6 +57,15 @@ export class ChangelogComponent implements OnInit {
   public async revertChange(change: ChangeProtocol): Promise<void> {
     let newChange = await this.changeProtocolDAO.revertChangeProtocol(change);
     ArrayUtils.replaceElement(change, newChange, this.changelog);
+
+    // reload all data to prevent optimistic locking failure
+    this.companiesService.reloadCompanies();
+  }
+
+  public getOrderedCompanies(): Company[] {
+    return this.companies.sort((a: Company, b: Company) => {
+      return this.getChangeCountForCompany(b) - this.getChangeCountForCompany(a);
+    });
   }
 
   public getChangeCountForCompany(company: Company): number {
@@ -78,8 +87,10 @@ export class ChangelogComponent implements OnInit {
       } else {
         return [];
       }
+    } else if (this.changelog != null) {
+      return this.changelog.filter(c => c.isPending || !this.showPendingOnly);
     } else {
-      return this.changelog;
+      return [];
     }
   }
 }

@@ -17,10 +17,10 @@ export class CompaniesService {
   private allCompanies: Company[] = [];
 
   public constructor(private companyDAO: CompanyDAO) {
-    this.updateCompanies();
+    this.reloadCompanies();
   }
 
-  public async updateCompanies(): Promise<void> {
+  public async reloadCompanies(): Promise<void> {
     this.isLoading.next(true);
     this.allCompanies = await this.companyDAO.fetchCompanies();
     this.isLoading.next(false);
@@ -39,6 +39,7 @@ export class CompaniesService {
 
   public updateCompany(company: Company) {
     this.allCompanies[this.allCompanies.findIndex(c => c.id === company.id)] = company;
+    console.log(this.allCompanies);
     this.filterCompanies();
   }
 

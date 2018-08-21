@@ -63,7 +63,7 @@ export class CompanyDetailsComponent implements OnInit {
     this.company.branches = this.selectedBranches.filter(b => b.selected)
       .map(b => new CompanyBranch(this.company.id, b.branch.id));
 
-    this.company = await this.companyDAO.updateCompany(this.company);
+    this.company = await this.companyDAO.updateCompany(this.company, true);
     this.companiesService.updateCompany(this.company);
     this.companyTransferService.addCompany(this.company);
     this.toastr.success('Die Firma wurde erfolgreich gespeichert.', 'Firma gespeichert!');

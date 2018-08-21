@@ -38,7 +38,7 @@ export class ChangeProtocolMapper {
 
       return changes;
     } else {
-      return null;
+      return [];
     }
   }
 

@@ -33,7 +33,7 @@ export class CompanyOverviewComponent implements OnInit {
   public booking: Booking = null;
 
   @Input()
-  public showAdminVersion: boolean = false;
+  public isAdminVersion: boolean = false;
 
   @Output()
   public editModeChanged: EventEmitter<boolean> = new EventEmitter();
@@ -89,10 +89,12 @@ export class CompanyOverviewComponent implements OnInit {
 
       if (this.companyFormGroup.touched) {
         this.updateCompanyFromForm();
-        this.company = await this.companyDAO.updateCompany(this.company);
+        this.company = await this.companyDAO.updateCompany(this.company, this.isAdminVersion);
         this.companyChange.emit(this.company);
         this.companiesService.updateCompany(this.company);
-        this.accountManagementService.updateCompany(this.company);
+        if (!this.isAdminVersion) {
+          this.accountManagementService.updateCompany(this.company);
+        }
         this.toastr.success('Die Änderungen wurden erfolgreich gespeichert.', 'Daten gespeichert!');
       }
 

@@ -47,7 +47,7 @@
           <th class="text-center">offene Änderungen</th>
         </tr>
 
-        <tr *ngFor="let company of companies"
+        <tr *ngFor="let company of getOrderedCompanies()"
             class="company-row"
             [ngClass]="{'selected-company': company == selectedCompany}"
             (click)="selectCompany(company)">
@@ -91,7 +91,8 @@
                class="fa fa-fw fa-chevron-down"></i>
           </div>
           <div class="flex-3">
-            {{change.creationDate | date:'longDate'}} {{change.creationDate | date:'mediumTime'}}
+            <span class="text-bold">{{change.creationDate | date:'longDate'}}</span>
+            {{change.creationDate | date:'mediumTime'}}
             <span class="text-muted text-smaller">
               von <span *ngIf="change.isAdminChange">Admin</span>
               <span *ngIf="!change.isAdminChange">Firma</span>

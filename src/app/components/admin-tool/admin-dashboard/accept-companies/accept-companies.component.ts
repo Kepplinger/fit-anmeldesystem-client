@@ -55,15 +55,12 @@ export class AcceptCompaniesComponent implements OnInit, OnDestroy {
   public async rejectCompany(company: Company): Promise<void> {
     company = await this.companyDAO.acceptCompany(company, IsAccepted.Rejected);
     this.companiesService.updateCompany(company);
-    ArrayUtils.deleteElement(this.pendingCompanies, company);
     this.toastr.warning('Firmen-Antrag wurde abgelehnt', 'Antrag abgelehnt!');
   }
 
   public async acceptCompany(company: Company): Promise<void> {
     company = await this.companyDAO.acceptCompany(company, IsAccepted.Accepted);
     this.companiesService.updateCompany(company);
-    ArrayUtils.deleteElement(this.pendingCompanies, company);
-    this.companies.push(company);
     this.toastr.success('Firma wurde erfolgreich bestätigt', 'Firma bestätigt!');
   }
 
@@ -78,7 +75,6 @@ export class AcceptCompaniesComponent implements OnInit, OnDestroy {
   public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
     await this.companyDAO.assignCompany(pendingCompany, existingCompany);
     this.companiesService.deleteCompany(pendingCompany);
-    ArrayUtils.deleteElement(this.pendingCompanies, pendingCompany);
     this.companyToAssign = null;
     this.toastr.success('Der Antrag wurde einer bestehenden Firma zugewiesen', 'Zuweisung erfolgreich!');
   }
