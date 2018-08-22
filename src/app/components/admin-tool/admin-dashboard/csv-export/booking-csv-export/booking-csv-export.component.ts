@@ -3,6 +3,7 @@ import { Event } from '../../../../../core/model/event';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
 import { EventService } from '../../../../../core/app-services/event.service';
 import { BaseCsvExportComponent } from '../base-csv-export.component';
+import { IsAccepted } from '../../../../../core/model/enums/is-accepted';
 
 @Component({
   selector: 'fit-booking-csv-export',
@@ -11,7 +12,10 @@ import { BaseCsvExportComponent } from '../base-csv-export.component';
 })
 export class BookingCsvExportComponent implements OnInit, BaseCsvExportComponent {
 
+  public IsAccepted = IsAccepted;
+
   public event: Event;
+  public isAcceptedFilter: IsAccepted = IsAccepted.Pending;
 
   public csv: any = {
     isCompanyEnabled: true,
@@ -63,11 +67,11 @@ export class BookingCsvExportComponent implements OnInit, BaseCsvExportComponent
   }
 
   public getEntryCount(): number {
-    return this.csvCreatorService.getBookingCount();
+    return this.csvCreatorService.getBookingCount(this.isAcceptedFilter);
   }
 
   public downloadCSV(): void {
-    this.csvCreatorService.downloadCsvFromBookings(this.csv);
+    this.csvCreatorService.downloadCsvFromBookings(this.csv, this.isAcceptedFilter);
   }
 
 }

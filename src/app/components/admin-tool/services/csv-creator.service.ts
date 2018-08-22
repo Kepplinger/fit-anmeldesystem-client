@@ -14,6 +14,7 @@ import { ResourceDAO } from '../../../core/dao/resource.dao';
 import { BranchDAO } from '../../../core/dao/branch.dao';
 import * as FileSaver from 'file-saver';
 import { Tag } from '../../../core/model/tag';
+import { IsAccepted } from '../../../core/model/enums/is-accepted';
 
 @Injectable()
 export class CsvCreatorService {
@@ -83,9 +84,9 @@ export class CsvCreatorService {
     }
   }
 
-  public getBookingCount(): number {
+  public getBookingCount(isAcceptedFilter: IsAccepted): number {
     if (this.bookings != null) {
-      return this.bookings.length;
+      return this.bookings.filter(b => isAcceptedFilter === IsAccepted.Pending || b.isAccepted === isAcceptedFilter).length;
     } else {
       return 0;
     }
@@ -99,7 +100,7 @@ export class CsvCreatorService {
     }
   }
 
-  public async downloadCsvFromBookings(csvFilter: any): Promise<void> {
+  public async downloadCsvFromBookings(csvFilter: any, isAcceptedFilter: IsAccepted): Promise<void> {
 
     let branches: Branch[] = await this.branchDAO.fetchBranches();
     let resources: Resource[] = await this.resourceDAO.fetchResources();
@@ -108,7 +109,7 @@ export class CsvCreatorService {
       await this.getBookingCsvHeaders(csvFilter)
     ];
 
-    for (let booking of this.bookings) {
+    for (let booking of this.bookings.filter(b => isAcceptedFilter === IsAccepted.Pending || b.isAccepted === isAcceptedFilter)) {
 
       if (booking.location == null) {
         booking.location = new Location();
