@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseCsvExportComponent } from '../base-csv-export.component';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
-import { Tag } from '../../../../../core/model/tag';
-import { TagDAO } from '../../../../../core/dao/tag.dao';
 import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
 import { Company } from '../../../../../core/model/company';
+import { BranchDAO } from '../../../../../core/dao/branch.dao';
 
 @Component({
   selector: 'fit-company-csv-export',
@@ -15,6 +14,9 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
 
   public tags: any[] = [];
   public companies: Company[] = [];
+  public branches: any[] = [];
+
+  public useAndCondition: boolean = false;
 
   public csv: any = {
     isCompanyEnabled: true,
@@ -39,18 +41,41 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   };
 
   public constructor(private csvCreatorService: CsvCreatorService,
+                     private branchDAO: BranchDAO,
                      private tagService: CompanyTagService) {
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.tags = this.tagService.getTags().map(t => {
-      return {checked: true, tag: t};
+      return {checked: false, tag: t};
     });
-    this.companies = this.csvCreatorService.getFilteredCompanies(this.tags);
+
+    this.branches = (await this.branchDAO.fetchBranches()).map(b => {
+      return {checked: false, branch: b};
+    });
+
+    this.updateCompanies();
+  }
+
+  public getBranchFilterText(): string {
+    if (!this.branches.every(b => !b.checked)) {
+      return 'Filter aktiv!';
+    }
+  }
+
+  public getTagFilterText(): string {
+    if (!this.tags.every(b => !b.checked)) {
+      return 'Filter aktiv!';
+    }
   }
 
   public downloadCSV(): void {
-    this.csvCreatorService.downloadCsvFromCompanies(this.csv);
+    this.csvCreatorService.downloadCsvFromCompanies(
+      this.csv,
+      this.tags.filter(t => t.checked).map(t => t.tag),
+      this.branches.filter(b => b.checked).map(b => b.branch),
+      this.useAndCondition
+    );
   }
 
   public getEntryCount(): number {
@@ -58,7 +83,11 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   }
 
   public updateCompanies(): void {
-    this.companies = this.csvCreatorService.getFilteredCompanies(this.tags);
+    this.companies = this.csvCreatorService.getFilteredCompanies(
+      this.tags.filter(t => t.checked).map(t => t.tag),
+      this.branches.filter(b => b.checked).map(b => b.branch),
+      this.useAndCondition
+    );
   }
 
   public uncheckAllTags(): void {

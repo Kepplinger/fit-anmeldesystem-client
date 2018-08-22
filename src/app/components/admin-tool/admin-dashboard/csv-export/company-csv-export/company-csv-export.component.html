@@ -20,7 +20,7 @@
       <div class="d-flex">
 
         <div class="mr-3">
-          <div class="card mb-3" style="width: 18rem;">
+          <div class="card fixed-width mb-3">
             <div class="card-header text-bold">
               <fit-custom-checkbox
                 [preventMargins]="true"
@@ -80,7 +80,7 @@
             </div>
           </div>
 
-          <div class="card mb-3" style="width: 18rem;">
+          <div class="card fixed-width mb-3">
             <div class="card-header text-bold">
               <fit-custom-checkbox
                 [preventMargins]="true"
@@ -120,7 +120,51 @@
 
     <!--tag filter-->
     <div class="mx-3 flex-2">
-      <h4 class="text-bold">Tag-Filter</h4>
+
+      <div class="d-flex align-items-center">
+        <h4 class="text-bold my-3">Branchen-Filter</h4>
+        <div class="ml-auto mr-3 text-danger">{{ getBranchFilterText() }}</div>
+      </div>
+
+      <fit-custom-checkbox *ngFor="let branch of branches"
+                           [(value)]="branch.checked"
+                           (valueChange)="updateCompanies()"
+                           [message]="branch.branch.name">
+      </fit-custom-checkbox>
+
+      <div class="d-flex align-items-center">
+        <h4 class="text-bold mt-4">Tag-Filter</h4>
+        <div class="ml-auto mr-3 text-danger">{{ getTagFilterText() }}</div>
+      </div>
+
+      <div class="d-flex align-items-center mb-3 text-bold">
+        <div class="mr-3">Tag-Verknüpfung:</div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input class="custom-control-input cursor-pointer"
+                 type="radio" id="orCondition"
+                 [value]="false"
+                 (change)="updateCompanies()"
+                 [(ngModel)]="useAndCondition">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 for="orCondition">
+            Oder
+          </label>
+        </div>
+
+        <div class="custom-control custom-radio custom-control-inline">
+          <input class="custom-control-input cursor-pointer"
+                 type="radio" id="andCondition"
+                 [value]="true"
+                 (change)="updateCompanies()"
+                 [(ngModel)]="useAndCondition">
+
+          <label class="custom-control-label my-auto cursor-pointer"
+                 for="andCondition">
+            Und
+          </label>
+        </div>
+      </div>
 
       <div class="d-flex flex-wrap">
         <div *ngFor="let checkedTag of tags" class="m-1">

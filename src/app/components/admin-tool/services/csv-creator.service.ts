@@ -13,6 +13,7 @@ import { Resource } from '../../../core/model/resource';
 import { ResourceDAO } from '../../../core/dao/resource.dao';
 import { BranchDAO } from '../../../core/dao/branch.dao';
 import * as FileSaver from 'file-saver';
+import { Tag } from '../../../core/model/tag';
 
 @Injectable()
 export class CsvCreatorService {
@@ -68,8 +69,18 @@ export class CsvCreatorService {
     }
   }
 
-  public getFilteredCompanies(tags: any[]) {
-    return this.companies;
+  public getFilteredCompanies(tags: Tag[], branches: Branch[], useAndCondition: boolean) {
+    if (useAndCondition) {
+      return this.companies.filter(c => {
+        return (tags.length === 0 || tags.every(t => c.tags.some(ct => ct.fk_Tag === t.id)))
+          && (branches.length === 0 || c.branches.some(cb => branches.some(b => cb.fk_Branch === b.id)));
+      });
+    } else {
+      return this.companies.filter(c => {
+        return (tags.length === 0 || c.tags.some(ct => tags.some(t => ct.fk_Tag === t.id)))
+          && (branches.length === 0 || c.branches.some(cb => branches.some(b => cb.fk_Branch === b.id)));
+      });
+    }
   }
 
   public getBookingCount(): number {
@@ -155,12 +166,12 @@ export class CsvCreatorService {
     this.downloadCsv(csvData, 'booking-export.csv');
   }
 
-  public downloadCsvFromCompanies(csvFilter: any): void {
+  public downloadCsvFromCompanies(csvFilter: any, tags: Tag[], branches: Branch[], useAndCondition: boolean): void {
     let csvData: any[][] = [
       this.getCompanyCsvHeaders(csvFilter, true)
     ];
 
-    for (let company of this.companies) {
+    for (let company of this.getFilteredCompanies(tags, branches, useAndCondition)) {
 
       let data: any[] = [company.id];
 
