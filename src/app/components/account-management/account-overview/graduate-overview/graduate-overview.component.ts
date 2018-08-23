@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Address } from '../../../../core/model/address';
 import { GraduateDAO } from '../../../../core/dao/graduate.dao';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
+import { Company } from '../../../../core/model/company';
+import { DataUpdateNotifier } from '../../../../core/app-services/data-update-notifier';
 
 @Component({
   selector: 'fit-graduate-overview',
@@ -20,6 +22,9 @@ export class GraduateOverviewComponent implements OnInit {
   public graduate: Graduate;
 
   @Output()
+  public graduateChange: EventEmitter<Graduate> = new EventEmitter();
+
+  @Output()
   public editModeChanged: EventEmitter<boolean> = new EventEmitter();
 
   public graduateFormGroup: FormGroup;
@@ -30,6 +35,7 @@ export class GraduateOverviewComponent implements OnInit {
   public constructor(private fb: FormBuilder,
                      private accountManagementService: AccountManagementService,
                      private appConfig: AppConfig,
+                     private dataUpdateNotifier: DataUpdateNotifier,
                      private graduateDAO: GraduateDAO,
                      private toastr: ToastrService) {
     this.graduateFormGroup = this.fb.group({
@@ -70,6 +76,8 @@ export class GraduateOverviewComponent implements OnInit {
       if (this.graduateFormGroup.touched) {
         this.updateGraduateFromForm();
         this.graduate = await this.graduateDAO.updateGraduate(this.graduate);
+        this.graduateChange.emit(this.graduate);
+        this.dataUpdateNotifier.updateGraduate(this.graduate);
         this.accountManagementService.updateGraduate(this.graduate);
         this.toastr.success('Die Änderungen wurden erfolgreich gespeichert.', 'Daten gespeichert!');
       }

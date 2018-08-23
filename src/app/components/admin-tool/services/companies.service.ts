@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { Company } from '../model/company';
-import { CompanyDAO } from '../dao/company.dao';
-import { IsAccepted } from '../model/enums/is-accepted';
+import { Company } from '../../../core/model/company';
+import { CompanyDAO } from '../../../core/dao/company.dao';
+import { IsAccepted } from '../../../core/model/enums/is-accepted';
+import { DataUpdateNotifier } from '../../../core/app-services/data-update-notifier';
 
 @Injectable()
 export class CompaniesService {
@@ -16,8 +17,11 @@ export class CompaniesService {
 
   private allCompanies: Company[] = [];
 
-  public constructor(private companyDAO: CompanyDAO) {
+  public constructor(private companyDAO: CompanyDAO,
+                     private dataUpdateNotifier: DataUpdateNotifier) {
     this.reloadCompanies();
+
+    this.dataUpdateNotifier.companyUpdated.subscribe(c => this.updateCompany(c));
   }
 
   public async reloadCompanies(): Promise<void> {
@@ -39,7 +43,6 @@ export class CompaniesService {
 
   public updateCompany(company: Company) {
     this.allCompanies[this.allCompanies.findIndex(c => c.id === company.id)] = company;
-    console.log(this.allCompanies);
     this.filterCompanies();
   }
 

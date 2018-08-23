@@ -14,7 +14,8 @@ import { DisplayedValue } from '../../../../core/app-helper/helper-model/display
 import { Event } from '../../../../core/model/event';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
-import { CompaniesService } from '../../../../core/app-services/companies.service';
+import { CompaniesService } from '../../../admin-tool/services/companies.service';
+import { DataUpdateNotifier } from '../../../../core/app-services/data-update-notifier';
 
 @Component({
   selector: 'fit-company-overview',
@@ -48,8 +49,8 @@ export class CompanyOverviewComponent implements OnInit {
                      private eventService: EventService,
                      private accountManagementService: AccountManagementService,
                      private router: Router,
+                     private dataUpdateNotifier: DataUpdateNotifier,
                      private companyDAO: CompanyDAO,
-                     private companiesService: CompaniesService,
                      private toastr: ToastrService,
                      private appConfig: AppConfig) {
     this.companyFormGroup = this.fb.group({
@@ -91,7 +92,7 @@ export class CompanyOverviewComponent implements OnInit {
         this.updateCompanyFromForm();
         this.company = await this.companyDAO.updateCompany(this.company, this.isAdminVersion);
         this.companyChange.emit(this.company);
-        this.companiesService.updateCompany(this.company);
+        this.dataUpdateNotifier.updateCompany(this.company);
         if (!this.isAdminVersion) {
           this.accountManagementService.updateCompany(this.company);
         }

@@ -6,7 +6,7 @@ import { Company } from '../../../../core/model/company';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
-import { CompaniesService } from '../../../../core/app-services/companies.service';
+import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
 
 @Component({

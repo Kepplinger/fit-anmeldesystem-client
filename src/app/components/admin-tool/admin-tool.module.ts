@@ -38,6 +38,9 @@ import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/crea
 import { FitRegistrationModule } from '../fit-registration/fit-registration.module';
 import { PresentationDetailModalComponent } from './admin-dashboard/accept-presentations/presentation-detail-modal/presentation-detail-modal.component';
 import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies/copmany-rejected-list/company-rejected-list.component';
+import { CompaniesService } from './services/companies.service';
+import { GraduatesService } from './services/graduates.service';
+import { BookingsService } from './services/bookings.service';
 
 @NgModule({
   imports: [
@@ -84,7 +87,10 @@ import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies
     SortService,
     GraduateTransferService,
     CompanyTransferService,
-    CompanyTagService
+    CompanyTagService,
+    CompaniesService,
+    GraduatesService,
+    BookingsService
   ]
 })
 export class AdminToolModule {

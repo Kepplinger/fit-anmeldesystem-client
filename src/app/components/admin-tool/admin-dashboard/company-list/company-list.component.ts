@@ -7,7 +7,7 @@ import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/col
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { CompanyTransferService } from '../../../../core/app-services/transfer-services/company-transfer.service';
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
-import { CompaniesService } from '../../../../core/app-services/companies.service';
+import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
 
 @Component({

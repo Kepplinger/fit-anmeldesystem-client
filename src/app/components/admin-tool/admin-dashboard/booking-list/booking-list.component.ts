@@ -14,6 +14,7 @@ import { AccountManagementService } from '../../../../core/app-services/account-
 import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/member-login-response';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
+import { BookingsService } from '../../services/bookings.service';
 
 @Component({
   selector: 'fit-booking-list',
@@ -44,14 +45,20 @@ export class BookingListComponent implements OnInit {
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private router: Router,
+                     private bookingsService: BookingsService,
                      private accountManagementService: AccountManagementService) {
     this.imageDownloadLink = this.appConfig.serverURL + '/media';
   }
 
   public async ngOnInit(): Promise<void> {
-    this.bookings = await this.bookingDAO.fetchAllBookingsForEvent(this.eventService.selectedEvent.getValue());
+    this.bookings = this.bookingsService.bookings.getValue();
     this.displayedBookings = this.bookings;
     this.loading = false;
+
+    this.bookingsService.bookings.subscribe(b => {
+      this.bookings = b;
+      this.filterBookings();
+    });
   }
 
   public routeToBookingDetail(booking: Booking): void {

@@ -25,7 +25,7 @@ import { AdminAuthorizationService } from './app-services/admin-authorization.se
 import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
 import { AccountManagementService } from './app-services/account-managenment.service';
 import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
-import { CompaniesService } from './app-services/companies.service';
+import { DataUpdateNotifier } from './app-services/data-update-notifier';
 
 @NgModule({
   imports: [
@@ -55,8 +55,8 @@ import { CompaniesService } from './app-services/companies.service';
     AppLoadingService,
     RouterService,
     EventService,
+    DataUpdateNotifier,
     CanDeactivateGuard,
-    CompaniesService,
     {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
   ]
 })

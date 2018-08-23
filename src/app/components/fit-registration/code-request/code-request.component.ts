@@ -10,7 +10,7 @@ import { CompanyDAO } from '../../../core/dao/company.dao';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../../core/app-helper/form-helper';
-import { CompaniesService } from '../../../core/app-services/companies.service';
+import { CompaniesService } from '../../admin-tool/services/companies.service';
 
 @Component({
   selector: 'fit-code-request',

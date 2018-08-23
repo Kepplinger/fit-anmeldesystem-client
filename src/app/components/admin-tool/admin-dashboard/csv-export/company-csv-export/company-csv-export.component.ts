@@ -46,6 +46,9 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   }
 
   public async ngOnInit(): Promise<void> {
+
+    this.updateCompanies();
+
     this.tags = this.tagService.getTags().map(t => {
       return {checked: false, tag: t};
     });

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { PapaParseService } from 'ngx-papaparse';
+import * as FileSaver from 'file-saver';
+
+import { Tag } from '../../../core/model/tag';
 import { Booking } from '../../../core/model/booking';
 import { Company } from '../../../core/model/company';
 import { Graduate } from '../../../core/model/graduate';
@@ -12,9 +15,10 @@ import { Branch } from '../../../core/model/branch';
 import { Resource } from '../../../core/model/resource';
 import { ResourceDAO } from '../../../core/dao/resource.dao';
 import { BranchDAO } from '../../../core/dao/branch.dao';
-import * as FileSaver from 'file-saver';
-import { Tag } from '../../../core/model/tag';
 import { IsAccepted } from '../../../core/model/enums/is-accepted';
+import { CompaniesService } from './companies.service';
+import { GraduatesService } from './graduates.service';
+import { BookingsService } from './bookings.service';
 
 @Injectable()
 export class CsvCreatorService {
@@ -24,50 +28,21 @@ export class CsvCreatorService {
   private graduates: Graduate[] = [];
 
   public constructor(private papa: PapaParseService,
+                     private companiesService: CompaniesService,
+                     private graduatesService: GraduatesService,
+                     private bookingsService: BookingsService,
                      private bookingDAO: BookingDAO,
                      private companyDAO: CompanyDAO,
                      private graduateDAO: GraduateDAO,
                      private resourceDAO: ResourceDAO,
                      private branchDAO: BranchDAO) {
-    let sessionBookings = JSON.parse(sessionStorage.getItem('csvBookings'));
-    let sessionGraduates = JSON.parse(sessionStorage.getItem('csvGraduates'));
-    let sessionCompanies = JSON.parse(sessionStorage.getItem('csvCompanies'));
+    this.bookings = this.bookingsService.bookings.getValue();
+    this.graduates = this.graduatesService.graduates.getValue();
+    this.companies = this.companiesService.companies.getValue();
 
-    if (sessionBookings != null) {
-      this.bookings = sessionBookings;
-    }
-
-    if (sessionGraduates != null) {
-      this.graduates = sessionGraduates;
-    }
-
-    if (sessionCompanies != null) {
-      this.companies = sessionCompanies;
-    }
-  }
-
-  public async loadBookings(): Promise<void> {
-    this.bookings = await this.bookingDAO.fetchAllBookings();
-
-    if (this.bookings != null) {
-      sessionStorage.setItem('csvBookings', JSON.stringify(this.bookings));
-    }
-  }
-
-  public async loadGraduates(): Promise<void> {
-    this.graduates = await this.graduateDAO.fetchAllGraduates();
-
-    if (this.graduates != null) {
-      sessionStorage.setItem('csvGraduates', JSON.stringify(this.graduates));
-    }
-  }
-
-  public async loadCompanies(): Promise<void> {
-    this.companies = await this.companyDAO.fetchCompanies();
-
-    if (this.companies != null) {
-      sessionStorage.setItem('csvCompanies', JSON.stringify(this.companies));
-    }
+    this.bookingsService.bookings.subscribe(b => this.bookings = b);
+    this.graduatesService.graduates.subscribe(g => this.graduates = g);
+    this.companiesService.companies.subscribe(c => this.companies = c);
   }
 
   public getFilteredCompanies(tags: Tag[], branches: Branch[], useAndCondition: boolean) {

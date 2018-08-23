@@ -15,7 +15,7 @@ export class GraduateDAO {
       .toPromise();
   }
 
-  public fetchAllGraduates(): Promise<Graduate[]> {
+  public fetchGraduates(): Promise<Graduate[]> {
     return this.http.get<Graduate[]>(this.appConfig.serverURL + '/graduate')
       .toPromise();
   }

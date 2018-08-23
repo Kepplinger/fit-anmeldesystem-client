@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Graduate } from '../../../../core/model/graduate';
 import { GraduateDAO } from '../../../../core/dao/graduate.dao';
-import { Address } from '../../../../core/model/address';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { GraduateTransferService } from '../../../../core/app-services/transfer-services/graduate-transfer.service';
 import { Router } from '@angular/router';
+import { GraduatesService } from '../../services/graduates.service';
 
 @Component({
   selector: 'fit-graduate-list',
@@ -18,13 +18,14 @@ export class GraduateListComponent implements OnInit {
 
   public loading: boolean = true;
 
-  public constructor(private graduateDAO: GraduateDAO,
+  public constructor(private graduatesService: GraduatesService,
                      private graduateTransferState: GraduateTransferService,
                      private router: Router) {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.graduates = await this.graduateDAO.fetchAllGraduates();
+    this.graduates = this.graduatesService.graduates.getValue();
+    this.graduatesService.graduates.subscribe(g => this.graduates = g);
     this.loading = false;
   }
 

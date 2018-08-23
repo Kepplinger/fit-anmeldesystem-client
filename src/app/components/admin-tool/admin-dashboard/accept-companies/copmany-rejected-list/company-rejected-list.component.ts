@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Company } from '../../../../../core/model/company';
-import { CompaniesService } from '../../../../../core/app-services/companies.service';
+import { CompaniesService } from '../../../services/companies.service';
 import { SubscriptionUtils } from '../../../../../core/utils/subscription-utils';
 
 @Component({

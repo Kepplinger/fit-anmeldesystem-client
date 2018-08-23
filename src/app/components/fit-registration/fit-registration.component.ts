@@ -23,6 +23,7 @@ import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template
 import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
 import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
 import { IsAccepted } from '../../core/model/enums/is-accepted';
+import { DataUpdateNotifier } from '../../core/app-services/data-update-notifier';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -61,6 +62,7 @@ export class FitRegistrationComponent implements OnInit {
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private toastr: ToastrService,
+                     private dataUpdateNotifier: DataUpdateNotifier,
                      private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
@@ -157,7 +159,6 @@ export class FitRegistrationComponent implements OnInit {
     }
 
     if (useOldBooking || this.isAdminMode || this.isEditMode) {
-      console.log('yeah!!');
       this.fillFormWithBooking();
     }
 
@@ -281,6 +282,7 @@ export class FitRegistrationComponent implements OnInit {
 
       let formWarnings = {
         noLogo: this.fitFormGroup.get('detailedData').value.logo == null,
+        // TODO
         // noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
         //   .representatives.some(r => r.image.name === 'Bild auswählen ...'),
         noLocation: this.fitFormGroup.get('packagesAndLocation').value.location == null
@@ -316,10 +318,13 @@ export class FitRegistrationComponent implements OnInit {
         this.isBookingTransmitting = false;
 
         if (this.isAdminMode) {
+          this.dataUpdateNotifier.updateBooking(booking);
           this.router.navigate(['/admin-tool', 'anmeldungen']);
-        } else if (this.isEditMode || this.isAdminMode) {
+        } else if (this.isEditMode) {
+          this.dataUpdateNotifier.updateBooking(booking);
           this.router.navigate(['/fit', 'änderung-erfolgreich']);
         } else {
+          this.dataUpdateNotifier.addBooking(booking);
           this.router.navigate(['/fit', 'anmeldung-erfolgreich']);
         }
       }

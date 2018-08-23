@@ -11,7 +11,7 @@ import { Tag } from '../../../../../core/model/tag';
 import { CompanyTag } from '../../../../../core/model/company-tag';
 import { getMemberStatusHTML, getOrderedMemberStatus, MemberStatus } from '../../../../../core/model/enums/member-status';
 import { ToastrService } from 'ngx-toastr';
-import { CompaniesService } from '../../../../../core/app-services/companies.service';
+import { CompaniesService } from '../../../services/companies.service';
 
 @Component({
   selector: 'fit-company-details',

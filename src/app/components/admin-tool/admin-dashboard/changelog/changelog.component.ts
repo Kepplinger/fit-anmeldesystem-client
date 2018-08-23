@@ -4,7 +4,7 @@ import { ChangeProtocolDAO } from '../../../../core/dao/change-protocol.dao';
 import { Company } from '../../../../core/model/company';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
-import { CompaniesService } from '../../../../core/app-services/companies.service';
+import { CompaniesService } from '../../services/companies.service';
 
 @Component({
   selector: 'fit-changelog',

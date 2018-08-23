@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';
 import { Subscription } from 'rxjs';
+import { GraduatesService } from '../services/graduates.service';
+import { CompaniesService } from '../services/companies.service';
+import { BookingsService } from '../services/bookings.service';
 
 @Component({
   selector: 'fit-admin-dashboard',
@@ -15,7 +18,10 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  public constructor(private eventService: EventService) {
+  public constructor(private eventService: EventService,
+                     private graduatesService: GraduatesService,
+                     private companiesService: CompaniesService,
+                     private bookingsService: BookingsService) {
   }
 
   public ngOnInit(): void {
