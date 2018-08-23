@@ -8,12 +8,17 @@ import { Booking } from '../model/booking';
 export class DataUpdateNotifier {
 
   public companyUpdated: Subject<Company> = new Subject();
+  public companyAdded: Subject<Company> = new Subject();
   public graduateUpdated: Subject<Graduate> = new Subject();
   public bookingUpdated: Subject<Booking> = new Subject();
   public bookingAdded: Subject<Booking> = new Subject();
 
   public updateCompany(company: Company): void {
     this.companyUpdated.next(company);
+  }
+
+  public addCompany(company: Company): void {
+    this.companyAdded.next(company);
   }
 
   public updateBooking(booking: Booking): void {

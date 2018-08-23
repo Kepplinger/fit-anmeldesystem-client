@@ -1,4 +1,4 @@
-@import "../../../../styles/fit-variables";
+@import "../../../../styles/fit-global-styles";
 
 .mail-select {
   min-width: 250px;
@@ -25,6 +25,10 @@ button:disabled {
 .variable-container {
   min-width: 200px;
   max-width: 300px;
+
+  .height-restriction{
+    max-height: 460px;
+  }
 
   .variable-item {
     cursor: pointer;

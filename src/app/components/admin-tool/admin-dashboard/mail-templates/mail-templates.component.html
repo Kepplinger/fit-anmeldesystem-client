@@ -51,7 +51,7 @@
         <!--mail edit area-->
         <div class="flex-1">
           <div class="form-group d-flex align-items-center">
-            <label for="subject" class="my-0 mr-3">Betreff:</label>
+            <label for="subject" class="text-bold my-0 mr-3">Betreff:</label>
             <input class="form-control" style="color: black"
                    [(ngModel)]="editableEmail.subject"
                    (keyup)="emailChanged()"
@@ -72,9 +72,9 @@
         <div class="ml-3 variable-container">
           <h4 class="text-bold">Mail-Variablen</h4>
 
-          <div class="scroll-list-container">
+          <div class="scroll-list-container height-restriction">
             <div *ngFor="let variable of editableEmail.availableVariables"
-                 class="floating-effect p-3 mb-2 rounded text-bold variable-item"
+                 class="floating-effect p-2 mb-2 rounded text-bold variable-item"
                  (click)="addVariable(variable)">
               {{variable.name}}
             </div>

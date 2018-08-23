@@ -7,6 +7,7 @@ export class EmailHelper {
 
       newEmail.id = email.id;
       newEmail.timestamp = email.timestamp;
+      newEmail.identifier = email.identifier;
       newEmail.name = email.name;
       newEmail.description = email.description;
       newEmail.subject = email.subject;

@@ -20,8 +20,8 @@ export class CompaniesService {
   public constructor(private companyDAO: CompanyDAO,
                      private dataUpdateNotifier: DataUpdateNotifier) {
     this.reloadCompanies();
-
     this.dataUpdateNotifier.companyUpdated.subscribe(c => this.updateCompany(c));
+    this.dataUpdateNotifier.companyAdded.subscribe(c =>  this.addCompany(c));
   }
 
   public async reloadCompanies(): Promise<void> {

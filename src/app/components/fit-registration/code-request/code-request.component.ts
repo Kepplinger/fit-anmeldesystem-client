@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../../core/app-helper/form-helper';
 import { CompaniesService } from '../../admin-tool/services/companies.service';
+import { DataUpdateNotifier } from '../../../core/app-services/data-update-notifier';
 
 @Component({
   selector: 'fit-code-request',
@@ -26,7 +27,7 @@ export class CodeRequestComponent {
   public constructor(private appConfig: AppConfig,
                      private company: CompanyDAO,
                      private router: Router,
-                     private companiesService: CompaniesService,
+                     private dataUpdateNotifier: DataUpdateNotifier,
                      private toastr: ToastrService,
                      private formBuilder: FormBuilder) {
     this.genders = appConfig.genders;
@@ -53,7 +54,7 @@ export class CodeRequestComponent {
       this.isLoading = true;
       company = await this.company.persistCompany(company);
       this.isLoading = false;
-      this.companiesService.addCompany(company);
+      this.dataUpdateNotifier.addCompany(company);
       this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
       this.router.navigate(['']);
     } else {

@@ -50,17 +50,12 @@ export class MailTemplatesComponent implements OnInit {
 
   public emailChanged(): void {
     this.isTouched = true;
-    // TODO highlight
-    // this.saveCursor();
-    // this.editableEmail.template = this.editableEmail.template.replace(
-    //   /{{[^}}]*}}/g,
-    //   `<span style="background-color: yellow">$&</span>`
-    // );
-    // this.editor.froalaEditor('selection.restore');
-    // console.log(this.editableEmail.template);
   }
 
   public async saveEmail(): Promise<void> {
+    this.editor = $('.template-editor');
+    this.editableEmail.template = this.editor.froalaEditor('html.get', true);
+
     this.editableEmail = await this.emailDAO.updateEmail(this.editableEmail);
     ArrayUtils.replaceElement(this.selectedEmail, this.editableEmail, this.emails);
     this.selectedEmail = this.editableEmail;
@@ -81,6 +76,7 @@ export class MailTemplatesComponent implements OnInit {
     this.editor = $('.template-editor');
     this.editor.froalaEditor('selection.restore');
     this.editor.froalaEditor('html.insert', '{{ ' + variable.value + ' }}', true);
+    this.editor.froalaEditor('selection.save');
     this.emailChanged();
   }
 }
