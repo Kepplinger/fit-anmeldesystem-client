@@ -1,0 +1,21 @@
+@import "../../../../../styles/fit-global-styles";
+
+.entity-row {
+  cursor: pointer;
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+
+  &.selected {
+    background-color: $primary;
+    color: white;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+
+

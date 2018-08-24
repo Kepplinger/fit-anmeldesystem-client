@@ -1,4 +1,6 @@
-<div class="container">
+<fit-test-mail-modal [email]="selectedEmail"></fit-test-mail-modal>
+
+<div class="container mb-5">
   <h1 class="my-5 text-center">Dynamische Mailvorlagen</h1>
 
   <!--loading animation-->
@@ -44,7 +46,16 @@
     </div>
 
     <div *ngIf="editableEmail != null">
-      <p class="text-center mb-5">{{editableEmail.description}}</p>
+      <p class="text-center mb-3">{{editableEmail.description}}</p>
+
+      <div class="d-flex w-100">
+        <button class="btn btn-primary big-rounded-button text-bold mb-4 mx-auto"
+                data-toggle="modal"
+                data-target="#testMailModal">
+          <i class="fa fa-envelope"></i>
+          Test-Email senden
+        </button>
+      </div>
 
       <div class="d-flex">
 

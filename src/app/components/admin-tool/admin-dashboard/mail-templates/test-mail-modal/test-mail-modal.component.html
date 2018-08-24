@@ -1,0 +1,94 @@
+<div class="modal fade" id="testMailModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content" *ngIf="email != null">
+
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span class="font-weight-light">Email:</span> {{ email.name }}
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="d-flex align-items-center">
+          <label for="emailAddress" class="m-0 text-bold">Empfänger: </label>
+          <input type="email" id="emailAddress"
+                 class="form-control mx-2"
+                 placeholder="E-Mail Adresse"
+                 [(ngModel)]="emailAddress">
+          <button class="btn btn-success text-bold"
+                  (click)="sendEmail()">
+            <i class="fa fa-envelope"></i> E-Mail senden
+          </button>
+        </div>
+
+        <div [ngSwitch]="entityType" class="mt-3">
+
+          <div *ngSwitchCase="'Company'">
+            <h4>Firmen</h4>
+            <table class="table">
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Adresse</th>
+                <th>Kontakt</th>
+              </tr>
+              <tr *ngFor="let company of companies"
+                  (click)="selectedId = company.id"
+                  class="entity-row" [ngClass]="{'selected': selectedId == company.id}">
+                <td class="text-center">
+                  <i *ngIf="company.id == selectedId" class="fa fa-check"></i>
+                </td>
+                <td class="text-bold">{{ company.name }}</td>
+                <td>
+                  <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
+                  <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
+                </td>
+                <td>
+                  <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
+                  <span>{{company.contact.email}}</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div *ngSwitchCase="'Booking'">
+            <h4>FIT-Anmeldungen</h4>
+            <table class="table">
+              <tr>
+                <th></th>
+                <th>Firma</th>
+                <th>Anmelde-Zeitpunkt</th>
+                <th>Paket</th>
+              </tr>
+              <tr *ngFor="let booking of bookings"
+                  (click)="selectedId = booking.id"
+                  class="entity-row" [ngClass]="{'selected': selectedId == booking.id}">
+                <td>
+                  <i *ngIf="booking.id == selectedId" class="fa fa-check"></i>
+                </td>
+                <td>{{ booking.company.name }}</td>
+                <td>{{ booking.creationDate | date:'longDate' }}</td>
+                <td>{{ booking.fitPackage.name}}</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button"
+                id="btnDismissModal"
+                class="btn btn-secondary"
+                data-dismiss="modal">
+          Zurück
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -41,6 +41,7 @@ import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies
 import { CompaniesService } from './services/companies.service';
 import { GraduatesService } from './services/graduates.service';
 import { BookingsService } from './services/bookings.service';
+import { TestMailModalComponent } from './admin-dashboard/mail-templates/test-mail-modal/test-mail-modal.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { BookingsService } from './services/bookings.service';
     CompanyRejectedListComponent,
     SortableColumnComponent,
     SortableTableDirective,
-    PresentationDetailModalComponent
+    PresentationDetailModalComponent,
+    TestMailModalComponent
   ],
   providers: [
     CsvCreatorService,
