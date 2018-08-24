@@ -12,18 +12,21 @@
       </div>
 
       <div class="modal-body">
-
-        <div class="d-flex align-items-center">
-          <label for="emailAddress" class="m-0 text-bold">Empfänger: </label>
-          <input type="email" id="emailAddress"
-                 class="form-control mx-2"
-                 placeholder="E-Mail Adresse"
-                 [(ngModel)]="emailAddress">
-          <button class="btn btn-success text-bold"
-                  (click)="sendEmail()">
-            <i class="fa fa-envelope"></i> E-Mail senden
-          </button>
-        </div>
+        <form [formGroup]="emailFormGroup">
+          <div class="d-flex align-items-center"
+               [ngClass]="{'disabled-element': isLoading}">
+            <label for="emailAddress" class="m-0 text-bold">Empfänger: </label>
+            <input type="email" id="emailAddress"
+                   class="form-control mx-2"
+                   placeholder="E-Mail Adresse"
+                   formControlName="emailAddress">
+            <button class="btn btn-success text-bold"
+                    type="submit"
+                    (click)="sendEmail()">
+              <i class="fa fa-envelope"></i> E-Mail senden
+            </button>
+          </div>
+        </form>
 
         <div [ngSwitch]="entityType" class="mt-3">
 

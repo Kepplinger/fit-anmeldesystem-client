@@ -5,6 +5,8 @@ import { CompaniesService } from '../../../services/companies.service';
 import { BookingsService } from '../../../services/bookings.service';
 import { Company } from '../../../../../core/model/company';
 import { Booking } from '../../../../../core/model/booking';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'fit-test-mail-modal',
@@ -16,15 +18,18 @@ export class TestMailModalComponent implements OnInit, OnChanges {
   @Input()
   public email: Email;
 
-  public emailAddress: string;
   public entityType: string;
-
   public selectedId: number;
   public companies: Company[];
   public bookings: Booking[];
 
+  public emailFormGroup: FormGroup;
+  public isLoading: boolean = false;
+
   public constructor(private emailDAO: EmailDAO,
                      private companiesService: CompaniesService,
+                     private fb: FormBuilder,
+                     private toastr: ToastrService,
                      private bookingsService: BookingsService) {
   }
 
@@ -34,6 +39,10 @@ export class TestMailModalComponent implements OnInit, OnChanges {
 
     this.companiesService.companies.subscribe(c => this.companies = c);
     this.bookingsService.bookings.subscribe(b => this.bookings = b);
+
+    this.emailFormGroup = this.fb.group({
+      emailAddress: this.fb.control('', Validators.email)
+    });
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -57,7 +66,15 @@ export class TestMailModalComponent implements OnInit, OnChanges {
     }
   }
 
-  public sendEmail(): void {
-    this.emailDAO.sendTestMail(this.email.id, this.emailAddress, this.selectedId, this.entityType);
+  public async sendEmail(): Promise<void> {
+    if (this.emailFormGroup.valid) {
+      let emailAddress = this.emailFormGroup.value.emailAddress;
+      this.isLoading = true;
+      await this.emailDAO.sendTestMail(this.email.id, emailAddress, this.selectedId, this.entityType);
+      this.isLoading = false;
+      this.toastr.success('Die Test-Mail wurde erfolgreich verschickt.', 'E-Mail gesendet');
+    } else {
+      this.toastr.error('Die eingegebene E-Mail ist nicht korrekt.', 'Ungültige Eingabe');
+    }
   }
 }
