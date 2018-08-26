@@ -36,6 +36,7 @@ export class DateTimePickerComponent implements OnInit {
     });
 
     $(this.dateTimePicker.nativeElement).on('change.datetimepicker', (event: any) => {
+      console.log(event.date);
       this.dateChange.emit(event.date.add(1, 'day').startOf('day'));
     });
   }

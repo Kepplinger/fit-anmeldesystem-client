@@ -1,4 +1,4 @@
-<div class="container p-5">
+<div class="container mt-6">
 
   <div class="d-flex justify-content-center">
     <h2 class="m-0">Fit am {{event?.eventDate | date:'longDate'}}</h2>
@@ -102,13 +102,13 @@
     <div class="dash"
          [routerLink]="['/admin-tool','mail-vorlagen']">
       <i class="fa fa-envelope dash-icon"></i>
-      <div class="dash-text">Email-Vorlagen</div>
+      <div class="dash-text">E-Mail-Vorlagen</div>
     </div>
 
     <div class="dash"
-         [routerLink]="['/admin-tool','firmen']">
+         [routerLink]="['/admin-tool','mails-versenden']">
       <i class="fa fa-envelope-open dash-icon"></i>
-      <div class="dash-text">Mail versenden</div>
+      <div class="dash-text">E-Mail versenden</div>
     </div>
 
     <div class="dash"

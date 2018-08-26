@@ -22,6 +22,7 @@ import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/crea
 import { FitRegistrationComponent } from '../fit-registration/fit-registration.component';
 import { CanDeactivateGuard } from '../../core/guards/can-deactivate-guard.service';
 import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies/copmany-rejected-list/company-rejected-list.component';
+import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.component';
 
 export const routes: Routes = [
   {
@@ -81,6 +82,10 @@ export const routes: Routes = [
     path: 'mail-vorlagen',
     component: MailTemplatesComponent,
     canDeactivate: [CanDeactivateGuard]
+  },
+  {
+    path: 'mails-versenden',
+    component: SendMailsComponent
   },
   {
     path: 'csv-export',

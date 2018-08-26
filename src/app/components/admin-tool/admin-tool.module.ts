@@ -42,6 +42,7 @@ import { CompaniesService } from './services/companies.service';
 import { GraduatesService } from './services/graduates.service';
 import { BookingsService } from './services/bookings.service';
 import { TestMailModalComponent } from './admin-dashboard/mail-templates/test-mail-modal/test-mail-modal.component';
+import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.component';
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import { TestMailModalComponent } from './admin-dashboard/mail-templates/test-ma
     SortableColumnComponent,
     SortableTableDirective,
     PresentationDetailModalComponent,
-    TestMailModalComponent
+    TestMailModalComponent,
+    SendMailsComponent
   ],
   providers: [
     CsvCreatorService,
