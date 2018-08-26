@@ -79,7 +79,8 @@ export const routes: Routes = [
   },
   {
     path: 'mail-vorlagen',
-    component: MailTemplatesComponent
+    component: MailTemplatesComponent,
+    canDeactivate: [CanDeactivateGuard]
   },
   {
     path: 'csv-export',

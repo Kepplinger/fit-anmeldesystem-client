@@ -12,13 +12,14 @@ import { CompanyTag } from '../../../../../core/model/company-tag';
 import { getMemberStatusHTML, getOrderedMemberStatus, MemberStatus } from '../../../../../core/model/enums/member-status';
 import { ToastrService } from 'ngx-toastr';
 import { CompaniesService } from '../../../services/companies.service';
+import { BaseOnDeactivateAlertComponent } from '../../../../../core/base-components/base-on-deactivate-alert.component';
 
 @Component({
   selector: 'fit-company-details',
   templateUrl: './company-details.component.html',
   styleUrls: ['./company-details.component.scss']
 })
-export class CompanyDetailsComponent implements OnInit {
+export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent implements OnInit {
 
   public orderedMemberStatus: MemberStatus[] = getOrderedMemberStatus();
   public company: Company;
@@ -28,8 +29,6 @@ export class CompanyDetailsComponent implements OnInit {
   public branches: Branch[] = [];
   public selectedBranches: any[] = [];
 
-  public isCompanyChanged: boolean = false;
-
   public constructor(private activatedRoute: ActivatedRoute,
                      private router: Router,
                      private toastr: ToastrService,
@@ -38,6 +37,7 @@ export class CompanyDetailsComponent implements OnInit {
                      private companiesService: CompaniesService,
                      private tagService: CompanyTagService,
                      private companyTransferService: CompanyTransferService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
@@ -59,7 +59,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   public async updateCompany(): Promise<void> {
-    this.isCompanyChanged = false;
+    this.unsavedChangesExist = false;
     this.company.branches = this.selectedBranches.filter(b => b.selected)
       .map(b => new CompanyBranch(this.company.id, b.branch.id));
 
@@ -74,13 +74,13 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   public addTagToCompany(tag: Tag): void {
-    this.isCompanyChanged = true;
+    this.unsavedChangesExist = true;
     this.company.tags.push(new CompanyTag(this.company.id, tag.id, tag));
     this.tagFilter = '';
   }
 
   public removeTagFromCompany(tag: Tag): void {
-    this.isCompanyChanged = true;
+    this.unsavedChangesExist = true;
     this.company.tags = this.company.tags.filter(t => t.tag.id !== tag.id);
   }
 
@@ -89,21 +89,16 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   public changeMemberStatus(status: MemberStatus): void {
-    this.isCompanyChanged = true;
+    this.unsavedChangesExist = true;
     this.company.memberStatus = status;
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  public unloadNotification() {
-    return !this.isCompanyChanged;
+  public companyChanged(value: boolean): void {
+    this.unsavedChangesExist = value;
   }
 
-  public async canDeactivate() {
-    if (this.isCompanyChanged) {
-      return confirm('You have unsaved changes! If you leave, your changes will be lost.');
-    } else {
-      return true;
-    }
+  public doUnsavedChangesExist(): boolean {
+    return this.unsavedChangesExist;
   }
 
   private isBranchSelected(branch: Branch): boolean {

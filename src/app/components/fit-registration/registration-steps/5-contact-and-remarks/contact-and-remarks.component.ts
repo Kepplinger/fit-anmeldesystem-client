@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
-import { BaseFormValidationComponent } from '../base-form-validation.component';
+import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
 
 @Component({
   selector: 'fit-contact-and-remarks',

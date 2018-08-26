@@ -9,7 +9,7 @@ import { FilePickerError } from '../../../../libs/file-picker/file-picker-error'
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { DataFile } from '../../../../core/model/data-file';
-import { BaseFormValidationComponent } from '../base-form-validation.component';
+import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
 
 @Component({
   selector: 'fit-detailed-data',

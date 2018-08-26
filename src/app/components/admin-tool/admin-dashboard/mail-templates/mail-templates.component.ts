@@ -4,6 +4,7 @@ import { EmailDAO } from '../../../../core/dao/email.dao';
 import { EmailHelper } from '../../../../core/model/helper/email-helper';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EmailVariable } from '../../../../core/model/email-variable';
+import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
 
 declare let $: any;
 
@@ -12,7 +13,7 @@ declare let $: any;
   templateUrl: './mail-templates.component.html',
   styleUrls: ['./mail-templates.component.scss']
 })
-export class MailTemplatesComponent implements OnInit {
+export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent implements OnInit {
 
   @ViewChild('mailDropdown')
   public dropDownRef: ElementRef;
@@ -28,10 +29,10 @@ export class MailTemplatesComponent implements OnInit {
     inlineMode: true
   };
 
-  public isTouched: boolean = false;
   private editor: any;
 
   public constructor(private emailDAO: EmailDAO) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
@@ -43,13 +44,13 @@ export class MailTemplatesComponent implements OnInit {
   }
 
   public selectEmail(email: Email): void {
-    this.isTouched = false;
+    this.unsavedChangesExist = false;
     this.selectedEmail = email;
     this.editableEmail = EmailHelper.clone(email);
   }
 
   public emailChanged(): void {
-    this.isTouched = true;
+    this.unsavedChangesExist = true;
   }
 
   public async saveEmail(): Promise<void> {
@@ -59,11 +60,11 @@ export class MailTemplatesComponent implements OnInit {
     this.editableEmail = await this.emailDAO.updateEmail(this.editableEmail);
     ArrayUtils.replaceElement(this.selectedEmail, this.editableEmail, this.emails);
     this.selectedEmail = this.editableEmail;
-    this.isTouched = false;
+    this.unsavedChangesExist = false;
   }
 
   public discardEmail(): void {
-    this.isTouched = false;
+    this.unsavedChangesExist = false;
     this.editableEmail = EmailHelper.clone(this.selectedEmail);
   }
 
@@ -78,5 +79,9 @@ export class MailTemplatesComponent implements OnInit {
     this.editor.froalaEditor('html.insert', '{{ ' + variable.value + ' }}', true);
     this.editor.froalaEditor('selection.save');
     this.emailChanged();
+  }
+
+  public doUnsavedChangesExist(): boolean {
+    return this.unsavedChangesExist;
   }
 }

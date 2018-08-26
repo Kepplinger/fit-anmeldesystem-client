@@ -28,13 +28,13 @@
 
       <fit-graduate-overview *ngSwitchCase="true"
                              [graduate]="graduate"
-                             (editModeChanged)="wereChangesMade = $event">
+                             (editModeChanged)="editModeChanged($event)">
       </fit-graduate-overview>
 
       <fit-company-overview *ngSwitchCase="false"
                             [booking]="booking"
                             [company]="company"
-                            (editModeChanged)="wereChangesMade = $event">
+                            (editModeChanged)="editModeChanged($event)">
       </fit-company-overview>
 
     </div>
