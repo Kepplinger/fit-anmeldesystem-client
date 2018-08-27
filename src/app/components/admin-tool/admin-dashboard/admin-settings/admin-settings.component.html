@@ -50,7 +50,7 @@
         <fit-settings-admin-accounts></fit-settings-admin-accounts>
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataTags">
-        <fit-settings-tags (changedHappened)="setChangesOnTab(SettingTab.DataTags, $event)"></fit-settings-tags>
+        <fit-settings-tags (changeHappened)="setChangesOnTab(SettingTab.DataTags, $event)"></fit-settings-tags>
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataResources">
         <fit-settings-resources></fit-settings-resources>

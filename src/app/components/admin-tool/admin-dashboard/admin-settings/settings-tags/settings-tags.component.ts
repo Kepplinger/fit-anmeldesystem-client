@@ -6,26 +6,23 @@ import { TagDAO } from '../../../../../core/dao/tag.dao';
 import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
 import { BaseOnDeactivateAlertComponent } from '../../../../../core/base-components/base-on-deactivate-alert.component';
+import { BaseSettingsChangesComponent } from '../../../../../core/base-components/base-settings-changes.component';
 
 @Component({
   selector: 'fit-settings-tags',
   templateUrl: './settings-tags.component.html',
   styleUrls: ['./settings-tags.component.scss']
 })
-export class SettingsTagsComponent implements OnInit {
-
-  @Output()
-  public changedHappened: EventEmitter<boolean> = new EventEmitter();
+export class SettingsTagsComponent extends BaseSettingsChangesComponent implements OnInit {
 
   public tags: Tag[] = [];
   public archivedTags: Tag[] = [];
   public tagInput: string = '';
 
-  public unsavedChangesExist: boolean = false;
-
   public constructor(private tagDAO: TagDAO,
                      private toastr: ToastrService,
                      private tagService: CompanyTagService) {
+    super();
   }
 
   public ngOnInit(): void {
@@ -87,10 +84,4 @@ export class SettingsTagsComponent implements OnInit {
     this.tags = this.tags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
     this.archivedTags = this.archivedTags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
   }
-
-  private setUnsavedChanges(value: boolean): void {
-    this.unsavedChangesExist = value;
-    this.changedHappened.emit(value);
-  }
 }
-
