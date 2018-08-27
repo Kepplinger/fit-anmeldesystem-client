@@ -97,10 +97,6 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
     this.unsavedChangesExist = value;
   }
 
-  public doUnsavedChangesExist(): boolean {
-    return this.unsavedChangesExist;
-  }
-
   private isBranchSelected(branch: Branch): boolean {
     if (this.company != null && this.company.branches != null && branch != null) {
       return this.company.branches.find(b => b.branch.id === branch.id) != null;

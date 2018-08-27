@@ -32,11 +32,11 @@ export class CompanyTagService {
 
 
   public getTags(): Tag[] {
-    return this.tags;
+    return this.tags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
   }
 
   public getArchivedTags(): Tag[] {
-    return this.archivedTags;
+    return this.archivedTags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
   }
 
   private async loadTags(): Promise<void> {

@@ -80,8 +80,4 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
     this.editor.froalaEditor('selection.save');
     this.emailChanged();
   }
-
-  public doUnsavedChangesExist(): boolean {
-    return this.unsavedChangesExist;
-  }
 }

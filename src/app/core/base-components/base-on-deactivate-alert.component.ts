@@ -17,4 +17,8 @@ export abstract class BaseOnDeactivateAlertComponent implements CanComponentDeac
       return true;
     }
   }
+
+  public doUnsavedChangesExist(): boolean {
+    return this.unsavedChangesExist;
+  }
 }

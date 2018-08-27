@@ -35,7 +35,8 @@ export const routes: Routes = [
   },
   {
     path: 'einstellungen',
-    component: AdminSettingsComponent
+    component: AdminSettingsComponent,
+    canDeactivate: [CanDeactivateGuard]
   },
   {
     path: 'anmeldung/:id',

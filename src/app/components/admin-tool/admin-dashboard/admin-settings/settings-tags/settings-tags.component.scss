@@ -3,6 +3,7 @@
 .tag-container {
   height: 600px;
   width: 100%;
+  border-width: 2px;
 
   button {
     border-radius: 0;
@@ -14,4 +15,14 @@
     border-right: none;
     border-top: none;
   }
+}
+
+.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.flex-line-breaks {
+  min-width: 0;
+  white-space: normal;
 }

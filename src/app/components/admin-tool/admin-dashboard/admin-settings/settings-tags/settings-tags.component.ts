@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { Tag } from '../../../../../core/model/tag';
 import { TagDAO } from '../../../../../core/dao/tag.dao';
 import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { BaseOnDeactivateAlertComponent } from '../../../../../core/base-components/base-on-deactivate-alert.component';
 
 @Component({
   selector: 'fit-settings-tags',
@@ -13,9 +14,14 @@ import { ArrayUtils } from '../../../../../core/utils/array-utils';
 })
 export class SettingsTagsComponent implements OnInit {
 
+  @Output()
+  public changedHappened: EventEmitter<boolean> = new EventEmitter();
+
   public tags: Tag[] = [];
   public archivedTags: Tag[] = [];
   public tagInput: string = '';
+
+  public unsavedChangesExist: boolean = false;
 
   public constructor(private tagDAO: TagDAO,
                      private toastr: ToastrService,
@@ -25,6 +31,7 @@ export class SettingsTagsComponent implements OnInit {
   public ngOnInit(): void {
     this.tags = this.tagService.getTags();
     this.archivedTags = this.tagService.getArchivedTags();
+    this.sortTags();
   }
 
   public addTag(): void {
@@ -35,6 +42,8 @@ export class SettingsTagsComponent implements OnInit {
     } else {
       this.tags.push(new Tag(this.tagInput));
       this.tagInput = '';
+      this.sortTags();
+      this.setUnsavedChanges(true);
     }
   }
 
@@ -42,17 +51,23 @@ export class SettingsTagsComponent implements OnInit {
     tag.isArchive = true;
     this.archivedTags.push(tag);
     ArrayUtils.deleteElement(this.tags, tag);
+    this.sortTags();
+    this.setUnsavedChanges(true);
   }
 
   public recoverTag(tag: Tag): void {
     tag.isArchive = false;
     this.tags.push(tag);
     ArrayUtils.deleteElement(this.archivedTags, tag);
+    this.sortTags();
+    this.setUnsavedChanges(true);
   }
 
   public removeTag(array: Tag[], tag: Tag): void {
     ArrayUtils.deleteElement(array, tag);
     this.tagService.setTags(this.tags);
+    this.sortTags();
+    this.setUnsavedChanges(true);
   }
 
   public async updateTags(): Promise<void> {
@@ -64,6 +79,18 @@ export class SettingsTagsComponent implements OnInit {
     this.tagService.setTags(this.tags);
     this.tagService.setArchivedTags(this.archivedTags);
     this.toastr.success('Die Tags wurden erfolgreich gespeichert!', 'Update erfolgreich!');
+    this.sortTags();
+    this.setUnsavedChanges(false);
+  }
+
+  private sortTags(): void {
+    this.tags = this.tags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
+    this.archivedTags = this.archivedTags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
+  }
+
+  private setUnsavedChanges(value: boolean): void {
+    this.unsavedChangesExist = value;
+    this.changedHappened.emit(value);
   }
 }
 

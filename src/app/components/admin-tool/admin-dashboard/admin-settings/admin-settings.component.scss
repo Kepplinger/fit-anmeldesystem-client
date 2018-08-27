@@ -9,6 +9,8 @@
     .menu-tab {
       cursor: pointer;
       color: #4f4f4f;
+      display: flex;
+      align-items: center;
 
       &:hover {
         background-color: whitesmoke;

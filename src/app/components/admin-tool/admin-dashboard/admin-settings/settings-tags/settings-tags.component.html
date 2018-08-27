@@ -1,13 +1,25 @@
-<div>
+<div class="d-flex w-100 border-bottom border-right p-2" style="background-color: whitesmoke; position: relative">
+  <h3 class="my-auto ml-2">Datenbestand - Tags <i class="fa fa-tags"></i></h3>
 
+  <div class="d-flex flex-column ml-auto">
+    <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto" style="min-width: 200px"
+            (click)="updateTags()"
+            [disabled]="!unsavedChangesExist">
+      <i class="fa fa-download"></i>
+      Speichern
+    </button>
+  </div>
+</div>
+
+<div class="px-5 py-3">
   <div class="row">
 
     <!--tags-->
     <div class="col-md-6">
       <h3>Tags</h3>
-      <div class="fit-border tag-container">
+      <div class="fit-border tag-container d-flex flex-column">
         <form>
-          <div class="input-group mb-3">
+          <div class="input-group">
             <div class="input-group-prepend">
               <button class="btn btn-success text-bold"
                       type="submit"
@@ -25,14 +37,14 @@
           </div>
         </form>
 
-        <div class="tag-scroll-container">
+        <div class="scrollable h-100 border-top">
           <div [ngSwitch]="tags.length == 0" class="mt-2">
             <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
               ... es wurden keine Tags gefunden
             </div>
             <div *ngSwitchDefault>
               <div *ngFor="let tag of tags" class="d-flex m-2">
-                <div class="left-badge bg-light text-dark flex-1 text-left p-2 floating-effect">
+                <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
                   {{tag.value}}
                 </div>
                 <div *ngIf="tag.id == null"
@@ -54,41 +66,29 @@
     <!--archived tags-->
     <div class="col-md-6">
       <h3>Archivierte Tags</h3>
-      <div class="fit-border tag-container">
-        <div class="tag-scroll-container">
-          <div [ngSwitch]="archivedTags.length == 0" class="mt-2">
-            <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
-              ... es wurden keine archivierten Tags gefunden
-            </div>
-            <div *ngSwitchDefault>
-              <div *ngFor="let tag of archivedTags" class="d-flex m-2 floating-effect">
-                <div class="left-badge bg-light text-dark flex-1 text-left">
-                  {{tag.value}}
-                </div>
-                <div *ngIf="tag.id == null"
-                     class="middle-badge delete-badge text-light"
-                     (click)="removeTag(tags, tag)">
-                  <i class="fa fa-times"></i>
-                </div>
-                <div class="right-badge recover-badge"
-                     (click)="recoverTag(tag)">
-                  <i class="fa fa-arrow-left text-light"></i>
-                </div>
+      <div class="fit-border tag-container scrollable">
+        <div [ngSwitch]="archivedTags.length == 0" class="mt-2">
+          <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+            ... es wurden keine archivierten Tags gefunden
+          </div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let tag of archivedTags" class="d-flex m-2 floating-effect">
+              <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                <span>{{tag.value}}</span>
+              </div>
+              <div *ngIf="tag.id == null"
+                   class="middle-badge delete-badge text-light p-2 floating-effect"
+                   (click)="removeTag(tags, tag)">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="right-badge recover-badge p-2 floating-effect"
+                   (click)="recoverTag(tag)">
+                <i class="fa fa-arrow-left text-light"></i>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="d-flex">
-    <div class="flex-1"></div>
-    <button class="btn btn-primary my-2 text-bold"
-            (click)="updateTags()">
-      <i class="fa fa-refresh"></i>
-      Tags am Server updaten
-    </button>
   </div>
 </div>
