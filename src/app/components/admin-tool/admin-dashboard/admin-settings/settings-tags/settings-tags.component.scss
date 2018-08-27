@@ -1,1 +1,17 @@
 @import "../../../../../styles/fit-badges";
+
+.tag-container {
+  height: 600px;
+  width: 100%;
+
+  button {
+    border-radius: 0;
+  }
+
+  input {
+    border-radius: 0;
+    background-color: whitesmoke;
+    border-right: none;
+    border-top: none;
+  }
+}

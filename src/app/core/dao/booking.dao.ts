@@ -5,7 +5,7 @@ import { AppConfig } from '../app-config/app-config.service';
 import { Booking } from '../model/booking';
 import { Event } from '../model/event';
 import { BookingMapper } from '../model/mapper/booking-mapper';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { IsAccepted } from '../model/enums/is-accepted';
 
 @Injectable()

@@ -18,10 +18,16 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    let adminSettingPage = sessionStorage.getItem('selectedAdminSettingPage');
+
+    if (adminSettingPage != null) {
+      this.selectedAdminSettingPage = adminSettingPage as AdminSettingPage;
+    }
   }
 
   public setAdminSettingPage(adminSettingPage: AdminSettingPage): void {
     this.selectedAdminSettingPage = adminSettingPage;
+    sessionStorage.setItem('selectedAdminSettingPage', adminSettingPage);
   }
 
   public isSelectedAdminSettingPage(adminSettingPage: AdminSettingPage): boolean {
