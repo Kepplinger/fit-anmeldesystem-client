@@ -43,6 +43,11 @@ import { GraduatesService } from './services/graduates.service';
 import { BookingsService } from './services/bookings.service';
 import { TestMailModalComponent } from './admin-dashboard/mail-templates/test-mail-modal/test-mail-modal.component';
 import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.component';
+import { SettingsAdminAccountsComponent } from './admin-dashboard/admin-settings/settings-admin-accounts/settings-admin-accounts.component';
+import { SettingsBranchesComponent } from './admin-dashboard/admin-settings/settings-branches/settings-branches.component';
+import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/settings-resources/settings-resources.component';
+import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
+import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
 
 @NgModule({
   imports: [
@@ -84,7 +89,12 @@ import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.comp
     SortableTableDirective,
     PresentationDetailModalComponent,
     TestMailModalComponent,
-    SendMailsComponent
+    SendMailsComponent,
+    SettingsTagsComponent,
+    SettingsEmailSmtpComponent,
+    SettingsAdminAccountsComponent,
+    SettingsBranchesComponent,
+    SettingsResourcesComponent
   ],
   providers: [
     CsvCreatorService,

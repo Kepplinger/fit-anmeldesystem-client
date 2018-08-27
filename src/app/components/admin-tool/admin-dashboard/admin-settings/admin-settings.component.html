@@ -1,75 +1,60 @@
-<div class="small-container mt-5">
+<div class="container mt-5">
 
-  <div class="d-flex">
-    <h2 class="text-bold">Tags</h2>
-    <div class="flex-1"></div>
-    <button class="btn btn-primary my-2 text-bold"
-            (click)="updateTags()">
-      <i class="fa fa-refresh"></i>
-      Tags am Server updaten
-    </button>
-  </div>
+  <h2 class="text-bold mb-2">Admin-Einstellungen</h2>
 
-  <form>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <button class="btn btn-success text-bold"
-                type="submit"
-                [disabled]="tagInput == ''"
-                (click)="addTag()">
-          <i class="fa fa-plus"></i>
-          Hinzufügen
-        </button>
-      </div>
-      <input type="text"
-             class="form-control"
-             [(ngModel)]="tagInput"
-             [ngModelOptions]="{standalone: true}"
-             placeholder="Tag">
-    </div>
-  </form>
+  <div class="admin-settings-container border-top d-flex">
+    <div class="menu-tab-container border-right">
 
-  <div [ngSwitch]="tags.length == 0" class="mt-2">
-    <div *ngSwitchCase="true" class="text-muted">
-      ... es sind keine Tags vorhanden
-    </div>
-    <div *ngSwitchDefault class="d-flex flex-wrap">
-      <div *ngFor="let tag of tags" class="d-flex mx-1 my-1">
-        <div class="left-badge bg-primary text-light">
-          {{tag.value}}
+      <div class="border-bottom">
+        <div class="text-bold py-1 px-2">Allgemeine Einstellungen</div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedAdminSettingPage(AdminSettingPage.EmailSMTP)}"
+             (click)="setAdminSettingPage(AdminSettingPage.EmailSMTP)">
+          <i class="fa fa-fw fa-envelope"></i> E-Mail SMTP
         </div>
-        <div *ngIf="tag.id == null"
-             class="middle-badge delete-badge text-light"
-             (click)="removeTag(tags, tag)">
-          <i class="fa fa-times"></i>
-        </div>
-        <div class="right-badge archive-badge"
-             (click)="archiveTag(tag)">
-          <i class="fa fa-arrow-down text-light"></i>
+        <div class="py-1 px-2 menu-tab selected"
+             [ngClass]="{'selected': isSelectedAdminSettingPage(AdminSettingPage.AdminAccounts)}"
+             (click)="setAdminSettingPage(AdminSettingPage.AdminAccounts)">
+          <i class="fa fa-fw fa-user"></i> Admin-Accounts
         </div>
       </div>
-    </div>
-  </div>
 
-  <h3 class="text-bold mt-3">Archivierte Tags</h3>
+      <div class="border-bottom">
+        <div class="text-bold py-1 px-2">Daten pflegen</div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedAdminSettingPage(AdminSettingPage.DataTags)}"
+             (click)="setAdminSettingPage(AdminSettingPage.DataTags)">
+          <i class="fa fa-fw fa-tags"></i> Tags
+        </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedAdminSettingPage(AdminSettingPage.DataBranches)}"
+             (click)="setAdminSettingPage(AdminSettingPage.DataBranches)">
+          <i class="fa fa-fw fa-code-fork"></i> Branchen
+        </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedAdminSettingPage(AdminSettingPage.DataResources)}"
+             (click)="setAdminSettingPage(AdminSettingPage.DataResources)">
+          <i class="fa fa-fw fa-archive"></i> Resourcen
+        </div>
+      </div>
 
-  <div [ngSwitch]="archivedTags.length == 0">
-    <div *ngSwitchCase="true" class="text-muted">
-      ... es sind keine Tags archiviert
     </div>
-    <div *ngSwitchDefault class="d-flex flex-wrap">
-      <div *ngFor="let tag of archivedTags" class="d-flex mx-1">
-        <div class="left-badge bg-secondary text-light">
-          {{tag.value}}
+    <div class="px-5 py-3 w-100 h-100">
+      <div [ngSwitch]="selectedAdminSettingPage">
+        <div *ngSwitchCase="AdminSettingPage.EmailSMTP">
+          <fit-settings-email-smtp></fit-settings-email-smtp>
         </div>
-        <div *ngIf="tag.id == null"
-             class="middle-badge delete-badge text-light"
-             (click)="removeTag(archivedTags, tag)">
-          <i class="fa fa-times"></i>
+        <div *ngSwitchCase="AdminSettingPage.AdminAccounts">
+          <fit-settings-admin-accounts></fit-settings-admin-accounts>
         </div>
-        <div class="right-badge recover-badge"
-             (click)="recoverTag(tag)">
-          <i class="fa fa-arrow-up text-light"></i>
+        <div *ngSwitchCase="AdminSettingPage.DataTags">
+          <fit-settings-tags></fit-settings-tags>
+        </div>
+        <div *ngSwitchCase="AdminSettingPage.DataResources">
+          <fit-settings-resources></fit-settings-resources>
+        </div>
+        <div *ngSwitchCase="AdminSettingPage.DataBranches">
+          <fit-settings-branches></fit-settings-branches>
         </div>
       </div>
     </div>

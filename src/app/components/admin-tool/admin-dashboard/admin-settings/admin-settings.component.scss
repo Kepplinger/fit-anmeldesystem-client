@@ -1,1 +1,24 @@
-@import "../../../../styles/fit-badges";
+@import "../../../../styles/fit-global-styles";
+
+.admin-settings-container {
+  min-height: 720px;
+
+  .menu-tab-container {
+    min-width: 260px;
+
+    .menu-tab {
+      cursor: pointer;
+      color: #4f4f4f;
+
+      &:hover {
+        background-color: whitesmoke;
+        color: #2d2d2d;
+      }
+
+      &.selected {
+        background-color: $primary;
+        color: white;
+      }
+    }
+  }
+}
