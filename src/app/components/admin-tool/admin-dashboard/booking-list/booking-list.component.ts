@@ -34,12 +34,9 @@ export class BookingListComponent implements OnInit {
 
   public loading: boolean = true;
   public imageDownloadLink: string;
-
   public companyFilter: string = '';
 
   public displayedPackages: FitPackage[] = [FitPackage.BasicPack, FitPackage.SponsorPack, FitPackage.LecturePack];
-
-  public helper: Booking[];
 
   public constructor(private bookingDAO: BookingDAO,
                      private eventService: EventService,

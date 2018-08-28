@@ -11,16 +11,38 @@
              [ngClass]="{'selected': isSelectedSettingTab(SettingTab.EmailSMTP)}"
              (click)="setSelectedSettingTab(SettingTab.EmailSMTP)">
           <i class="fa fa-fw fa-envelope mr-1"></i>E-Mail SMTP
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.EmailSMTP)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
         </div>
         <div class="py-1 px-2 menu-tab selected"
              [ngClass]="{'selected': isSelectedSettingTab(SettingTab.AdminAccounts)}"
              (click)="setSelectedSettingTab(SettingTab.AdminAccounts)">
           <i class="fa fa-fw fa-user mr-1"></i>Admin-Accounts
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.AdminAccounts)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
         </div>
       </div>
 
       <div class="border-bottom">
         <div class="text-bold py-1 px-2">Daten pflegen</div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataBranches)}"
+             (click)="setSelectedSettingTab(SettingTab.DataBranches)">
+          <i class="fa fa-fw fa-code-fork mr-1"></i>Branchen
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataBranches)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataResources)}"
+             (click)="setSelectedSettingTab(SettingTab.DataResources)">
+          <i class="fa fa-fw fa-archive mr-1"></i>Resourcen
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataResources)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
         <div class="py-1 px-2 menu-tab"
              [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataTags)}"
              (click)="setSelectedSettingTab(SettingTab.DataTags)">
@@ -29,34 +51,24 @@
             <i class="fa fa-exclamation-triangle"></i>
           </div>
         </div>
-        <div class="py-1 px-2 menu-tab"
-             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataBranches)}"
-             (click)="setSelectedSettingTab(SettingTab.DataBranches)">
-          <i class="fa fa-fw fa-code-fork mr-1"></i>Branchen
-        </div>
-        <div class="py-1 px-2 menu-tab"
-             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataResources)}"
-             (click)="setSelectedSettingTab(SettingTab.DataResources)">
-          <i class="fa fa-fw fa-archive mr-1"></i>Resourcen
-        </div>
       </div>
 
     </div>
     <div class="w-100 h-100">
       <div [hidden]="selectedSettingTab !== SettingTab.EmailSMTP">
-        <fit-settings-email-smtp></fit-settings-email-smtp>
+        <fit-settings-email-smtp (changeHappened)="setChangesOnTab(SettingTab.EmailSMTP, $event)"></fit-settings-email-smtp>
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.AdminAccounts">
-        <fit-settings-admin-accounts></fit-settings-admin-accounts>
+        <fit-settings-admin-accounts (changeHappened)="setChangesOnTab(SettingTab.AdminAccounts, $event)"></fit-settings-admin-accounts>
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataTags">
         <fit-settings-tags (changeHappened)="setChangesOnTab(SettingTab.DataTags, $event)"></fit-settings-tags>
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataResources">
-        <fit-settings-resources></fit-settings-resources>
+        <fit-settings-resources (changeHappened)="setChangesOnTab(SettingTab.DataResources, $event)"></fit-settings-resources>
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataBranches">
-        <fit-settings-branches></fit-settings-branches>
+        <fit-settings-branches (changeHappened)="setChangesOnTab(SettingTab.DataBranches, $event)"></fit-settings-branches>
       </div>
     </div>
   </div>

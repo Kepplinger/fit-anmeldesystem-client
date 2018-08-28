@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseCsvExportComponent } from '../base-csv-export.component';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
-import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
+import { CompanyTagService } from '../../../services/company-tag.service';
 import { Company } from '../../../../../core/model/company';
 import { BranchDAO } from '../../../../../core/dao/branch.dao';
 

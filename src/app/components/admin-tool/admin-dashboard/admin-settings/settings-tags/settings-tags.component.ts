@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Tag } from '../../../../../core/model/tag';
 import { TagDAO } from '../../../../../core/dao/tag.dao';
-import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
+import { CompanyTagService } from '../../../services/company-tag.service';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
 import { BaseOnDeactivateAlertComponent } from '../../../../../core/base-components/base-on-deactivate-alert.component';
 import { BaseSettingsChangesComponent } from '../../../../../core/base-components/base-settings-changes.component';

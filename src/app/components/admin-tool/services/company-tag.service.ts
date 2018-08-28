@@ -1,5 +1,5 @@
-import { Tag } from '../model/tag';
-import { TagDAO } from '../dao/tag.dao';
+import { Tag } from '../../../core/model/tag';
+import { TagDAO } from '../../../core/dao/tag.dao';
 import { Injectable } from '@angular/core';
 
 @Injectable()

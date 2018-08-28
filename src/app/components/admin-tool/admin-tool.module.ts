@@ -30,7 +30,7 @@ import { GraduateTransferService } from '../../core/app-services/transfer-servic
 import { CompanyTransferService } from '../../core/app-services/transfer-services/company-transfer.service';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
 import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
-import { CompanyTagService } from '../../core/app-services/company-tag.service';
+import { CompanyTagService } from './services/company-tag.service';
 import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';

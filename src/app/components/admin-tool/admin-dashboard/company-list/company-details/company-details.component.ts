@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CompanyTransferService } from '../../../../../core/app-services/transfer-services/company-transfer.service';
 import { Company } from '../../../../../core/model/company';
-import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
+import { CompanyTagService } from '../../../services/company-tag.service';
 import { CompanyDAO } from '../../../../../core/dao/company.dao';
 import { Branch } from '../../../../../core/model/branch';
 import { BranchDAO } from '../../../../../core/dao/branch.dao';

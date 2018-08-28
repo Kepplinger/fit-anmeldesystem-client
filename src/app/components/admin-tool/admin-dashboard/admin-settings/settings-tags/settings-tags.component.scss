@@ -1,4 +1,5 @@
 @import "../../../../../styles/fit-badges";
+@import "../../../../../styles/fit-global-styles";
 
 .tag-container {
   height: 600px;
@@ -15,14 +16,4 @@
     border-right: none;
     border-top: none;
   }
-}
-
-.scrollable {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.flex-line-breaks {
-  min-width: 0;
-  white-space: normal;
 }
