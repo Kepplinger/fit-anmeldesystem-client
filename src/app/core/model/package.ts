@@ -9,10 +9,12 @@ export class Package {
   public constructor(name?: string,
                      price?: number,
                      discriminator?: number,
-                     id?: number) {
+                     id?: number,
+                     timestamp?: string) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.discriminator = discriminator;
+    this.timestamp = timestamp;
   }
 }

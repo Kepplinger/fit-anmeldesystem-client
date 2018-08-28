@@ -51,6 +51,14 @@
             <i class="fa fa-exclamation-triangle"></i>
           </div>
         </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataPackages)}"
+             (click)="setSelectedSettingTab(SettingTab.DataPackages)">
+          <i class="fa fa-fw fa-star mr-1"></i>Fit-Pakete
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataPackages)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -69,6 +77,9 @@
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataBranches">
         <fit-settings-branches (changeHappened)="setChangesOnTab(SettingTab.DataBranches, $event)"></fit-settings-branches>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.DataPackages">
+        <fit-settings-packages (changeHappened)="setChangesOnTab(SettingTab.DataPackages, $event)"></fit-settings-packages>
       </div>
     </div>
   </div>

@@ -1,0 +1,55 @@
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">Datenbestand - FIT Pakete <i class="fa fa-star"></i></h3>
+</div>
+
+<div class="p-4">
+
+  <div class="card-deck">
+    <div class="card mr-0"
+         *ngFor="let fitPackage of packages">
+
+      <div class="card-header">
+        <h5 class="card-title m-0">Paket {{fitPackage.discriminator}}</h5>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="mx-3">
+
+          <div class="my-2">
+            <label class="m-0">Name: </label>
+            <input type="text" class="form-control" title="name"
+                   [disabled]="!isPackageEditing(fitPackage)"
+                   [(ngModel)]="fitPackage.name">
+          </div>
+
+          <div class="my-2">
+            <label class="m-0">Preis: </label>
+            <input type="text" class="form-control" title="price"
+                   [disabled]="!isPackageEditing(fitPackage)"
+                   [(ngModel)]="fitPackage.price">
+          </div>
+        </div>
+
+        <div *ngIf="!isPackageEditing(fitPackage)" class="mt-4">
+          <button class="btn btn-primary w-100 text-bold no-border-radius"
+                  (click)="setEditingPackage(fitPackage)">
+            <i class="fa fa-pencil"></i> Bearbeiten
+          </button>
+        </div>
+
+        <div *ngIf="isPackageEditing(fitPackage)" class="mt-4">
+          <button class="btn btn-success w-50 text-bold no-border-radius"
+                  (click)="updatePackage(fitPackage)">
+            <i class="fa fa-download"></i> Speichern
+          </button>
+          <button class="btn btn-danger w-50 text-bold no-border-radius"
+                  (click)="cancelEditing(fitPackage)">
+            <i class="fa fa-times"></i> Abbrechen
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -48,6 +48,7 @@ import { SettingsBranchesComponent } from './admin-dashboard/admin-settings/sett
 import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/settings-resources/settings-resources.component';
 import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
 import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
+import { SettingsPackagesComponent } from './admin-dashboard/admin-settings/settings-packages/settings-packages.component';
 
 @NgModule({
   imports: [
@@ -94,7 +95,8 @@ import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/set
     SettingsEmailSmtpComponent,
     SettingsAdminAccountsComponent,
     SettingsBranchesComponent,
-    SettingsResourcesComponent
+    SettingsResourcesComponent,
+    SettingsPackagesComponent
   ],
   providers: [
     CsvCreatorService,

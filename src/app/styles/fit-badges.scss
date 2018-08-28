@@ -32,12 +32,12 @@
 
 .archive-badge {
   cursor: pointer;
-  background-color: darken($primary-color,30%);
+  background-color: $primary-color;
   -webkit-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
 
   &:hover {
-    background-color: darken($primary-color,40%);
+    background-color: darken($primary-color, 10%);
   }
 }
 

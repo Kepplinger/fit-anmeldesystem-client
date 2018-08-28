@@ -3,7 +3,8 @@ export enum SettingTab {
   AdminAccounts = 'AA',
   DataTags = 'DT',
   DataBranches = 'DB',
-  DataResources = 'DS'
+  DataResources = 'DS',
+  DataPackages = 'DP'
 }
 
 export function getSettingTabs() {
@@ -12,6 +13,7 @@ export function getSettingTabs() {
     SettingTab.AdminAccounts,
     SettingTab.DataTags,
     SettingTab.DataBranches,
-    SettingTab.DataResources
+    SettingTab.DataResources,
+    SettingTab.DataPackages
   ];
 }
