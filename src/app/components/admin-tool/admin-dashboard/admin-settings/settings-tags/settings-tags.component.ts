@@ -26,8 +26,12 @@ export class SettingsTagsComponent extends BaseSettingsChangesComponent implemen
   }
 
   public ngOnInit(): void {
-    this.tags = this.tagService.getTags();
-    this.archivedTags = this.tagService.getArchivedTags();
+    this.tags = this.tagService.tags.getValue();
+    this.archivedTags = this.tagService.archivedTags.getValue();
+
+    this.tagService.tags.subscribe(t => this.tags = t);
+    this.tagService.archivedTags.subscribe(t => this.archivedTags = t);
+
     this.sortTags();
   }
 

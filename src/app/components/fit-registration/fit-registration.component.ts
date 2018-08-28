@@ -314,7 +314,7 @@ export class FitRegistrationComponent implements OnInit {
         }
 
         this.isBookingTransmitting = true;
-        await this.bookingDAO.persistBooking(booking, this.isAdminMode);
+        booking = await this.bookingDAO.persistBooking(booking, this.isAdminMode);
         this.isBookingTransmitting = false;
 
         if (this.isAdminMode) {

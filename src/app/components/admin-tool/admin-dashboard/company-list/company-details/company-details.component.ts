@@ -51,7 +51,9 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
         }
       });
 
-    this.tags = this.tagService.getTags();
+    this.tags = this.tagService.tags.getValue();
+    this.tagService.tags.subscribe(t => this.tags = t);
+
     this.selectedBranches = (await this.branchDAO.fetchBranches())
       .map(b => {
         return {branch: b, selected: this.isBranchSelected(b)};

@@ -1,12 +1,13 @@
 import { Tag } from '../../../core/model/tag';
 import { TagDAO } from '../../../core/dao/tag.dao';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class CompanyTagService {
 
-  private tags: Tag[] = [];
-  private archivedTags: Tag[] = [];
+  public tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
+  public archivedTags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
 
   public constructor(private tagDAO: TagDAO) {
     if (!this.readTagsFromSessionStorage()) {
@@ -18,25 +19,16 @@ export class CompanyTagService {
     if (tags == null) {
       tags = [];
     }
-    this.tags = tags;
-    sessionStorage.setItem('tags', JSON.stringify(this.tags));
+    this.tags.next(tags);
+    sessionStorage.setItem('tags', JSON.stringify(this.tags.getValue()));
   }
 
   public setArchivedTags(tags: Tag[]): void {
     if (tags == null) {
       tags = [];
     }
-    this.archivedTags = tags;
-    sessionStorage.setItem('archivedTags', JSON.stringify(this.archivedTags));
-  }
-
-
-  public getTags(): Tag[] {
-    return this.tags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
-  }
-
-  public getArchivedTags(): Tag[] {
-    return this.archivedTags.sort((a: Tag, b: Tag) => a.value.localeCompare(b.value));
+    this.archivedTags.next(tags);
+    sessionStorage.setItem('archivedTags', JSON.stringify(this.archivedTags.getValue()));
   }
 
   private async loadTags(): Promise<void> {
@@ -49,8 +41,8 @@ export class CompanyTagService {
     let tags = JSON.parse(sessionStorage.getItem('tags'));
     let archivedTags = JSON.parse(sessionStorage.getItem('archivedTags'));
     if (tags != null && archivedTags != null) {
-      this.tags = tags;
-      this.archivedTags = archivedTags;
+      this.tags.next(tags);
+      this.archivedTags.next(archivedTags);
       return true;
     } else {
       return false;
