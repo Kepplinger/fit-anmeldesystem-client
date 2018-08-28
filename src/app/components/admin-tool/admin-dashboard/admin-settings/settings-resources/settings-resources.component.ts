@@ -64,7 +64,7 @@ export class SettingsResourcesComponent extends BaseSettingsChangesComponent imp
 
     this.resources = resources.filter(t => !t.isArchive);
     this.archivedResources = resources.filter(t => t.isArchive);
-    this.toastr.success('Die Resourceen wurden erfolgreich gespeichert!', 'Update erfolgreich!');
+    this.toastr.success('Die Resourcen wurden erfolgreich gespeichert!', 'Update erfolgreich!');
     this.setUnsavedChanges(false);
   }
 }
