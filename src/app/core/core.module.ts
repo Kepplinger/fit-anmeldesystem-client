@@ -26,6 +26,7 @@ import { AdminAuthenticationInterceptor } from './interceptors/admin-authenticat
 import { AccountManagementService } from './app-services/account-managenment.service';
 import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
 import { DataUpdateNotifier } from './app-services/data-update-notifier';
+import { SmtpConfigDAO } from './dao/smtp-config.dao';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { DataUpdateNotifier } from './app-services/data-update-notifier';
     EventDAO,
     EmailDAO,
     GraduateDAO,
+    SmtpConfigDAO,
     AppConfig,
     ApplicationStateService,
     AdminAuthorizationService,
