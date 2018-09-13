@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
+import { AdminAuthorizationService } from '../../admin-tool/services/admin-authorization.service';
 import { Router } from '@angular/router';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';

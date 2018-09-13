@@ -20,7 +20,7 @@ import { GraduateDAO } from './dao/graduate.dao';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
 import { TagDAO } from './dao/tag.dao';
-import { AdminAuthorizationService } from './app-services/admin-authorization.service';
+import { AdminAuthorizationService } from '../components/admin-tool/services/admin-authorization.service';
 import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
 import { AccountManagementService } from './app-services/account-managenment.service';
 import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
@@ -51,7 +51,6 @@ import { FitUserDAO } from './dao/fit-user.dao';
     SmtpConfigDAO,
     AppConfig,
     ApplicationStateService,
-    AdminAuthorizationService,
     AccountManagementService,
     ModalWindowService,
     AppLoadingService,
@@ -59,6 +58,7 @@ import { FitUserDAO } from './dao/fit-user.dao';
     EventService,
     DataUpdateNotifier,
     CanDeactivateGuard,
+    AdminAuthorizationService,
     {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
   ]
 })

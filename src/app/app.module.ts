@@ -15,6 +15,7 @@ import localeDe from '@angular/common/locales/de-AT';
 import { AdminHeaderComponent } from './components/shared-components/admin-header/admin-header.component';
 import { FitHeaderComponent } from './components/shared-components/fit-header/header.component';
 import { FitFooterComponent } from './components/shared-components/fit-footer/footer.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -26,7 +27,8 @@ registerLocaleData(localeDe, 'de-AT');
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     CoreModule,
-    SharedModule
+    SharedModule,
+    JwtModule
   ], declarations: [
     AppComponent,
     MainComponent,

@@ -1,5 +1,5 @@
 import { ApplicationStateService } from '../app-services/application-state.service';
-import { AdminAuthorizationService } from '../app-services/admin-authorization.service';
+import { AdminAuthorizationService } from '../../components/admin-tool/services/admin-authorization.service';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';

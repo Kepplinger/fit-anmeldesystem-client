@@ -41,11 +41,11 @@ export class EventService {
 
     // currentEvent CANNOT be null (app won't run without it)
     do {
-      try {
+      // try {
         currentEvent = await this.eventDAO.getCurrentEvent();
-      } catch (e) {
-        console.error('Der Request konnte nicht durchgeführt werden! Erneuter Versuch');
-      }
+      // } catch (e) {
+      //   console.error('Der Request konnte nicht durchgeführt werden! Erneuter Versuch');
+      // }
     } while (currentEvent == null);
 
     this.currentEvent.next(currentEvent);

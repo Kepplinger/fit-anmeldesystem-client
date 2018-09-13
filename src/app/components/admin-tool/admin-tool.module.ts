@@ -49,6 +49,8 @@ import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/set
 import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
 import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
 import { SettingsPackagesComponent } from './admin-dashboard/admin-settings/settings-packages/settings-packages.component';
+import { AdminAuthorizationService } from './services/admin-authorization.service';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   imports: [
