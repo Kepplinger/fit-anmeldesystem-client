@@ -31,6 +31,26 @@ export class FormHelper {
     }
   }
 
+  public static isTooShort(formName: string, formGroup: FormGroup): boolean {
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
+
+    if (errors != null) {
+      return errors.minlength != null;
+    } else {
+      return false;
+    }
+  }
+
+  public static isNotMatching(formName: string, formGroup: FormGroup): boolean {
+    let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
+
+    if (errors != null) {
+      return errors.matchOther != null;
+    } else {
+      return false;
+    }
+  }
+
   public static isDescriptionTooLong(formName: string, formGroup: FormGroup): boolean {
     let errors: ValidationErrors = this.getValidationErrors(formName, formGroup);
 

@@ -1,76 +1,85 @@
-<div class="small-container mt-5">
+<div class="container mt-5">
 
-  <div class="d-flex">
-    <h2 class="text-bold">Tags</h2>
-    <div class="flex-1"></div>
-    <button class="btn btn-primary my-2 text-bold"
-            (click)="updateTags()">
-      <i class="fa fa-refresh"></i>
-      Tags am Server updaten
-    </button>
-  </div>
+  <h2 class="text-bold mb-2">Admin-Einstellungen</h2>
 
-  <form>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <button class="btn btn-success text-bold"
-                type="submit"
-                [disabled]="tagInput == ''"
-                (click)="addTag()">
-          <i class="fa fa-plus"></i>
-          Hinzufügen
-        </button>
-      </div>
-      <input type="text"
-             class="form-control"
-             [(ngModel)]="tagInput"
-             [ngModelOptions]="{standalone: true}"
-             placeholder="Tag">
-    </div>
-  </form>
+  <div class="admin-settings-container border-top d-flex">
+    <div class="menu-tab-container border-right">
 
-  <div [ngSwitch]="tags.length == 0" class="mt-2">
-    <div *ngSwitchCase="true" class="text-muted">
-      ... es sind keine Tags vorhanden
-    </div>
-    <div *ngSwitchDefault class="d-flex flex-wrap">
-      <div *ngFor="let tag of tags" class="d-flex mx-1 my-1">
-        <div class="left-badge bg-primary text-light">
-          {{tag.value}}
+      <div class="border-bottom">
+        <div class="text-bold py-1 px-2">Allgemeine Einstellungen</div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.EmailSMTP)}"
+             (click)="setSelectedSettingTab(SettingTab.EmailSMTP)">
+          <i class="fa fa-fw fa-envelope mr-1"></i>E-Mail SMTP
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.EmailSMTP)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
         </div>
-        <div *ngIf="tag.id == null"
-             class="middle-badge delete-badge text-light"
-             (click)="removeTag(tags, tag)">
-          <i class="fa fa-times"></i>
-        </div>
-        <div class="right-badge archive-badge"
-             (click)="archiveTag(tag)">
-          <i class="fa fa-arrow-down text-light"></i>
+        <div class="py-1 px-2 menu-tab selected"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.AdminAccounts)}"
+             (click)="setSelectedSettingTab(SettingTab.AdminAccounts)">
+          <i class="fa fa-fw fa-user mr-1"></i>Admin-Accounts
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.AdminAccounts)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <h3 class="text-bold mt-3">Archivierte Tags</h3>
+      <div class="border-bottom">
+        <div class="text-bold py-1 px-2">Daten pflegen</div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataBranches)}"
+             (click)="setSelectedSettingTab(SettingTab.DataBranches)">
+          <i class="fa fa-fw fa-code-fork mr-1"></i>Branchen
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataBranches)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataResources)}"
+             (click)="setSelectedSettingTab(SettingTab.DataResources)">
+          <i class="fa fa-fw fa-archive mr-1"></i>Resourcen
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataResources)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataTags)}"
+             (click)="setSelectedSettingTab(SettingTab.DataTags)">
+          <i class="fa fa-fw fa-tags mr-1"></i>Tags
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataTags)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataPackages)}"
+             (click)="setSelectedSettingTab(SettingTab.DataPackages)">
+          <i class="fa fa-fw fa-star mr-1"></i>Fit-Pakete
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataPackages)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+      </div>
 
-  <div [ngSwitch]="archivedTags.length == 0">
-    <div *ngSwitchCase="true" class="text-muted">
-      ... es sind keine Tags archiviert
     </div>
-    <div *ngSwitchDefault class="d-flex flex-wrap">
-      <div *ngFor="let tag of archivedTags" class="d-flex mx-1">
-        <div class="left-badge bg-secondary text-light">
-          {{tag.value}}
-        </div>
-        <div *ngIf="tag.id == null"
-             class="middle-badge delete-badge text-light"
-             (click)="removeTag(archivedTags, tag)">
-          <i class="fa fa-times"></i>
-        </div>
-        <div class="right-badge recover-badge"
-             (click)="recoverTag(tag)">
-          <i class="fa fa-arrow-up text-light"></i>
-        </div>
+    <div class="w-100 h-100">
+      <div [hidden]="selectedSettingTab !== SettingTab.EmailSMTP">
+        <fit-settings-email-smtp (changeHappened)="setChangesOnTab(SettingTab.EmailSMTP, $event)"></fit-settings-email-smtp>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.AdminAccounts">
+        <fit-settings-admin-accounts (changeHappened)="setChangesOnTab(SettingTab.AdminAccounts, $event)"></fit-settings-admin-accounts>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.DataTags">
+        <fit-settings-tags (changeHappened)="setChangesOnTab(SettingTab.DataTags, $event)"></fit-settings-tags>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.DataResources">
+        <fit-settings-resources (changeHappened)="setChangesOnTab(SettingTab.DataResources, $event)"></fit-settings-resources>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.DataBranches">
+        <fit-settings-branches (changeHappened)="setChangesOnTab(SettingTab.DataBranches, $event)"></fit-settings-branches>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.DataPackages">
+        <fit-settings-packages (changeHappened)="setChangesOnTab(SettingTab.DataPackages, $event)"></fit-settings-packages>
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
       aufzunehmen. Bitte seien Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
   </div>
 
-  <form [formGroup]="stepFormGroup">
+  <form [formGroup]="formGroup">
 
     <!--general-->
     <div class="mb-4">
@@ -131,7 +131,7 @@
           <label for="establishmentAutCount" class="my-auto mr-1">Anzahl:</label>
           <input #establishmentAutCount
                  class="number-input form-control"
-                 [value]="stepFormGroup.value.establishmentsCountAut"
+                 [value]="formGroup.value.establishmentsCountAut"
                  (input)="verifyAutEstablishmentsCount()"
                  (change)="onInputChanged()"
                  id="establishmentAutCount" type="number"/>
@@ -139,7 +139,7 @@
         <fit-tag-input id="establishmentsAut"
                        [placeholder]="'Standort hinzufügen'"
                        [secondaryPlaceholder]="'Mit Enter bestätigen'"
-                       [tags]="stepFormGroup.value.establishmentsAut"
+                       [tags]="formGroup.value.establishmentsAut"
                        (tagsChange)="updateEstablishments('establishmentsAut', $event)">
         </fit-tag-input>
       </div>
@@ -156,14 +156,14 @@
           <label for="establishmentIntCount" class="my-auto mr-1">Anzahl:</label>
           <input #establishmentIntCount
                  class="number-input form-control"
-                 [value]="stepFormGroup.value.establishmentsCountInt"
+                 [value]="formGroup.value.establishmentsCountInt"
                  (input)="verifyIntEstablishmentsCount()"
                  id="establishmentIntCount" type="number"/>
         </div>
         <fit-tag-input id="establishmentsInt"
                        [placeholder]="'Standort hinzufügen'"
                        [secondaryPlaceholder]="'Mit Enter bestätigen'"
-                       [tags]="stepFormGroup.value.establishmentsInt"
+                       [tags]="formGroup.value.establishmentsInt"
                        (tagsChange)="updateEstablishments('establishmentsInt', $event)">
         </fit-tag-input>
       </div>

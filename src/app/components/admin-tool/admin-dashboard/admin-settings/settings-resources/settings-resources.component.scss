@@ -1,0 +1,23 @@
+@import "../../../../../styles/fit-badges";
+@import "../../../../../styles/fit-global-styles";
+
+.header {
+  height: 75px;
+}
+
+.resource-container {
+  height: 450px;
+  width: 100%;
+  border-width: 2px;
+
+  button {
+    border-radius: 0;
+  }
+
+  input {
+    border-radius: 0;
+    background-color: whitesmoke;
+    border-right: none;
+    border-top: none;
+  }
+}

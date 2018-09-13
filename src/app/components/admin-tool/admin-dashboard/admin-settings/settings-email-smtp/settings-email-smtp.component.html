@@ -1,0 +1,67 @@
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">E-Mail - SMTP <i class="fa fa-envelope"></i></h3>
+
+  <div class="d-flex flex-column ml-auto">
+    <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto"
+            (click)="updateSmtpConfig()"
+            [disabled]="!unsavedChangesExist">
+      <i class="fa fa-download"></i>
+      Speichern
+    </button>
+  </div>
+</div>
+
+<div class="px-5 py-3">
+
+  <form [formGroup]="smtpConfigFormGroup" autocomplete="off">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Host: </label>
+      <div class="col-sm-10">
+        <input type="text"
+               class="form-control"
+               formControlName="host"
+               placeholder="Host">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Port: </label>
+      <div class="col-sm-10">
+        <input type="text"
+               class="form-control"
+               formControlName="port"
+               placeholder="Port">
+      </div>
+    </div>
+
+    <div class="border-bottom my-4"></div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">E-Mail: </label>
+      <div class="col-sm-10">
+        <input type="email"
+               class="form-control"
+               formControlName="eMail"
+               placeholder="E-Mail Adresse">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Passwort: </label>
+      <div class="col-sm-10">
+        <input type="password"
+               class="form-control"
+               formControlName="password"
+               placeholder="Passwort">
+      </div>
+    </div>
+
+    <div class="d-flex mt-4">
+      <button class="btn btn-primary big-rounded-button text-bold mx-auto"
+              type="submit"
+              (click)="sendTestMail()">
+        <i class="fa fa-envelope"></i> Test-Mail verschicken
+      </button>
+    </div>
+  </form>
+</div>

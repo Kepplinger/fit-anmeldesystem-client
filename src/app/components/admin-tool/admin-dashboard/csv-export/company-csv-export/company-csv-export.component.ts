@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseCsvExportComponent } from '../base-csv-export.component';
 import { CsvCreatorService } from '../../../services/csv-creator.service';
-import { CompanyTagService } from '../../../../../core/app-services/company-tag.service';
+import { CompanyTagService } from '../../../services/company-tag.service';
 import { Company } from '../../../../../core/model/company';
 import { BranchDAO } from '../../../../../core/dao/branch.dao';
+import { Tag } from '../../../../../core/model/tag';
 
 @Component({
   selector: 'fit-company-csv-export',
@@ -49,9 +50,8 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
 
     this.updateCompanies();
 
-    this.tags = this.tagService.getTags().map(t => {
-      return {checked: false, tag: t};
-    });
+    this.tags = this.mapTags(this.tagService.tags.getValue());
+    this.tagService.tags.subscribe(t => this.tags = this.mapTags(t));
 
     this.branches = (await this.branchDAO.fetchBranches()).map(b => {
       return {checked: false, branch: b};
@@ -101,5 +101,11 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   public checkAllTags(): void {
     this.tags.forEach(t => t.checked = true);
     this.updateCompanies();
+  }
+
+  private mapTags(tags: Tag[]): any[] {
+    return tags.map(t => {
+      return {checked: false, tag: t};
+    });
   }
 }

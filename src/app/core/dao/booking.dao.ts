@@ -5,7 +5,7 @@ import { AppConfig } from '../app-config/app-config.service';
 import { Booking } from '../model/booking';
 import { Event } from '../model/event';
 import { BookingMapper } from '../model/mapper/booking-mapper';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { IsAccepted } from '../model/enums/is-accepted';
 
 @Injectable()
@@ -33,11 +33,15 @@ export class BookingDAO {
       .toPromise();
   }
 
-  public async persistBooking(booking: Booking, isAdminChange: boolean = false): Promise<void> {
+  public async persistBooking(booking: Booking, isAdminChange: boolean = false): Promise<Booking> {
     let json: any = BookingMapper.mapBookingToJson(booking);
     let params = new HttpParams().set('isAdminChange', String(isAdminChange));
 
-    await this.http.post<void>(this.appConfig.serverURL + '/booking', json, {params: params})
+    return await this.http.post<any>(this.appConfig.serverURL + '/booking', json, {params: params})
+      .pipe(
+        map((data: any) => {
+          return BookingMapper.mapJsonToBooking(data);
+        }))
       .toPromise();
   }
 

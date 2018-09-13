@@ -10,13 +10,14 @@ import { AccountManagementService } from '../../../core/app-services/account-man
 import { Graduate } from '../../../core/model/graduate';
 import { ModalWindowService } from '../../../core/app-services/modal-window.service';
 import { PlatformLocation } from '@angular/common';
+import { BaseOnDeactivateAlertComponent } from '../../../core/base-components/base-on-deactivate-alert.component';
 
 @Component({
   selector: 'fit-account-overview',
   templateUrl: './account-overview.component.html',
   styleUrls: ['./account-overview.component.scss']
 })
-export class AccountOverviewComponent implements OnInit {
+export class AccountOverviewComponent extends BaseOnDeactivateAlertComponent implements OnInit {
 
   public graduate: Graduate = null;
   public company: Company = null;
@@ -24,7 +25,6 @@ export class AccountOverviewComponent implements OnInit {
   public event: Event = null;
 
   public isGraduate: boolean = false;
-  public wereChangesMade: boolean = false;
 
   public constructor(private accountManagementService: AccountManagementService,
                      private fb: FormBuilder,
@@ -32,6 +32,7 @@ export class AccountOverviewComponent implements OnInit {
                      private modalWindowService: ModalWindowService,
                      private platformLocation: PlatformLocation,
                      private router: Router) {
+    super();
   }
 
   public ngOnInit(): void {
@@ -55,21 +56,12 @@ export class AccountOverviewComponent implements OnInit {
     }
   }
 
+  public editModeChanged(value: boolean): void {
+    this.unsavedChangesExist = value;
+  }
+
   public logout(): void {
     this.accountManagementService.logoutMember();
     this.router.navigate(['/konto', 'login']);
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  public unloadNotification() {
-    return !this.wereChangesMade;
-  }
-
-  public async canDeactivate() {
-    if (this.wereChangesMade) {
-      return confirm('You have unsaved changes! If you leave, your changes will be lost.');
-    } else {
-      return true;
-    }
   }
 }

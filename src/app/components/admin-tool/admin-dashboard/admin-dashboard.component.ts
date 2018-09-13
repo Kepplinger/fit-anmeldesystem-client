@@ -18,10 +18,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  public constructor(private eventService: EventService,
-                     private graduatesService: GraduatesService,
-                     private companiesService: CompaniesService,
-                     private bookingsService: BookingsService) {
+  public constructor(private eventService: EventService) {
   }
 
   public ngOnInit(): void {

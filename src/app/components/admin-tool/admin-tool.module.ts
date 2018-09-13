@@ -30,7 +30,7 @@ import { GraduateTransferService } from '../../core/app-services/transfer-servic
 import { CompanyTransferService } from '../../core/app-services/transfer-services/company-transfer.service';
 import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
 import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
-import { CompanyTagService } from '../../core/app-services/company-tag.service';
+import { CompanyTagService } from './services/company-tag.service';
 import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
 import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
@@ -42,6 +42,13 @@ import { CompaniesService } from './services/companies.service';
 import { GraduatesService } from './services/graduates.service';
 import { BookingsService } from './services/bookings.service';
 import { TestMailModalComponent } from './admin-dashboard/mail-templates/test-mail-modal/test-mail-modal.component';
+import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.component';
+import { SettingsAdminAccountsComponent } from './admin-dashboard/admin-settings/settings-admin-accounts/settings-admin-accounts.component';
+import { SettingsBranchesComponent } from './admin-dashboard/admin-settings/settings-branches/settings-branches.component';
+import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/settings-resources/settings-resources.component';
+import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
+import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
+import { SettingsPackagesComponent } from './admin-dashboard/admin-settings/settings-packages/settings-packages.component';
 
 @NgModule({
   imports: [
@@ -82,7 +89,14 @@ import { TestMailModalComponent } from './admin-dashboard/mail-templates/test-ma
     SortableColumnComponent,
     SortableTableDirective,
     PresentationDetailModalComponent,
-    TestMailModalComponent
+    TestMailModalComponent,
+    SendMailsComponent,
+    SettingsTagsComponent,
+    SettingsEmailSmtpComponent,
+    SettingsAdminAccountsComponent,
+    SettingsBranchesComponent,
+    SettingsResourcesComponent,
+    SettingsPackagesComponent
   ],
   providers: [
     CsvCreatorService,

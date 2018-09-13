@@ -5,19 +5,15 @@
     @extend .floating-effect;
 
     .nav-item {
+      cursor: pointer;
       margin-left: 1rem;
       margin-right: 1rem;
-    }
-
-    .nav-link {
-      color: #d9d9d9;
 
       &:hover {
-        color: whitesmoke;
-        text-decoration: underline;
+        background-color: #151515;
       }
 
-      &:active {
+      .nav-link {
         color: white;
       }
     }

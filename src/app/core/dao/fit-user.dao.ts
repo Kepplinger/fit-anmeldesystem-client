@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { ErrorInterceptor } from './helper/error-interceptor';
 import * as CryptoJS from 'crypto-js';
 import { catchError } from 'rxjs/operators';
+import { FitUserRole } from '../model/enums/fit-user-role';
+import { FitUser } from '../model/fit-user';
+import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
 
 @Injectable()
-export class AdminDAO {
+export class FitUserDAO {
 
   public constructor(private appConfig: AppConfig,
                      private http: HttpClient) {
@@ -16,6 +19,18 @@ export class AdminDAO {
   public async loginAdmin(email: string, password: string): Promise<any> {
     // password = CryptoJS.SHA256(password).toString();
     return this.http.post<any>(this.appConfig.serverURL + '/auth/login', {userName: email, password: password})
+      .pipe(catchError(ErrorInterceptor.catchErrorMessage))
+      .toPromise();
+  }
+
+  public async createAdmin(email: string, password: string, role: FitUserRole): Promise<void | HttpErrorResponse> {
+
+    let json: any = {
+      fitUser: new FitUser(email, role),
+      password: password
+    };
+
+    return this.http.post<void>(this.appConfig.serverURL + '/account', json)
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
   }

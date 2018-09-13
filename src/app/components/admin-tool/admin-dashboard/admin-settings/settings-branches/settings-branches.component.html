@@ -1,0 +1,94 @@
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">Datenbestand - Branchen <i class="fa fa-code-fork"></i></h3>
+
+  <div class="d-flex flex-column ml-auto">
+    <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto"
+            (click)="updateBranches()"
+            [disabled]="!unsavedChangesExist">
+      <i class="fa fa-download"></i>
+      Speichern
+    </button>
+  </div>
+</div>
+
+<div class="px-5 py-3">
+  <div class="row">
+
+    <!--tags-->
+    <div class="col-md-6">
+      <h3>Branchen</h3>
+      <div class="fit-border branch-container d-flex flex-column">
+        <form>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-success text-bold"
+                      type="submit"
+                      [disabled]="branchInput == ''"
+                      (click)="addBranch()">
+                <i class="fa fa-plus"></i>
+                Add
+              </button>
+            </div>
+            <input type="text"
+                   class="form-control"
+                   [(ngModel)]="branchInput"
+                   [ngModelOptions]="{standalone: true}"
+                   placeholder="Eingabe ...">
+          </div>
+        </form>
+
+        <div class="scrollable h-100 border-top">
+          <div [ngSwitch]="branches.length == 0" class="mt-2">
+            <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+              ... es wurden keine Branchen gefunden
+            </div>
+            <div *ngSwitchDefault>
+              <div *ngFor="let branch of branches" class="d-flex m-2">
+                <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                  {{branch.name}}
+                </div>
+                <div *ngIf="branch.id == null"
+                     class="middle-badge delete-badge text-light p-2 floating-effect"
+                     (click)="removeBranch(branches, branch)">
+                  <i class="fa fa-times"></i>
+                </div>
+                <div class="right-badge archive-badge p-2 floating-effect"
+                     (click)="archiveBranch(branch)">
+                  <i class="fa fa-arrow-right text-light"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--archived tags-->
+    <div class="col-md-6">
+      <h3>Archivierte Branchen</h3>
+      <div class="fit-border branch-container scrollable">
+        <div [ngSwitch]="archivedBranches.length == 0" class="mt-2">
+          <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+            ... es wurden keine archivierten Branchen gefunden
+          </div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let branch of archivedBranches" class="d-flex m-2 floating-effect">
+              <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                <span>{{branch.name}}</span>
+              </div>
+              <div *ngIf="branch.id == null"
+                   class="middle-badge delete-badge text-light p-2 floating-effect"
+                   (click)="removeBranch(branches, branch)">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="right-badge recover-badge p-2 floating-effect"
+                   (click)="recoverBranch(branch)">
+                <i class="fa fa-arrow-left text-light"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

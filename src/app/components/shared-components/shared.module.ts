@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { TagInputModule } from 'ngx-chips';
 
 import { HintIconComponent } from './hint-icon/hint-icon/hint-icon.component';
-import { FitHeaderComponent } from './fit-header/header.component';
-import { FitFooterComponent } from './fit-footer/footer.component';
 import { TagInputComponent } from './tag-input/tag-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.component';

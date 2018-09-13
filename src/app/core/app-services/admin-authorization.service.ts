@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AdminDAO } from '../dao/admin.dao';
+import { FitUserDAO } from '../dao/fit-user.dao';
 
 @Injectable()
 export class AdminAuthorizationService {
 
-  public isFitAdmin: boolean = false;
   public token: string;
 
-  public constructor(private authDAO: AdminDAO) {
+  public constructor(private authDAO: FitUserDAO) {
     this.token = sessionStorage.getItem('token');
   }
 

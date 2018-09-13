@@ -1,0 +1,69 @@
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">Datenbestand - FIT Pakete <i class="fa fa-star"></i></h3>
+</div>
+
+<div class="p-4">
+
+  <div class="card-deck">
+    <div class="card mr-0"
+         *ngFor="let fitPackage of packages">
+
+      <div class="card-header d-flex">
+        <h5 class="card-title m-0">Paket {{fitPackage.discriminator}}</h5>
+        <div class="ml-auto">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star-o" *ngIf="fitPackage.discriminator < 2"></i>
+          <i class="fa fa-star" *ngIf="fitPackage.discriminator >= 2"></i>
+          <i class="fa fa-star-o" *ngIf="fitPackage.discriminator < 3"></i>
+          <i class="fa fa-star" *ngIf="fitPackage.discriminator >= 3"></i>
+        </div>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="mx-3">
+
+          <div class="my-2">
+            <label class="m-0">Name: </label>
+            <input type="text" class="form-control" title="name"
+                   (keydown)="packageChanged()"
+                   [disabled]="!isPackageEditing(fitPackage)"
+                   [(ngModel)]="fitPackage.name">
+          </div>
+
+          <div class="my-2">
+            <label class="m-0">Preis: </label>
+            <div class="input-group">
+              <input type="text" class="form-control" title="price"
+                     (keydown)="packageChanged()"
+                     [disabled]="!isPackageEditing(fitPackage)"
+                     [(ngModel)]="fitPackage.price">
+              <div class="input-group-append">
+                <span class="input-group-text">€</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isPackageEditing(fitPackage)" class="mt-4">
+          <button class="btn btn-primary w-100 text-bold no-border-radius"
+                  (click)="setEditingPackage(fitPackage)">
+            <i class="fa fa-pencil"></i> Bearbeiten
+          </button>
+        </div>
+
+        <div *ngIf="isPackageEditing(fitPackage)" class="mt-4">
+          <button class="btn btn-success w-50 text-bold no-border-radius"
+                  (click)="updatePackage(fitPackage)">
+            <i class="fa fa-download"></i> Speichern
+          </button>
+          <button class="btn btn-danger w-50 text-bold no-border-radius"
+                  (click)="cancelEditing(fitPackage)">
+            <i class="fa fa-times"></i> Abbrechen
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

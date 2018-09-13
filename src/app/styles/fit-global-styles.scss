@@ -268,6 +268,7 @@ body {
 }
 
 .big-rounded-button{
+  min-width: 200px;
   border-radius: 40px;
   font-size: 1.2rem;
   padding-left: 1em;
@@ -321,3 +322,14 @@ body {
     color: white;
   }
 }
+
+.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.flex-line-breaks {
+  min-width: 0;
+  white-space: normal;
+}
+

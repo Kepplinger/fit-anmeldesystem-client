@@ -9,7 +9,7 @@ import { FilePickerError } from '../../../../libs/file-picker/file-picker-error'
 import { PickedFile } from '../../../../libs/file-picker/picked-file';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { DataFile } from '../../../../core/model/data-file';
-import { BaseFormValidationComponent } from '../base-form-validation.component';
+import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
 
 @Component({
   selector: 'fit-detailed-data',
@@ -22,7 +22,7 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
   public isVisible: boolean = false;
 
   @Input()
-  public stepFormGroup: FormGroup;
+  public formGroup: FormGroup;
 
   @Output()
   public onInput: EventEmitter<void> = new EventEmitter<void>();
@@ -46,8 +46,8 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
   }
 
   public async ngOnInit(): Promise<void> {
-    this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
-    this.logo = this.stepFormGroup.value.logo;
+    this.branchFormArray = <FormArray>this.formGroup.get('desiredBranches');
+    this.logo = this.formGroup.value.logo;
 
     if (this.logo == null || this.logo.name == null || this.logo.name === '') {
       this.logo = new DataFile('Bild auswählen ...', null);
@@ -55,10 +55,10 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
-        this.branchFormArray = <FormArray>this.stepFormGroup.get('desiredBranches');
+        this.branchFormArray = <FormArray>this.formGroup.get('desiredBranches');
 
-        if (this.stepFormGroup.value.logo != null) {
-          this.logo = this.stepFormGroup.value.logo;
+        if (this.formGroup.value.logo != null) {
+          this.logo = this.formGroup.value.logo;
         }
       }
     );
@@ -70,7 +70,7 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
     if (file instanceof PickedFile) {
       this.logo.name = file.name;
       this.logo.dataUrl = file.dataURL;
-      this.stepFormGroup.value.logo = this.logo;
+      this.formGroup.value.logo = this.logo;
     } else if (file === FilePickerError.FileTooBig) {
       this.toastr.warning('Das Bild darf nicht größer wie 2MB sein!');
     } else if (file === FilePickerError.InvalidFileType) {
@@ -81,29 +81,29 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
   }
 
   public updateEstablishments(controlName: string, names: string[]): void {
-    this.stepFormGroup.setControl(controlName, new FormArray(names.map(n => new FormControl(n))));
+    this.formGroup.setControl(controlName, new FormArray(names.map(n => new FormControl(n))));
     this.verifyAutEstablishmentsCount();
     this.verifyIntEstablishmentsCount();
   }
 
   public verifyAutEstablishmentsCount(): void {
     let count: number = Math.max(
-      this.stepFormGroup.value.establishmentsAut.length,
+      this.formGroup.value.establishmentsAut.length,
       this.establishmentAutCount.nativeElement.value
     );
 
     this.establishmentAutCount.nativeElement.value = count;
-    this.stepFormGroup.controls['establishmentsCountAut'].setValue(count);
+    this.formGroup.controls['establishmentsCountAut'].setValue(count);
   }
 
   public verifyIntEstablishmentsCount(): void {
     let count: number = Math.max(
-      this.stepFormGroup.value.establishmentsInt.length,
+      this.formGroup.value.establishmentsInt.length,
       this.establishmentIntCount.nativeElement.value
     );
 
     this.establishmentIntCount.nativeElement.value = count;
-    this.stepFormGroup.controls['establishmentsCountInt'].setValue(count);
+    this.formGroup.controls['establishmentsCountInt'].setValue(count);
   }
 
 

@@ -3,13 +3,13 @@ export class Resource {
   public timestamp: string;
 
   public name: string;
-  public description: string;
+  public isArchive: boolean;
 
   public constructor(name?: string,
-                     description?: string,
+                     isArchive?: boolean,
                      id?: number) {
     this.id = id;
     this.name = name;
-    this.description = description;
+    this.isArchive = isArchive;
   }
 }

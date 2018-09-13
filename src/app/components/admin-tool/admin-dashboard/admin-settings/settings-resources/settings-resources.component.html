@@ -1,0 +1,94 @@
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">Datenbestand - Resourcen <i class="fa fa-archive"></i></h3>
+
+  <div class="d-flex flex-column ml-auto">
+    <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto"
+            (click)="updateResources()"
+            [disabled]="!unsavedChangesExist">
+      <i class="fa fa-download"></i>
+      Speichern
+    </button>
+  </div>
+</div>
+
+<div class="px-5 py-3">
+  <div class="row">
+
+    <!--tags-->
+    <div class="col-md-6">
+      <h3>Resourcen</h3>
+      <div class="fit-border resource-container d-flex flex-column">
+        <form>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-success text-bold"
+                      type="submit"
+                      [disabled]="resourceInput == ''"
+                      (click)="addResource()">
+                <i class="fa fa-plus"></i>
+                Add
+              </button>
+            </div>
+            <input type="text"
+                   class="form-control"
+                   [(ngModel)]="resourceInput"
+                   [ngModelOptions]="{standalone: true}"
+                   placeholder="Eingabe ...">
+          </div>
+        </form>
+
+        <div class="scrollable h-100 border-top">
+          <div [ngSwitch]="resources.length == 0" class="mt-2">
+            <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+              ... es wurden keine Resourcen gefunden
+            </div>
+            <div *ngSwitchDefault>
+              <div *ngFor="let resource of resources" class="d-flex m-2">
+                <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                  {{resource.name}}
+                </div>
+                <div *ngIf="resource.id == null"
+                     class="middle-badge delete-badge text-light p-2 floating-effect"
+                     (click)="removeResource(resources, resource)">
+                  <i class="fa fa-times"></i>
+                </div>
+                <div class="right-badge archive-badge p-2 floating-effect"
+                     (click)="archiveResource(resource)">
+                  <i class="fa fa-arrow-right text-light"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--archived tags-->
+    <div class="col-md-6">
+      <h3>Archivierte Resourcen</h3>
+      <div class="fit-border resource-container scrollable">
+        <div [ngSwitch]="archivedResources.length == 0" class="mt-2">
+          <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+            ... es wurden keine archivierten Resourcen gefunden
+          </div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let resource of archivedResources" class="d-flex m-2 floating-effect">
+              <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                <span>{{resource.name}}</span>
+              </div>
+              <div *ngIf="resource.id == null"
+                   class="middle-badge delete-badge text-light p-2 floating-effect"
+                   (click)="removeResource(resources, resource)">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="right-badge recover-badge p-2 floating-effect"
+                   (click)="recoverResource(resource)">
+                <i class="fa fa-arrow-left text-light"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
