@@ -1,3 +1,64 @@
-<p>
-  settings-admin-accounts works!
-</p>
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">Admin Accounts <i class="fa fa-user"></i></h3>
+</div>
+
+<div class="px-5 py-3">
+
+  <h4 class="mb-3">Neuen Admin anlegen</h4>
+
+  <form [formGroup]="createAdminFormGroup">
+
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Rolle: </label>
+      <div class="col-sm-9">
+        <select type="password"
+                title="role"
+                class="form-control">
+          <option>{{ FitUserRole.FitAdmin }}</option>
+          <option>{{ FitUserRole.FitReadOnly }}</option>
+          <option>{{ FitUserRole.MemberAdmin }}</option>
+          <option>{{ FitUserRole.MemberReadOnly }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">E-Mail: </label>
+      <div class="col-sm-9">
+        <input type="text"
+               class="form-control"
+               formControlName="email"
+               placeholder="E-Mail">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Passwort: </label>
+      <div class="col-sm-9">
+        <input type="password"
+               class="form-control"
+               formControlName="password"
+               placeholder="Passwort">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Passwort bestätigen: </label>
+      <div class="col-sm-9">
+        <input type="password"
+               class="form-control"
+               formControlName="confirmPassword"
+               placeholder="Passwort bestätigen">
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex mt-3">
+    <button class="btn btn-success big-rounded-button text-bold ml-auto"
+            [disabled]="!isCreateButtonEnabled()"
+            (click)="createAdmin()">
+      <i class="fa fa-user-plus"></i> Admin anlegen
+    </button>
+  </div>
+
+</div>
