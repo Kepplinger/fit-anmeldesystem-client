@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { matchOtherValidator } from '../../../../../core/form-validators/match-other';
 import { FormHelper } from '../../../../../core/app-helper/form-helper';
 import { BaseFormValidationComponent } from '../../../../../core/base-components/base-form-validation.component';
+import { FitUser } from '../../../../../core/model/fit-user';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
 
 @Component({
   selector: 'fit-settings-admin-accounts',
@@ -18,6 +21,7 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
   public FitUserRole = FitUserRole;
 
   public formGroup: FormGroup;
+  public fitUsers: FitUser[] = [];
 
   public constructor(private fb: FormBuilder,
                      private toastr: ToastrService,
@@ -31,20 +35,43 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
     });
   }
 
-  public ngOnInit() {
+  public async ngOnInit(): Promise<void> {
+    this.fitUsers = await this.fitUserDAO.fetchAllUsers();
   }
 
   public async createAdmin(): Promise<void> {
     if (this.formGroup.valid) {
-      await this.fitUserDAO.createAdmin(
+      let result = await this.fitUserDAO.createAdmin(
         this.formGroup.value.email,
         this.formGroup.value.password,
         this.formGroup.value.role
       );
-      this.toastr.success('Der Benutzer wurde erfolgreich angelegt.', 'Gespeichert!');
+
+      if (!(result instanceof HttpErrorResponse)) {
+        this.toastr.success('Der Benutzer wurde erfolgreich angelegt.', 'Gespeichert!');
+        this.fitUsers.push(result);
+        this.emptyForm();
+      }
     } else {
       FormHelper.touchAllFormFields(this.formGroup);
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Falsche Eingabe');
     }
+  }
+
+  public async deleteUser(fitUser: FitUser): Promise<void> {
+    await this.fitUserDAO.deleteUser(fitUser);
+    ArrayUtils.deleteElement(this.fitUsers, fitUser);
+    this.toastr.success('Der Benutzer wurde erfolgreich gelöscht.', 'Benutzer gelöscht');
+  }
+
+  private emptyForm(): void {
+    this.formGroup.patchValue({
+      role: FitUserRole.FitAdmin,
+      email: '',
+      password: '',
+      confirmPassword: ''
+    });
+
+    this.formGroup.markAsUntouched();
   }
 }

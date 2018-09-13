@@ -47,7 +47,8 @@
                autocomplete="new-password"
                placeholder="Passwort">
         <div class="invalid-message invalid-message-container">
-          <span *ngIf="isEmpty('password') || isTooShort('password')">Das Passwort muss mindestens 6 Zeichen lang sein!</span>
+          <span
+            *ngIf="isEmpty('password') || isTooShort('password')">Das Passwort muss mindestens 6 Zeichen lang sein!</span>
         </div>
       </div>
     </div>
@@ -75,4 +76,26 @@
       </button>
     </div>
   </form>
+
+  <div class="mt-2">
+
+    <h3>Admin Account Liste</h3>
+    <table class="table">
+      <tr>
+        <th>E-Mail</th>
+        <th>Rolle</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let fitUser of fitUsers">
+        <td>{{ fitUser.email }}</td>
+        <td>{{ fitUser.role }}</td>
+        <td>
+          <div class="icon-button" (click)="deleteUser(fitUser)">
+            <i class="fa fa-times text-danger"></i>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
 </div>

@@ -15,7 +15,6 @@ export class FitUserDAO {
                      private http: HttpClient) {
   }
 
-  // admin PassMe123!
   public async loginAdmin(email: string, password: string): Promise<any> {
     // password = CryptoJS.SHA256(password).toString();
     return this.http.post<any>(this.appConfig.serverURL + '/auth/login', {userName: email, password: password})
@@ -23,15 +22,25 @@ export class FitUserDAO {
       .toPromise();
   }
 
-  public async createAdmin(email: string, password: string, role: FitUserRole): Promise<void | HttpErrorResponse> {
+  public async createAdmin(email: string, password: string, role: FitUserRole): Promise<FitUser | HttpErrorResponse> {
 
     let json: any = {
       fitUser: new FitUser(email, role),
       password: password
     };
 
-    return this.http.post<void>(this.appConfig.serverURL + '/account', json)
+    return this.http.post<FitUser>(this.appConfig.serverURL + '/account', json)
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
+      .toPromise();
+  }
+
+  public async fetchAllUsers(): Promise<FitUser[]> {
+    return this.http.get<FitUser[]>(this.appConfig.serverURL + '/account')
+      .toPromise();
+  }
+
+  public async deleteUser(fitUser: FitUser): Promise<void> {
+    await this.http.delete<void>(this.appConfig.serverURL + '/account/' + fitUser.id)
       .toPromise();
   }
 }
