@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseSettingsChangesComponent } from '../../../../../core/base-components/base-settings-changes.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FitUserRole } from '../../../../../core/model/enums/fit-user-role';
 import { FitUserDAO } from '../../../../../core/dao/fit-user.dao';
@@ -10,17 +9,17 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './settings-admin-accounts.component.html',
   styleUrls: ['./settings-admin-accounts.component.scss']
 })
-export class SettingsAdminAccountsComponent extends BaseSettingsChangesComponent implements OnInit {
+export class SettingsAdminAccountsComponent implements OnInit {
 
   // for template usage
   public FitUserRole = FitUserRole;
 
   public createAdminFormGroup: FormGroup;
+  public unsavedChangesExist: boolean = false;
 
   public constructor(private fb: FormBuilder,
                      private toastr: ToastrService,
                      private fitUserDAO: FitUserDAO) {
-    super();
     this.createAdminFormGroup = this.fb.group({
       role: this.fb.control(FitUserRole.FitAdmin),
       email: this.fb.control('', [Validators.required, Validators.email]),
@@ -31,7 +30,7 @@ export class SettingsAdminAccountsComponent extends BaseSettingsChangesComponent
 
   public ngOnInit() {
     this.createAdminFormGroup.valueChanges.subscribe(() => {
-      this.setUnsavedChanges(true);
+      this.unsavedChangesExist = true;
     });
   }
 
@@ -42,7 +41,8 @@ export class SettingsAdminAccountsComponent extends BaseSettingsChangesComponent
         this.createAdminFormGroup.value.password,
         this.createAdminFormGroup.value.role,
       );
-      this.setUnsavedChanges(false);
+      this.unsavedChangesExist = false;
+      this.toastr.success('Der Benutzer wurde erfolgreich angelegt.', 'Gespeichert!');
     } else {
       this.toastr.error('Bitte überprüfen Sie Ihre Eingaben.', 'Falsche Eingabe');
     }
@@ -51,5 +51,4 @@ export class SettingsAdminAccountsComponent extends BaseSettingsChangesComponent
   public isCreateButtonEnabled(): boolean {
     return this.createAdminFormGroup.valid && this.unsavedChangesExist;
   }
-
 }
