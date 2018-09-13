@@ -6,7 +6,7 @@
 
   <h4 class="mb-3">Neuen Admin anlegen</h4>
 
-  <form [formGroup]="createAdminFormGroup">
+  <form [formGroup]="formGroup" autocomplete="off">
 
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Rolle: </label>
@@ -22,43 +22,57 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label class="col-sm-3 col-form-label">E-Mail: </label>
       <div class="col-sm-9">
         <input type="text"
                class="form-control"
                formControlName="email"
+               [ngClass]="{'is-invalid': isInvalid('email')}"
                placeholder="E-Mail">
+        <div class="invalid-message invalid-message-container">
+          <span *ngIf="isEmpty('email')">Email darf nicht leer sein!</span>
+          <span *ngIf="isNoMail('email') && !isEmpty('email')">Ungültige E-Mail!</span>
+        </div>
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label class="col-sm-3 col-form-label">Passwort: </label>
       <div class="col-sm-9">
         <input type="password"
                class="form-control"
                formControlName="password"
+               [ngClass]="{'is-invalid': isInvalid('password')}"
+               autocomplete="new-password"
                placeholder="Passwort">
+        <div class="invalid-message invalid-message-container">
+          <span *ngIf="isEmpty('password') || isTooShort('password')">Das Passwort muss mindestens 6 Zeichen lang sein!</span>
+        </div>
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row mb-0">
       <label class="col-sm-3 col-form-label">Passwort bestätigen: </label>
       <div class="col-sm-9">
         <input type="password"
                class="form-control"
                formControlName="confirmPassword"
+               [ngClass]="{'is-invalid': isInvalid('confirmPassword')}"
+               autocomplete="new-password"
                placeholder="Passwort bestätigen">
+        <div class="invalid-message invalid-message-container">
+          <span *ngIf="isNotMatching('confirmPassword')">Passwort stimmt nicht überein!</span>
+        </div>
       </div>
     </div>
+
+    <div class="d-flex mt-3">
+      <button class="btn btn-success big-rounded-button text-bold ml-auto"
+              type="submit"
+              (click)="createAdmin()">
+        <i class="fa fa-user-plus"></i> Admin anlegen
+      </button>
+    </div>
   </form>
-
-  <div class="d-flex mt-3">
-    <button class="btn btn-success big-rounded-button text-bold ml-auto"
-            [disabled]="!isCreateButtonEnabled()"
-            (click)="createAdmin()">
-      <i class="fa fa-user-plus"></i> Admin anlegen
-    </button>
-  </div>
-
 </div>

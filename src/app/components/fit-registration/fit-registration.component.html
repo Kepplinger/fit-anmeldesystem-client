@@ -130,12 +130,12 @@
     </fit-general-data>
 
     <fit-detailed-data [isVisible]="currentStep == Step.DetailedData"
-                       [stepFormGroup]="fitFormGroup.controls['detailedData']"
+                       [formGroup]="fitFormGroup.controls['detailedData']"
                        (onInput)="validateStepWhenTrue(Step.DetailedData)">
     </fit-detailed-data>
 
     <fit-fit-appearance [isVisible]="currentStep == Step.FitAppearance"
-                        [stepFormGroup]="fitFormGroup.controls['fitAppearance']"
+                        [formGroup]="fitFormGroup.controls['fitAppearance']"
                         (onInput)="validateStepWhenTrue(Step.FitAppearance)">
     </fit-fit-appearance>
 
@@ -145,7 +145,7 @@
     </fit-packages-and-location>
 
     <fit-contact-and-remarks [isVisible]="currentStep == Step.ContactAndRemarks"
-                             [stepFormGroup]="fitFormGroup.controls['contactAndRemarks']"
+                             [formGroup]="fitFormGroup.controls['contactAndRemarks']"
                              (onInput)="validateStepWhenTrue(Step.ContactAndRemarks)">
     </fit-contact-and-remarks>
 

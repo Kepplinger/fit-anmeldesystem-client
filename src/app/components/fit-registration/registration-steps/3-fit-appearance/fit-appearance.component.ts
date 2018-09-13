@@ -24,7 +24,7 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   public isVisible: boolean = false;
 
   @Input()
-  public stepFormGroup: FormGroup;
+  public formGroup: FormGroup;
 
   @Output()
   public onInput: EventEmitter<void> = new EventEmitter<void>();
@@ -40,7 +40,7 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   public async ngOnInit(): Promise<void> {
-    this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+    this.resourceFormArray = <FormArray>this.formGroup.get('resources');
 
     if (this.getRepresentativeFormArray().length === 0) {
       this.addNewRepresentative();
@@ -48,7 +48,7 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
 
     this.accountManagementService.bookingFilled.subscribe(
       () => {
-        this.resourceFormArray = <FormArray>this.stepFormGroup.get('resources');
+        this.resourceFormArray = <FormArray>this.formGroup.get('resources');
       });
 
     this.resources = await this.resourceDAO.fetchResources();
@@ -59,11 +59,11 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   public deleteRepresentative(index: number): void {
-    (<FormArray>this.stepFormGroup.get('representatives')).removeAt(index);
+    (<FormArray>this.formGroup.get('representatives')).removeAt(index);
   }
 
   public getRepresentativeFormArray(): AbstractControl[] {
-    return (this.stepFormGroup.get('representatives') as FormArray).controls;
+    return (this.formGroup.get('representatives') as FormArray).controls;
   }
 
   public getRepresentativeImage(index: number): DataFile {
@@ -104,7 +104,7 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   private addNewRepresentative(): void {
-    let representativeArray: FormArray = <FormArray>this.stepFormGroup.get('representatives');
+    let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
     representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
       new Representative('', '', this.getNewPlaceholderImage())
     ));

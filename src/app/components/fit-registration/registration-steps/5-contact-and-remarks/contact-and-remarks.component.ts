@@ -15,7 +15,7 @@ export class ContactAndRemarksComponent extends BaseFormValidationComponent {
   public isVisible: boolean = false;
 
   @Input()
-  public stepFormGroup: FormGroup;
+  public formGroup: FormGroup;
 
   @Output()
   public onInput: EventEmitter<void> = new EventEmitter<void>();
