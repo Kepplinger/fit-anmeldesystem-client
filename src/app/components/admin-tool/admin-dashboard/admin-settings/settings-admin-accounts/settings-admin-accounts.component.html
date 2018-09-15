@@ -13,8 +13,9 @@
       <div class="col-sm-9">
         <select type="password"
                 title="role"
+                formControlName="role"
                 class="form-control">
-          <option>{{ FitUserRole.FitAdmin }}</option>
+          <option selected>{{ FitUserRole.FitAdmin }}</option>
           <option>{{ FitUserRole.FitReadOnly }}</option>
           <option>{{ FitUserRole.MemberAdmin }}</option>
           <option>{{ FitUserRole.MemberReadOnly }}</option>

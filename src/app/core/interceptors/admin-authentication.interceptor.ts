@@ -1,5 +1,5 @@
 import { ApplicationStateService } from '../app-services/application-state.service';
-import { AdminAuthorizationService } from '../../components/admin-tool/services/admin-authorization.service';
+import { AdminAuthorizationService } from '../app-services/admin-authorization.service';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,10 +15,10 @@ export class AdminAuthenticationInterceptor implements HttpInterceptor {
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (this.applicationStateService.activatedApplication === FitApplication.AdminTool
-      && this.adminAuthorizationService.token != null) {
+      && this.adminAuthorizationService.isUserAuthenticated()) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.adminAuthorizationService.token}`
+          Authorization: `Bearer ${this.adminAuthorizationService.isUserAuthenticated()}`
         }
       });
     }

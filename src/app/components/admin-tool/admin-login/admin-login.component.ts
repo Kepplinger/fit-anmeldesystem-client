@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminAuthorizationService } from '../services/admin-authorization.service';
+import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
 
 @Component({
   selector: 'fit-admin-login',

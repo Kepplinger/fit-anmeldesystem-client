@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FitUserRole } from '../../../../../core/model/enums/fit-user-role';
-import { FitUserDAO } from '../../../../../core/dao/fit-user.dao';
-import { ToastrService } from 'ngx-toastr';
-import { matchOtherValidator } from '../../../../../core/form-validators/match-other';
-import { FormHelper } from '../../../../../core/app-helper/form-helper';
-import { BaseFormValidationComponent } from '../../../../../core/base-components/base-form-validation.component';
-import { FitUser } from '../../../../../core/model/fit-user';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FitUserRole} from '../../../../../core/model/enums/fit-user-role';
+import {FitUserDAO} from '../../../../../core/dao/fit-user.dao';
+import {ToastrService} from 'ngx-toastr';
+import {matchOtherValidator} from '../../../../../core/form-validators/match-other';
+import {FormHelper} from '../../../../../core/app-helper/form-helper';
+import {BaseFormValidationComponent} from '../../../../../core/base-components/base-form-validation.component';
+import {FitUser} from '../../../../../core/model/fit-user';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ArrayUtils} from '../../../../../core/utils/array-utils';
+import {AdminAuthorizationService} from '../../../../../core/app-services/admin-authorization.service';
 
 @Component({
   selector: 'fit-settings-admin-accounts',
@@ -25,6 +26,7 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
 
   public constructor(private fb: FormBuilder,
                      private toastr: ToastrService,
+                     private adminAuthorizationService: AdminAuthorizationService,
                      private fitUserDAO: FitUserDAO) {
     super();
     this.formGroup = this.fb.group({
@@ -59,9 +61,17 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
   }
 
   public async deleteUser(fitUser: FitUser): Promise<void> {
-    await this.fitUserDAO.deleteUser(fitUser);
-    ArrayUtils.deleteElement(this.fitUsers, fitUser);
-    this.toastr.success('Der Benutzer wurde erfolgreich gelöscht.', 'Benutzer gelöscht');
+
+    if (!this.adminAuthorizationService.isUserLoggedIn(fitUser.email)) {
+      await this.fitUserDAO.deleteUser(fitUser);
+      ArrayUtils.deleteElement(this.fitUsers, fitUser);
+      this.toastr.success('Der Benutzer wurde erfolgreich gelöscht.', 'Benutzer gelöscht');
+    } else {
+      this.toastr.warning(
+        'Der derzeitig angemeldetet Benutzer kann nicht gelöscht werden!',
+        'Löschen nicht möglich!'
+      );
+    }
   }
 
   private emptyForm(): void {
