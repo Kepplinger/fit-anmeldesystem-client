@@ -15,13 +15,15 @@ import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/me
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { BookingsService } from '../../services/bookings.service';
+import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
+import { AdminAuthorizationService } from '../../../../core/app-services/admin-authorization.service';
 
 @Component({
   selector: 'fit-booking-list',
   templateUrl: './booking-list.component.html',
   styleUrls: ['./booking-list.component.scss']
 })
-export class BookingListComponent implements OnInit {
+export class BookingListComponent extends BaseAdminRoleGuardComponent implements OnInit {
 
   // for template use
   public IsAccepted = IsAccepted;
@@ -38,12 +40,14 @@ export class BookingListComponent implements OnInit {
 
   public displayedPackages: FitPackage[] = [FitPackage.BasicPack, FitPackage.SponsorPack, FitPackage.LecturePack];
 
-  public constructor(private bookingDAO: BookingDAO,
+  public constructor(protected adminAuthenticationService: AdminAuthorizationService,
+                     private bookingDAO: BookingDAO,
                      private eventService: EventService,
                      private appConfig: AppConfig,
                      private router: Router,
                      private bookingsService: BookingsService,
                      private accountManagementService: AccountManagementService) {
+    super(adminAuthenticationService);
     this.imageDownloadLink = this.appConfig.serverURL + '/media';
   }
 

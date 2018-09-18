@@ -27,6 +27,8 @@ import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { DataUpdateNotifier } from './app-services/data-update-notifier';
 import { SmtpConfigDAO } from './dao/smtp-config.dao';
 import { FitUserDAO } from './dao/fit-user.dao';
+import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
+import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
 
 @NgModule({
   imports: [

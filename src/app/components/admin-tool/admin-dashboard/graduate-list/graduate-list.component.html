@@ -25,7 +25,7 @@
       <th class="cursor-pointer p-0">
         <fit-sortable-column [sortColumnName]="'address.zipCode'" [sortDirection]="''">Ort</fit-sortable-column>
       </th>
-      <th></th>
+      <th *ngIf="isWritableAdmin()"></th>
     </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@
       <td>{{graduate?.firstName}}</td>
       <td>{{graduate?.email}}</td>
       <td>{{graduate?.address?.zipCode}} {{graduate?.address?.city}}</td>
-      <td>
+      <td  *ngIf="isWritableAdmin()">
         <div class="icon-button"
              (click)="routeToGraduateDetails(graduate)">
           <i class="fa fa-pencil fa-1-5x"></i>

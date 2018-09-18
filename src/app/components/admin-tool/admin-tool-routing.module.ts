@@ -42,7 +42,7 @@ export const routes: Routes = [
   {
     path: 'einstellungen',
     component: AdminSettingsComponent,
-    canDeactivate: [CanDeactivateGuard, IsRoleGrantedGuard],
+    canDeactivate: [CanDeactivateGuard],
     canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin]}
   },

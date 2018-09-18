@@ -76,13 +76,14 @@
       <th class="cursor-pointer p-0">
         <fit-sortable-column [sortColumnName]="'fitPackage.name'" [sortDirection]="''">Paket</fit-sortable-column>
       </th>
-      <th>
-        <fit-sortable-column [sortColumnName]="'company.memberStatus'" [sortDirection]="''">Abs-Mitglied</fit-sortable-column>
+      <th class="cursor-pointer p-0">
+        <fit-sortable-column [sortColumnName]="'company.memberStatus'" [sortDirection]="''">Abs-Mitglied
+        </fit-sortable-column>
       </th>
       <th class="cursor-pointer p-0">
         <fit-sortable-column [sortColumnName]="'isAccepted'" [sortDirection]="''">Status</fit-sortable-column>
       </th>
-      <th></th>
+      <th *ngIf="isWritableFitAdmin()"></th>
     </tr>
     </thead>
     <tbody>
@@ -107,7 +108,8 @@
         </div>
       </td>
       <td>
-        <div class="icon-button"
+        <div *ngIf="isWritableFitAdmin()"
+             class="icon-button"
              (click)="routeToBookingDetail(booking)">
           <i class="fa fa-pencil fa-1-5x"></i>
         </div>

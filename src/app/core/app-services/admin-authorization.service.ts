@@ -40,7 +40,6 @@ export class AdminAuthorizationService {
   public isUserAuthenticated(): boolean {
     let token = sessionStorage.getItem('token');
     if (token != null && token !== '') {
-      console.log(this.jwtService.decodeToken(token));
       return !this.jwtService.isTokenExpired(token);
     } else {
       return false;

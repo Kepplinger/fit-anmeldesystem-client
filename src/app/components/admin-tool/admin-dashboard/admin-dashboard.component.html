@@ -1,6 +1,11 @@
 <div class="container mt-6">
 
-  <div class="d-flex justify-content-center">
+  <div *ngIf="!isFitAdmin()">
+    <h2 class="m-0 text-center">AbsLeo - Admin</h2>
+  </div>
+
+  <div *ngIf="isFitAdmin()"
+       class="d-flex justify-content-center">
     <h2 class="m-0">Fit am {{event?.eventDate | date:'longDate'}}</h2>
 
     <div class="dropdown">
@@ -37,12 +42,14 @@
   <div class="dashboard-grid mt-4">
 
     <div class="dash"
+         *ngIf="isWritableFitAdmin()"
          [routerLink]="['/admin-tool','fit-anlegen']">
       <i class="fa fa-calendar-plus-o dash-icon"></i>
       <div class="dash-text">Neuen FIT anlegen</div>
     </div>
 
     <div class="dash"
+         *ngIf="isWritableFitAdmin()"
          [routerLink]="['/admin-tool','fit-bearbeiten']">
       <i class="fa fa-calendar dash-icon"></i>
       <div class="dash-text">FIT bearbeiten</div>
@@ -52,6 +59,7 @@
     </div>
 
     <div class="dash"
+         *ngIf="isFitAdmin()"
          [routerLink]="['/admin-tool','anmeldungen']">
       <i class="fa fa-book dash-icon"></i>
       <div class="dash-text">FIT Anmeldungen</div>
@@ -61,6 +69,7 @@
     </div>
 
     <div class="dash"
+         *ngIf="isFitAdmin()"
          [routerLink]="['/admin-tool','vortraege']">
       <i class="fa fa-graduation-cap dash-icon"></i>
       <div class="dash-text">Vorträge</div>
@@ -82,12 +91,14 @@
     </div>
 
     <div class="dash"
+         *ngIf="isWritableAdmin()"
          [routerLink]="['/admin-tool','firmen-bestaetigen']">
       <i class="fa fa-check-square-o dash-icon"></i>
       <div class="dash-text">Firmen bestätigen</div>
     </div>
 
     <div class="dash"
+         *ngIf="isWritableAdmin()"
          [routerLink]="['/admin-tool','aenderungsprotokoll']">
       <i class="fa fa-code-fork dash-icon"></i>
       <div class="dash-text">Änderungsprotokoll</div>
@@ -100,18 +111,21 @@
     </div>
 
     <div class="dash"
+         *ngIf="isWritableAdmin()"
          [routerLink]="['/admin-tool','mail-vorlagen']">
       <i class="fa fa-envelope dash-icon"></i>
       <div class="dash-text">E-Mail-Vorlagen</div>
     </div>
 
     <div class="dash"
+         *ngIf="isWritableAdmin()"
          [routerLink]="['/admin-tool','mails-versenden']">
       <i class="fa fa-envelope-open dash-icon"></i>
       <div class="dash-text">E-Mail versenden</div>
     </div>
 
     <div class="dash"
+         *ngIf="isWritableFitAdmin()"
          [routerLink]="['/admin-tool','einstellungen']">
       <i class="fa fa-cogs dash-icon"></i>
       <div class="dash-text">Einstellungen</div>
