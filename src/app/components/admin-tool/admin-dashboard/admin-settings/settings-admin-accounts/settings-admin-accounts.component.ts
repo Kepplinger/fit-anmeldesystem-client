@@ -21,6 +21,13 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
   // for template usage
   public FitUserRole = FitUserRole;
 
+  public userRoles: FitUserRole[] = [
+    FitUserRole.FitAdmin,
+    FitUserRole.FitReadOnly,
+    FitUserRole.MemberAdmin,
+    FitUserRole.MemberReadOnly,
+  ];
+
   public formGroup: FormGroup;
   public fitUsers: FitUser[] = [];
 
@@ -29,15 +36,16 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
                      private adminAuthorizationService: AdminAuthorizationService,
                      private fitUserDAO: FitUserDAO) {
     super();
+  }
+
+  public async ngOnInit(): Promise<void> {
     this.formGroup = this.fb.group({
       role: this.fb.control(FitUserRole.FitAdmin),
       email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: this.fb.control('', [Validators.required, Validators.minLength(6), matchOtherValidator('password')]),
     });
-  }
 
-  public async ngOnInit(): Promise<void> {
     this.fitUsers = await this.fitUserDAO.fetchAllUsers();
   }
 

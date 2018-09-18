@@ -15,10 +15,7 @@
                 title="role"
                 formControlName="role"
                 class="form-control">
-          <option selected>{{ FitUserRole.FitAdmin }}</option>
-          <option>{{ FitUserRole.FitReadOnly }}</option>
-          <option>{{ FitUserRole.MemberAdmin }}</option>
-          <option>{{ FitUserRole.MemberReadOnly }}</option>
+          <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
         </select>
       </div>
     </div>

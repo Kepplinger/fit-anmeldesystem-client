@@ -51,6 +51,10 @@ export class AdminAuthorizationService {
     return token != null && token.sub === email;
   }
 
+  public getDecodedToken(): string {
+    return sessionStorage.getItem('token');
+  }
+
   private getToken(): any {
     let encodedToken = sessionStorage.getItem('token');
 

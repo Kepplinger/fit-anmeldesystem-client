@@ -18,7 +18,7 @@ export class AdminAuthenticationInterceptor implements HttpInterceptor {
       && this.adminAuthorizationService.isUserAuthenticated()) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.adminAuthorizationService.isUserAuthenticated()}`
+          Authorization: `Bearer ${this.adminAuthorizationService.getDecodedToken()}`
         }
       });
     }
