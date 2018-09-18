@@ -23,7 +23,6 @@ export class FitUserDAO {
   }
 
   public async createAdmin(email: string, password: string, role: FitUserRole): Promise<FitUser | HttpErrorResponse> {
-
     let json: any = {
       fitUser: new FitUser(email, role),
       password: password

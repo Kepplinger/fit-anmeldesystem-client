@@ -25,7 +25,7 @@ export class AuthenticationDAO {
       .toPromise();
   }
 
-  public async loginCompany(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
+  public async loginMember(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
     return this.http.post<MemberLoginResponse>(this.appConfig.serverURL + '/authentication/token', {token: token})
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();

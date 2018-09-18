@@ -36,7 +36,7 @@ export class MainComponent implements OnInit {
 
   public async loginToBooking(): Promise<void> {
     this.hasFailed = false;
-    let response = await this.authenticationDAO.loginCompany(this.authenticationToken);
+    let response = await this.authenticationDAO.loginMember(this.authenticationToken);
 
     if (response != null && !(response instanceof HttpErrorResponse)) {
       if (this.accountManagementService.loginMember(response, true)) {
