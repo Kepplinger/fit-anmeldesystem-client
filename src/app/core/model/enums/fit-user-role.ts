@@ -2,5 +2,6 @@ export enum FitUserRole {
   FitAdmin = 'FitAdmin',
   FitReadOnly = 'FitReadOnly',
   MemberAdmin = 'MemberAdmin',
-  MemberReadOnly = 'MemberReadOnly'
+  MemberReadOnly = 'MemberReadOnly',
+  Member = 'Member'
 }
