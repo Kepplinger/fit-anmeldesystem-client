@@ -25,6 +25,8 @@ export class AccountLoginComponent {
     this.hasFailed = false;
     let response = await this.authenticationDAO.loginMember(this.authenticationToken);
 
+    alert('Simi sauf ned so vü');
+
     if (response != null && !(response instanceof HttpErrorResponse)) {
       this.accountManagementService.loginMember(response);
       this.router.navigate(['/konto']);
