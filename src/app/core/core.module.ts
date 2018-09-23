@@ -20,8 +20,8 @@ import { GraduateDAO } from './dao/graduate.dao';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
 import { TagDAO } from './dao/tag.dao';
-import { AdminAuthorizationService } from './app-services/admin-authorization.service';
-import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
+import { UserAuthorizationService } from './app-services/user-authorization.service';
+import { UserAuthenticationInterceptor } from './interceptors/user-authentication.interceptor';
 import { AccountManagementService } from './app-services/account-managenment.service';
 import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { DataUpdateNotifier } from './app-services/data-update-notifier';
@@ -60,8 +60,10 @@ import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
     EventService,
     DataUpdateNotifier,
     CanDeactivateGuard,
-    AdminAuthorizationService,
-    {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
+    UserAuthorizationService,
+    IsAuthenticatedGuard,
+    IsRoleGrantedGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: UserAuthenticationInterceptor, multi: true}
   ]
 })
 export class CoreModule {

@@ -16,7 +16,7 @@ import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { BookingsService } from '../../services/bookings.service';
 import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
-import { AdminAuthorizationService } from '../../../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
 
 @Component({
   selector: 'fit-booking-list',
@@ -40,7 +40,7 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
 
   public displayedPackages: FitPackage[] = [FitPackage.BasicPack, FitPackage.SponsorPack, FitPackage.LecturePack];
 
-  public constructor(protected adminAuthenticationService: AdminAuthorizationService,
+  public constructor(protected adminAuthenticationService: UserAuthorizationService,
                      private bookingDAO: BookingDAO,
                      private eventService: EventService,
                      private appConfig: AppConfig,
@@ -63,7 +63,7 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
   }
 
   public routeToBookingDetail(booking: Booking): void {
-    this.accountManagementService.loginMember({adminBooking: booking} as MemberLoginResponse, true);
+    this.accountManagementService.loginMember({entity: {adminBooking: booking}} as MemberLoginResponse, true);
     this.router.navigate(['/admin-tool', 'anmeldung', booking.id]);
   }
 

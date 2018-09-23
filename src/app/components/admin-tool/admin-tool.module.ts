@@ -49,7 +49,7 @@ import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/set
 import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
 import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
 import { SettingsPackagesComponent } from './admin-dashboard/admin-settings/settings-packages/settings-packages.component';
-import { AdminAuthorizationService } from '../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
 import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
@@ -110,9 +110,7 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     CompanyTagService,
     CompaniesService,
     GraduatesService,
-    BookingsService,
-    IsAuthenticatedGuard,
-    IsRoleGrantedGuard
+    BookingsService
   ]
 })
 export class AdminToolModule {

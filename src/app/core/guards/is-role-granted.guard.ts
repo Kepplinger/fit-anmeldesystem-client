@@ -1,13 +1,13 @@
-import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
-import {FitUserRole} from '../model/enums/fit-user-role';
-import {AdminAuthorizationService} from '../app-services/admin-authorization.service';
-import {Observable} from 'rxjs';
-import {Injectable} from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { FitUserRole } from '../model/enums/fit-user-role';
+import { UserAuthorizationService } from '../app-services/user-authorization.service';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class IsRoleGrantedGuard implements CanActivate {
 
-  public constructor(private adminAuthenticationService: AdminAuthorizationService,
+  public constructor(private adminAuthenticationService: UserAuthorizationService,
                      private router: Router) {
   }
 
@@ -15,13 +15,14 @@ export class IsRoleGrantedGuard implements CanActivate {
     let requiredRoles: FitUserRole[] = route.data['roles'] as FitUserRole[];
     let role: FitUserRole = this.adminAuthenticationService.getUserRole();
 
-    console.log(requiredRoles);
-    console.log(role);
-
     if (requiredRoles.some(r => r === role)) {
       return true;
     } else {
-      this.router.navigate(['/admin-tool', 'dash']);
+      if (requiredRoles.find(r => r === FitUserRole.Member)) {
+        this.router.navigate(['']);
+      } else {
+        this.router.navigate(['/admin-tool', 'dash']);
+      }
       return false;
     }
   }

@@ -4,7 +4,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {FitUserRole} from '../model/enums/fit-user-role';
 
 @Injectable()
-export class AdminAuthorizationService {
+export class UserAuthorizationService {
 
   private jwtService  = new JwtHelperService();
 
@@ -23,8 +23,12 @@ export class AdminAuthorizationService {
     }
   }
 
+  public loginMember(token: string): void {
+    sessionStorage.setItem('token', token);
+  }
+
   // noinspection JSMethodCanBeStatic
-  public logoutAdmin(): void {
+  public logoutUser(): void {
     sessionStorage.removeItem('token');
   }
 

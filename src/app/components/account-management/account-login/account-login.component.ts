@@ -23,9 +23,8 @@ export class AccountLoginComponent {
 
   public async loginToCompanyAccount(): Promise<void> {
     this.hasFailed = false;
-    let response = await this.authenticationDAO.loginMember(this.authenticationToken);
 
-    alert('Simi sauf ned so vü');
+    let response = await this.authenticationDAO.loginMember(this.authenticationToken);
 
     if (response != null && !(response instanceof HttpErrorResponse)) {
       this.accountManagementService.loginMember(response);

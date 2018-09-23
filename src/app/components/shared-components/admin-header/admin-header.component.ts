@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
 import { Router } from '@angular/router';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';
@@ -14,10 +14,10 @@ export class AdminHeaderComponent extends BaseAdminRoleGuardComponent implements
 
   public event: Event;
 
-  public constructor(protected adminAuthorizationService: AdminAuthorizationService,
+  public constructor(protected userAuthorizationService: UserAuthorizationService,
                      private eventService: EventService,
                      private router: Router) {
-    super(adminAuthorizationService);
+    super(userAuthorizationService);
   }
 
   public ngOnInit(): void {
@@ -26,7 +26,7 @@ export class AdminHeaderComponent extends BaseAdminRoleGuardComponent implements
   }
 
   public logout(): void {
-    this.adminAuthorizationService.logoutAdmin();
+    this.userAuthorizationService.logoutUser();
     this.router.navigate(['/admin-tool', 'login']);
   }
 }

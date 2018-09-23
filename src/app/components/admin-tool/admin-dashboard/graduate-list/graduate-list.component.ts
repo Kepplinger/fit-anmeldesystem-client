@@ -7,7 +7,7 @@ import { GraduateTransferService } from '../../../../core/app-services/transfer-
 import { Router } from '@angular/router';
 import { GraduatesService } from '../../services/graduates.service';
 import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
-import { AdminAuthorizationService } from '../../../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
 
 @Component({
   selector: 'fit-graduate-list',
@@ -20,7 +20,7 @@ export class GraduateListComponent extends BaseAdminRoleGuardComponent implement
 
   public loading: boolean = true;
 
-  public constructor(protected adminAuthenticationService: AdminAuthorizationService,
+  public constructor(protected adminAuthenticationService: UserAuthorizationService,
                      private graduatesService: GraduatesService,
                      private graduateTransferState: GraduateTransferService,
                      private router: Router) {

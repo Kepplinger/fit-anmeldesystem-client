@@ -9,7 +9,7 @@ import {BaseFormValidationComponent} from '../../../../../core/base-components/b
 import {FitUser} from '../../../../../core/model/fit-user';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ArrayUtils} from '../../../../../core/utils/array-utils';
-import {AdminAuthorizationService} from '../../../../../core/app-services/admin-authorization.service';
+import {UserAuthorizationService} from '../../../../../core/app-services/user-authorization.service';
 
 @Component({
   selector: 'fit-settings-admin-accounts',
@@ -33,7 +33,7 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
 
   public constructor(private fb: FormBuilder,
                      private toastr: ToastrService,
-                     private adminAuthorizationService: AdminAuthorizationService,
+                     private userAuthorizationService: UserAuthorizationService,
                      private fitUserDAO: FitUserDAO) {
     super();
   }
@@ -70,7 +70,7 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
 
   public async deleteUser(fitUser: FitUser): Promise<void> {
 
-    if (!this.adminAuthorizationService.isUserLoggedIn(fitUser.email)) {
+    if (!this.userAuthorizationService.isUserLoggedIn(fitUser.email)) {
       await this.fitUserDAO.deleteUser(fitUser);
       ArrayUtils.deleteElement(this.fitUsers, fitUser);
       this.toastr.success('Der Benutzer wurde erfolgreich gelöscht.', 'Benutzer gelöscht');

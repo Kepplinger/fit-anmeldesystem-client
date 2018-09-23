@@ -9,7 +9,7 @@ import { CompanyTransferService } from '../../../../core/app-services/transfer-s
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
-import { AdminAuthorizationService } from '../../../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
 import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
 
   private sub: Subscription;
 
-  public constructor(protected adminAuthenticationService: AdminAuthorizationService,
+  public constructor(protected adminAuthenticationService: UserAuthorizationService,
                      private companiesService: CompaniesService,
                      private companyTransferState: CompanyTransferService,
                      private router: Router) {

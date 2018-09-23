@@ -7,14 +7,14 @@ import { Event } from '../model/event';
 import { BookingMapper } from '../model/mapper/booking-mapper';
 import { map } from 'rxjs/operators';
 import { IsAccepted } from '../model/enums/is-accepted';
-import { AdminAuthorizationService } from '../app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../app-services/user-authorization.service';
 import { FitUserRole } from '../model/enums/fit-user-role';
 
 @Injectable()
 export class BookingDAO {
 
   public constructor(private appConfig: AppConfig,
-                     private adminAuthenticationService: AdminAuthorizationService,
+                     private adminAuthenticationService: UserAuthorizationService,
                      private http: HttpClient) {
   }
 
