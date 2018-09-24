@@ -16,7 +16,7 @@ export class UserAuthenticationInterceptor implements HttpInterceptor {
     if (this.userAuthorizationService.isUserAuthenticated()) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.userAuthorizationService.getDecodedToken()}`
+          Authorization: `Bearer ${this.userAuthorizationService.getEncodedToken()}`
         }
       });
     }

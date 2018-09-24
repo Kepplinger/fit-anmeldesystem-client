@@ -5,14 +5,14 @@
   </div>
 </div>
 <div *ngIf="!isAppLoading()" class="main-page d-flex flex-column">
-  <fit-header *ngIf="getApplicationState() == FitApplication.FitRegistration"></fit-header>
-  <fit-admin-header *ngIf="getApplicationState() == FitApplication.AdminTool"
+  <fit-header *ngIf="showFitHeader()"></fit-header>
+  <fit-admin-header *ngIf="showAdminHeader()"
                     class="admin-header-spacing">
   </fit-admin-header>
 
   <router-outlet></router-outlet>
 
-  <fit-footer *ngIf="getApplicationState() == FitApplication.FitRegistration"
+  <fit-footer *ngIf="showFitHeader()"
               class="mt-auto">
   </fit-footer>
 </div>

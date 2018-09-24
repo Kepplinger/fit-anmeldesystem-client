@@ -23,10 +23,16 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   public selectedEmail: Email;
   public editableEmail: Email;
   public editorOptions: any = {
-    charCounterCount: true,
     heightMin: 350,
     tooltips: true,
-    inlineMode: true
+    inlineMode: true,
+    enter: $.FroalaEditor.ENTER_BR,
+    toolbarButtons: 	['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+      'fontFamily', 'fontSize', 'paragraphFormat', 'color', '|',
+      'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-',
+      'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
+      'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print',
+      'spellChecker', 'help', 'html', '|', 'undo', 'redo']
   };
 
   private editor: any;

@@ -50,6 +50,7 @@
 
       <div class="d-flex w-100">
         <button class="btn btn-primary big-rounded-button text-bold mb-4 mx-auto"
+                [disabled]="doUnsavedChangesExist()"
                 data-toggle="modal"
                 data-target="#testMailModal">
           <i class="fa fa-envelope"></i>

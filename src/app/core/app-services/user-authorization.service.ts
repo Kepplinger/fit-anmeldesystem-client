@@ -7,16 +7,18 @@ import {FitUserRole} from '../model/enums/fit-user-role';
 export class UserAuthorizationService {
 
   private jwtService  = new JwtHelperService();
+  private token: string = null;
 
   public constructor(private authDAO: FitUserDAO) {
+    this.token = sessionStorage.getItem('token');
   }
 
   public async loginAdmin(email: string, password: string): Promise<boolean> {
     let response: any = await this.authDAO.loginAdmin(email, password);
 
     if (response.auth_token != null) {
-      let token = response.auth_token;
-      sessionStorage.setItem('token', token);
+      this.token = response.auth_token;
+      sessionStorage.setItem('token', this.token);
       return true;
     } else {
       return false;
@@ -24,11 +26,13 @@ export class UserAuthorizationService {
   }
 
   public loginMember(token: string): void {
-    sessionStorage.setItem('token', token);
+    this.token = token;
+    sessionStorage.setItem('token', this.token);
   }
 
   // noinspection JSMethodCanBeStatic
   public logoutUser(): void {
+    this.token = null;
     sessionStorage.removeItem('token');
   }
 
@@ -42,9 +46,8 @@ export class UserAuthorizationService {
   }
 
   public isUserAuthenticated(): boolean {
-    let token = sessionStorage.getItem('token');
-    if (token != null && token !== '') {
-      return !this.jwtService.isTokenExpired(token);
+    if (this.token != null && this.token !== '') {
+      return !this.jwtService.isTokenExpired(this.token);
     } else {
       return false;
     }
@@ -55,16 +58,14 @@ export class UserAuthorizationService {
     return token != null && token.sub === email;
   }
 
-  public getDecodedToken(): string {
-    return sessionStorage.getItem('token');
+  public getEncodedToken(): string {
+    return this.token;
   }
 
   private getToken(): any {
-    let encodedToken = sessionStorage.getItem('token');
-
-    if (encodedToken != null && encodedToken !== '') {
+    if (this.token != null && this.token !== '') {
       try {
-        return this.jwtService.decodeToken(encodedToken);
+        return this.jwtService.decodeToken(this.token);
       } catch {
         return null;
       }

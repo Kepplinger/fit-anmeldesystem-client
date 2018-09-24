@@ -63,7 +63,12 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
   }
 
   public routeToBookingDetail(booking: Booking): void {
-    this.accountManagementService.loginMember({entity: {adminBooking: booking}} as MemberLoginResponse, true);
+    let memberLogin: MemberLoginResponse = {
+      entity: {adminBooking: booking},
+      authToken: this.adminAuthenticationService.getEncodedToken()
+    } as MemberLoginResponse;
+
+    this.accountManagementService.loginMember(memberLogin, true);
     this.router.navigate(['/admin-tool', 'anmeldung', booking.id]);
   }
 
