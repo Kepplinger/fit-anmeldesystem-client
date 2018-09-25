@@ -52,6 +52,7 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   public selectEmail(email: Email): void {
     this.unsavedChangesExist = false;
     this.selectedEmail = email;
+    console.log(this.selectedEmail);
     this.editableEmail = EmailHelper.clone(email);
   }
 
