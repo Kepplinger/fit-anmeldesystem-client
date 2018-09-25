@@ -6,17 +6,17 @@ export abstract class BaseAdminRoleGuardComponent {
   protected constructor(protected userAuthorizationService: UserAuthorizationService) {
   }
 
-  protected isWritableFitAdmin(): boolean {
+  public isWritableFitAdmin(): boolean {
     let role: FitUserRole = this.userAuthorizationService.getUserRole();
     return role === FitUserRole.FitAdmin;
   }
 
-  protected isFitAdmin(): boolean {
+  public isFitAdmin(): boolean {
     let role: FitUserRole = this.userAuthorizationService.getUserRole();
     return role === FitUserRole.FitAdmin || role === FitUserRole.FitReadOnly;
   }
 
-  protected isWritableAdmin(): boolean {
+  public isWritableAdmin(): boolean {
     let role: FitUserRole = this.userAuthorizationService.getUserRole();
     return role === FitUserRole.FitAdmin || role === FitUserRole.MemberAdmin;
   }
