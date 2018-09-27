@@ -282,9 +282,8 @@ export class FitRegistrationComponent implements OnInit {
 
       let formWarnings = {
         noLogo: this.fitFormGroup.get('detailedData').value.logo == null,
-        // TODO
-        // noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
-        //   .representatives.some(r => r.image.name === 'Bild auswählen ...'),
+        noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
+          .representatives.some(r => r.image == null),
         noLocation: this.fitFormGroup.get('packagesAndLocation').value.location == null
       } as FormWarnings;
 
