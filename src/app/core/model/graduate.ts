@@ -10,6 +10,7 @@ export class Graduate {
   public email: string;
   public phoneNumber: string;
   public gender: string;
+  public graduationYear: number;
 
   public constructor(firstName?: string,
                      lastName?: string,
@@ -17,6 +18,7 @@ export class Graduate {
                      email?: string,
                      phoneNumber?: string,
                      gender?: string,
+                     graduationYear?: number,
                      id?: number) {
     this.id = id;
     this.firstName = firstName;
@@ -25,5 +27,6 @@ export class Graduate {
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.gender = gender;
+    this.graduationYear = graduationYear;
   }
 }

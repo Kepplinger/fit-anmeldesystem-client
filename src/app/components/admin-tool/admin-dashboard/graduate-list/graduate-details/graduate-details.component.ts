@@ -25,6 +25,7 @@ export class GraduateDetailsComponent implements OnInit {
       (params: Params) => {
         if (params.id != null) {
           this.graduate = this.graduateTransferService.getGraduate(Number(params.id));
+          console.log(this.graduate);
           if (this.graduate == null) {
             this.router.navigate(['/admin-tool', 'absolventen']);
           }

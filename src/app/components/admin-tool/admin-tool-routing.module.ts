@@ -1,31 +1,31 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AdminLoginComponent} from './admin-login/admin-login.component';
-import {BookingListComponent} from './admin-dashboard/booking-list/booking-list.component';
-import {AdminDashboardComponent} from './admin-dashboard/admin-dashboard.component';
-import {EditFitEventComponent} from './admin-dashboard/edit-fit-event/edit-fit-event.component';
-import {AcceptCompaniesComponent} from './admin-dashboard/accept-companies/accept-companies.component';
-import {ChangelogComponent} from './admin-dashboard/changelog/changelog.component';
-import {MailTemplatesComponent} from './admin-dashboard/mail-templates/mail-templates.component';
-import {BookingCsvExportComponent} from './admin-dashboard/csv-export/booking-csv-export/booking-csv-export.component';
-import {AcceptPresentationsComponent} from './admin-dashboard/accept-presentations/accept-presentations.component';
-import {GraduateListComponent} from './admin-dashboard/graduate-list/graduate-list.component';
-import {CompanyListComponent} from './admin-dashboard/company-list/company-list.component';
-import {GraduateDetailsComponent} from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
-import {CompanyDetailsComponent} from './admin-dashboard/company-list/company-details/company-details.component';
-import {AdminSettingsComponent} from './admin-dashboard/admin-settings/admin-settings.component';
-import {CsvExportComponent} from './admin-dashboard/csv-export/csv-export.component';
-import {GraduateCsvExportComponent} from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
-import {CompanyCsvExportComponent} from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
-import {CreateFitEventComponent} from './admin-dashboard/create-fit-event/create-fit-event.component';
-import {FitRegistrationComponent} from '../fit-registration/fit-registration.component';
-import {CanDeactivateGuard} from '../../core/guards/can-deactivate.guard';
-import {CompanyRejectedListComponent} from './admin-dashboard/accept-companies/copmany-rejected-list/company-rejected-list.component';
-import {SendMailsComponent} from './admin-dashboard/send-mails/send-mails.component';
-import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
-import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
-import {FitUserRole} from '../../core/model/enums/fit-user-role';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { BookingListComponent } from './admin-dashboard/booking-list/booking-list.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { EditFitEventComponent } from './admin-dashboard/edit-fit-event/edit-fit-event.component';
+import { AcceptCompaniesComponent } from './admin-dashboard/accept-companies/accept-companies.component';
+import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
+import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
+import { BookingCsvExportComponent } from './admin-dashboard/csv-export/booking-csv-export/booking-csv-export.component';
+import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
+import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
+import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
+import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
+import { CompanyDetailsComponent } from './admin-dashboard/company-list/company-details/company-details.component';
+import { AdminSettingsComponent } from './admin-dashboard/admin-settings/admin-settings.component';
+import { CsvExportComponent } from './admin-dashboard/csv-export/csv-export.component';
+import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduate-csv-export/graduate-csv-export.component';
+import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
+import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
+import { FitRegistrationComponent } from '../fit-registration/fit-registration.component';
+import { CanDeactivateGuard } from '../../core/guards/can-deactivate.guard';
+import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies/copmany-rejected-list/company-rejected-list.component';
+import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.component';
+import { IsAuthenticatedGuard } from '../../core/guards/is-authenticated.guard';
+import { IsRoleGrantedGuard } from '../../core/guards/is-role-granted.guard';
+import { FitUserRole } from '../../core/model/enums/fit-user-role';
 
 export const routes: Routes = [
   {
@@ -60,6 +60,7 @@ export const routes: Routes = [
   },
   {
     path: 'absolvent/:id',
+    component: GraduateDetailsComponent,
     canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
