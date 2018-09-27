@@ -114,7 +114,31 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
     event.target.select();
   }
 
+  public getBadgeClass(location: Location): string[] {
+
+    let cssClasses: string[] = [];
+
+    if (location.isOccupied) {
+      cssClasses.push('badge-occupied');
+    }
+
+    if (location.category === 'B' && !location.isOccupied) {
+      cssClasses.push('badge-category-b');
+    }
+
+    if (location.category === 'A' && !location.isOccupied) {
+      cssClasses.push('badge-category-a');
+    }
+
+    if (this.selectedLocation != null && location.id === this.selectedLocation.id) {
+      cssClasses.push('badge-selected');
+    }
+
+    return cssClasses;
+  }
+
   private mapLocationsToDraggables(): any[] {
+    console.log(this.area.locations);
     return this.area.locations.map(
       (location: Location) => {
         return {
