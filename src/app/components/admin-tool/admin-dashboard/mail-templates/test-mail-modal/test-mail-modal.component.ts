@@ -1,12 +1,12 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Email } from '../../../../../core/model/email';
-import { EmailDAO } from '../../../../../core/dao/email.dao';
-import { CompaniesService } from '../../../services/companies.service';
-import { BookingsService } from '../../../services/bookings.service';
-import { Company } from '../../../../../core/model/company';
-import { Booking } from '../../../../../core/model/booking';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Email} from '../../../../../core/model/email';
+import {EmailDAO} from '../../../../../core/dao/email.dao';
+import {CompaniesService} from '../../../services/companies.service';
+import {BookingsService} from '../../../services/bookings.service';
+import {Company} from '../../../../../core/model/company';
+import {Booking} from '../../../../../core/model/booking';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'fit-test-mail-modal',
@@ -48,7 +48,7 @@ export class TestMailModalComponent implements OnInit, OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['email'] && this.email != null) {
       if (this.email.availableVariables.length !== 0) {
-        this.entityType = this.email.availableVariables.pop().entity;
+        this.entityType = this.email.availableVariables[0].entity;
 
         switch (this.entityType) {
           case 'Company':

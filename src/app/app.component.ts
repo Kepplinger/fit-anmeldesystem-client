@@ -6,6 +6,7 @@ import { EventService } from './core/app-services/event.service';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorInterceptor } from './core/dao/helper/error-interceptor';
 import { AppLoadingService } from './core/app-services/app-loading.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fit-root',
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
                      private appLoadingService: AppLoadingService,
                      private toastr: ToastrService,
                      private eventService: EventService,
+                     private router: Router,
                      private routerService: RouterService) {
   }
 
@@ -28,11 +30,15 @@ export class AppComponent implements OnInit {
     ErrorInterceptor.toastr = this.toastr;
   }
 
-  public getApplicationState(): FitApplication {
-    return this.applicationStateService.activatedApplication;
-  }
-
   public isAppLoading(): boolean {
     return this.appLoadingService.isAppLoading();
+  }
+
+  public showAdminHeader(): boolean {
+    return this.applicationStateService.activatedApplication === FitApplication.AdminTool && this.router.url !== '/admin-tool/login';
+  }
+
+  public showFitHeader(): boolean {
+    return this.applicationStateService.activatedApplication === FitApplication.FitRegistration;
   }
 }

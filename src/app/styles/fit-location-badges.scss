@@ -1,0 +1,41 @@
+@import "fit-variables";
+
+.fit-location {
+  position: absolute;
+  user-select: none;
+  cursor: pointer;
+  color: white;
+  font-size: 0.9em;
+
+  -webkit-transition: background-color 150ms linear;
+  transition: background-color 150ms linear;
+}
+
+.badge-occupied {
+  background-color: $danger-color;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+}
+
+.badge-category-a {
+  background-color: $primary-color;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+}
+
+.badge-category-b {
+  background-color: $info-color;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+}
+
+.badge-selected {
+  background-color: lighten($success-color, 5%);
+}
+

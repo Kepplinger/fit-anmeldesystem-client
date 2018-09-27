@@ -20,93 +20,135 @@ import { GraduateCsvExportComponent } from './admin-dashboard/csv-export/graduat
 import { CompanyCsvExportComponent } from './admin-dashboard/csv-export/company-csv-export/company-csv-export.component';
 import { CreateFitEventComponent } from './admin-dashboard/create-fit-event/create-fit-event.component';
 import { FitRegistrationComponent } from '../fit-registration/fit-registration.component';
-import { CanDeactivateGuard } from '../../core/guards/can-deactivate-guard.service';
+import { CanDeactivateGuard } from '../../core/guards/can-deactivate.guard';
 import { CompanyRejectedListComponent } from './admin-dashboard/accept-companies/copmany-rejected-list/company-rejected-list.component';
 import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.component';
+import { IsAuthenticatedGuard } from '../../core/guards/is-authenticated.guard';
+import { IsRoleGrantedGuard } from '../../core/guards/is-role-granted.guard';
+import { FitUserRole } from '../../core/model/enums/fit-user-role';
 
 export const routes: Routes = [
   {
     path: 'dash',
-    component: AdminDashboardComponent
+    component: AdminDashboardComponent,
+    canActivate: [IsAuthenticatedGuard]
   },
   {
     path: 'anmeldungen',
-    component: BookingListComponent
+    component: BookingListComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly]}
   },
   {
     path: 'einstellungen',
     component: AdminSettingsComponent,
-    canDeactivate: [CanDeactivateGuard]
+    canDeactivate: [CanDeactivateGuard],
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin]}
   },
   {
     path: 'anmeldung/:id',
-    component: FitRegistrationComponent
+    component: FitRegistrationComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin]}
   },
   {
     path: 'absolventen',
-    component: GraduateListComponent
+    component: GraduateListComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly, FitUserRole.MemberAdmin, FitUserRole.MemberReadOnly]}
   },
   {
     path: 'absolvent/:id',
-    component: GraduateDetailsComponent
+    component: GraduateDetailsComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'firmen',
-    component: CompanyListComponent
+    component: CompanyListComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly, FitUserRole.MemberAdmin, FitUserRole.MemberReadOnly]}
   },
   {
     path: 'firma/:id',
     component: CompanyDetailsComponent,
-    canDeactivate: [CanDeactivateGuard]
+    canDeactivate: [CanDeactivateGuard],
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'fit-bearbeiten',
-    component: EditFitEventComponent
+    component: EditFitEventComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin]}
   },
   {
     path: 'fit-anlegen',
-    component: CreateFitEventComponent
+    component: CreateFitEventComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin]}
   },
   {
     path: 'firmen-bestaetigen',
-    component: AcceptCompaniesComponent
+    component: AcceptCompaniesComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'firmen-abgelehnt',
-    component: CompanyRejectedListComponent
+    component: CompanyRejectedListComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'aenderungsprotokoll',
-    component: ChangelogComponent
+    component: ChangelogComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'mail-vorlagen',
     component: MailTemplatesComponent,
-    canDeactivate: [CanDeactivateGuard]
+    canDeactivate: [CanDeactivateGuard],
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'mails-versenden',
-    component: SendMailsComponent
+    component: SendMailsComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin]}
   },
   {
     path: 'csv-export',
-    component: CsvExportComponent
+    component: CsvExportComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly, FitUserRole.MemberAdmin, FitUserRole.MemberReadOnly]}
   },
   {
     path: 'csv-export/booking',
-    component: BookingCsvExportComponent
+    component: BookingCsvExportComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly]}
   },
   {
     path: 'csv-export/absolventen',
-    component: GraduateCsvExportComponent
+    component: GraduateCsvExportComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly, FitUserRole.MemberAdmin, FitUserRole.MemberReadOnly]}
   },
   {
     path: 'csv-export/firmen',
-    component: CompanyCsvExportComponent
+    component: CompanyCsvExportComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly, FitUserRole.MemberAdmin, FitUserRole.MemberReadOnly]}
   },
   {
     path: 'vortraege',
-    component: AcceptPresentationsComponent
+    component: AcceptPresentationsComponent,
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.FitReadOnly]}
   },
   {
     path: 'login',

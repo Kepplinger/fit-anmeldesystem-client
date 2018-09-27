@@ -1,5 +1,5 @@
 import { HostListener } from '@angular/core';
-import { CanComponentDeactivate } from '../guards/can-deactivate-guard.service';
+import { CanComponentDeactivate } from '../guards/can-deactivate.guard';
 
 export abstract class BaseOnDeactivateAlertComponent implements CanComponentDeactivate {
 

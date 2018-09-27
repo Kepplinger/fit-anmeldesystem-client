@@ -6,11 +6,15 @@ import { CodeRequestComponent } from './code-request/code-request.component';
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { CodeLostComponent } from '../shared-components/code-lost/code-lost.component';
 import { UpdateSuccessComponent } from './update-success/update-success.component';
+import { IsRoleGrantedGuard } from '../../core/guards/is-role-granted.guard';
+import { FitUserRole } from '../../core/model/enums/fit-user-role';
 
 const routes: Routes = [
   {
     path: 'anmelden',
-    component: FitRegistrationComponent
+    component: FitRegistrationComponent,
+    canActivate: [IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin, FitUserRole.Member]}
   },
   {
     path: 'code-vergessen',

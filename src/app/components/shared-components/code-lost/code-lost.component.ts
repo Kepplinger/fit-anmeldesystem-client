@@ -13,7 +13,7 @@ import { debounceTime } from 'rxjs/operators';
 export class CodeLostComponent {
 
   @Input()
-  public fullyDisplayed: boolean = true;
+  public fitOnlyMode: boolean = true;
 
   public companyMail: string = '';
 
@@ -29,7 +29,7 @@ export class CodeLostComponent {
     this.emailChanged.pipe(debounceTime(1000)).subscribe(
       async () => {
         this.isLoading = true;
-        this.isExisting = await this.registrationDAO.verifyCompanyMail(this.companyMail);
+        this.isExisting = await this.registrationDAO.verifyCompanyMail(this.companyMail, !this.fitOnlyMode);
         this.isLoading = false;
         this.isChecked = true;
       });
@@ -41,9 +41,14 @@ export class CodeLostComponent {
   }
 
   public async sendMail(): Promise<void> {
-    await this.registrationDAO.sendMail(this.companyMail);
+    await this.registrationDAO.sendMail(this.companyMail, !this.fitOnlyMode);
     this.toastr.success('Ihr Code wurde versendet an: ' + this.companyMail, 'Mail erfolgreich versandt!');
-    this.router.navigate(['']);
+
+    if (this.fitOnlyMode) {
+      this.router.navigate(['']);
+    } else {
+      this.router.navigate(['/konto', 'login']);
+    }
   }
 
   public isValid(): boolean {

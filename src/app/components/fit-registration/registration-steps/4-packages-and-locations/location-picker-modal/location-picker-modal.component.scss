@@ -1,3 +1,4 @@
+@import "../../../../../styles/fit-location-badges";
 @import "../../../../../styles/fit-global-styles";
 
 .card {
@@ -27,28 +28,8 @@
   border: solid 1px #007bff;
 }
 
-.fit-location {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  user-select: none;
-  cursor: pointer;
-  color: white;
-  font-size: 0.9em;
-
-  -webkit-transition: background-color 150ms linear;
-  transition: background-color 150ms linear;
-}
-
 .location-legend-badge {
   width: 30px;
-}
-
-.badge-primary:hover {
-  background-color: darken(#007bff, 15%);
-}
-
-.badge-danger:hover {
-  background-color: darken(#dc3545, 15%);
 }
 
 .selected-location-badge {
@@ -67,21 +48,4 @@
 
 .location-detail.shown {
   max-height: 100px;
-}
-
-.badge-occupied {
-  background-color: $danger-color;
-}
-
-.badge-category-a {
-  background-color: $info-color;
-}
-
-.badge-category-b {
-  background-color: $primary-color;
-}
-
-.badge-selected {
-  //border: solid 2px $success-color;
-  filter: brightness(110%);
 }

@@ -7,6 +7,7 @@ import { MemberLoginResponse } from '../app-helper/helper-model/member-login-res
 import { BookingMapper } from '../model/mapper/booking-mapper';
 import { CompanyMapper } from '../model/mapper/company-mapper';
 import { tryCatch } from 'rxjs/internal-compatibility';
+import { UserAuthorizationService } from './user-authorization.service';
 
 @Injectable()
 export class AccountManagementService {
@@ -20,7 +21,7 @@ export class AccountManagementService {
 
   public bookingFilled: Subject<void> = new Subject<void>();
 
-  public constructor() {
+  public constructor(private userAuthorizationService: UserAuthorizationService) {
     this.graduate = JSON.parse(sessionStorage.getItem('graduate'));
     this.booking = JSON.parse(sessionStorage.getItem('booking'));
     this.currentBookingExists = JSON.parse(sessionStorage.getItem('currentBookingExists'));
@@ -29,20 +30,22 @@ export class AccountManagementService {
   }
 
   public loginMember(response: MemberLoginResponse, companyOnly: boolean = false): boolean {
-    if (response.graduate != null && !companyOnly) {
-      this.setGraduate(response.graduate);
+    this.userAuthorizationService.loginMember(response.authToken);
+
+    if (response.entity.graduate != null && !companyOnly) {
+      this.setGraduate(response.entity.graduate);
       return true;
-    } else if (response.oldBooking != null) {
-      this.setBooking(BookingMapper.mapJsonToBooking(response.oldBooking), false);
+    } else if (response.entity.oldBooking != null) {
+      this.setBooking(BookingMapper.mapJsonToBooking(response.entity.oldBooking), false);
       return true;
-    } else if (response.currentBooking != null) {
-      this.setBooking(BookingMapper.mapJsonToBooking(response.currentBooking), true);
+    } else if (response.entity.currentBooking != null) {
+      this.setBooking(BookingMapper.mapJsonToBooking(response.entity.currentBooking), true);
       return true;
-    } else if (response.company != null) {
-      this.setCompanyWithoutBooking(CompanyMapper.mapJsonToCompany(response.company));
+    } else if (response.entity.company != null) {
+      this.setCompanyWithoutBooking(CompanyMapper.mapJsonToCompany(response.entity.company));
       return true;
-    } else if (response.adminBooking != null) {
-      this.setAdminBooking(response.adminBooking);
+    } else if (response.entity.adminBooking != null) {
+      this.setAdminBooking(response.entity.adminBooking);
       return true;
     }
 
@@ -50,6 +53,7 @@ export class AccountManagementService {
   }
 
   public logoutMember(): void {
+    this.userAuthorizationService.logoutUser();
     this.booking = null;
     this.graduate = null;
     this.currentBookingExists = false;

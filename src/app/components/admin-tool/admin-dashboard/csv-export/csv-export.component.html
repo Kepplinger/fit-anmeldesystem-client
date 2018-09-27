@@ -16,6 +16,7 @@
     </div>
 
     <div class="dash"
+         *ngIf="isFitAdmin()"
          [routerLink]="['/admin-tool','csv-export','booking']">
       <i class="fa fa-book dash-icon"></i>
       <div class="dash-text">FIT-Anmeldungen</div>

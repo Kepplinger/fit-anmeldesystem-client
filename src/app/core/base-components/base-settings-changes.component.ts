@@ -5,7 +5,7 @@ export class BaseSettingsChangesComponent {
   @Output()
   public changeHappened: EventEmitter<boolean> = new EventEmitter();
 
-  protected unsavedChangesExist: boolean = false;
+  public unsavedChangesExist: boolean = false;
 
   protected setUnsavedChanges(value: boolean): void {
     this.unsavedChangesExist = value;

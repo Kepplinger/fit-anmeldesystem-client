@@ -32,7 +32,7 @@
       <th class="cursor-pointer p-0">
         <fit-sortable-column [sortColumnName]="'memberStatus'" [sortDirection]="''">Abs-Mitglied</fit-sortable-column>
       </th>
-      <th></th>
+      <th *ngIf="isWritableAdmin()"></th>
     </tr>
     </thead>
     <tbody>
@@ -43,7 +43,7 @@
       <td>{{company?.contact.firstName}} {{company?.contact.lastName}}</td>
       <td>{{company?.contact.email}}</td>
       <td [innerHtml]="getMemberStatusHTML(company.memberStatus)"></td>
-      <td>
+      <td *ngIf="isWritableAdmin()">
         <div class="icon-button" (click)="routeToCompanyDetails(company)">
           <i class="fa fa-pencil fa-1-5x"></i>
         </div>

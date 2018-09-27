@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
 import { Router } from '@angular/router';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';
+import { BaseAdminRoleGuardComponent } from '../../../core/base-components/base-admin-role-guard.component';
 
 @Component({
   selector: 'fit-admin-header',
   templateUrl: './admin-header.component.html',
   styleUrls: ['./admin-header.component.scss']
 })
-export class AdminHeaderComponent implements OnInit {
+export class AdminHeaderComponent extends BaseAdminRoleGuardComponent implements OnInit {
 
   public event: Event;
 
-  public constructor(private adminAuthorizationService: AdminAuthorizationService,
+  public constructor(protected userAuthorizationService: UserAuthorizationService,
                      private eventService: EventService,
                      private router: Router) {
+    super(userAuthorizationService);
   }
 
   public ngOnInit(): void {
@@ -24,7 +26,7 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   public logout(): void {
-    this.adminAuthorizationService.logoutAdmin();
+    this.userAuthorizationService.logoutUser();
     this.router.navigate(['/admin-tool', 'login']);
   }
 }

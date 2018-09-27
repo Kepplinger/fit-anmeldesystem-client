@@ -9,22 +9,26 @@ import { CompanyTransferService } from '../../../../core/app-services/transfer-s
 import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
+import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
+import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
 
 @Component({
   selector: 'fit-company-list',
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
-export class CompanyListComponent implements OnInit, OnDestroy {
+export class CompanyListComponent extends BaseAdminRoleGuardComponent implements OnInit, OnDestroy {
 
   public companies: Company[];
   public loading: boolean = true;
 
   private sub: Subscription;
 
-  public constructor(private companiesService: CompaniesService,
+  public constructor(protected adminAuthenticationService: UserAuthorizationService,
+                     private companiesService: CompaniesService,
                      private companyTransferState: CompanyTransferService,
                      private router: Router) {
+    super(adminAuthenticationService);
   }
 
   public async ngOnInit(): Promise<void> {

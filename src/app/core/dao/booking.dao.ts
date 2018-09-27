@@ -5,32 +5,30 @@ import { AppConfig } from '../app-config/app-config.service';
 import { Booking } from '../model/booking';
 import { Event } from '../model/event';
 import { BookingMapper } from '../model/mapper/booking-mapper';
-import { map, retry } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { IsAccepted } from '../model/enums/is-accepted';
+import { UserAuthorizationService } from '../app-services/user-authorization.service';
+import { FitUserRole } from '../model/enums/fit-user-role';
 
 @Injectable()
 export class BookingDAO {
 
   public constructor(private appConfig: AppConfig,
+                     private adminAuthenticationService: UserAuthorizationService,
                      private http: HttpClient) {
   }
 
-  public fetchAllBookings(): Promise<Booking[]> {
-    return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking')
-      .pipe(
-        map((data: any[]) => {
-          return BookingMapper.mapJsonToBookingList(data);
-        }))
-      .toPromise();
-  }
-
   public fetchAllBookingsForEvent(event: Event): Promise<Booking[]> {
-    return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking/event/' + event.id)
-      .pipe(
-        map((data: any[]) => {
-          return BookingMapper.mapJsonToBookingList(data);
-        }))
-      .toPromise();
+    let role: FitUserRole = this.adminAuthenticationService.getUserRole();
+
+    if (role === FitUserRole.FitAdmin || role === FitUserRole.FitReadOnly) {
+      return this.http.get<Booking[]>(this.appConfig.serverURL + '/booking/event/' + event.id)
+        .pipe(
+          map((data: any[]) => {
+            return BookingMapper.mapJsonToBookingList(data);
+          }))
+        .toPromise();
+    }
   }
 
   public async persistBooking(booking: Booking, isAdminChange: boolean = false): Promise<Booking> {

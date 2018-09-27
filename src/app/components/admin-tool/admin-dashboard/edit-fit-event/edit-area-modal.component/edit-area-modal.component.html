@@ -49,15 +49,13 @@
           </div>
 
           <div *ngFor="let drag of draggableLocations"
-               class="badge badge-primary draggable-location position-absolute"
+               class="badge fit-location"
                ngDraggable
                [bounds]="areaBounds"
                [inBounds]="true"
                (stopped)="onDragEnd(drag.location, $event)"
                (mousedown)="selectLocation(drag.location)"
-               [ngClass]="{'badge-info': drag.location.category == 'A' && drag.location != selectedLocation,
-                           'badge-danger': drag.location.isOccupied,
-                           'badge-success': drag.location == selectedLocation}"
+               [ngClass]="getBadgeClass(drag.location)"
                [style.top]="drag.top + '%'"
                [style.left]="drag.left + '%'">
             {{drag.location.number}}
@@ -93,11 +91,11 @@
                          [value]="category"
                          name="categoryRadio"
                          [(ngModel)]="selectedLocation.category"
-                         [disabled]="selectedLocation.isOccupied"
-                         [ngClass]="{'cursor-not-allowed': selectedLocation.isOccupied}">
+                         [disabled]="selectedLocation.isOccupied">
 
-                  <label class="custom-control-label badge badge-primary px-3 my-auto cursor-pointer"
-                         [ngClass]="{'badge-info': category == 'A'}"
+                  <label class="custom-control-label badge badge-primary px-3 my-auto cursor-pointer text-light h-100"
+                         [ngClass]="{'badge-info': category == 'B',
+                                     'cursor-not-allowed': selectedLocation.isOccupied}"
                          [for]="'cat' + category">
                     {{category}}
                   </label>

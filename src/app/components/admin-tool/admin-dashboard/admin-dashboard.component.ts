@@ -5,20 +5,24 @@ import { Subscription } from 'rxjs';
 import { GraduatesService } from '../services/graduates.service';
 import { CompaniesService } from '../services/companies.service';
 import { BookingsService } from '../services/bookings.service';
+import { BaseAdminRoleGuardComponent } from '../../../core/base-components/base-admin-role-guard.component';
+import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
 
 @Component({
   selector: 'fit-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit, OnDestroy {
+export class AdminDashboardComponent extends BaseAdminRoleGuardComponent implements OnInit, OnDestroy {
 
   public event: Event;
   public events: Event[];
 
   private subscriptions: Subscription[] = [];
 
-  public constructor(private eventService: EventService) {
+  public constructor(private eventService: EventService,
+                     protected userAuthorizationService: UserAuthorizationService) {
+    super(userAuthorizationService);
   }
 
   public ngOnInit(): void {

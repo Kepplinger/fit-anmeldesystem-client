@@ -26,14 +26,11 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
 
   public tags: Tag[] = [];
   public tagFilter: string = '';
-  public branches: Branch[] = [];
-  public selectedBranches: any[] = [];
 
   public constructor(private activatedRoute: ActivatedRoute,
                      private router: Router,
                      private toastr: ToastrService,
                      private companyDAO: CompanyDAO,
-                     private branchDAO: BranchDAO,
                      private companiesService: CompaniesService,
                      private tagService: CompanyTagService,
                      private companyTransferService: CompanyTransferService) {
@@ -53,17 +50,10 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
 
     this.tags = this.tagService.tags.getValue();
     this.tagService.tags.subscribe(t => this.tags = t);
-
-    this.selectedBranches = (await this.branchDAO.fetchBranches())
-      .map(b => {
-        return {branch: b, selected: this.isBranchSelected(b)};
-      });
   }
 
   public async updateCompany(): Promise<void> {
     this.unsavedChangesExist = false;
-    this.company.branches = this.selectedBranches.filter(b => b.selected)
-      .map(b => new CompanyBranch(this.company.id, b.branch.id));
 
     this.company = await this.companyDAO.updateCompany(this.company, true);
     this.companiesService.updateCompany(this.company);
@@ -93,17 +83,5 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
   public changeMemberStatus(status: MemberStatus): void {
     this.unsavedChangesExist = true;
     this.company.memberStatus = status;
-  }
-
-  public companyChanged(value: boolean): void {
-    this.unsavedChangesExist = value;
-  }
-
-  private isBranchSelected(branch: Branch): boolean {
-    if (this.company != null && this.company.branches != null && branch != null) {
-      return this.company.branches.find(b => b.branch.id === branch.id) != null;
-    } else {
-      return false;
-    }
   }
 }

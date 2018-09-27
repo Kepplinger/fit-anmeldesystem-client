@@ -20,13 +20,15 @@ import { GraduateDAO } from './dao/graduate.dao';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PresentationDAO } from './dao/presentation.dao';
 import { TagDAO } from './dao/tag.dao';
-import { AdminAuthorizationService } from './app-services/admin-authorization.service';
-import { AdminAuthenticationInterceptor } from './interceptors/admin-authentication.interceptor';
+import { UserAuthorizationService } from './app-services/user-authorization.service';
+import { UserAuthenticationInterceptor } from './interceptors/user-authentication.interceptor';
 import { AccountManagementService } from './app-services/account-managenment.service';
-import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
+import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { DataUpdateNotifier } from './app-services/data-update-notifier';
 import { SmtpConfigDAO } from './dao/smtp-config.dao';
 import { FitUserDAO } from './dao/fit-user.dao';
+import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
+import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
 
 @NgModule({
   imports: [
@@ -51,7 +53,6 @@ import { FitUserDAO } from './dao/fit-user.dao';
     SmtpConfigDAO,
     AppConfig,
     ApplicationStateService,
-    AdminAuthorizationService,
     AccountManagementService,
     ModalWindowService,
     AppLoadingService,
@@ -59,7 +60,10 @@ import { FitUserDAO } from './dao/fit-user.dao';
     EventService,
     DataUpdateNotifier,
     CanDeactivateGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: AdminAuthenticationInterceptor, multi: true}
+    UserAuthorizationService,
+    IsAuthenticatedGuard,
+    IsRoleGrantedGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: UserAuthenticationInterceptor, multi: true}
   ]
 })
 export class CoreModule {

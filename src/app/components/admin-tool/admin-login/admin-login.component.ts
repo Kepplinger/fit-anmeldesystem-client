@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminAuthorizationService } from '../../../core/app-services/admin-authorization.service';
+import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
 
 @Component({
   selector: 'fit-admin-login',
@@ -14,14 +14,14 @@ export class AdminLoginComponent implements OnInit {
   public hasLoginFailed: boolean = false;
 
   public constructor(private router: Router,
-                     private adminAuthorizationService: AdminAuthorizationService) {
+                     private userAuthorizationService: UserAuthorizationService) {
   }
 
   public ngOnInit() {
   }
 
   public async loginAdmin(): Promise<void> {
-    if (await this.adminAuthorizationService.loginAdmin(this.email, this.password)) {
+    if (await this.userAuthorizationService.loginAdmin(this.email, this.password)) {
       this.router.navigate(['/admin-tool', 'dash']);
     } else {
       this.hasLoginFailed = true;

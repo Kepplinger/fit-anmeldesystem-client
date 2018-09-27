@@ -6,21 +6,25 @@ import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { GraduateTransferService } from '../../../../core/app-services/transfer-services/graduate-transfer.service';
 import { Router } from '@angular/router';
 import { GraduatesService } from '../../services/graduates.service';
+import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
+import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
 
 @Component({
   selector: 'fit-graduate-list',
   templateUrl: './graduate-list.component.html',
   styleUrls: ['./graduate-list.component.scss']
 })
-export class GraduateListComponent implements OnInit {
+export class GraduateListComponent extends BaseAdminRoleGuardComponent implements OnInit {
 
   public graduates: Graduate[];
 
   public loading: boolean = true;
 
-  public constructor(private graduatesService: GraduatesService,
+  public constructor(protected adminAuthenticationService: UserAuthorizationService,
+                     private graduatesService: GraduatesService,
                      private graduateTransferState: GraduateTransferService,
                      private router: Router) {
+    super(adminAuthenticationService);
   }
 
   public async ngOnInit(): Promise<void> {

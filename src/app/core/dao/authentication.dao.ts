@@ -14,18 +14,18 @@ export class AuthenticationDAO {
                      private http: HttpClient) {
   }
 
-  public async verifyCompanyMail(companyMail: string): Promise<boolean> {
-    return this.http.post<any>(this.appConfig.serverURL + '/authentication', {email: companyMail})
+  public async verifyCompanyMail(companyMail: string, useGraduateMails: boolean = false): Promise<boolean> {
+    return this.http.post<any>(this.appConfig.serverURL + '/authentication', {email: companyMail, useGraduateMails: useGraduateMails})
       .pipe(map((data: any) => data.existing))
       .toPromise();
   }
 
-  public async sendMail(companyMail: string): Promise<void> {
-    return this.http.post<void>(this.appConfig.serverURL + '/authentication/mail/code', {email: companyMail})
+  public async sendMail(companyMail: string, useGraduateMails: boolean = false): Promise<void> {
+    return this.http.post<void>(this.appConfig.serverURL + '/authentication/mail/code', {email: companyMail, useGraduateMails: useGraduateMails})
       .toPromise();
   }
 
-  public async loginCompany(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
+  public async loginMember(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
     return this.http.post<MemberLoginResponse>(this.appConfig.serverURL + '/authentication/token', {token: token})
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();

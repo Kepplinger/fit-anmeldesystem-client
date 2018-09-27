@@ -44,7 +44,8 @@ export class EventService {
       try {
         currentEvent = await this.eventDAO.getCurrentEvent();
       } catch (e) {
-        console.error('Der Request konnte nicht durchgeführt werden! Erneuter Versuch');
+        setTimeout(() => console.error('Der Request konnte nicht durchgeführt werden! Erneuter Versuch'),
+          300);
       }
     } while (currentEvent == null);
 
