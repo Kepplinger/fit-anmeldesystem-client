@@ -25,6 +25,7 @@ export class Company {
   public constructor(address?: Address,
                      contact?: Contact,
                      name?: string,
+                     branches?: CompanyBranch[],
                      isAccepted?: IsAccepted,
                      tags?: CompanyTag[],
                      memberPaymentAmount?: number,
@@ -36,6 +37,7 @@ export class Company {
     this.timestamp = timestamp;
     this.address = address;
     this.contact = contact;
+    this.branches = branches;
     this.name = name;
     this.tags = tags;
     this.isAccepted = isAccepted;

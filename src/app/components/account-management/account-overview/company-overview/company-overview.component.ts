@@ -16,13 +16,17 @@ import { AccountManagementService } from '../../../../core/app-services/account-
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 import { CompaniesService } from '../../../admin-tool/services/companies.service';
 import { DataUpdateNotifier } from '../../../../core/app-services/data-update-notifier';
+import { Branch } from '../../../../core/model/branch';
+import { BranchDAO } from '../../../../core/dao/branch.dao';
+import { CompanyBranch } from '../../../../core/model/company-branch';
+import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
 
 @Component({
   selector: 'fit-company-overview',
   templateUrl: './company-overview.component.html',
   styleUrls: ['./company-overview.component.scss']
 })
-export class CompanyOverviewComponent implements OnInit {
+export class CompanyOverviewComponent extends BaseFormValidationComponent implements OnInit {
 
   @Input()
   public company: Company = null;
@@ -40,20 +44,24 @@ export class CompanyOverviewComponent implements OnInit {
   public editModeChanged: EventEmitter<boolean> = new EventEmitter();
 
   public event: Event = null;
-  public companyFormGroup: FormGroup;
+  public formGroup: FormGroup;
   public isEditing: boolean = false;
 
   public genders: DisplayedValue[];
+  public branches: Branch[] = [];
+  public selectedBranches: any[] = [];
 
   public constructor(private fb: FormBuilder,
                      private eventService: EventService,
                      private accountManagementService: AccountManagementService,
                      private router: Router,
+                     private branchDAO: BranchDAO,
                      private dataUpdateNotifier: DataUpdateNotifier,
                      private companyDAO: CompanyDAO,
                      private toastr: ToastrService,
                      private appConfig: AppConfig) {
-    this.companyFormGroup = this.fb.group({
+    super();
+    this.formGroup = this.fb.group({
       companyName: ['', [Validators.required, Validators.maxLength(50)]],
       street: ['', Validators.required],
       streetNumber: ['', Validators.required],
@@ -75,20 +83,20 @@ export class CompanyOverviewComponent implements OnInit {
     });
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.fillFormWithCompany();
   }
 
   public enableEditing(): void {
     this.setEditMode(true);
-    this.companyFormGroup.controls['gender'].enable();
+    this.formGroup.controls['gender'].enable();
   }
 
   public async updateCompany(): Promise<void> {
-    if (this.companyFormGroup.valid) {
+    if (this.formGroup.valid) {
       this.setEditMode(false);
 
-      if (this.companyFormGroup.touched) {
+      if (this.formGroup.touched) {
         this.updateCompanyFromForm();
         this.company = await this.companyDAO.updateCompany(this.company, this.isAdminVersion);
         this.companyChange.emit(this.company);
@@ -99,10 +107,10 @@ export class CompanyOverviewComponent implements OnInit {
         this.toastr.success('Die Änderungen wurden erfolgreich gespeichert.', 'Daten gespeichert!');
       }
 
-      this.companyFormGroup.controls['gender'].disable();
-      this.companyFormGroup.markAsUntouched();
+      this.formGroup.controls['gender'].disable();
+      this.formGroup.markAsUntouched();
     } else {
-      FormHelper.touchAllFormFields(this.companyFormGroup);
+      FormHelper.touchAllFormFields(this.formGroup);
       this.toastr.error('Bitte überprüfen Sie Ihre Angaben auf Fehler.', 'Falsche Eingabe!');
     }
   }
@@ -110,28 +118,15 @@ export class CompanyOverviewComponent implements OnInit {
   public cancel(): void {
     this.setEditMode(false);
     this.fillFormWithCompany();
-    this.companyFormGroup.controls['gender'].disable();
+    this.formGroup.controls['gender'].disable();
   }
 
-  public isNoMail(formName: string): boolean {
-    return FormHelper.isNoEmail(formName, this.companyFormGroup) && this.isInvalid(formName);
+  public companyChanged(): void {
+    this.formGroup.markAsTouched();
   }
 
-  public isEmpty(formName: string): boolean {
-    return FormHelper.isEmpty(formName, this.companyFormGroup) && this.isInvalid(formName);
-  }
-
-  public isTooLong(formName: string): boolean {
-    return FormHelper.isTooLong(formName, this.companyFormGroup) && this.isInvalid(formName);
-  }
-
-  public isInvalid(formName: string): boolean {
-    return FormHelper.hasError(formName, this.companyFormGroup) != null &&
-      FormHelper.isTouched(formName, this.companyFormGroup);
-  }
-
-  private fillFormWithCompany() {
-    this.companyFormGroup.patchValue({
+  private async fillFormWithCompany(): Promise<void> {
+    this.formGroup.patchValue({
       companyName: this.company.name,
       street: this.company.address.street,
       streetNumber: this.company.address.streetNumber,
@@ -144,34 +139,52 @@ export class CompanyOverviewComponent implements OnInit {
       contactEmail: this.company.contact.email,
       contactPhoneNumber: this.company.contact.phoneNumber,
     });
+
+    this.selectedBranches = (await this.branchDAO.fetchBranches())
+      .map(b => {
+        return {branch: b, selected: this.isBranchSelected(b)};
+      });
   }
 
   private updateCompanyFromForm(): void {
-    this.company.name = this.companyFormGroup.value.companyName;
+    this.company.branches = this.selectedBranches.filter(b => b.selected)
+      .map(b => new CompanyBranch(this.company.id, b.branch.id));
+
+    this.company.name = this.formGroup.value.companyName;
     this.company.address = this.updateCompanyAddressFromForm(this.company.address);
     this.company.contact = this.updateContactFromForm(this.company.contact);
   }
 
   private updateCompanyAddressFromForm(address: Address): Address {
-    address.city = this.companyFormGroup.value.city;
-    address.zipCode = this.companyFormGroup.value.zipCode;
-    address.street = this.companyFormGroup.value.street;
-    address.streetNumber = this.companyFormGroup.value.streetNumber;
-    address.addition = this.companyFormGroup.value.addressAdditions;
+    address.city = this.formGroup.value.city;
+    address.zipCode = this.formGroup.value.zipCode;
+    address.street = this.formGroup.value.street;
+    address.streetNumber = this.formGroup.value.streetNumber;
+    address.addition = this.formGroup.value.addressAdditions;
     return address;
   }
 
   private updateContactFromForm(contact: Contact): Contact {
-    contact.firstName = this.companyFormGroup.value.firstName;
-    contact.lastName = this.companyFormGroup.value.lastName;
-    contact.gender = this.companyFormGroup.value.gender;
-    contact.email = this.companyFormGroup.value.contactEmail;
-    contact.phoneNumber = this.companyFormGroup.value.contactPhoneNumber;
+    contact.firstName = this.formGroup.value.firstName;
+    contact.lastName = this.formGroup.value.lastName;
+    contact.gender = this.formGroup.value.gender;
+    contact.email = this.formGroup.value.contactEmail;
+    contact.phoneNumber = this.formGroup.value.contactPhoneNumber;
     return contact;
   }
 
   private setEditMode(mode: boolean): void {
     this.isEditing = mode;
     this.editModeChanged.emit(mode);
+  }
+
+  private isBranchSelected(branch: Branch): boolean {
+    console.log(this.company.branches);
+
+    if (this.company != null && this.company.branches != null && branch != null) {
+      return this.company.branches.find(b => b.branch.id === branch.id) != null;
+    } else {
+      return false;
+    }
   }
 }

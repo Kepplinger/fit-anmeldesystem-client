@@ -45,6 +45,10 @@ export abstract class BaseFormValidationComponent {
     return FormHelper.isTooShort(formName, this.formGroup) && this.isInvalid(formName);
   }
 
+  public isTooLong(formName: string): boolean {
+    return FormHelper.isTooLong(formName, this.formGroup) && this.isInvalid(formName);
+  }
+
   public isInvalid(formName: string, formGroup: FormGroup = this.formGroup): boolean {
     return FormHelper.hasError(formName, formGroup) != null &&
       FormHelper.isTouched(formName, formGroup);

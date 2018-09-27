@@ -11,6 +11,9 @@ export class CustomCheckboxComponent {
   public preventMargins: boolean = false;
 
   @Input()
+  public readonly: boolean = false;
+
+  @Input()
   public message: string;
 
   @Input()

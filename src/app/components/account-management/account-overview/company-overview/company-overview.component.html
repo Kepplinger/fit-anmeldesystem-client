@@ -33,7 +33,7 @@
       </button>
     </div>
 
-    <form [formGroup]="companyFormGroup">
+    <form [formGroup]="formGroup">
       <!--company name-->
       <div class="form-group row mb-1">
         <label for="companyName" class="col-md-3 col-form-label">Firmenname:</label>
@@ -116,7 +116,7 @@
         </div>
       </div>
 
-      <h3>Firmenkontakt</h3>
+      <h4>Firmenkontakt</h4>
 
       <!--gender-->
       <div class="form-row row my-3">
@@ -205,10 +205,23 @@
           </div>
         </div>
       </div>
+
+      <div class="row mt-3">
+        <h4 class="col-md-3 pt-0">Zielgruppe(n)</h4>
+        <div class="col-md-9">
+          <fit-custom-checkbox *ngFor="let branch of selectedBranches"
+                               [(value)]="branch.selected"
+                               (valueChange)="companyChanged()"
+                               [readonly]="!isEditing"
+                               [message]="branch.branch.name">
+          </fit-custom-checkbox>
+        </div>
+      </div>
+
     </form>
   </div>
 
-  <div class="my-4" *ngIf="booking != null">
+  <div class="my-5" *ngIf="booking != null">
     <h1>FIT-Anmeldung</h1>
     <p>Der FIT ist eine jährlich Veranstaltung der HTL-Leonding bei welcher sich die Schüler bei Ihnen als Firma
       informieren können.</p>
