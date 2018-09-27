@@ -60,7 +60,6 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
   public onDragEnd(location: Location, event: any) {
     location.xCoordinate = $(event).position().left / $(this.areaBounds.nativeElement).width() * 100;
     location.yCoordinate = $(event).position().top / $(this.areaBounds.nativeElement).height() * 100;
-    console.log(location.xCoordinate + ' | ' + location.yCoordinate);
   }
 
   public filePicked(file: PickedFile | FilePickerError): void {

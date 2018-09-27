@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import { FitPackage } from '../../../../core/model/enums/fit-package';
 import { Package } from '../../../../core/model/package';
@@ -12,6 +12,9 @@ import { FormArrayUtils } from '../../../../core/utils/form-array-utils';
 import { ToastrService } from 'ngx-toastr';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { DataFile } from '../../../../core/model/data-file';
+import { Location } from '../../../../core/model/location';
+import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
+import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -47,6 +50,7 @@ export class PackagesAndLocationComponent implements OnInit {
   public constructor(private packageDAO: PackageDAO,
                      private branchDAO: BranchDAO,
                      private toastr: ToastrService,
+                     private modalWindowService: ModalWindowService,
                      private accountManagementService: AccountManagementService) {
   }
 
@@ -97,6 +101,17 @@ export class PackagesAndLocationComponent implements OnInit {
       this.selectedPackage--;
     } else {
       this.selectedPackage = packageNumber;
+    }
+
+    if (this.selectedLocation != null && this.selectedLocation.category === 'A' && this.selectedPackage === FitPackage.BasicPack) {
+      this.selectedPackage = FitPackage.SponsorPack;
+
+      this.modalWindowService.alert(
+        'Paket kann nicht geändert werden!',
+        'Mit einem Standplatz der Kategorie A ist es nicht möglich auf das ' + this.basicPackage.name +
+        ' zu wechseln! Bitte ändern Sie zuerst Ihren Standplatz bevor Sie das Paket ändern.',
+        ModalTemplateCreatorHelper.getBasicModalOptions('Ok', 'Abbrechen')
+      );
     }
 
     this.stepFormGroup.controls['fitPackage'].setValue(this.getSelectedPackage());

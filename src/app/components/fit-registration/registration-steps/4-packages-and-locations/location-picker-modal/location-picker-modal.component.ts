@@ -102,6 +102,11 @@ export class LocationPickerModalComponent implements OnInit {
     }
   }
 
+  public removeLocation(): void {
+    this.selectedLocation = null;
+    this.selectedLocationChange.emit(this.selectedLocation);
+  }
+
   public saveLocation(): void {
     this.selectedLocationChange.emit(this.selectedLocation);
   }
