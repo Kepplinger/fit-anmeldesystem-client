@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { Form, FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 export class FormHelper {
   public static isEmpty(formName: string, formGroup: FormGroup): boolean {
@@ -80,6 +80,8 @@ export class FormHelper {
         control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.touchAllFormFields(control);
+      } else if (control instanceof FormArray) {
+        control.controls.forEach((c: FormGroup) => this.touchAllFormFields(c));
       }
     });
   }

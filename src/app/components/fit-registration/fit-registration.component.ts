@@ -24,6 +24,8 @@ import { RepresentativeMapper } from '../../core/model/mapper/representative-map
 import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
 import { IsAccepted } from '../../core/model/enums/is-accepted';
 import { DataUpdateNotifier } from '../../core/app-services/data-update-notifier';
+import { Representative } from '../../core/model/representative';
+import { forEach } from '@angular/router/src/utils/collection';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -116,7 +118,10 @@ export class FitRegistrationComponent implements OnInit {
         providesThesis: [false]
       }),
       fitAppearance: fb.group({
-        representatives: this.fb.array([]),
+        representatives: this.fb.array([
+          RepresentativeMapper.mapRepresentativeToFormGroup(
+            new Representative('', '', null)
+          )]),
         additionalInfo: [''],
         resources: this.fb.array([])
       }),
@@ -171,18 +176,19 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public async setCurrentPage(oldStep: FitRegistrationStep, newStep: FitRegistrationStep): Promise<void> {
-
-    let oldStepFormGroup = this.getFormGroupForStep(oldStep);
-    let oldStepObject: FitStep = this.steps.find(s => s.step === oldStep);
     let newStepObject: FitStep = this.steps.find(s => s.step === newStep);
-
-    FormHelper.touchAllFormFields(oldStepFormGroup);
-    oldStepObject.isValid = oldStepFormGroup.valid;
-    oldStepObject.wasValidated = true;
-
+    let showWarning: boolean = false;
     let switchToNextStep: boolean = true;
 
-    if (!oldStepObject.isValid) {
+    if (oldStep < newStep) {
+      for (let i = FitRegistrationStep.GeneralData; i < newStep; i++) {
+        showWarning = !this.validateStep(i) || showWarning;
+      }
+    } else {
+      this.validateStep(oldStep);
+    }
+
+    if (showWarning) {
       switchToNextStep = await this.modalWindowService.confirm(
         `<h2 class="text-bold text-dark">Vorsicht!</h2>`,
         ModalTemplateCreatorHelper.getNextStepWarning(),
@@ -196,6 +202,16 @@ export class FitRegistrationComponent implements OnInit {
 
       this.currentStep = newStep;
       window.scrollTo(0, 0);
+    } else {
+      let sortedSteps: FitStep[] = this.steps
+        .filter(s => !s.isValid && s.step <= newStep && s.step >= oldStep)
+        .sort((a, b) => a.step - b.step);
+
+      // navigate to the next invalid step
+      if (sortedSteps.length !== 0) {
+        this.currentStep = sortedSteps[0].step;
+        window.scrollTo(0, 0);
+      }
     }
   }
 
@@ -485,5 +501,16 @@ export class FitRegistrationComponent implements OnInit {
       case FitRegistrationStep.ContactAndRemarks:
         return this.fitFormGroup.get('contactAndRemarks') as FormGroup;
     }
+  }
+
+  private validateStep(step: FitRegistrationStep): boolean {
+    let previousStepFormGroup = this.getFormGroupForStep(step);
+    let previousStepObject = this.steps.find(s => s.step === step);
+
+    FormHelper.touchAllFormFields(previousStepFormGroup);
+    previousStepObject.isValid = previousStepFormGroup.valid;
+    previousStepObject.wasValidated = true;
+
+    return previousStepObject.isValid;
   }
 }

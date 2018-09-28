@@ -126,9 +126,9 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   private addNewRepresentative(): void {
-    let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
-    representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
-      new Representative('', '', null)
-    ));
+      let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
+      representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
+        new Representative('', '', null)
+      ));
   }
 }
