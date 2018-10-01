@@ -13,8 +13,6 @@ import { Address } from '../../../../core/model/address';
 import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
 import { Event } from '../../../../core/model/event';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
-import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
-import { CompaniesService } from '../../../admin-tool/services/companies.service';
 import { DataUpdateNotifier } from '../../../../core/app-services/data-update-notifier';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
@@ -179,8 +177,6 @@ export class CompanyOverviewComponent extends BaseFormValidationComponent implem
   }
 
   private isBranchSelected(branch: Branch): boolean {
-    console.log(this.company.branches);
-
     if (this.company != null && this.company.branches != null && branch != null) {
       return this.company.branches.find(b => b.branch.id === branch.id) != null;
     } else {

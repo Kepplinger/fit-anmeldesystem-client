@@ -61,8 +61,6 @@ export class EventHelper {
       first.registrationState === second.registrationState &&
       first.registrationEnd.isSame(second.registrationEnd) &&
       first.registrationStart.isSame(second.registrationStart) &&
-      first.eventDate.isSame(second.eventDate) &&
-      first.areas.every(a1 => second.areas.some(a2 => AreaHelper.compare(a1, a2))) &&
-      second.areas.every(a1 => first.areas.some(a2 => AreaHelper.compare(a1, a2)));
+      first.eventDate.isSame(second.eventDate);
   }
 }

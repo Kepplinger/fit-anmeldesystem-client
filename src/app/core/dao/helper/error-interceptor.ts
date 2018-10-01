@@ -8,10 +8,10 @@ export class ErrorInterceptor {
   public static catchErrorMessage(error: HttpErrorResponse): Observable<HttpErrorResponse> {
     if (error.status === 500) {
       ErrorInterceptor.toastr.error(ErrorInterceptor.getErrorMessage(error));
-      return Observable.create(error);
+      return Observable.create(null);
     } else if (error.status === 400) {
       ErrorInterceptor.toastr.error(ErrorInterceptor.getErrorMessage(error));
-      return Observable.create(error);
+      return Observable.create(null);
     } else if (error.status === 404) {
       ErrorInterceptor.toastr.error('Der Vorgang konnte nicht durchgeführt werden. Fehlercode: 404');
       return Observable.create(null);

@@ -25,7 +25,8 @@ import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
 import { IsAccepted } from '../../core/model/enums/is-accepted';
 import { DataUpdateNotifier } from '../../core/app-services/data-update-notifier';
 import { Representative } from '../../core/model/representative';
-import { forEach } from '@angular/router/src/utils/collection';
+import { BaseOnDeactivateAlertComponent } from '../../core/base-components/base-on-deactivate-alert.component';
+import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -39,7 +40,7 @@ interface FitStep {
   templateUrl: './fit-registration.component.html',
   styleUrls: ['./fit-registration.component.scss']
 })
-export class FitRegistrationComponent implements OnInit {
+export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent implements OnInit {
 
   // necessary for template-usage
   public Step = FitRegistrationStep;
@@ -68,6 +69,7 @@ export class FitRegistrationComponent implements OnInit {
                      private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
+    super(true);
 
     // creates a FitStep Array out of the ordered steps
     this.steps = getOrderedFitRegistrationSteps().map(s => {
@@ -329,9 +331,14 @@ export class FitRegistrationComponent implements OnInit {
         }
 
         this.isBookingTransmitting = true;
-        booking = await this.bookingDAO.persistBooking(booking, this.isAdminMode);
-        this.isBookingTransmitting = false;
 
+        try {
+          booking = await this.bookingDAO.persistBooking(booking, this.isAdminMode);
+        } finally {
+          this.isBookingTransmitting = false;
+        }
+
+        this.unsavedChangesExist = false;
         if (this.isAdminMode) {
           this.dataUpdateNotifier.updateBooking(booking);
           this.router.navigate(['/admin-tool', 'anmeldungen']);
@@ -352,6 +359,10 @@ export class FitRegistrationComponent implements OnInit {
         step.isValid = this.getFormGroupForStep(step.step).valid;
       }
     }
+  }
+
+  public navigateToAccount() {
+    this.unsavedChangesExist = false;
   }
 
   private getBookingFromForm(): Booking {

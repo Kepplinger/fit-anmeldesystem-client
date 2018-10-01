@@ -126,7 +126,8 @@
   <!--main container-->
   <div class="py-3 mx-4 mt-4 mb-0 border-top">
     <fit-general-data [isVisible]="currentStep == Step.GeneralData"
-                      [stepFormGroup]="fitFormGroup.controls['generalData']">
+                      [stepFormGroup]="fitFormGroup.controls['generalData']"
+                      (onNavigateToAccount)="navigateToAccount()">
     </fit-general-data>
 
     <fit-detailed-data [isVisible]="currentStep == Step.DetailedData"

@@ -25,6 +25,7 @@ export class EditFitEventComponent implements OnInit {
 
   public isLoading: boolean = false;
   public isModalShown: boolean = false;
+  public areAreasChanged: boolean = false;
 
   public constructor(private changeDetector: ChangeDetectorRef,
                      private toastr: ToastrService,
@@ -66,6 +67,7 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public updateArea(area: Area): void {
+    this.areAreasChanged = true;
     let index = this.event.areas.indexOf(this.selectedArea);
     this.event.areas[index] = area;
 
@@ -107,9 +109,15 @@ export class EditFitEventComponent implements OnInit {
       }
 
       if (validDates) {
+        let response: any = null;
+
         this.isLoading = true;
-        let response = await this.eventDAO.persistEvent(this.event);
-        this.isLoading = false;
+        try {
+          response = await this.eventDAO.persistEvent(this.event);
+        } finally {
+          this.isLoading = false;
+          this.areAreasChanged = false;
+        }
 
         if (response != null && response.event != null && response.events != null) {
           this.event = response.event;
@@ -133,7 +141,7 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public noChangesExist(): boolean {
-    return EventHelper.compare(this.event, this.eventService.selectedEvent.getValue());
+    return EventHelper.compare(this.event, this.eventService.selectedEvent.getValue()) && !this.areAreasChanged;
   }
 
   private validateEvent(): boolean {

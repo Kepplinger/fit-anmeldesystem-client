@@ -83,7 +83,7 @@
         <td>
           <a *ngIf="cp.presentation.file != null"
              target="_blank" rel="noopener noreferrer"
-             [href]="serverUrl + '/' + cp.presentation.file?.dataUrl">
+             [href]="cp.presentation.file?.dataUrl">
             <i class="fa fa-download"></i> {{cp.presentation.file?.name}}
           </a>
         </td>

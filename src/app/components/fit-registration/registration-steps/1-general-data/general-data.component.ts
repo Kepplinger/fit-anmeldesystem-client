@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
 import { AppConfig } from '../../../../core/app-config/app-config.service';
@@ -17,6 +17,10 @@ export class GeneralDataComponent {
 
   @Input()
   public stepFormGroup: FormGroup;
+
+  @Output()
+  public onNavigateToAccount: EventEmitter<void> = new EventEmitter();
+
   public genders: DisplayedValue[];
 
   public constructor(private appConfig: AppConfig,
@@ -35,6 +39,7 @@ export class GeneralDataComponent {
       });
 
     if (result) {
+      this.onNavigateToAccount.emit();
       this.router.navigate(['/konto']);
     }
   }

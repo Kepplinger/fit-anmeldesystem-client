@@ -85,7 +85,6 @@ export class AccountManagementService {
   }
 
   public setAdminBooking(booking: Booking): void {
-    console.log(booking);
     this.booking = booking;
     this.currentBookingExists = false;
     this.isGraduate = false;

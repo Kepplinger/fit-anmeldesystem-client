@@ -5,6 +5,10 @@ export abstract class BaseOnDeactivateAlertComponent implements CanComponentDeac
 
   protected unsavedChangesExist: boolean = false;
 
+  protected constructor(unsavedChangesExist?: boolean) {
+    this.unsavedChangesExist = unsavedChangesExist;
+  }
+
   @HostListener('window:beforeunload', ['$event'])
   public unloadNotification() {
     return !this.unsavedChangesExist;
@@ -13,9 +17,9 @@ export abstract class BaseOnDeactivateAlertComponent implements CanComponentDeac
   public async canDeactivate(): Promise<boolean> {
     if (this.unsavedChangesExist) {
       return confirm('Webseite verlassen? Ihre Änderungen werden eventuell nicht gespeichert.');
-    } else {
-      return true;
     }
+
+    return true;
   }
 
   public doUnsavedChangesExist(): boolean {
