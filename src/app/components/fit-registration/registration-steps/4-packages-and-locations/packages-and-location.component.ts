@@ -166,10 +166,13 @@ export class PackagesAndLocationComponent extends BaseFormValidationComponent im
     setTimeout(() => {
       if (this.selectedPackage === FitPackage.LecturePack) {
         this.formGroup.controls['presentationTitle'].setValidators(Validators.required);
+        this.formGroup.controls['presentationDescription'].setValidators(Validators.required);
       } else {
         this.formGroup.controls['presentationTitle'].clearValidators();
+        this.formGroup.controls['presentationDescription'].clearValidators();
       }
       this.formGroup.controls['presentationTitle'].updateValueAndValidity();
+      this.formGroup.controls['presentationDescription'].updateValueAndValidity();
     }, 0);
   }
 }

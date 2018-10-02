@@ -5,8 +5,7 @@ export abstract class BaseOnDeactivateAlertComponent implements CanComponentDeac
 
   protected unsavedChangesExist: boolean = false;
 
-  protected constructor(unsavedChangesExist?: boolean) {
-    this.unsavedChangesExist = unsavedChangesExist;
+  protected constructor() {
   }
 
   @HostListener('window:beforeunload', ['$event'])

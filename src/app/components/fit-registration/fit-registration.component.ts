@@ -69,7 +69,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
                      private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
-    super(true);
+    super();
 
     // creates a FitStep Array out of the ordered steps
     this.steps = getOrderedFitRegistrationSteps().map(s => {
@@ -148,6 +148,8 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
   }
 
   public async ngOnInit(): Promise<void> {
+    this.unsavedChangesExist = true;
+
     this.event = this.eventService.currentEvent.getValue();
     this.eventService.currentEvent.subscribe((event: Event) => this.event = event);
 
@@ -255,10 +257,18 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
   }
 
   public async rejectBooking(): Promise<void> {
-    let booking = await this.bookingDAO.acceptBooking(this.booking, IsAccepted.Rejected);
-    this.booking.isAccepted = booking.isAccepted;
-    this.booking.timestamp = booking.timestamp;
-    this.accountManagementService.setAdminBooking(this.booking);
+    let result = await this.modalWindowService.confirm(
+      'Anmeldung ablehenen!',
+      `Sind sie sich sicher, dass sie die <span class="text-danger">Anmeldung ablehenen</span> wollen!`,
+      ModalTemplateCreatorHelper.getBasicModalOptions('Ablehenen', 'Abbrechen')
+    );
+
+    if (result) {
+      let booking = await this.bookingDAO.acceptBooking(this.booking, IsAccepted.Rejected);
+      this.booking.isAccepted = booking.isAccepted;
+      this.booking.timestamp = booking.timestamp;
+      this.accountManagementService.setAdminBooking(this.booking);
+    }
   }
 
   public getProgress(): number {
@@ -338,6 +348,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
         }
 
         this.unsavedChangesExist = false;
+
         if (this.isAdminMode) {
           this.dataUpdateNotifier.updateBooking(booking);
           this.router.navigate(['/admin-tool', 'anmeldungen']);

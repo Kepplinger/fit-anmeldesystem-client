@@ -216,9 +216,14 @@
         <textarea class="form-control"
                   formControlName="presentationDescription"
                   id="otherNotes"
+                  (change)="onInputChanged()"
                   placeholder="Kurze Beischreibung Ihres Vortrags"
+                  [ngClass]="{'is-invalid': isInvalid('presentationDescription')}"
                   rows="5">
         </textarea>
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('presentationDescription')">Präsentations-Beschreibung darf nicht leer sein!</div>
+        </div>
       </div>
 
       <div>Zielgruppe(n):</div>
