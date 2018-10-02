@@ -32,10 +32,8 @@ export class CompanyDAO {
       .toPromise();
   }
 
-  public async updateCompany(company: Company, isAdminChange = false): Promise<Company> {
-    let params = new HttpParams().set('isAdminChange', String(isAdminChange));
-
-    return this.http.put<any>(this.appConfig.serverURL + '/company', company, {params: params})
+  public async updateCompany(company: Company): Promise<Company> {
+    return this.http.put<any>(this.appConfig.serverURL + '/company', company)
       .pipe(
         map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);

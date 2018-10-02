@@ -85,7 +85,7 @@
       <div class="mt-2 w-100 d-flex">
         <button class="btn btn-success big-rounded-button event-save-btn text-bold mx-auto"
                 (click)="persistEvent()"
-                [disabled]="noChangesExist() && event.id != null">
+                [disabled]="noChangesExist()">
           <span *ngIf="event.id != null"><i class="fa fa-download mr-1"></i>Speichern</span>
           <span *ngIf="event.id == null"><i class="fa fa-plus-circle mr-1"></i>Anlegen</span>
         </button>

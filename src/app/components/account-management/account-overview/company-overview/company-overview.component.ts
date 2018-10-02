@@ -96,7 +96,7 @@ export class CompanyOverviewComponent extends BaseFormValidationComponent implem
 
       if (this.formGroup.touched) {
         this.updateCompanyFromForm();
-        this.company = await this.companyDAO.updateCompany(this.company, this.isAdminVersion);
+        this.company = await this.companyDAO.updateCompany(this.company);
         this.companyChange.emit(this.company);
         this.dataUpdateNotifier.updateCompany(this.company);
         if (!this.isAdminVersion) {

@@ -31,11 +31,10 @@ export class BookingDAO {
     }
   }
 
-  public async persistBooking(booking: Booking, isAdminChange: boolean = false): Promise<Booking> {
+  public async persistBooking(booking: Booking): Promise<Booking> {
     let json: any = BookingMapper.mapBookingToJson(booking);
-    let params = new HttpParams().set('isAdminChange', String(isAdminChange));
 
-    return await this.http.post<any>(this.appConfig.serverURL + '/booking', json, {params: params})
+    return await this.http.post<any>(this.appConfig.serverURL + '/booking', json)
       .pipe(
         map((data: any) => {
           return BookingMapper.mapJsonToBooking(data);

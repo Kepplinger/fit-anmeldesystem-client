@@ -332,7 +332,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
         this.isBookingTransmitting = true;
 
         try {
-          booking = await this.bookingDAO.persistBooking(booking, this.isAdminMode);
+          booking = await this.bookingDAO.persistBooking(booking);
         } finally {
           this.isBookingTransmitting = false;
         }

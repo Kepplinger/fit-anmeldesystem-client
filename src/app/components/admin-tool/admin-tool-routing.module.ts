@@ -80,6 +80,7 @@ export const routes: Routes = [
   {
     path: 'fit-bearbeiten',
     component: EditFitEventComponent,
+    canDeactivate: [CanDeactivateGuard],
     canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin]}
   },

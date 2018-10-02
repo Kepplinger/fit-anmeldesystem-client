@@ -55,7 +55,7 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
   public async updateCompany(): Promise<void> {
     this.unsavedChangesExist = false;
 
-    this.company = await this.companyDAO.updateCompany(this.company, true);
+    this.company = await this.companyDAO.updateCompany(this.company);
     this.companiesService.updateCompany(this.company);
     this.companyTransferService.addCompany(this.company);
     this.toastr.success('Die Firma wurde erfolgreich gespeichert.', 'Firma gespeichert!');
