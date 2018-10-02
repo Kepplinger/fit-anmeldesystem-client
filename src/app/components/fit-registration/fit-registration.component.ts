@@ -148,7 +148,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
   }
 
   public async ngOnInit(): Promise<void> {
-    this.unsavedChangesExist = true;
+    this.unsavedChangesExist = !this.isAdminMode;
 
     this.event = this.eventService.currentEvent.getValue();
     this.eventService.currentEvent.subscribe((event: Event) => this.event = event);

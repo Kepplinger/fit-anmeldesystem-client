@@ -21,6 +21,7 @@ export class BookingCsvExportComponent implements OnInit, BaseCsvExportComponent
     isCompanyEnabled: true,
     isContactEnabled: true,
     isBookingEnabled: true,
+    isPresentationEnabled: true,
     company: {
       name: true,
       street: true,
@@ -55,6 +56,12 @@ export class BookingCsvExportComponent implements OnInit, BaseCsvExportComponent
       location: true,
       desiredBranches: true,
       resources: true
+    },
+    presentation: {
+      title: true,
+      description: true,
+      isAccepted: true,
+      branches: true
     }
   };
 
@@ -73,5 +80,4 @@ export class BookingCsvExportComponent implements OnInit, BaseCsvExportComponent
   public downloadCSV(): void {
     this.csvCreatorService.downloadCsvFromBookings(this.csv, this.isAcceptedFilter);
   }
-
 }

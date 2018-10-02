@@ -136,6 +136,22 @@ export class CsvCreatorService {
         }
       }
 
+      if (csvFilter.isPresentationEnabled && booking.presentation != null) {
+        this.addColumn(csvFilter.presentation.title, booking.presentation.title, data);
+        this.addColumn(csvFilter.presentation.description, booking.presentation.description, data);
+        this.addColumn(csvFilter.presentation.isAccepted, booking.presentation.isAccepted, data);
+
+        if (csvFilter.presentation.branches) {
+          for (let branch of branches) {
+            if (booking.presentation.branches.findIndex(b => b.id === branch.id) !== -1) {
+              this.addColumn(true, 'x', data);
+            } else {
+              this.addColumn(true, '', data);
+            }
+          }
+        }
+      }
+
       csvData.push(data);
     }
 
@@ -231,6 +247,16 @@ export class CsvCreatorService {
 
       if (csvFilter.booking.resources) {
         resources.forEach(r => this.addColumn(true, r.name, data));
+      }
+    }
+
+    if (csvFilter.isPresentationEnabled) {
+      this.addColumn(csvFilter.presentation.title, 'Präsentation-Titel', data);
+      this.addColumn(csvFilter.presentation.description, 'Präsentation-Beschreibung', data);
+      this.addColumn(csvFilter.presentation.isAccepted, 'Präsentation-Bestätigt?', data);
+
+      if (csvFilter.presentation.branches) {
+        branches.forEach(b => this.addColumn(true, 'Präsentation (' + b.name + ')', data));
       }
     }
 

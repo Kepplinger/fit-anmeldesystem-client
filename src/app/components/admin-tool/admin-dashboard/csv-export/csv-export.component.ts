@@ -8,7 +8,6 @@ import { UserAuthorizationService } from '../../../../core/app-services/user-aut
   styleUrls: ['./csv-export.component.scss']
 })
 export class CsvExportComponent extends BaseAdminRoleGuardComponent {
-
   public constructor(protected userAuthorizationService: UserAuthorizationService) {
     super(userAuthorizationService);
   }

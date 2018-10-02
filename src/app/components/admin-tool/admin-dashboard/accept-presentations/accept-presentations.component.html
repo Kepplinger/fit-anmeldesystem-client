@@ -5,12 +5,31 @@
   <!--pending companies-->
   <div class="p-3">
 
-    <!--header-->
-    <div [ngSwitch]="displayedList"
-         class="mb-4">
-      <h2 *ngSwitchCase="IsAccepted.Accepted">Bestätigte Vorträge</h2>
-      <h2 *ngSwitchCase="IsAccepted.Pending">Offene Vorträge</h2>
-      <h2 *ngSwitchCase="IsAccepted.Rejected">Abgelehnte Vorträge</h2>
+    <div class="d-flex">
+      <!--header-->
+      <div [ngSwitch]="displayedList"
+           class="mb-4">
+        <h2 *ngSwitchCase="IsAccepted.Accepted">Bestätigte Vorträge</h2>
+        <h2 *ngSwitchCase="IsAccepted.Pending">Offene Vorträge</h2>
+        <h2 *ngSwitchCase="IsAccepted.Rejected">Abgelehnte Vorträge</h2>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center ml-auto mb-3">
+        <div class="text-bold mr-2">Anmeldestatus:</div>
+
+        <div class="btn-group">
+          <button class="btn btn-light border-0 opened"
+                  [ngClass]="{'active': !presentationLocked}"
+                  (click)="setPresentationsOpen()">
+            <i class="fa fa-forward"></i> Offen
+          </button>
+          <button class="btn btn-light border-0 locked"
+                  [ngClass]="{'active': presentationLocked}"
+                  (click)="setPresentationsLocked()">
+            <i class="fa fa-lock"></i> Gesperrt
+          </button>
+        </div>
+      </div>
     </div>
 
     <!--tabs-->

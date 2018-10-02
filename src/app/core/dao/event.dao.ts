@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppConfig } from '../app-config/app-config.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Event } from '../model/event';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { ErrorInterceptor } from './helper/error-interceptor';
@@ -19,6 +19,16 @@ export class EventDAO {
         map((data: any[]) => {
           return EventMapper.mapJsonToEventList(data);
         }))
+      .toPromise();
+  }
+
+  public async updatePresentationLock(event: Event, presentationLock: boolean): Promise<Event | HttpErrorResponse> {
+    let headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.post<Event>(this.appConfig.serverURL + '/event/presentationLock/' + event.id, presentationLock, {headers: headers})
+      .pipe(
+        map((data: any) => EventMapper.mapJsonToEvent(data)),
+        catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
   }
 

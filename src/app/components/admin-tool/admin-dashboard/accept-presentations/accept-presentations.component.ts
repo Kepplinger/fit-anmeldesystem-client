@@ -7,6 +7,8 @@ import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
 import { ToastrService } from 'ngx-toastr';
+import { EventDAO } from '../../../../core/dao/event.dao';
+import { Event } from '../../../../core/model/event';
 
 declare let $;
 
@@ -25,8 +27,10 @@ export class AcceptPresentationsComponent implements OnInit {
   public serverUrl: string;
 
   public openedPresentation: CompanyPresentation = null;
+  public presentationLocked: boolean = false;
 
   public constructor(private presentationDAO: PresentationDAO,
+                     private eventDAO: EventDAO,
                      private eventService: EventService,
                      private toastr: ToastrService,
                      private modalWindowService: ModalWindowService,
@@ -35,6 +39,11 @@ export class AcceptPresentationsComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
+    this.presentationLocked = this.eventService.selectedEvent.getValue().presentationsLocked;
+    this.eventService.selectedEvent.subscribe((event: Event) => {
+      this.presentationLocked = event.presentationsLocked;
+    });
+
     this.presentations = await this.presentationDAO.fetchPresentations(this.eventService.selectedEvent.getValue().id);
   }
 
@@ -90,5 +99,33 @@ export class AcceptPresentationsComponent implements OnInit {
     );
     presentation.presentation = await this.presentationDAO.updatePresentation(presentation.presentation);
     this.toastr.success('Der Raum wurde erfolgreich geändert.', 'Raum geändert!');
+  }
+
+  public async setPresentationsOpen(): Promise<void> {
+    this.presentationLocked = false;
+    let event = this.eventService.selectedEvent.getValue();
+    let response: any = await this.eventDAO.updatePresentationLock(event, false);
+
+    if (response instanceof Event) {
+      this.eventService.selectedEvent.next(response as Event);
+    }
+  }
+
+  public async setPresentationsLocked(): Promise<void> {
+    let result: boolean = await this.modalWindowService.confirm(
+      'Präsentationen sperren?',
+      `Wollen sie wirklich die <span class="text-danger">Präsentationen sperren</span>?`,
+      ModalTemplateCreatorHelper.getBasicModalOptions('Sperren', 'Abbrechen')
+    );
+
+    if (result) {
+      this.presentationLocked = true;
+      let event = this.eventService.selectedEvent.getValue();
+      let response: any = await this.eventDAO.updatePresentationLock(event, true);
+
+      if (response instanceof Event) {
+        this.eventService.selectedEvent.next(response as Event);
+      }
+    }
   }
 }
