@@ -6,7 +6,6 @@ import * as CryptoJS from 'crypto-js';
 import { catchError } from 'rxjs/operators';
 import { FitUserRole } from '../model/enums/fit-user-role';
 import { FitUser } from '../model/fit-user';
-import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
 
 @Injectable()
 export class FitUserDAO {
@@ -16,7 +15,7 @@ export class FitUserDAO {
   }
 
   public async loginAdmin(email: string, password: string): Promise<any> {
-    // password = CryptoJS.SHA256(password).toString();
+    password = CryptoJS.SHA256(password).toString().toUpperCase();
     return this.http.post<any>(this.appConfig.serverURL + '/auth/login', {userName: email, password: password})
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
@@ -25,7 +24,7 @@ export class FitUserDAO {
   public async createAdmin(email: string, password: string, role: FitUserRole): Promise<FitUser | HttpErrorResponse> {
     let json: any = {
       fitUser: new FitUser(email, role),
-      password: password
+      password: CryptoJS.SHA256(password).toString().toUpperCase()
     };
 
     return this.http.post<FitUser>(this.appConfig.serverURL + '/account', json)

@@ -109,7 +109,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
         phoneNumber: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
-        logo: [new DataFile()],
+        logo: [null],
         description: ['', [Validators.required, fitCompanyDescriptionValidator(15, 65)]],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],
