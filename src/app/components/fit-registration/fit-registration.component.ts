@@ -133,7 +133,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
         presentationTitle: [''],
         presentationDescription: [''],
         presentationBranches: this.fb.array([]),
-        presentationFile: [new DataFile()]
+        presentationFile: [null]
       }),
       contactAndRemarks: fb.group({
         fitContactGender: [this.booking.company.contact.gender],
@@ -161,8 +161,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
           closableByDimmer: false,
           movable: false,
           labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
-        }
-      );
+        });
     }
 
     if (useOldBooking || this.isAdminMode || this.isEditMode) {

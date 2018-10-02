@@ -36,7 +36,7 @@ export class AccountManagementService {
       this.setGraduate(response.entity.graduate);
       return true;
     } else if (response.entity.oldBooking != null) {
-      this.setBooking(BookingMapper.mapJsonToBooking(response.entity.oldBooking), false);
+      this.setBooking(BookingMapper.mapBookingIntoFreshOne(response.entity.oldBooking), false);
       return true;
     } else if (response.entity.currentBooking != null) {
       this.setBooking(BookingMapper.mapJsonToBooking(response.entity.currentBooking), true);

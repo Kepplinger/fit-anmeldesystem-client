@@ -1,7 +1,6 @@
 import { Area } from '../area';
 import { Location } from '../location';
 import { LocationHelper } from './location-helper';
-import { DataFileHelper } from './data-file-helper';
 
 export class AreaHelper {
   public static clone(area: Area): Area {
@@ -19,6 +18,5 @@ export class AreaHelper {
     });
 
     return clone;
-
   }
 }

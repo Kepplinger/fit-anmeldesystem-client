@@ -141,7 +141,8 @@
     </fit-fit-appearance>
 
     <fit-packages-and-location [isVisible]="currentStep == Step.PackagesAndLocation"
-                               [stepFormGroup]="fitFormGroup.controls['packagesAndLocation']"
+                               [formGroup]="fitFormGroup.controls['packagesAndLocation']"
+                               (onInput)="validateStepWhenTrue(Step.PackagesAndLocation)"
                                [event]="event">
     </fit-packages-and-location>
 
