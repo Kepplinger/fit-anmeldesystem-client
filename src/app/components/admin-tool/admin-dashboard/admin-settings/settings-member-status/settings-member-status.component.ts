@@ -25,16 +25,18 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
 
   public async ngOnInit(): Promise<void> {
     this.memberStati = await this.memberStatusDAO.fetchMemberStati();
+    this.archivedMemberStati = await this.memberStatusDAO.fetchArchivedMemberStati();
   }
 
   public addMemberStatus(): void {
     if (this.memberStati.find(b => b.name === this.memberStatusName) != null) {
-      this.toastr.info('Diese MemberStatuse ist bereits vorhanden!', 'MemberStatuse hinzufügen');
+      this.toastr.info('Dieser MemberStatus ist bereits vorhanden!', 'MemberStatus hinzufügen');
     } else if (this.archivedMemberStati.find(t => t.name === this.memberStatusName) != null) {
-      this.toastr.info('Diese MemberStatuse ist schon archiviert! Reaktivieren sie diese, oder nennen Sie die neue MemberStatuse anders.', 'MemberStatuse hinzufügen');
+      this.toastr.info('Dieser MemberStatus ist schon archiviert! Reaktivieren sie diesen, oder nennen Sie die neuen MemberStatus anders.', 'MemberStatus hinzufügen');
     } else {
-      this.memberStati.push(new MemberStatus(this.memberStatusName));
+      this.memberStati.push(new MemberStatus(this.memberStatusName, this.memberStatusPrice));
       this.memberStatusName = '';
+      this.memberStatusPrice = null;
       this.setUnsavedChanges(true);
     }
   }

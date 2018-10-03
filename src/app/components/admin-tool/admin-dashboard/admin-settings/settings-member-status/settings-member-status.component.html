@@ -3,6 +3,7 @@
 
   <div class="d-flex flex-column ml-auto">
     <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto"
+            (click)="updateMemberStati()"
             [disabled]="!unsavedChangesExist">
       <i class="fa fa-download"></i>
       Speichern
@@ -22,8 +23,8 @@
             <div class="input-group-prepend">
               <button class="btn btn-success text-bold"
                       type="submit"
-                      [disabled]="resourceInput == ''"
-                      (click)="addResource()">
+                      [disabled]="memberStatusName == '' && memberStatusPrice == null"
+                      (click)="addMemberStatus()">
                 <i class="fa fa-plus"></i>
                 Add
               </button>
@@ -53,11 +54,11 @@
                 </div>
                 <div *ngIf="memberStatus.id == null"
                      class="middle-badge delete-badge text-light p-2 floating-effect"
-                     (click)="removeResource(memberStati, memberStatus)">
+                     (click)="removeMemberStatus(memberStati, memberStatus)">
                   <i class="fa fa-times"></i>
                 </div>
                 <div class="right-badge archive-badge p-2 floating-effect"
-                     (click)="archiveResource(memberStatus)">
+                     (click)="archiveMemberStatus(memberStatus)">
                   <i class="fa fa-arrow-right text-light"></i>
                 </div>
               </div>
@@ -82,11 +83,11 @@
               </div>
               <div *ngIf="memberStatus.id == null"
                    class="middle-badge delete-badge text-light p-2 floating-effect"
-                   (click)="removeResource(archivedMemberStati, memberStatus)">
+                   (click)="removeMemberStatus(archivedMemberStati, memberStatus)">
                 <i class="fa fa-times"></i>
               </div>
               <div class="right-badge recover-badge p-2 floating-effect"
-                   (click)="recoverResource(memberStatus)">
+                   (click)="recoverMemberStatus(memberStatus)">
                 <i class="fa fa-arrow-left text-light"></i>
               </div>
             </div>
