@@ -18,7 +18,7 @@
       <div class="card-deck">
 
         <!--basic fitPackage-->
-        <div class="pointer card text-white bg-info m-3 disabled" id="basicPack"
+        <div class="pointer card text-white bg-info m-3 enabled" id="basicPack"
              (click)="togglePackage(Package.BasicPack)">
           <div class="card-header text-center">
             <div class="stars">
@@ -51,8 +51,7 @@
 
         <!--sponsor fitPackage-->
         <div class="pointer card text-white bg-danger  m-3" id="sponsorPack"
-             [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
-                      'enabled':!isPackageSelected(Package.SponsorPack)}"
+             [ngClass]="{'enabled': isPackageSelected(Package.SponsorPack)}"
              (click)="togglePackage(Package.SponsorPack)">
           <div class="card-header text-center">
             <div class="stars">
@@ -89,8 +88,8 @@
 
         <!--lecture fitPackage-->
         <div class="pointer card text-white bg-sponsor m-3" id="lecturePack"
-             [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
-                      'enabled':!isPackageSelected(Package.LecturePack)}"
+             [ngClass]="{'enabled': isPackageSelected(Package.LecturePack),
+                      'disabled-element-not-allowed': presentationsLocked && !isPackageSelected(Package.LecturePack)}"
              (click)="togglePackage(Package.LecturePack)">
 
           <div class="card-header text-center">
@@ -116,16 +115,24 @@
           </ul>
 
           <div class="card-footer d-flex">
-        <span class="flex-filler my-auto">
-          <i class="fa fa-2x"
-             [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
-                         'fa-check-square': isPackageSelected(Package.LecturePack)}">
-          </i>
-        </span>
+            <span class="flex-filler my-auto">
+              <i class="fa fa-2x"
+                 [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
+                             'fa-check-square': isPackageSelected(Package.LecturePack)}">
+              </i>
+            </span>
             <span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>
             <span class="package-price">{{lecturePackage?.price}} €</span>
           </div>
+
+          <div *ngIf="presentationsLocked && !isPackageSelected(Package.LecturePack)"
+               class="presentation-locked-warning text-dark text-bold text-center">
+            {{lecturePackage?.name}} nicht mehr verfügbar!
+          </div>
+
         </div>
+
+
       </div>
     </div>
 

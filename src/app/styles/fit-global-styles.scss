@@ -36,6 +36,12 @@ body {
   user-select: none;
 }
 
+.disabled-element-not-allowed {
+  opacity: .4;
+  user-select: none;
+  cursor: not-allowed !important;
+}
+
 .icon-button {
   @extend .no-outline-button;
   color: #000;

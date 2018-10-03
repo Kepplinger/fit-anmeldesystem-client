@@ -102,29 +102,35 @@ export class AcceptPresentationsComponent implements OnInit {
   }
 
   public async setPresentationsOpen(): Promise<void> {
-    this.presentationLocked = false;
-    let event = this.eventService.selectedEvent.getValue();
-    let response: any = await this.eventDAO.updatePresentationLock(event, false);
-
-    if (response instanceof Event) {
-      this.eventService.selectedEvent.next(response as Event);
+    if (this.presentationLocked) {
+      this.updatePresentationLock(false);
     }
   }
 
   public async setPresentationsLocked(): Promise<void> {
-    let result: boolean = await this.modalWindowService.confirm(
-      'Präsentationen sperren?',
-      `Wollen sie wirklich die <span class="text-danger">Präsentationen sperren</span>?`,
-      ModalTemplateCreatorHelper.getBasicModalOptions('Sperren', 'Abbrechen')
-    );
+    if (!this.presentationLocked) {
+      let result: boolean = await this.modalWindowService.confirm(
+        'Präsentationen sperren?',
+        `Wollen sie wirklich die <span class="text-danger">Präsentationen sperren</span>?`,
+        ModalTemplateCreatorHelper.getBasicModalOptions('Sperren', 'Abbrechen')
+      );
 
-    if (result) {
-      this.presentationLocked = true;
-      let event = this.eventService.selectedEvent.getValue();
-      let response: any = await this.eventDAO.updatePresentationLock(event, true);
+      if (result) {
+        this.updatePresentationLock(true);
+      }
+    }
+  }
 
-      if (response instanceof Event) {
-        this.eventService.selectedEvent.next(response as Event);
+  private async updatePresentationLock(presentationLocked: boolean) {
+    this.presentationLocked = presentationLocked;
+    let event = this.eventService.selectedEvent.getValue();
+    let response: any = await this.eventDAO.updatePresentationLock(event, presentationLocked);
+
+    if (response instanceof Event) {
+      this.eventService.selectedEvent.next(response as Event);
+
+      if (response.registrationState.isCurrent) {
+        this.eventService.currentEvent.next(response as Event);
       }
     }
   }

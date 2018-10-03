@@ -2,17 +2,13 @@
   cursor: pointer;
 }
 
-.disabled {
+.enabled {
   cursor: pointer;
   filter: brightness(100%);
 
-  &:hover {
+  &:hover:not(.disabled-element-not-allowed) {
     filter: brightness(110%);
   }
-}
-
-.enabled {
-  //filter: brightness(60%);
 }
 
 .card {
@@ -49,7 +45,7 @@
     border-bottom: solid 1px;
   }
 
-  &:hover:not(.disabled) {
+  &:hover:not(.disabled-element-not-allowed) {
     -webkit-transform: scale(1.03, 1.03);
     -ms-transform: scale(1.03, 1.03);
     transform: scale(1.03, 1.03);
@@ -82,4 +78,10 @@ td, th {
 
 .border-top {
   border-top: solid 2px black;
+}
+
+.presentation-locked-warning {
+  height: 50px;
+  bottom: -60px;
+  position: absolute;
 }

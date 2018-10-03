@@ -16,6 +16,7 @@ import { Location } from '../../../../core/model/location';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
 import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
+import { EventService } from '../../../../core/app-services/event.service';
 
 @Component({
   selector: 'fit-packages-and-location',
@@ -51,15 +52,21 @@ export class PackagesAndLocationComponent extends BaseFormValidationComponent im
 
   public presentationFile: DataFile;
 
+  public presentationsLocked = false;
+
   public constructor(private packageDAO: PackageDAO,
                      private branchDAO: BranchDAO,
                      private toastr: ToastrService,
+                     private eventService: EventService,
                      private modalWindowService: ModalWindowService,
                      private accountManagementService: AccountManagementService) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
+    this.presentationsLocked = this.eventService.currentEvent.getValue().presentationsLocked;
+    console.log(this.presentationsLocked);
+
     this.branches = await this.branchDAO.fetchBranches();
     let packages: Package[] = await this.packageDAO.fetchPackages();
 
@@ -104,25 +111,37 @@ export class PackagesAndLocationComponent extends BaseFormValidationComponent im
   }
 
   public togglePackage(packageNumber: number): void {
-    if (packageNumber === this.selectedPackage && packageNumber !== FitPackage.BasicPack) {
-      this.selectedPackage--;
-    } else {
-      this.selectedPackage = packageNumber;
-    }
 
-    if (this.selectedLocation != null && this.selectedLocation.category === 'A' && this.selectedPackage === FitPackage.BasicPack) {
-      this.selectedPackage = FitPackage.SponsorPack;
-
+    if (this.presentationsLocked && this.selectedPackage === FitPackage.LecturePack) {
       this.modalWindowService.alert(
-        'Paket kann nicht geändert werden!',
-        'Mit einem Standplatz der Kategorie A ist es nicht möglich auf das ' + this.basicPackage.name +
-        ' zu wechseln! Bitte ändern Sie zuerst Ihren Standplatz bevor Sie das Paket ändern.',
-        ModalTemplateCreatorHelper.getBasicModalOptions('Ok', 'Abbrechen')
+        `<h5 class="text-bold">Vorsicht!</h5>`,
+        'Ein bestätigter Vortrag kann nicht mehr geändert werden.',
+        ModalTemplateCreatorHelper.getBasicModalOptions('Ok', '')
       );
+      return;
     }
 
-    this.formGroup.controls['fitPackage'].setValue(this.getSelectedPackage());
-    this.setPresentationTitleValidator();
+    if (!this.presentationsLocked || packageNumber !== FitPackage.LecturePack) {
+      if (packageNumber === this.selectedPackage && packageNumber !== FitPackage.BasicPack) {
+        this.selectedPackage--;
+      } else {
+        this.selectedPackage = packageNumber;
+      }
+
+      if (this.selectedLocation != null && this.selectedLocation.category === 'A' && this.selectedPackage === FitPackage.BasicPack) {
+        this.selectedPackage = FitPackage.SponsorPack;
+
+        this.modalWindowService.alert(
+          'Paket kann nicht geändert werden!',
+          'Mit einem Standplatz der Kategorie A ist es nicht möglich auf das ' + this.basicPackage.name +
+          ' zu wechseln! Bitte ändern Sie zuerst Ihren Standplatz bevor Sie das Paket ändern.',
+          ModalTemplateCreatorHelper.getBasicModalOptions('Ok', 'Abbrechen')
+        );
+      }
+
+      this.formGroup.controls['fitPackage'].setValue(this.getSelectedPackage());
+      this.setPresentationTitleValidator();
+    }
   }
 
   public isPackageSelected(packageType: FitPackage): boolean {
