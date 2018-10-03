@@ -80,5 +80,6 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
   public changeMemberStatus(status: MemberStatus): void {
     this.unsavedChangesExist = true;
     this.company.memberStatus = status;
+    this.company.memberPaymentAmount = status.defaultPrice;
   }
 }

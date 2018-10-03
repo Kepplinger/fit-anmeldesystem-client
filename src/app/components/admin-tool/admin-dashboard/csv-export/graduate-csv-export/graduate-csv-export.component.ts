@@ -9,10 +9,14 @@ import { CsvCreatorService } from '../../../services/csv-creator.service';
 })
 export class GraduateCsvExportComponent implements BaseCsvExportComponent {
 
+  public yearFrom: number = null;
+  public yearTo: number = null;
+
   public csv: any = {
     graduate: {
       gender: true,
       name: true,
+      graduationYear: true,
       email: true,
       phone: true,
       street: true,
@@ -27,10 +31,10 @@ export class GraduateCsvExportComponent implements BaseCsvExportComponent {
   }
 
   public downloadCSV(): void {
-    this.csvCreatorService.downloadCsvFromGraduates(this.csv);
+    this.csvCreatorService.downloadCsvFromGraduates(this.csv, this.yearFrom, this.yearTo);
   }
 
   public getEntryCount(): number {
-    return this.csvCreatorService.getGraduateCount();
+    return this.csvCreatorService.getGraduateCount(this.yearFrom, this.yearTo);
   }
 }

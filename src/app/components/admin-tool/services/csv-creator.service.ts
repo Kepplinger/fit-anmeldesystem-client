@@ -19,6 +19,7 @@ import { IsAccepted } from '../../../core/model/enums/is-accepted';
 import { CompaniesService } from './companies.service';
 import { GraduatesService } from './graduates.service';
 import { BookingsService } from './bookings.service';
+import { MemberStatus } from '../../../core/model/member-status';
 
 @Injectable()
 export class CsvCreatorService {
@@ -45,16 +46,18 @@ export class CsvCreatorService {
     this.companiesService.companies.subscribe(c => this.companies = c);
   }
 
-  public getFilteredCompanies(tags: Tag[], branches: Branch[], useAndCondition: boolean) {
+  public getFilteredCompanies(tags: Tag[], branches: Branch[], memberStati: MemberStatus[], useAndCondition: boolean) {
     if (useAndCondition) {
       return this.companies.filter(c => {
         return (tags.length === 0 || tags.every(t => c.tags.some(ct => ct.fk_Tag === t.id)))
-          && (branches.length === 0 || c.branches.some(cb => branches.some(b => cb.fk_Branch === b.id)));
+          && (branches.length === 0 || c.branches.some(cb => branches.some(b => cb.fk_Branch === b.id)))
+          && (memberStati.length === 0 || memberStati.some(ms => c.memberStatus.id === ms.id));
       });
     } else {
       return this.companies.filter(c => {
         return (tags.length === 0 || c.tags.some(ct => tags.some(t => ct.fk_Tag === t.id)))
-          && (branches.length === 0 || c.branches.some(cb => branches.some(b => cb.fk_Branch === b.id)));
+          && (branches.length === 0 || c.branches.some(cb => branches.some(b => cb.fk_Branch === b.id)))
+          && (memberStati.length === 0 || memberStati.some(ms => c.memberStatus.id === ms.id));
       });
     }
   }
@@ -67,9 +70,9 @@ export class CsvCreatorService {
     }
   }
 
-  public getGraduateCount(): number {
+  public getGraduateCount(yearFrom: number, yearTo: number): number {
     if (this.graduates != null) {
-      return this.graduates.length;
+      return this.getFilteredGraduates(yearFrom, yearTo).length;
     } else {
       return 0;
     }
@@ -158,12 +161,16 @@ export class CsvCreatorService {
     this.downloadCsv(csvData, 'booking-export.csv');
   }
 
-  public downloadCsvFromCompanies(csvFilter: any, tags: Tag[], branches: Branch[], useAndCondition: boolean): void {
+  public downloadCsvFromCompanies(csvFilter: any,
+                                  tags: Tag[],
+                                  branches: Branch[],
+                                  memberStati: MemberStatus[],
+                                  useAndCondition: boolean): void {
     let csvData: any[][] = [
       this.getCompanyCsvHeaders(csvFilter, true)
     ];
 
-    for (let company of this.getFilteredCompanies(tags, branches, useAndCondition)) {
+    for (let company of this.getFilteredCompanies(tags, branches, memberStati, useAndCondition)) {
 
       let data: any[] = [company.id];
 
@@ -175,12 +182,14 @@ export class CsvCreatorService {
     this.downloadCsv(csvData, 'company-export.csv');
   }
 
-  public downloadCsvFromGraduates(csvFilter: any): void {
+  public downloadCsvFromGraduates(csvFilter: any, yearFrom: number, yearTo: number): void {
     let csvData: any[][] = [
       this.getGraduateCsvHeaders(csvFilter)
     ];
 
-    for (let graduate of this.graduates) {
+    let graduates: Graduate[] = this.getFilteredGraduates(yearFrom, yearTo);
+
+    for (let graduate of graduates) {
 
       let data: any[] = [graduate.id];
 
@@ -191,6 +200,7 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.graduate.gender, graduate.gender, data);
       this.addColumn(csvFilter.graduate.name, graduate.firstName, data);
       this.addColumn(csvFilter.graduate.name, graduate.lastName, data);
+      this.addColumn(csvFilter.graduate.graduationYear, graduate.graduationYear, data);
       this.addColumn(csvFilter.graduate.email, graduate.email, data);
       this.addColumn(csvFilter.graduate.phone, graduate.phoneNumber, data);
       this.addColumn(csvFilter.graduate.street, graduate.address.street, data);
@@ -279,7 +289,6 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.company.location, 'Ort', data);
       this.addColumn(csvFilter.company.addition, 'Adresszusatz', data);
       this.addColumn(csvFilter.company.memberPaymentAmount, 'Mitgliedsbeitrag', data);
-      this.addColumn(csvFilter.company.memberSince, 'Mitglied seit', data);
       this.addColumn(csvFilter.company.memberStatus, 'Mitgliedsstatus', data);
     }
 
@@ -302,6 +311,7 @@ export class CsvCreatorService {
     this.addColumn(csvFilter.graduate.gender, 'Anrede', data);
     this.addColumn(csvFilter.graduate.name, 'Vorname', data);
     this.addColumn(csvFilter.graduate.name, 'Nachname', data);
+    this.addColumn(csvFilter.graduate.graduationYear, 'Abschlussjahr', data);
     this.addColumn(csvFilter.graduate.email, 'E-Mail', data);
     this.addColumn(csvFilter.graduate.phone, 'Telefonnummer', data);
     this.addColumn(csvFilter.graduate.street, 'Straße', data);
@@ -323,7 +333,6 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.company.location, company.address.city, data);
       this.addColumn(csvFilter.company.addition, company.address.addition, data);
       this.addColumn(csvFilter.company.memberPaymentAmount, company.memberPaymentAmount, data);
-      this.addColumn(csvFilter.company.memberSince, company.memberSince, data);
       this.addColumn(csvFilter.company.memberStatus, company.memberStatus, data);
     }
 
@@ -343,5 +352,10 @@ export class CsvCreatorService {
       {type: 'text/plain;charset=utf-8'}
     );
     FileSaver.saveAs(file, filename);
+  }
+
+  private getFilteredGraduates(yearFrom: number, yearTo: number): Graduate[] {
+    return this.graduates.filter(g => (yearFrom == null || g.graduationYear >= yearFrom)
+      && (yearTo == null || g.graduationYear <= yearTo));
   }
 }
