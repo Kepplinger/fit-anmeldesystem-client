@@ -13,7 +13,6 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
 import { MemberLoginResponse } from '../../../../core/app-helper/helper-model/member-login-response';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
-import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { BookingsService } from '../../services/bookings.service';
 import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
 import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
@@ -83,10 +82,6 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
       ArrayUtils.deleteElement(this.displayedPackages, fitPackage);
     }
     this.filterBookings();
-  }
-
-  public getMemberStatusHTML(status: MemberStatus): string {
-    return getMemberStatusHTML(status);
   }
 
   public filterBookings(): void {

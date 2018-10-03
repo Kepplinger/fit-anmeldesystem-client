@@ -53,6 +53,7 @@ import { UserAuthorizationService } from '../../core/app-services/user-authoriza
 import { JwtModule } from '@auth0/angular-jwt';
 import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
 import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
+import { SettingsMemberStatusComponent } from './admin-dashboard/admin-settings/settings-member-status/settings-member-status.component';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     SettingsAdminAccountsComponent,
     SettingsBranchesComponent,
     SettingsResourcesComponent,
-    SettingsPackagesComponent
+    SettingsPackagesComponent,
+    SettingsMemberStatusComponent
   ],
   providers: [
     CsvCreatorService,

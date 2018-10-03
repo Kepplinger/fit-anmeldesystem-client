@@ -29,6 +29,7 @@ import { SmtpConfigDAO } from './dao/smtp-config.dao';
 import { FitUserDAO } from './dao/fit-user.dao';
 import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
 import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
+import { MemberStatusDAO } from './dao/member-status.dao';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
     EmailDAO,
     GraduateDAO,
     SmtpConfigDAO,
+    MemberStatusDAO,
     AppConfig,
     ApplicationStateService,
     AccountManagementService,

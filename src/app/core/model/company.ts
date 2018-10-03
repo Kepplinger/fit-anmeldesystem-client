@@ -2,8 +2,8 @@ import { Address } from './address';
 import { Contact } from './contact';
 import { CompanyTag } from './company-tag';
 import { CompanyBranch } from './company-branch';
-import { MemberStatus } from './enums/member-status';
 import { IsAccepted } from './enums/is-accepted';
+import { MemberStatus } from './member-status';
 
 export class Company {
   public id: number;

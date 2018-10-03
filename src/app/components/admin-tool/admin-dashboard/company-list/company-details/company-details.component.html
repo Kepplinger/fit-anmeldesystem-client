@@ -19,15 +19,15 @@
         <div class="dropdown">
           <button id="dropdownMenuButton"
                   class="btn btn-light dropdown-toggle fit-border"
-                  type="button" data-toggle="dropdown"
-                  [innerHTML]="getMemberStatusHTML(company.memberStatus)">
+                  type="button" data-toggle="dropdown">
+            {{ company.memberStatus.name }}
           </button>
           <div class="dropdown-menu">
-            <a *ngFor="let memberStatus of orderedMemberStatus"
-               [ngClass]="{'selected': memberStatus == company.memberStatus}"
+            <a *ngFor="let memberStatus of memberStati"
+               [ngClass]="{'selected': memberStatus.id == company.memberStatus.id}"
                class="dropdown-item"
-               (click)="changeMemberStatus(memberStatus)"
-               [innerHTML]="getMemberStatusHTML(memberStatus)">
+               (click)="changeMemberStatus(memberStatus)">
+              {{ memberStatus.name }}
             </a>
           </div>
         </div>
