@@ -1,1 +1,25 @@
-<h3 class="text-center mt-5">...</h3>
+<div class="m-5"
+     [ngClass]="{'disabled-element': isMailSelectionOpen}">
+
+  <h1>E-Mails versenden</h1>
+
+  <div class="row border-top mt-4">
+
+    <fit-send-mails-filter class="col-md-3 border-right pt-3"
+                           [(filter)]="filter"
+                           (filterChange)="filterCompanies()">
+    </fit-send-mails-filter>
+
+    <fit-send-mails-list class="col-md-9 p-0"
+                         [companies]="filteredCompanies"
+                         (onOpenMailSelection)="openMailSelection($event)">
+    </fit-send-mails-list>
+  </div>
+</div>
+
+<fit-send-mails-select-mail class="sidenav"
+                            (close)="changeMailSelection(false)"
+                            [companies]="mailTargetCompanies"
+                            [companiesHaveBooking]="filter.useCurrentFitOnly"
+                            [ngClass]="{'show': isMailSelectionOpen}">
+</fit-send-mails-select-mail>

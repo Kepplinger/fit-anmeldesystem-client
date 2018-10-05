@@ -7,6 +7,6 @@
            [(ngModel)]="value"
            (change)="onChange()">
     <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-    {{message}}
+    <span [innerHTML]="message"></span>
   </label>
 </div>

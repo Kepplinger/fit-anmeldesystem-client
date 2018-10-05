@@ -32,6 +32,7 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
 
   public async ngOnInit(): Promise<void> {
     this.companies = this.companiesService.companies.getValue();
+    this.companiesService.reloadCompanies();
     this.loading = false;
 
     this.sub = this.companiesService.companies.subscribe(c => this.companies = c);

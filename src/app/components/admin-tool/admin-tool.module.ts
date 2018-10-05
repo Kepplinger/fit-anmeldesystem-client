@@ -54,6 +54,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
 import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
 import { SettingsMemberStatusComponent } from './admin-dashboard/admin-settings/settings-member-status/settings-member-status.component';
+import { SendMailsFilterComponent } from './admin-dashboard/send-mails/send-mails-filter.component/send-mails-filter.component';
+import { SendMailsListComponent } from './admin-dashboard/send-mails/send-mails-list.component/send-mails-list.component';
+import { SendMailsSelectMailComponent } from './admin-dashboard/send-mails/send-mails-select-mail/send-mails-select-mail.component';
 
 @NgModule({
   imports: [
@@ -96,6 +99,9 @@ import { SettingsMemberStatusComponent } from './admin-dashboard/admin-settings/
     PresentationDetailModalComponent,
     TestMailModalComponent,
     SendMailsComponent,
+    SendMailsFilterComponent,
+    SendMailsListComponent,
+    SendMailsSelectMailComponent,
     SettingsTagsComponent,
     SettingsEmailSmtpComponent,
     SettingsAdminAccountsComponent,

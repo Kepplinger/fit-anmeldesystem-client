@@ -45,6 +45,15 @@ export class UserAuthorizationService {
     }
   }
 
+  public getUserName(): FitUserRole {
+    let token: any = this.getToken();
+    if (token != null) {
+      return token.sub;
+    } else {
+      return null;
+    }
+  }
+
   public isUserAuthenticated(): boolean {
     if (this.token != null && this.token !== '') {
       return !this.jwtService.isTokenExpired(this.token);

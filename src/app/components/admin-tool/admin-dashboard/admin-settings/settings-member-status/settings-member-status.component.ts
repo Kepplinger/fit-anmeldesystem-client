@@ -4,6 +4,7 @@ import { MemberStatus } from '../../../../../core/model/member-status';
 import { MemberStatusDAO } from '../../../../../core/dao/member-status.dao';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
 import { ToastrService } from 'ngx-toastr';
+import { Tag } from '../../../../../core/model/tag';
 
 @Component({
   selector: 'fit-settings-member-status',
@@ -38,6 +39,7 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
       this.memberStatusName = '';
       this.memberStatusPrice = null;
       this.setUnsavedChanges(true);
+      this.sortTags();
     }
   }
 
@@ -53,6 +55,7 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
     this.memberStati.push(memberStatus);
     ArrayUtils.deleteElement(this.archivedMemberStati, memberStatus);
     this.setUnsavedChanges(true);
+    this.sortTags();
   }
 
   public removeMemberStatus(array: MemberStatus[], memberStatus: MemberStatus): void {
@@ -69,4 +72,7 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
     this.setUnsavedChanges(false);
   }
 
+  private sortTags(): void {
+    this.memberStati = this.memberStati.sort((a: MemberStatus, b: MemberStatus) => a.defaultPrice - b.defaultPrice);
+  }
 }

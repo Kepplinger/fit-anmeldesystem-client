@@ -66,30 +66,36 @@
           </a>
           <a *ngIf="isWritableAdmin()"
              class="dropdown-item" [routerLink]="['/admin-tool','mail-vorlagen']">
-            <i class="fa fa-fw fa-envelope fa-1-5x align-middle"></i> E-Mail Vorlagen
+            <i class="fa fa-fw fa-map-o fa-1-5x align-middle"></i> E-Mail Vorlagen
           </a>
           <a *ngIf="isWritableAdmin()"
              class="dropdown-item" [routerLink]="['/admin-tool', 'mails-versenden']">
-            <i class="fa fa-fw fa-envelope-open fa-1-5x align-middle"></i> E-Mail versenden
+            <i class="fa fa-fw fa-envelope fa-1-5x align-middle"></i> E-Mail versenden
           </a>
         </div>
       </li>
     </ul>
 
     <ul *ngIf="isFitAdmin()" class="navbar-nav">
-      <li class="nav-item d-flex">
+      <li class="nav-item d-flex px-2 m-0">
         <a class="nav-link my-auto" [routerLink]="['/admin-tool', 'einstellungen']">
           <i class="fa fa-fw fa-cog fa-1-5x align-bottom"></i> Einstellungen
         </a>
       </li>
     </ul>
-  </nav>
 
-  <div class="d-flex">
-    <button class="btn btn-link ml-auto mr-4 mt-2"
-            (click)="logout()">
-      <i class="fa fa-sign-out"></i>
-      Abmelden
-    </button>
-  </div>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown d-flex px-2 m-0">
+        <a class="nav-link dropdown-toggle my-auto" role="button" data-toggle="dropdown">
+          <i class="fa fa-fw fa-user fa-1-3x mr-2"></i>Account
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <h6 class="dropdown-header">{{ getUserName() }}</h6>
+          <a class="dropdown-item" (click)="logout()">
+            <i class="fa fa-fw fa-sign-out fa-1-5x align-bottom"></i> Logout
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
 </div>
