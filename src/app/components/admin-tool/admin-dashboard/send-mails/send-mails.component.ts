@@ -4,6 +4,7 @@ import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { Company } from '../../../../core/model/company';
 import { BookingDAO } from '../../../../core/dao/booking.dao';
 import { EventService } from '../../../../core/app-services/event.service';
+import { CompaniesService } from '../../services/companies.service';
 
 @Component({
   selector: 'fit-send-mails',
@@ -18,14 +19,15 @@ export class SendMailsComponent implements OnInit {
 
   public isMailSelectionOpen: boolean = false;
 
-  public constructor(private companyDAO: CompanyDAO,
+  public constructor(private companiesService: CompaniesService,
                      private bookingDAO: BookingDAO,
                      private eventService: EventService) {
     this.filter = new SendMailFilter();
   }
 
-  public async ngOnInit(): Promise<void> {
-    this.filteredCompanies = await this.companyDAO.fetchCachedCompanies();
+  public ngOnInit(): void {
+    this.filteredCompanies = this.companiesService.companies.getValue();
+    this.companiesService.companies.subscribe(() => this.filterCompanies());
     this.mailTargetCompanies = this.filteredCompanies;
   }
 
@@ -34,7 +36,7 @@ export class SendMailsComponent implements OnInit {
       this.filteredCompanies = (await this.bookingDAO.fetchCachedBookingsForEvent(this.eventService.currentEvent.getValue()))
         .map(b => b.company).filter(c => this.companyFilter(c));
     } else {
-      this.filteredCompanies = (await this.companyDAO.fetchCachedCompanies()).filter(c => this.companyFilter(c));
+      this.filteredCompanies = this.companiesService.companies.getValue().filter(c => this.companyFilter(c));
     }
   }
 

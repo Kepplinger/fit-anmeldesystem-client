@@ -27,6 +27,8 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
     tooltips: true,
     inlineMode: true,
     enter: $.FroalaEditor.ENTER_BR,
+    fontSizeDefaultSelection: '16',
+    fontSize: ['8', '10', '12', '14', '16', '18', '30', '60', '96'],
     toolbarButtons: 	['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
       'fontFamily', 'fontSize', 'paragraphFormat', 'color', '|',
       'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-',

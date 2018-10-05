@@ -47,10 +47,10 @@ export class SendMailsSelectMailComponent implements OnInit {
     this.close.emit();
   }
 
-  public async sendMailPerIdentifier(identifier: string): Promise<void> {
+  public async sendMailPerIdentifier(identifier: FitEmails): Promise<void> {
     let result: boolean = await this.modalWindowService.confirm(
       'Mails wirklich senden?',
-      'Wollen sie wirklich ' + this.companies.length + ' Mail(s) versenden?',
+      `Wollen sie wirklich <span class="text-bold">` + this.companies.length + ` Mail(s)</span> versenden?`,
       ModalTemplateCreatorHelper.getBasicModalOptions('Ja', 'Abbrechen')
     );
 

@@ -10,29 +10,18 @@ import { IsAccepted } from '../model/enums/is-accepted';
 @Injectable()
 export class CompanyDAO {
 
-  public companies: Promise<Company[]> = null;
-
   public constructor(private appConfig: AppConfig,
                      private http: HttpClient) {
   }
 
   public async fetchCompanies(): Promise<Company[]> {
-    this.companies = this.http.get<any[]>(this.appConfig.serverURL + '/company')
+    return this.http.get<any[]>(this.appConfig.serverURL + '/company')
       .pipe(
         map((data: any[]) => {
           return CompanyMapper.mapJsonToCompanyList(data);
         }))
       .pipe(publishLast(), refCount())
       .toPromise();
-
-    return this.companies;
-  }
-
-  public async fetchCachedCompanies(): Promise<Company[]> {
-    if (this.companies == null) {
-      this.companies = this.fetchCompanies();
-    }
-    return this.companies;
   }
 
   public async persistCompany(company: Company): Promise<Company> {
