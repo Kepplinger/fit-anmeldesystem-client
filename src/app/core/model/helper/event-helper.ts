@@ -10,6 +10,7 @@ export class EventHelper {
       let clone: Event = new Event();
 
       clone.id = event.id;
+      clone.presentationsLocked = event.presentationsLocked;
       clone.registrationStart = moment(event.registrationStart);
       clone.registrationEnd = moment(event.registrationEnd);
       clone.eventDate = moment(event.eventDate);
@@ -58,11 +59,10 @@ export class EventHelper {
 
   public static compare(first: Event, second: Event): boolean {
     return first.id === second.id &&
+      first.presentationsLocked === second.presentationsLocked &&
       first.registrationState === second.registrationState &&
       first.registrationEnd.isSame(second.registrationEnd) &&
       first.registrationStart.isSame(second.registrationStart) &&
-      first.eventDate.isSame(second.eventDate) &&
-      first.areas.every(a1 => second.areas.some(a2 => AreaHelper.compare(a1, a2))) &&
-      second.areas.every(a1 => first.areas.some(a2 => AreaHelper.compare(a1, a2)));
+      first.eventDate.isSame(second.eventDate);
   }
 }

@@ -42,7 +42,7 @@
       <td>{{company?.address.zipCode}} {{company?.address.city}}</td>
       <td>{{company?.contact.firstName}} {{company?.contact.lastName}}</td>
       <td>{{company?.contact.email}}</td>
-      <td [innerHtml]="getMemberStatusHTML(company.memberStatus)"></td>
+      <td>{{company?.memberStatus?.name}}</td>
       <td *ngIf="isWritableAdmin()">
         <div class="icon-button" (click)="routeToCompanyDetails(company)">
           <i class="fa fa-pencil fa-1-5x"></i>
@@ -53,6 +53,6 @@
   </table>
 
   <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-4x fa-pulse fa-spinner"></i>
+    <i class="fa fa-3x fa-spin fa-circle-o-notch"></i>
   </div>
 </div>

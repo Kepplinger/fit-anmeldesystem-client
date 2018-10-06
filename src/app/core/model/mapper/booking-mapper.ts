@@ -81,6 +81,41 @@ export class BookingMapper {
     }
   }
 
+  public static mapBookingIntoFreshOne(booking: Booking) {
+    booking = BookingMapper.mapJsonToBooking(booking);
+
+    delete booking.timestamp;
+
+    if (booking.logo != null) {
+      delete booking.logo.id;
+      delete booking.logo.timestamp;
+    }
+
+    if (booking.presentation != null) {
+      delete booking.presentation.id;
+      delete booking.presentation.timestamp;
+
+      if (booking.presentation.file != null) {
+        delete booking.presentation.file.id;
+        delete booking.presentation.file.timestamp;
+      }
+    }
+
+    for (let representative of booking.representatives) {
+      if (representative != null) {
+        delete representative.id;
+        delete representative.timestamp;
+
+        if (representative.image != null) {
+          delete representative.image.id;
+          delete representative.image.timestamp;
+        }
+      }
+    }
+
+    return booking;
+  }
+
   public static mapJsonToBookingList(bookingJson: any[]): Booking[] {
 
     if (bookingJson != null) {

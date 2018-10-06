@@ -49,7 +49,7 @@
               </td>
               <!--image-->
               <td rowspan="3">
-                <img [src]="getRepresentativeImage(index).dataUrl"
+                <img [src]="getRepresentativeImageUrl(index)"
                      class="contact-image object-fit-cover"
                      alt="Fehler"
                      width="100"
@@ -93,7 +93,7 @@
                   <input class="form-control cursor-pointer"
                          id="logo"
                          type="text"
-                         [value]="getRepresentativeImage(index).name"
+                         [value]="getRepresentativeImageName(index)"
                          placeholder="Logo auswählen..."
                          disabled>
                   <div class="input-group-append">

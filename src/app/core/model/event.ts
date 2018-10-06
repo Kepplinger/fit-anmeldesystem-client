@@ -9,12 +9,14 @@ export class Event {
   public eventDate: Moment;
   public registrationStart: Moment;
   public registrationEnd: Moment;
+  public presentationsLocked: boolean;
   public areas: Area[];
   public registrationState: RegistrationState;
 
   public constructor(eventDate: Moment = moment(),
                      registrationStart: Moment = moment(),
                      registrationEnd: Moment = moment(),
+                     presentationsLocked: boolean = false,
                      areas: Area[] = [],
                      registrationState: RegistrationState = new RegistrationState(),
                      id?: number) {
@@ -22,6 +24,7 @@ export class Event {
     this.eventDate = eventDate;
     this.registrationStart = registrationStart;
     this.registrationEnd = registrationEnd;
+    this.presentationsLocked = presentationsLocked;
     this.areas = areas;
     this.registrationState = registrationState;
   }

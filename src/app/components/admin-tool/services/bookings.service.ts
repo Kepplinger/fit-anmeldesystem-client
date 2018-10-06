@@ -27,7 +27,7 @@ export class BookingsService {
   }
 
   public async reloadBookings(): Promise<void> {
-    this.bookings.next(await this.bookingDAO.fetchAllBookingsForEvent(this.event));
+    this.bookings.next(await this.bookingDAO.fetchBookingsForEvent(this.event));
   }
 
   public updateBooking(booking: Booking): void {

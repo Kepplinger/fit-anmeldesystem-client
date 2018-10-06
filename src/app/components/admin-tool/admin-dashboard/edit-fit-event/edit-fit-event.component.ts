@@ -10,6 +10,7 @@ import { EventService } from '../../../../core/app-services/event.service';
 import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
 import { EventHelper } from '../../../../core/model/helper/event-helper';
 import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
+import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
 
 declare let $: any;
 
@@ -18,13 +19,14 @@ declare let $: any;
   templateUrl: './edit-fit-event.component.html',
   styleUrls: ['./edit-fit-event.component.scss']
 })
-export class EditFitEventComponent implements OnInit {
+export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implements OnInit {
 
   public event: Event = new Event();
   public selectedArea: Area = null;
 
   public isLoading: boolean = false;
   public isModalShown: boolean = false;
+  public areAreasChanged: boolean = false;
 
   public constructor(private changeDetector: ChangeDetectorRef,
                      private toastr: ToastrService,
@@ -32,6 +34,7 @@ export class EditFitEventComponent implements OnInit {
                      private modalWindow: ModalWindowService,
                      private eventService: EventService,
                      private eventDAO: EventDAO) {
+    super();
   }
 
   public ngOnInit(): void {
@@ -66,6 +69,7 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public updateArea(area: Area): void {
+    this.areAreasChanged = true;
     let index = this.event.areas.indexOf(this.selectedArea);
     this.event.areas[index] = area;
 
@@ -107,9 +111,15 @@ export class EditFitEventComponent implements OnInit {
       }
 
       if (validDates) {
+        let response: any = null;
+
         this.isLoading = true;
-        let response = await this.eventDAO.persistEvent(this.event);
-        this.isLoading = false;
+        try {
+          response = await this.eventDAO.persistEvent(this.event);
+        } finally {
+          this.isLoading = false;
+          this.areAreasChanged = false;
+        }
 
         if (response != null && response.event != null && response.events != null) {
           this.event = response.event;
@@ -133,7 +143,8 @@ export class EditFitEventComponent implements OnInit {
   }
 
   public noChangesExist(): boolean {
-    return EventHelper.compare(this.event, this.eventService.selectedEvent.getValue());
+    this.unsavedChangesExist = !(EventHelper.compare(this.event, this.eventService.selectedEvent.getValue()) && !this.areAreasChanged && this.event.id != null);
+    return !this.unsavedChangesExist;
   }
 
   private validateEvent(): boolean {

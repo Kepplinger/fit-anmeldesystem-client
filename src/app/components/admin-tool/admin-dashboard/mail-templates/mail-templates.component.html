@@ -6,7 +6,7 @@
   <!--loading animation-->
   <div *ngIf="emails.length == 0"
        class="text-center">
-    <i class="fa fa-pulse fa-spinner fa-4x"></i>
+    <i class="fa fa-spin fa-circle-o-notch fa-3x"></i>
   </div>
 
   <div *ngIf="emails.length > 0">
@@ -71,13 +71,14 @@
                    id="subject">
           </div>
 
-          <div #editor
-               class="template-editor"
-               (mouseleave)="saveCursor()"
-               (keyup)="emailChanged()"
-               [froalaEditor]="editorOptions"
-               [(froalaModel)]="editableEmail.template">
-          </div>
+          <quill-editor #editor
+                        (onContentChanged)="emailChanged()"
+                        (onEditorCreated)="editorInit($event)"
+                        (onSelectionChanged)="getSelection()"
+                        [(ngModel)]="editableEmail.template"
+                        [style]="{height: '400px'}"
+                        class="editor">
+          </quill-editor>
         </div>
 
         <!--mail variables-->

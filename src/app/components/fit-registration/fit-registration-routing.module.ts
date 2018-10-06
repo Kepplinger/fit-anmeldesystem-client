@@ -8,11 +8,13 @@ import { CodeLostComponent } from '../shared-components/code-lost/code-lost.comp
 import { UpdateSuccessComponent } from './update-success/update-success.component';
 import { IsRoleGrantedGuard } from '../../core/guards/is-role-granted.guard';
 import { FitUserRole } from '../../core/model/enums/fit-user-role';
+import { CanDeactivateGuard } from '../../core/guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
     path: 'anmelden',
     component: FitRegistrationComponent,
+    canDeactivate: [CanDeactivateGuard],
     canActivate: [IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin, FitUserRole.MemberAdmin, FitUserRole.Member]}
   },

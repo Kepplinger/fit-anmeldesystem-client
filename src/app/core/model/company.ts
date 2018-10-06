@@ -2,8 +2,8 @@ import { Address } from './address';
 import { Contact } from './contact';
 import { CompanyTag } from './company-tag';
 import { CompanyBranch } from './company-branch';
-import { MemberStatus } from './enums/member-status';
 import { IsAccepted } from './enums/is-accepted';
+import { MemberStatus } from './member-status';
 
 export class Company {
   public id: number;
@@ -19,7 +19,6 @@ export class Company {
   public branches: CompanyBranch[];
 
   public memberPaymentAmount: number;
-  public memberSince: number;
   public memberStatus: MemberStatus;
 
   public constructor(address?: Address,
@@ -29,7 +28,6 @@ export class Company {
                      isAccepted?: IsAccepted,
                      tags?: CompanyTag[],
                      memberPaymentAmount?: number,
-                     memberSince?: number,
                      memberStatus?: MemberStatus,
                      id?: number,
                      timestamp?: string) {
@@ -42,7 +40,6 @@ export class Company {
     this.tags = tags;
     this.isAccepted = isAccepted;
     this.memberPaymentAmount = memberPaymentAmount;
-    this.memberSince = memberSince;
     this.memberStatus = memberStatus;
 
     if (this.address == null) {

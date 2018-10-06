@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
-import { map } from 'rxjs/operators';
+import { map, publishLast, refCount } from 'rxjs/operators';
 import { IsAccepted } from '../model/enums/is-accepted';
 
 @Injectable()
@@ -20,6 +20,7 @@ export class CompanyDAO {
         map((data: any[]) => {
           return CompanyMapper.mapJsonToCompanyList(data);
         }))
+      .pipe(publishLast(), refCount())
       .toPromise();
   }
 
@@ -32,10 +33,8 @@ export class CompanyDAO {
       .toPromise();
   }
 
-  public async updateCompany(company: Company, isAdminChange = false): Promise<Company> {
-    let params = new HttpParams().set('isAdminChange', String(isAdminChange));
-
-    return this.http.put<any>(this.appConfig.serverURL + '/company', company, {params: params})
+  public async updateCompany(company: Company): Promise<Company> {
+    return this.http.put<any>(this.appConfig.serverURL + '/company', company)
       .pipe(
         map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);

@@ -15,7 +15,6 @@ export class CompanyMapper {
       company.address = companyJson.address;
       company.tags = companyJson.tags;
       company.branches = companyJson.branches;
-      company.memberSince = companyJson.memberSince;
       company.memberPaymentAmount = companyJson.memberPaymentAmount;
       company.memberStatus = companyJson.memberStatus;
 

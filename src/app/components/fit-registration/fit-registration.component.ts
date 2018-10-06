@@ -24,6 +24,9 @@ import { RepresentativeMapper } from '../../core/model/mapper/representative-map
 import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
 import { IsAccepted } from '../../core/model/enums/is-accepted';
 import { DataUpdateNotifier } from '../../core/app-services/data-update-notifier';
+import { Representative } from '../../core/model/representative';
+import { BaseOnDeactivateAlertComponent } from '../../core/base-components/base-on-deactivate-alert.component';
+import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -37,7 +40,7 @@ interface FitStep {
   templateUrl: './fit-registration.component.html',
   styleUrls: ['./fit-registration.component.scss']
 })
-export class FitRegistrationComponent implements OnInit {
+export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent implements OnInit {
 
   // necessary for template-usage
   public Step = FitRegistrationStep;
@@ -66,6 +69,7 @@ export class FitRegistrationComponent implements OnInit {
                      private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
+    super();
 
     // creates a FitStep Array out of the ordered steps
     this.steps = getOrderedFitRegistrationSteps().map(s => {
@@ -105,7 +109,7 @@ export class FitRegistrationComponent implements OnInit {
         phoneNumber: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         homepage: ['', Validators.required],
-        logo: [new DataFile()],
+        logo: [null],
         description: ['', [Validators.required, fitCompanyDescriptionValidator(15, 65)]],
         establishmentsAut: this.fb.array([]),
         establishmentsCountAut: [0, Validators.required],
@@ -116,7 +120,10 @@ export class FitRegistrationComponent implements OnInit {
         providesThesis: [false]
       }),
       fitAppearance: fb.group({
-        representatives: this.fb.array([]),
+        representatives: this.fb.array([
+          RepresentativeMapper.mapRepresentativeToFormGroup(
+            new Representative('', '', null)
+          )]),
         additionalInfo: [''],
         resources: this.fb.array([])
       }),
@@ -126,7 +133,7 @@ export class FitRegistrationComponent implements OnInit {
         presentationTitle: [''],
         presentationDescription: [''],
         presentationBranches: this.fb.array([]),
-        presentationFile: [new DataFile()]
+        presentationFile: [null]
       }),
       contactAndRemarks: fb.group({
         fitContactGender: [this.booking.company.contact.gender],
@@ -141,6 +148,8 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
+    this.unsavedChangesExist = !this.isAdminMode;
+
     this.event = this.eventService.currentEvent.getValue();
     this.eventService.currentEvent.subscribe((event: Event) => this.event = event);
 
@@ -154,8 +163,7 @@ export class FitRegistrationComponent implements OnInit {
           closableByDimmer: false,
           movable: false,
           labels: {ok: 'Verwenden', cancel: 'Nicht verwenden'}
-        }
-      );
+        });
     }
 
     if (useOldBooking || this.isAdminMode || this.isEditMode) {
@@ -171,18 +179,19 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public async setCurrentPage(oldStep: FitRegistrationStep, newStep: FitRegistrationStep): Promise<void> {
-
-    let oldStepFormGroup = this.getFormGroupForStep(oldStep);
-    let oldStepObject: FitStep = this.steps.find(s => s.step === oldStep);
     let newStepObject: FitStep = this.steps.find(s => s.step === newStep);
-
-    FormHelper.touchAllFormFields(oldStepFormGroup);
-    oldStepObject.isValid = oldStepFormGroup.valid;
-    oldStepObject.wasValidated = true;
-
+    let showWarning: boolean = false;
     let switchToNextStep: boolean = true;
 
-    if (!oldStepObject.isValid) {
+    if (oldStep < newStep) {
+      for (let i = FitRegistrationStep.GeneralData; i < newStep; i++) {
+        showWarning = !this.validateStep(i) || showWarning;
+      }
+    } else {
+      this.validateStep(oldStep);
+    }
+
+    if (showWarning) {
       switchToNextStep = await this.modalWindowService.confirm(
         `<h2 class="text-bold text-dark">Vorsicht!</h2>`,
         ModalTemplateCreatorHelper.getNextStepWarning(),
@@ -196,6 +205,16 @@ export class FitRegistrationComponent implements OnInit {
 
       this.currentStep = newStep;
       window.scrollTo(0, 0);
+    } else {
+      let sortedSteps: FitStep[] = this.steps
+        .filter(s => !s.isValid && s.step <= newStep && s.step >= oldStep)
+        .sort((a, b) => a.step - b.step);
+
+      // navigate to the next invalid step
+      if (sortedSteps.length !== 0) {
+        this.currentStep = sortedSteps[0].step;
+        window.scrollTo(0, 0);
+      }
     }
   }
 
@@ -238,10 +257,18 @@ export class FitRegistrationComponent implements OnInit {
   }
 
   public async rejectBooking(): Promise<void> {
-    let booking = await this.bookingDAO.acceptBooking(this.booking, IsAccepted.Rejected);
-    this.booking.isAccepted = booking.isAccepted;
-    this.booking.timestamp = booking.timestamp;
-    this.accountManagementService.setAdminBooking(this.booking);
+    let result = await this.modalWindowService.confirm(
+      'Anmeldung ablehenen!',
+      `Sind sie sich sicher, dass sie die <span class="text-danger">Anmeldung ablehenen</span> wollen!`,
+      ModalTemplateCreatorHelper.getBasicModalOptions('Ablehenen', 'Abbrechen')
+    );
+
+    if (result) {
+      let booking = await this.bookingDAO.acceptBooking(this.booking, IsAccepted.Rejected);
+      this.booking.isAccepted = booking.isAccepted;
+      this.booking.timestamp = booking.timestamp;
+      this.accountManagementService.setAdminBooking(this.booking);
+    }
   }
 
   public getProgress(): number {
@@ -282,9 +309,8 @@ export class FitRegistrationComponent implements OnInit {
 
       let formWarnings = {
         noLogo: this.fitFormGroup.get('detailedData').value.logo == null,
-        // TODO
-        // noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
-        //   .representatives.some(r => r.image.name === 'Bild auswählen ...'),
+        noRepresentativeLogos: this.fitFormGroup.get('fitAppearance').value
+          .representatives.some(r => r.image == null),
         noLocation: this.fitFormGroup.get('packagesAndLocation').value.location == null
       } as FormWarnings;
 
@@ -314,8 +340,14 @@ export class FitRegistrationComponent implements OnInit {
         }
 
         this.isBookingTransmitting = true;
-        booking = await this.bookingDAO.persistBooking(booking, this.isAdminMode);
-        this.isBookingTransmitting = false;
+
+        try {
+          booking = await this.bookingDAO.persistBooking(booking);
+        } finally {
+          this.isBookingTransmitting = false;
+        }
+
+        this.unsavedChangesExist = false;
 
         if (this.isAdminMode) {
           this.dataUpdateNotifier.updateBooking(booking);
@@ -337,6 +369,10 @@ export class FitRegistrationComponent implements OnInit {
         step.isValid = this.getFormGroupForStep(step.step).valid;
       }
     }
+  }
+
+  public navigateToAccount() {
+    this.unsavedChangesExist = false;
   }
 
   private getBookingFromForm(): Booking {
@@ -486,5 +522,16 @@ export class FitRegistrationComponent implements OnInit {
       case FitRegistrationStep.ContactAndRemarks:
         return this.fitFormGroup.get('contactAndRemarks') as FormGroup;
     }
+  }
+
+  private validateStep(step: FitRegistrationStep): boolean {
+    let previousStepFormGroup = this.getFormGroupForStep(step);
+    let previousStepObject = this.steps.find(s => s.step === step);
+
+    FormHelper.touchAllFormFields(previousStepFormGroup);
+    previousStepObject.isValid = previousStepFormGroup.valid;
+    previousStepObject.wasValidated = true;
+
+    return previousStepObject.isValid;
   }
 }

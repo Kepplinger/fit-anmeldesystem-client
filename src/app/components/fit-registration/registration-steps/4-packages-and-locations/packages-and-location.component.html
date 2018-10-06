@@ -10,7 +10,7 @@
     <p>Entscheiden Sie sich für eines unserer drei FIT-Pakete und wählen Sie dann ihren gewünschten Standort aus.</p>
   </div>
 
-  <form [formGroup]="stepFormGroup">
+  <form [formGroup]="formGroup">
 
     <div class="mb-4">
       <h5 class="text-bold m-0">Wählen Sie Ihr FIT-Paket</h5>
@@ -18,7 +18,7 @@
       <div class="card-deck">
 
         <!--basic fitPackage-->
-        <div class="pointer card text-white bg-info m-3 disabled" id="basicPack"
+        <div class="pointer card text-white bg-info m-3 enabled" id="basicPack"
              (click)="togglePackage(Package.BasicPack)">
           <div class="card-header text-center">
             <div class="stars">
@@ -51,8 +51,7 @@
 
         <!--sponsor fitPackage-->
         <div class="pointer card text-white bg-danger  m-3" id="sponsorPack"
-             [ngClass]="{'disabled': isPackageSelected(Package.SponsorPack),
-                      'enabled':!isPackageSelected(Package.SponsorPack)}"
+             [ngClass]="{'enabled': isPackageSelected(Package.SponsorPack)}"
              (click)="togglePackage(Package.SponsorPack)">
           <div class="card-header text-center">
             <div class="stars">
@@ -89,8 +88,8 @@
 
         <!--lecture fitPackage-->
         <div class="pointer card text-white bg-sponsor m-3" id="lecturePack"
-             [ngClass]="{'disabled': isPackageSelected(Package.LecturePack),
-                      'enabled':!isPackageSelected(Package.LecturePack)}"
+             [ngClass]="{'enabled': isPackageSelected(Package.LecturePack),
+                      'disabled-element-not-allowed': presentationsLocked && !isPackageSelected(Package.LecturePack)}"
              (click)="togglePackage(Package.LecturePack)">
 
           <div class="card-header text-center">
@@ -116,16 +115,24 @@
           </ul>
 
           <div class="card-footer d-flex">
-        <span class="flex-filler my-auto">
-          <i class="fa fa-2x"
-             [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
-                         'fa-check-square': isPackageSelected(Package.LecturePack)}">
-          </i>
-        </span>
+            <span class="flex-filler my-auto">
+              <i class="fa fa-2x"
+                 [ngClass]="{'fa-square-o': !isPackageSelected(Package.LecturePack),
+                             'fa-check-square': isPackageSelected(Package.LecturePack)}">
+              </i>
+            </span>
             <span class="mt-auto mb-1 mr-1">+ {{lecturePackage?.price - sponsorPackage?.price}} € = </span>
             <span class="package-price">{{lecturePackage?.price}} €</span>
           </div>
+
+          <div *ngIf="presentationsLocked && !isPackageSelected(Package.LecturePack)"
+               class="presentation-locked-warning text-dark text-bold text-center">
+            {{lecturePackage?.name}} nicht mehr verfügbar!
+          </div>
+
         </div>
+
+
       </div>
     </div>
 
@@ -192,12 +199,23 @@
         <span class="sub-text">(nur beim {{lecturePackage?.name}} notwendig)</span>
       </h5>
 
-      <div class="form-group d-flex align-items-center">
-        <label for="title" class="my-0 mr-3">Titel:</label>
-        <input class="form-control"
-               formControlName="presentationTitle"
-               type="text"
-               id="title">
+      <div class="form-group d-flex align-items-center mb-0 mt-2">
+        <div>
+          <label for="title" class="my-0 mr-3">Titel:</label>
+          <div class="invalid-message invalid-message-container"></div>
+        </div>
+        <div class="flex-1">
+          <input class="form-control"
+                 formControlName="presentationTitle"
+                 type="text"
+                 placeholder="Präsentations-Titel"
+                 id="title"
+                 (change)="onInputChanged()"
+                 [ngClass]="{'is-invalid': isInvalid('presentationTitle')}">
+          <div class="invalid-message invalid-message-container">
+            <div *ngIf="isEmpty('presentationTitle')">Präsentations-Titel darf nicht leer sein!</div>
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
@@ -205,8 +223,14 @@
         <textarea class="form-control"
                   formControlName="presentationDescription"
                   id="otherNotes"
+                  (change)="onInputChanged()"
+                  placeholder="Kurze Beischreibung Ihres Vortrags"
+                  [ngClass]="{'is-invalid': isInvalid('presentationDescription')}"
                   rows="5">
         </textarea>
+        <div class="invalid-message invalid-message-container">
+          <div *ngIf="isEmpty('presentationDescription')">Präsentations-Beschreibung darf nicht leer sein!</div>
+        </div>
       </div>
 
       <div>Zielgruppe(n):</div>

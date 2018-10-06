@@ -12,7 +12,6 @@ import { DateTimePickerComponent } from './admin-dashboard/edit-fit-event/date-t
 import { EditAreaModalComponent } from './admin-dashboard/edit-fit-event/edit-area-modal.component/edit-area-modal.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { AcceptCompaniesComponent } from './admin-dashboard/accept-companies/accept-companies.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SharedModule } from '../shared-components/shared.module';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
@@ -53,6 +52,11 @@ import { UserAuthorizationService } from '../../core/app-services/user-authoriza
 import { JwtModule } from '@auth0/angular-jwt';
 import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
 import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
+import { SettingsMemberStatusComponent } from './admin-dashboard/admin-settings/settings-member-status/settings-member-status.component';
+import { SendMailsFilterComponent } from './admin-dashboard/send-mails/send-mails-filter.component/send-mails-filter.component';
+import { SendMailsListComponent } from './admin-dashboard/send-mails/send-mails-list.component/send-mails-list.component';
+import { SendMailsSelectMailComponent } from './admin-dashboard/send-mails/send-mails-select-mail/send-mails-select-mail.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   imports: [
@@ -61,9 +65,8 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     AngularDraggableModule,
     FilePickerModule,
     FormsModule,
-    FroalaEditorModule,
-    FroalaViewModule,
     ReactiveFormsModule,
+    QuillModule,
     PapaParseModule,
     SharedModule,
     FitRegistrationModule
@@ -95,12 +98,16 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     PresentationDetailModalComponent,
     TestMailModalComponent,
     SendMailsComponent,
+    SendMailsFilterComponent,
+    SendMailsListComponent,
+    SendMailsSelectMailComponent,
     SettingsTagsComponent,
     SettingsEmailSmtpComponent,
     SettingsAdminAccountsComponent,
     SettingsBranchesComponent,
     SettingsResourcesComponent,
-    SettingsPackagesComponent
+    SettingsPackagesComponent,
+    SettingsMemberStatusComponent
   ],
   providers: [
     CsvCreatorService,

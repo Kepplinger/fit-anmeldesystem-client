@@ -22,20 +22,10 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
 
   public selectedEmail: Email;
   public editableEmail: Email;
-  public editorOptions: any = {
-    heightMin: 350,
-    tooltips: true,
-    inlineMode: true,
-    enter: $.FroalaEditor.ENTER_BR,
-    toolbarButtons: 	['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
-      'fontFamily', 'fontSize', 'paragraphFormat', 'color', '|',
-      'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-',
-      'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|',
-      'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print',
-      'spellChecker', 'help', 'html', '|', 'undo', 'redo']
-  };
 
-  private editor: any;
+  public quillEditor: any;
+
+  private currentIndex: number = 0;
 
   public constructor(private emailDAO: EmailDAO) {
     super();
@@ -49,11 +39,15 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
     }
   }
 
+  public editorInit(quillEditor: any): void {
+    this.quillEditor = quillEditor;
+  }
+
   public selectEmail(email: Email): void {
-    this.unsavedChangesExist = false;
     this.selectedEmail = email;
-    console.log(this.selectedEmail);
     this.editableEmail = EmailHelper.clone(email);
+
+    setTimeout(() => this.unsavedChangesExist = false, 0);
   }
 
   public emailChanged(): void {
@@ -61,9 +55,6 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   }
 
   public async saveEmail(): Promise<void> {
-    this.editor = $('.template-editor');
-    this.editableEmail.template = this.editor.froalaEditor('html.get', true);
-
     this.editableEmail = await this.emailDAO.updateEmail(this.editableEmail);
     ArrayUtils.replaceElement(this.selectedEmail, this.editableEmail, this.emails);
     this.selectedEmail = this.editableEmail;
@@ -75,16 +66,16 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
     this.editableEmail = EmailHelper.clone(this.selectedEmail);
   }
 
-  public saveCursor(): void {
-    this.editor = $('.template-editor');
-    this.editor.froalaEditor('selection.save');
+  public addVariable(variable: EmailVariable): void {
+    this.quillEditor.insertText(this.currentIndex, '{{ ' + variable.value + ' }}');
+    this.emailChanged();
   }
 
-  public addVariable(variable: EmailVariable): void {
-    this.editor = $('.template-editor');
-    this.editor.froalaEditor('selection.restore');
-    this.editor.froalaEditor('html.insert', '{{ ' + variable.value + ' }}', true);
-    this.editor.froalaEditor('selection.save');
-    this.emailChanged();
+  public getSelection(): void {
+    let selection: any = this.quillEditor.getSelection();
+
+    if (selection != null) {
+      this.currentIndex = selection.index;
+    }
   }
 }

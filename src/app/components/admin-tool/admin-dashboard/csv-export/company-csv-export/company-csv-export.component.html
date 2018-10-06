@@ -133,6 +133,17 @@
       </fit-custom-checkbox>
 
       <div class="d-flex align-items-center">
+        <h4 class="text-bold my-3">Member-Status-Filter</h4>
+        <div class="ml-auto mr-3 text-danger">{{ getMemberStatusText() }}</div>
+      </div>
+
+      <fit-custom-checkbox *ngFor="let memberStatus of memberStati"
+                           [(value)]="memberStatus.checked"
+                           (valueChange)="updateCompanies()"
+                           [message]="memberStatus.memberStatus.name">
+      </fit-custom-checkbox>
+
+      <div class="d-flex align-items-center">
         <h4 class="text-bold mt-4">Tag-Filter</h4>
         <div class="ml-auto mr-3 text-danger">{{ getTagFilterText() }}</div>
       </div>

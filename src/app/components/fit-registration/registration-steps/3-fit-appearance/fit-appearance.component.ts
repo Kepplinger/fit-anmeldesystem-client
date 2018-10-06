@@ -20,6 +20,9 @@ import { RepresentativeMapper } from '../../../../core/model/mapper/representati
 })
 export class FitAppearanceComponent extends BaseFormValidationComponent implements OnInit {
 
+  public readonly placeHolderImageText = 'Bild auswählen ...';
+  public readonly placeHolderImagePath = '../../../../../assets/contact.png';
+
   @Input()
   public isVisible: boolean = false;
 
@@ -67,12 +70,26 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   public getRepresentativeImage(index: number): DataFile {
-    let image = this.getRepresentativeFormArray()[index].value.image as DataFile;
+    return this.getRepresentativeFormArray()[index].value.image as DataFile;
+  }
+
+  public getRepresentativeImageName(index: number): string {
+    let image: DataFile = this.getRepresentativeImage(index);
 
     if (image != null) {
-      return image;
+      return image.name;
     } else {
-      return this.getNewPlaceholderImage();
+      return this.placeHolderImageText;
+    }
+  }
+
+  public getRepresentativeImageUrl(index: number): string {
+    let image: DataFile = this.getRepresentativeImage(index);
+
+    if (image != null) {
+      return image.dataUrl;
+    } else {
+      return this.placeHolderImagePath;
     }
   }
 
@@ -80,6 +97,11 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
     if (file instanceof PickedFile) {
 
       let image = this.getRepresentativeImage(index);
+
+      if (image == null) {
+        image = new DataFile();
+      }
+
       image.name = file.name;
       image.dataUrl = file.dataURL;
 
@@ -104,13 +126,9 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   private addNewRepresentative(): void {
-    let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
-    representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
-      new Representative('', '', this.getNewPlaceholderImage())
-    ));
-  }
-
-  private getNewPlaceholderImage(): DataFile {
-    return new DataFile('Bild auswählen ...', '../../../../../assets/contact.png');
+      let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
+      representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
+        new Representative('', '', null)
+      ));
   }
 }

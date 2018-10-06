@@ -13,6 +13,29 @@
     </button>
   </div>
 
+  <div class="d-flex mt-3">
+    <div class="mx-auto" style="width: 18rem">
+
+      <h4 class="text-bold">Jahrgang-Filter</h4>
+
+      <div class="d-flex align-items-center">
+        <input type="number"
+               class="form-control"
+               placeholder="von Jahr"
+               [(ngModel)]="yearFrom"
+               title="from">
+
+        <div class="mx-2">-</div>
+
+        <input type="number"
+               class="form-control"
+               placeholder="bis Jahr"
+               [(ngModel)]="yearTo"
+               title="to">
+      </div>
+    </div>
+  </div>
+
   <div class="d-flex flex-column align-items-center mt-4">
     <h4 class="text-bold">Spalten-Einschränkungen</h4>
 
@@ -32,6 +55,11 @@
           <fit-custom-checkbox
             [message]="'Name'"
             [(value)]="csv.graduate.name">
+          </fit-custom-checkbox>
+
+          <fit-custom-checkbox
+            [message]="'Abschlussjahr'"
+            [(value)]="csv.graduate.graduationYear">
           </fit-custom-checkbox>
 
           <fit-custom-checkbox

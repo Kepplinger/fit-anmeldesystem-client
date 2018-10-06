@@ -29,4 +29,8 @@ export class AdminHeaderComponent extends BaseAdminRoleGuardComponent implements
     this.userAuthorizationService.logoutUser();
     this.router.navigate(['/admin-tool', 'login']);
   }
+
+  public getUserName(): string {
+    return this.userAuthorizationService.getUserName();
+  }
 }

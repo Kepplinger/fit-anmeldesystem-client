@@ -49,6 +49,7 @@ export const routes: Routes = [
   {
     path: 'anmeldung/:id',
     component: FitRegistrationComponent,
+    canDeactivate: [CanDeactivateGuard],
     canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin]}
   },
@@ -80,6 +81,7 @@ export const routes: Routes = [
   {
     path: 'fit-bearbeiten',
     component: EditFitEventComponent,
+    canDeactivate: [CanDeactivateGuard],
     canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin]}
   },

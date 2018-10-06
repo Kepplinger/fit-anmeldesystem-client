@@ -6,7 +6,6 @@ import { Company } from '../../../../core/model/company';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { CompanyTransferService } from '../../../../core/app-services/transfer-services/company-transfer.service';
-import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
 import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
@@ -33,6 +32,7 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
 
   public async ngOnInit(): Promise<void> {
     this.companies = this.companiesService.companies.getValue();
+    this.companiesService.reloadCompanies();
     this.loading = false;
 
     this.sub = this.companiesService.companies.subscribe(c => this.companies = c);
@@ -44,10 +44,6 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
 
   public onSorted(criteria: ColumnSortCriteria): void {
     this.companies = this.companies.sort((a, b) => SortHelper.sortHandler(a, b, criteria));
-  }
-
-  public getMemberStatusHTML(status: MemberStatus): string {
-    return getMemberStatusHTML(status);
   }
 
   public routeToCompanyDetails(company: Company): void {

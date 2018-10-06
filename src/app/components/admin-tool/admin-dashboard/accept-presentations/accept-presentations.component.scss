@@ -9,6 +9,16 @@
   }
 }
 
+.opened.active {
+  background-color: $success-color !important;
+  color: white !important;
+}
+
+.locked.active {
+  background-color: $danger-color !important;
+  color: white !important;
+}
+
 .badge-counter {
   background-color: #d9d9d9;
   color: black !important;

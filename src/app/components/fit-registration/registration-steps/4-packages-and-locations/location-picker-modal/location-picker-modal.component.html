@@ -69,11 +69,16 @@
         <div class="location-detail"
              [ngClass]="{'shown': selectedLocation != null,
                          'hidden': selectedLocation == null}">
-          <div class="mt-2 d-flex">
-            <h3 class="d-inline mt-2">Gewählter Standplatz:</h3>
+          <div class="mt-3 d-flex">
+            <h3 class="d-inline my-auto">Gewählter Standplatz:</h3>
             <span class="badge badge-success selected-location-badge my-auto mx-2">{{selectedLocation?.number}}</span>
-            <span class="my-auto text-bold">im {{getAreaOfLocation(selectedLocation)?.designation}}</span>
-            <span class="my-auto ml-1 text-muted text-smaller">(Kategorie {{selectedLocation?.category}})</span>
+            <span *ngIf="selectedLocation != null" class="my-auto text-bold">im {{getAreaOfLocation(selectedLocation)?.designation}}</span>
+            <span *ngIf="selectedLocation != null" class="my-auto ml-1 text-muted text-smaller">(Kategorie {{selectedLocation?.category}})</span>
+            <div class="btn-link text-danger ml-auto my-auto"
+                 (click)="removeLocation()">
+              <i class="fa fa-times"></i>
+              Platz entfernen
+            </div>
           </div>
         </div>
 
