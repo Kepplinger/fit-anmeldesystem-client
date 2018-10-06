@@ -71,13 +71,14 @@
                    id="subject">
           </div>
 
-          <div #editor
-               class="template-editor"
-               (mouseleave)="saveCursor()"
-               (keyup)="emailChanged()"
-               [froalaEditor]="editorOptions"
-               [(froalaModel)]="editableEmail.template">
-          </div>
+          <quill-editor #editor
+                        (onContentChanged)="emailChanged()"
+                        (onEditorCreated)="editorInit($event)"
+                        (onSelectionChanged)="getSelection()"
+                        [(ngModel)]="editableEmail.template"
+                        [style]="{height: '400px'}"
+                        class="editor">
+          </quill-editor>
         </div>
 
         <!--mail variables-->
