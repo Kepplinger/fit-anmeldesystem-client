@@ -30,6 +30,7 @@ import { FitUserDAO } from './dao/fit-user.dao';
 import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
 import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
 import { MemberStatusDAO } from './dao/member-status.dao';
+import { EmailVariableDAO } from './dao/email-variable.dao';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { MemberStatusDAO } from './dao/member-status.dao';
     TagDAO,
     EventDAO,
     EmailDAO,
+    EmailVariableDAO,
     GraduateDAO,
     SmtpConfigDAO,
     MemberStatusDAO,

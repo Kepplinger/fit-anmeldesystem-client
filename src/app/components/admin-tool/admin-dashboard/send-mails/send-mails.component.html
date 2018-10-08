@@ -1,4 +1,6 @@
-<fit-send-custom-mail-modal></fit-send-custom-mail-modal>
+<fit-send-custom-mail-modal [companies]="mailTargetCompanies"
+                            [companiesHaveBooking]="filter.useCurrentFitOnly">
+</fit-send-custom-mail-modal>
 
 <div class="m-5"
      [ngClass]="{'disabled-element': isMailSelectionOpen}">

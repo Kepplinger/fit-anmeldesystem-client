@@ -20,6 +20,9 @@ export class AdminHtmlEditorComponent {
   @Input()
   public style: any = {};
 
+  @Input()
+  public placeholder: string = 'Text eingeben ...';
+
   @Output()
   public valueChange: EventEmitter<string> = new EventEmitter();
 
@@ -64,9 +67,11 @@ export class AdminHtmlEditorComponent {
   }
 
   public onEditorCreated(event: any): void {
-    this.quillEditor = event;
-    this.quillEditorChange.emit(this.quillEditor);
-    this.editorCreated.emit(this.quillEditor);
+    setTimeout(() => {
+      this.quillEditor = event;
+      this.quillEditorChange.emit(this.quillEditor);
+      this.editorCreated.emit(this.quillEditor);
+    }, 0);
   }
 
   public onSelectionChanged(event: any): void {

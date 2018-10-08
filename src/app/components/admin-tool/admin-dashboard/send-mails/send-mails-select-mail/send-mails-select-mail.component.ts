@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal-template-creator-helper';
 
+declare let $: any;
+
 @Component({
   selector: 'fit-send-mails-select-mail',
   templateUrl: './send-mails-select-mail.component.html',
@@ -47,17 +49,29 @@ export class SendMailsSelectMailComponent implements OnInit {
     this.close.emit();
   }
 
-  public async sendMailPerIdentifier(identifier: FitEmails): Promise<void> {
-    let result: boolean = await this.modalWindowService.confirm(
-      'Mails wirklich senden?',
-      `Wollen sie wirklich <span class="text-bold">` + this.companies.length + ` Mail(s)</span> versenden?`,
-      ModalTemplateCreatorHelper.getBasicModalOptions('Ja', 'Abbrechen')
-    );
+  public openCustomMailModal(): void {
+    if (this.companies.length > 0) {
+      $('#customMailModal').modal('show');
+    } else {
+      this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
+    }
+  }
 
-    if (result) {
-      await this.emailDAO.sendMails(identifier, this.companies);
-      this.toastr.success('Die E-Mails wurden erfolgreich versandt.', 'Mails versandt');
-      this.closeWindow();
+  public async sendMailPerIdentifier(identifier: FitEmails): Promise<void> {
+    if (this.companies.length > 0) {
+      let result: boolean = await this.modalWindowService.confirm(
+        'Mails wirklich senden?',
+        `Wollen sie wirklich <span class="text-bold">` + this.companies.length + ` Mail(s)</span> versenden?`,
+        ModalTemplateCreatorHelper.getBasicModalOptions('Ja', 'Abbrechen')
+      );
+
+      if (result) {
+        await this.emailDAO.sendMails(identifier, this.companies);
+        this.toastr.success('Die E-Mails wurden erfolgreich versandt.', 'Mails versandt');
+        this.closeWindow();
+      }
+    } else {
+      this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
     }
   }
 }
