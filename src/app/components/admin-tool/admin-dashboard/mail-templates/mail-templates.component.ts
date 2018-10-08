@@ -24,8 +24,7 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   public editableEmail: Email;
 
   public quillEditor: any;
-
-  private currentIndex: number = 0;
+  public currentIndex: number = 0;
 
   public constructor(private emailDAO: EmailDAO) {
     super();
@@ -37,10 +36,6 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
     if (this.emails.length !== 0) {
       this.selectEmail(this.emails[0]);
     }
-  }
-
-  public editorInit(quillEditor: any): void {
-    this.quillEditor = quillEditor;
   }
 
   public selectEmail(email: Email): void {
@@ -69,13 +64,5 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   public addVariable(variable: EmailVariable): void {
     this.quillEditor.insertText(this.currentIndex, '{{ ' + variable.value + ' }}');
     this.emailChanged();
-  }
-
-  public getSelection(): void {
-    let selection: any = this.quillEditor.getSelection();
-
-    if (selection != null) {
-      this.currentIndex = selection.index;
-    }
   }
 }

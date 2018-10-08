@@ -57,6 +57,8 @@ import { SendMailsFilterComponent } from './admin-dashboard/send-mails/send-mail
 import { SendMailsListComponent } from './admin-dashboard/send-mails/send-mails-list.component/send-mails-list.component';
 import { SendMailsSelectMailComponent } from './admin-dashboard/send-mails/send-mails-select-mail/send-mails-select-mail.component';
 import { QuillModule } from 'ngx-quill';
+import { AdminHtmlEditorComponent } from './admin-html-editor/admin-html-editor.component';
+import { SendCustomMailModalComponent } from './admin-dashboard/send-mails/send-custom-mail-modal/send-custom-mail-modal.component';
 
 @NgModule({
   imports: [
@@ -75,6 +77,7 @@ import { QuillModule } from 'ngx-quill';
     AdminLoginComponent,
     AdminDashboardComponent,
     AdminSettingsComponent,
+    AdminHtmlEditorComponent,
     AcceptPresentationsComponent,
     BookingListComponent,
     GraduateListComponent,
@@ -101,6 +104,7 @@ import { QuillModule } from 'ngx-quill';
     SendMailsFilterComponent,
     SendMailsListComponent,
     SendMailsSelectMailComponent,
+    SendCustomMailModalComponent,
     SettingsTagsComponent,
     SettingsEmailSmtpComponent,
     SettingsAdminAccountsComponent,

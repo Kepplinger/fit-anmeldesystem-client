@@ -56,6 +56,8 @@ export class UserAuthorizationService {
 
   public isUserAuthenticated(): boolean {
     if (this.token != null && this.token !== '') {
+      console.log(this.getEncodedToken());
+      console.log(!this.jwtService.isTokenExpired(this.token));
       return !this.jwtService.isTokenExpired(this.token);
     } else {
       return false;

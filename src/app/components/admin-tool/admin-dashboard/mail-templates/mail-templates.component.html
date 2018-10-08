@@ -71,14 +71,12 @@
                    id="subject">
           </div>
 
-          <quill-editor #editor
-                        (onContentChanged)="emailChanged()"
-                        (onEditorCreated)="editorInit($event)"
-                        (onSelectionChanged)="getSelection()"
-                        [(ngModel)]="editableEmail.template"
-                        [style]="{height: '400px'}"
-                        class="editor">
-          </quill-editor>
+          <fit-admin-html-editor (valueChange)="emailChanged()"
+                                 [(quillEditor)]="quillEditor"
+                                 [(currentIndex)]="currentIndex"
+                                 [(value)]="editableEmail.template"
+                                 [style]="{height: '400px'}">
+          </fit-admin-html-editor>
         </div>
 
         <!--mail variables-->
