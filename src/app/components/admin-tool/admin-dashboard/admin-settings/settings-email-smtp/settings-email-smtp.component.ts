@@ -45,9 +45,9 @@ export class SettingsEmailSmtpComponent extends BaseSettingsChangesComponent imp
       });
     }
 
-    this.smtpConfigFormGroup.valueChanges.subscribe(() => {
+    this.addSub(this.smtpConfigFormGroup.valueChanges.subscribe(() => {
       this.setUnsavedChanges(true);
-    });
+    }));
   }
 
   public async updateSmtpConfig(): Promise<void> {

@@ -9,6 +9,7 @@ import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-te
 import { ToastrService } from 'ngx-toastr';
 import { EventDAO } from '../../../../core/dao/event.dao';
 import { Event } from '../../../../core/model/event';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 declare let $;
 
@@ -17,7 +18,7 @@ declare let $;
   templateUrl: './accept-presentations.component.html',
   styleUrls: ['./accept-presentations.component.scss']
 })
-export class AcceptPresentationsComponent implements OnInit {
+export class AcceptPresentationsComponent extends BaseSubscriptionComponent implements OnInit {
 
   // for template use
   public IsAccepted = IsAccepted;
@@ -35,14 +36,15 @@ export class AcceptPresentationsComponent implements OnInit {
                      private toastr: ToastrService,
                      private modalWindowService: ModalWindowService,
                      private appConfig: AppConfig) {
+    super();
     this.serverUrl = this.appConfig.serverURL;
   }
 
   public async ngOnInit(): Promise<void> {
     this.presentationLocked = this.eventService.selectedEvent.getValue().presentationsLocked;
-    this.eventService.selectedEvent.subscribe((event: Event) => {
+    this.addSub(this.eventService.selectedEvent.subscribe((event: Event) => {
       this.presentationLocked = event.presentationsLocked;
-    });
+    }));
 
     this.presentations = await this.presentationDAO.fetchPresentations(this.eventService.selectedEvent.getValue().id);
   }

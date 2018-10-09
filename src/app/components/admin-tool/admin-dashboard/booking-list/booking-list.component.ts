@@ -55,10 +55,10 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
     this.displayedBookings = this.bookings;
     this.loading = false;
 
-    this.bookingsService.bookings.subscribe(b => {
+    this.addSub(this.bookingsService.bookings.subscribe(b => {
       this.bookings = b;
       this.filterBookings();
-    });
+    }));
   }
 
   public routeToBookingDetail(booking: Booking): void {

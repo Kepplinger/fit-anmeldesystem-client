@@ -22,7 +22,7 @@ export class AdminHeaderComponent extends BaseAdminRoleGuardComponent implements
 
   public ngOnInit(): void {
     this.event = this.eventService.selectedEvent.getValue();
-    this.eventService.selectedEvent.subscribe(e => this.event = e);
+    this.addSub(this.eventService.selectedEvent.subscribe(e => this.event = e));
   }
 
   public logout(): void {

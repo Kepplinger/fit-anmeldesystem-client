@@ -1,6 +1,7 @@
 import { EventEmitter, Output } from '@angular/core';
+import { BaseSubscriptionComponent } from './base-subscription.component';
 
-export class BaseSettingsChangesComponent {
+export class BaseSettingsChangesComponent extends BaseSubscriptionComponent{
 
   @Output()
   public changeHappened: EventEmitter<boolean> = new EventEmitter();

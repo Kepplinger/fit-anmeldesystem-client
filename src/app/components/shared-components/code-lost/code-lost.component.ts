@@ -4,13 +4,14 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { BaseSubscriptionComponent } from '../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-code-lost',
   templateUrl: './code-lost.component.html',
   styleUrls: ['./code-lost.component.scss']
 })
-export class CodeLostComponent {
+export class CodeLostComponent extends BaseSubscriptionComponent {
 
   @Input()
   public fitOnlyMode: boolean = true;
@@ -26,13 +27,14 @@ export class CodeLostComponent {
   public constructor(private registrationDAO: AuthenticationDAO,
                      private toastr: ToastrService,
                      private router: Router) {
-    this.emailChanged.pipe(debounceTime(1000)).subscribe(
+    super();
+    this.addSub(this.emailChanged.pipe(debounceTime(1000)).subscribe(
       async () => {
         this.isLoading = true;
         this.isExisting = await this.registrationDAO.verifyCompanyMail(this.companyMail, !this.fitOnlyMode);
         this.isLoading = false;
         this.isChecked = true;
-      });
+      }));
   }
 
   public onEmailChange(): void {

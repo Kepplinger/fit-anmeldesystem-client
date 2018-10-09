@@ -5,13 +5,15 @@ import { Company } from '../../../../core/model/company';
 import { BookingDAO } from '../../../../core/dao/booking.dao';
 import { EventService } from '../../../../core/app-services/event.service';
 import { CompaniesService } from '../../services/companies.service';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
+import { BookingsService } from '../../services/bookings.service';
 
 @Component({
   selector: 'fit-send-mails',
   templateUrl: './send-mails.component.html',
   styleUrls: ['./send-mails.component.scss']
 })
-export class SendMailsComponent implements OnInit {
+export class SendMailsComponent extends BaseSubscriptionComponent implements OnInit {
 
   public filter: SendMailFilter;
   public filteredCompanies: Company[] = [];
@@ -21,20 +23,20 @@ export class SendMailsComponent implements OnInit {
 
   public constructor(private companiesService: CompaniesService,
                      private bookingDAO: BookingDAO,
-                     private eventService: EventService) {
+                     private bookingsService: BookingsService) {
+    super();
     this.filter = new SendMailFilter();
   }
 
   public ngOnInit(): void {
     this.filteredCompanies = this.companiesService.companies.getValue();
-    this.companiesService.companies.subscribe(() => this.filterCompanies());
+    this.addSub(this.companiesService.companies.subscribe(() => this.filterCompanies()));
     this.mailTargetCompanies = this.filteredCompanies;
   }
 
   public async filterCompanies(): Promise<void> {
     if (this.filter.useCurrentFitOnly) {
-      this.filteredCompanies = (await this.bookingDAO.fetchCachedBookingsForEvent(this.eventService.currentEvent.getValue()))
-        .map(b => b.company).filter(c => this.companyFilter(c));
+      this.filteredCompanies = this.bookingsService.bookings.getValue().map(b => b.company).filter(c => this.companyFilter(c));
     } else {
       this.filteredCompanies = this.companiesService.companies.getValue().filter(c => this.companyFilter(c));
     }

@@ -8,13 +8,14 @@ import { Event } from '../../core/model/event';
 import { ErrorInterceptor } from '../../core/dao/helper/error-interceptor';
 import { ToastrService } from 'ngx-toastr';
 import { FitHttpError } from '../../core/app-helper/helper-model/fit-http-error';
+import { BaseSubscriptionComponent } from '../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent extends BaseSubscriptionComponent implements OnInit {
 
   public loginCode: string = '';
   public hasFailed: boolean = false;
@@ -25,14 +26,15 @@ export class MainComponent implements OnInit {
                      private eventService: EventService,
                      private toastr: ToastrService,
                      private router: Router) {
+    super();
   }
 
   public ngOnInit() {
     this.event = this.eventService.currentEvent.getValue();
 
-    this.eventService.currentEvent.subscribe((event: Event) => {
+    this.addSub(this.eventService.currentEvent.subscribe((event: Event) => {
       this.event = event;
-    });
+    }));
   }
 
   public async loginToBooking(): Promise<void> {

@@ -8,13 +8,14 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-accept-companies',
   templateUrl: './accept-companies.component.html',
   styleUrls: ['./accept-companies.component.scss']
 })
-export class AcceptCompaniesComponent implements OnInit, OnDestroy {
+export class AcceptCompaniesComponent extends BaseSubscriptionComponent implements OnInit, OnDestroy {
 
   public pendingCompanies: Company[] = [];
   public companies: Company[] = [];
@@ -23,23 +24,18 @@ export class AcceptCompaniesComponent implements OnInit, OnDestroy {
   public isAssigning: boolean = false;
   public companyToAssign: Company;
 
-  private subs: Subscription[] = [];
-
   public constructor(private companyDAO: CompanyDAO,
                      private companiesService: CompaniesService,
                      private toastr: ToastrService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
     this.pendingCompanies = this.companiesService.pendingCompanies.getValue();
     this.companies = this.companiesService.companies.getValue();
 
-    this.subs.push(this.companiesService.pendingCompanies.subscribe(c => this.pendingCompanies = c));
-    this.subs.push(this.companiesService.companies.subscribe(c => this.companies = c));
-  }
-
-  public ngOnDestroy(): void {
-    SubscriptionUtils.unsubscribeMultiple(this.subs);
+    this.addSub(this.companiesService.pendingCompanies.subscribe(c => this.pendingCompanies = c));
+    this.addSub(this.companiesService.companies.subscribe(c => this.companies = c));
   }
 
   public selectCompanyForAssigning(company: Company) {

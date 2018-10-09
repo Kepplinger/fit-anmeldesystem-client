@@ -29,7 +29,7 @@ export class GraduateListComponent extends BaseAdminRoleGuardComponent implement
 
   public async ngOnInit(): Promise<void> {
     this.graduates = this.graduatesService.graduates.getValue();
-    this.graduatesService.graduates.subscribe(g => this.graduates = g);
+    this.addSub(this.graduatesService.graduates.subscribe(g => this.graduates = g));
     this.loading = false;
   }
 

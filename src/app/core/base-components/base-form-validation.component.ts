@@ -1,8 +1,9 @@
 import { FormHelper } from '../app-helper/form-helper';
 import { FormArray, FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
+import { BaseSubscriptionComponent } from './base-subscription.component';
 
-export abstract class BaseFormValidationComponent {
+export abstract class BaseFormValidationComponent extends BaseSubscriptionComponent {
 
   public abstract formGroup: FormGroup;
 

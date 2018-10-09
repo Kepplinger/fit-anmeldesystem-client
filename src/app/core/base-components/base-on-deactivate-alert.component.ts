@@ -1,11 +1,13 @@
 import { HostListener } from '@angular/core';
 import { CanComponentDeactivate } from '../guards/can-deactivate.guard';
+import { BaseSubscriptionComponent } from './base-subscription.component';
 
-export abstract class BaseOnDeactivateAlertComponent implements CanComponentDeactivate {
+export abstract class BaseOnDeactivateAlertComponent extends BaseSubscriptionComponent implements CanComponentDeactivate {
 
   protected unsavedChangesExist: boolean = false;
 
   protected constructor() {
+    super();
   }
 
   @HostListener('window:beforeunload', ['$event'])

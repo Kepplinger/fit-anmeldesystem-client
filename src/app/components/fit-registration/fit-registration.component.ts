@@ -151,7 +151,7 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
     this.unsavedChangesExist = !this.isAdminMode;
 
     this.event = this.eventService.currentEvent.getValue();
-    this.eventService.currentEvent.subscribe((event: Event) => this.event = event);
+    this.addSub(this.eventService.currentEvent.subscribe((event: Event) => this.event = event));
 
     let useOldBooking: boolean = false;
 

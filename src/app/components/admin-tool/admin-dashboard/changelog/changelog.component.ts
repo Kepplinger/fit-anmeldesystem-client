@@ -5,13 +5,14 @@ import { Company } from '../../../../core/model/company';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { CompaniesService } from '../../services/companies.service';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-changelog',
   templateUrl: './changelog.component.html',
   styleUrls: ['./changelog.component.scss']
 })
-export class ChangelogComponent implements OnInit {
+export class ChangelogComponent extends BaseSubscriptionComponent implements OnInit {
 
   public changelog: ChangeProtocol[] = [];
   public companies: Company[] = [];
@@ -24,11 +25,12 @@ export class ChangelogComponent implements OnInit {
 
   public constructor(private changeProtocolDAO: ChangeProtocolDAO,
                      private companiesService: CompaniesService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
     this.companies = this.companiesService.companies.getValue();
-    this.companiesService.companies.subscribe(c => this.companies = c);
+    this.addSub(this.companiesService.companies.subscribe(c => this.companies = c));
 
     this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
 

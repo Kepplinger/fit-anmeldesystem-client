@@ -7,6 +7,7 @@ import { EmailDAO } from '../../../../../core/dao/email.dao';
 import { ToastrService } from 'ngx-toastr';
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal-template-creator-helper';
+import { BaseSubscriptionComponent } from '../../../../../core/base-components/base-subscription.component';
 
 declare let $: any;
 
@@ -15,7 +16,7 @@ declare let $: any;
   templateUrl: './send-mails-select-mail.component.html',
   styleUrls: ['./send-mails-select-mail.component.scss']
 })
-export class SendMailsSelectMailComponent implements OnInit {
+export class SendMailsSelectMailComponent extends BaseSubscriptionComponent implements OnInit {
 
   @Input()
   public companies: Company[] = [];
@@ -33,11 +34,12 @@ export class SendMailsSelectMailComponent implements OnInit {
                      private emailDAO: EmailDAO,
                      private modalWindowService: ModalWindowService,
                      private toastr: ToastrService) {
+    super();
   }
 
   public ngOnInit(): void {
     this.currentEvent = this.eventService.currentEvent.getValue();
-    this.eventService.currentEvent.subscribe(e => this.currentEvent = e);
+    this.addSub(this.eventService.currentEvent.subscribe(e => this.currentEvent = e));
   }
 
   @HostListener('document:keydown.escape')

@@ -2,13 +2,14 @@ import { OnInit, Input, HostListener, Component, OnDestroy } from '@angular/core
 import { Subscription } from 'rxjs';
 
 import { SortService } from '../../../core/app-services/sort-service.service';
+import { BaseSubscriptionComponent } from '../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-sortable-column',
   templateUrl: './sortable-column.component.html',
   styleUrls: ['./sortable-column.component.scss']
 })
-export class SortableColumnComponent implements OnInit, OnDestroy {
+export class SortableColumnComponent extends BaseSubscriptionComponent implements OnInit, OnDestroy {
 
   @Input()
   public sortColumnName: string;
@@ -16,9 +17,8 @@ export class SortableColumnComponent implements OnInit, OnDestroy {
   @Input()
   public sortDirection: string = '';
 
-  private columnSortedSubscription: Subscription;
-
   public constructor(private sortService: SortService) {
+    super();
   }
 
   @HostListener('click')
@@ -33,14 +33,10 @@ export class SortableColumnComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.columnSortedSubscription = this.sortService.onColumnSorted.subscribe(event => {
+    this.addSub(this.sortService.onColumnSorted.subscribe(event => {
       if (this.sortColumnName !== event.sortColumn) {
         this.sortDirection = '';
       }
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this.columnSortedSubscription.unsubscribe();
+    }));
   }
 }

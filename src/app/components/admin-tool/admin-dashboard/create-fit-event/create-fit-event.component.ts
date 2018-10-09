@@ -4,36 +4,30 @@ import { Subscription } from 'rxjs';
 import { EventService } from '../../../../core/app-services/event.service';
 import { Router } from '@angular/router';
 import { EventHelper } from '../../../../core/model/helper/event-helper';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-create-fit-event',
   templateUrl: './create-fit-event.component.html',
   styleUrls: ['./create-fit-event.component.scss']
 })
-export class CreateFitEventComponent implements OnInit, OnDestroy {
+export class CreateFitEventComponent extends BaseSubscriptionComponent implements OnInit, OnDestroy {
 
   public events: Event[];
 
-  private subscriptions: Subscription[] = [];
-
   public constructor(private eventService: EventService,
                      private router: Router) {
+    super();
   }
 
   public ngOnInit(): void {
     this.events = this.eventService.events.getValue().sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
 
-    this.subscriptions.push(
-      this.eventService.events.subscribe(
-        (events: Event[]) => {
-          this.events = events.sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
-        }
-      )
-    );
-  }
-
-  public ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.addSub(this.eventService.events.subscribe(
+      (events: Event[]) => {
+        this.events = events.sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
+      }
+    ));
   }
 
   public createNewFitEvent(): void {

@@ -35,7 +35,7 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
     this.companiesService.reloadCompanies();
     this.loading = false;
 
-    this.sub = this.companiesService.companies.subscribe(c => this.companies = c);
+    this.addSub(this.sub = this.companiesService.companies.subscribe(c => this.companies = c));
   }
 
   public ngOnDestroy(): void {

@@ -1,22 +1,22 @@
 <div class="d-flex align-items-center">
   <input type="text" id="code-part1" maxlength="4" title="codePart"
-         placeholder="XXXX"
          [ngClass]="{'is-invalid': hasFailed}"
+         placeholder="_ _ _ _"
          (keyup)="emitCode()"
          class="code-part form-control text-center"/>
 
-  <span class="mx-1">—</span>
+  <span class="mx-1"></span>
 
   <input type="text" id="code-part2" maxlength="4" title="codePart"
-         placeholder="XXXX"
+         placeholder="_ _ _ _"
          (keyup)="emitCode()"
          [ngClass]="{'is-invalid': hasFailed}"
          class="code-part form-control text-center"/>
 
-  <span class="mx-1">—</span>
+  <span class="mx-1"></span>
 
   <input type="text" id="code-part3" maxlength="4" title="codePart"
-         placeholder="XXXX"
+         placeholder="_ _ _ _"
          (keyup)="emitCode()"
          [ngClass]="{'is-invalid': hasFailed}"
          class="code-part form-control text-center"/>
