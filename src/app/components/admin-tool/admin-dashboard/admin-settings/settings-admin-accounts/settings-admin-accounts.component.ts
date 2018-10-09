@@ -10,6 +10,7 @@ import {FitUser} from '../../../../../core/model/fit-user';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ArrayUtils} from '../../../../../core/utils/array-utils';
 import {UserAuthorizationService} from '../../../../../core/app-services/user-authorization.service';
+import { FitHttpError } from '../../../../../core/app-helper/helper-model/fit-http-error';
 
 @Component({
   selector: 'fit-settings-admin-accounts',
@@ -57,7 +58,7 @@ export class SettingsAdminAccountsComponent extends BaseFormValidationComponent 
         this.formGroup.value.role
       );
 
-      if (!(result instanceof HttpErrorResponse)) {
+      if (!(result instanceof FitHttpError)) {
         this.toastr.success('Der Benutzer wurde erfolgreich angelegt.', 'Gespeichert!');
         this.fitUsers.push(result);
         this.emptyForm();

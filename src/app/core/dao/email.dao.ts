@@ -40,7 +40,7 @@ export class EmailDAO {
       companyIds: companyIds
     };
 
-    return this.http.post<void>(this.appConfig.serverURL + '/email', json)
+    return this.http.post<void>(this.appConfig.serverURL + '/email/custom', json)
       .toPromise();
   }
 
@@ -53,7 +53,7 @@ export class EmailDAO {
       receiver: receiver
     };
 
-    return this.http.post<void>(this.appConfig.serverURL + '/email', json)
+    return this.http.post<void>(this.appConfig.serverURL + '/email/custom/test', json)
       .toPromise();
   }
 

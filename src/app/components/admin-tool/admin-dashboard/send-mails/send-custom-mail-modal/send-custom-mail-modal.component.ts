@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Company } from '../../../../../core/model/company';
 import { Email } from '../../../../../core/model/email';
 import { EmailDAO } from '../../../../../core/dao/email.dao';
@@ -9,7 +9,6 @@ import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { EmailVariable } from '../../../../../core/model/email-variable';
 import { EmailVariableDAO } from '../../../../../core/dao/email-variable.dao';
-import { PromiseState } from 'q';
 
 declare let $: any;
 
@@ -18,7 +17,7 @@ declare let $: any;
   templateUrl: './send-custom-mail-modal.component.html',
   styleUrls: ['./send-custom-mail-modal.component.scss']
 })
-export class SendCustomMailModalComponent implements OnInit {
+export class SendCustomMailModalComponent implements OnInit, OnChanges {
 
   @Input()
   public companies: Company[] = [];
@@ -27,7 +26,6 @@ export class SendCustomMailModalComponent implements OnInit {
   public companiesHaveBooking: boolean = false;
 
   public customMail: Email = new Email();
-  public receiverMail: string;
 
   public quillEditor: any;
   public currentIndex: number = 0;
@@ -49,6 +47,13 @@ export class SendCustomMailModalComponent implements OnInit {
     this.emailVariables = (await this.emailVariableDAO.fetchEmailVariables());
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['companiesHaveBooking']) {
+      this.customMail.subject = '';
+      this.customMail.template = '';
+    }
+  }
+
   public async sendMail(): Promise<void> {
     if (this.companies.length > 0) {
       let result: boolean = await this.modalWindowService.confirm(
@@ -60,6 +65,8 @@ export class SendCustomMailModalComponent implements OnInit {
       if (result) {
         let entityType: FitEmailEntityType = this.getEntityType();
         await this.emailDAO.sendCustomMail(this.customMail, entityType, this.companies);
+        this.toastr.success('Die Emails wurden erfolgreich versendet.', 'Email erfolgreich versendet!');
+        $('#customMailModal').modal('hide');
       }
     } else {
       this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
@@ -70,9 +77,8 @@ export class SendCustomMailModalComponent implements OnInit {
     if (this.emailFormGroup.valid) {
       if (this.companies.length > 0) {
         let entityType: FitEmailEntityType = this.getEntityType();
-        await this.emailDAO.sendCustomTestMail(this.customMail, entityType, this.receiverMail, this.companies[0].id);
-        this.toastr.success('Die Test-Email wurde erfolgreich versendet.', 'Test-Email erfolgreich versendet!');
-        $('#customMailModal').modal('hide');
+        await this.emailDAO.sendCustomTestMail(this.customMail, entityType, this.emailFormGroup.value.emailAddress, this.companies[0].id);
+        this.toastr.success('Die Test-Email wurde erfolgreich versendet. Überprüfen Sie Ihren Posteingang', 'Test-Email erfolgreich versendet!');
       } else {
         this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
       }
@@ -83,6 +89,7 @@ export class SendCustomMailModalComponent implements OnInit {
 
   public addVariable(variable: EmailVariable): void {
     this.quillEditor.insertText(this.currentIndex, '{{ ' + variable.value + ' }}');
+    this.quillEditor.setSelection(this.currentIndex + variable.value.length + 6, 0);
   }
 
   public getFilteredEmailVariables(): EmailVariable[] {

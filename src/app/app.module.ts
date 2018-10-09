@@ -16,6 +16,7 @@ import { AdminHeaderComponent } from './components/shared-components/admin-heade
 import { FitHeaderComponent } from './components/shared-components/fit-header/header.component';
 import { FitFooterComponent } from './components/shared-components/fit-footer/footer.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { MemberCodeInputComponent } from './components/shared-components/member-code-input/member-code-input.component';
 
 registerLocaleData(localeDe, 'de-AT');
 

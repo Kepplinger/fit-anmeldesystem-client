@@ -7,6 +7,7 @@ import { EventService } from '../../core/app-services/event.service';
 import { Event } from '../../core/model/event';
 import { ErrorInterceptor } from '../../core/dao/helper/error-interceptor';
 import { ToastrService } from 'ngx-toastr';
+import { FitHttpError } from '../../core/app-helper/helper-model/fit-http-error';
 
 @Component({
   selector: 'fit-main',
@@ -15,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MainComponent implements OnInit {
 
-  public authenticationToken: string = '';
+  public loginCode: string = '';
   public hasFailed: boolean = false;
   public event: Event;
 
@@ -36,9 +37,9 @@ export class MainComponent implements OnInit {
 
   public async loginToBooking(): Promise<void> {
     this.hasFailed = false;
-    let response = await this.authenticationDAO.loginMember(this.authenticationToken);
+    let response = await this.authenticationDAO.loginMember(this.loginCode);
 
-    if (response != null && !(response instanceof HttpErrorResponse)) {
+    if (response != null && !(response instanceof FitHttpError)) {
       if (this.accountManagementService.loginMember(response, true)) {
         this.router.navigate(['/fit', 'anmelden']);
       } else {

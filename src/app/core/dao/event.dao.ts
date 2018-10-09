@@ -5,6 +5,7 @@ import { Event } from '../model/event';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { ErrorInterceptor } from './helper/error-interceptor';
 import { catchError, map } from 'rxjs/operators';
+import { FitHttpError } from '../app-helper/helper-model/fit-http-error';
 
 @Injectable()
 export class EventDAO {
@@ -22,7 +23,7 @@ export class EventDAO {
       .toPromise();
   }
 
-  public async updatePresentationLock(event: Event, presentationLock: boolean): Promise<Event | HttpErrorResponse> {
+  public async updatePresentationLock(event: Event, presentationLock: boolean): Promise<Event | FitHttpError> {
     let headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
     return this.http.post<Event>(this.appConfig.serverURL + '/event/presentationLock/' + event.id, presentationLock, {headers: headers})
@@ -32,7 +33,7 @@ export class EventDAO {
       .toPromise();
   }
 
-  public async persistEvent(event: Event): Promise<any | HttpErrorResponse> {
+  public async persistEvent(event: Event): Promise<any | FitHttpError> {
     return this.http.post<Event>(this.appConfig.serverURL + '/event', EventMapper.mapEventToJson(event))
       .pipe(
         map((data: any) => {

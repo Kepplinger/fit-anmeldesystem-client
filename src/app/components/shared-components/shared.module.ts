@@ -11,6 +11,7 @@ import { CompanyOverviewComponent } from '../account-management/account-overview
 import { GraduateOverviewComponent } from '../account-management/account-overview/graduate-overview/graduate-overview.component';
 import { CodeLostComponent } from './code-lost/code-lost.component';
 import { TruncatePipe } from './truncate-pipe/truncate.pipe';
+import { MemberCodeInputComponent } from './member-code-input/member-code-input.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { TruncatePipe } from './truncate-pipe/truncate.pipe';
     CustomCheckboxComponent,
     CompanyOverviewComponent,
     GraduateOverviewComponent,
+    MemberCodeInputComponent,
     TruncatePipe
   ],
   exports: [
@@ -36,6 +38,7 @@ import { TruncatePipe } from './truncate-pipe/truncate.pipe';
     CustomCheckboxComponent,
     CompanyOverviewComponent,
     GraduateOverviewComponent,
+    MemberCodeInputComponent,
     TruncatePipe
   ]
 })

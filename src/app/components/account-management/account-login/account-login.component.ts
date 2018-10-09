@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FitHttpError } from '../../../core/app-helper/helper-model/fit-http-error';
 
 @Component({
   selector: 'fit-account-login',
@@ -12,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AccountLoginComponent {
 
-  public authenticationToken: string = '';
+  public loginCode: string = '';
   public hasFailed: boolean = false;
 
   public constructor(private authenticationDAO: AuthenticationDAO,
@@ -23,12 +24,9 @@ export class AccountLoginComponent {
 
   public async loginToCompanyAccount(): Promise<void> {
     this.hasFailed = false;
+    let response = await this.authenticationDAO.loginMember(this.loginCode);
 
-    alert('Simi sauf ned so vü');
-
-    let response = await this.authenticationDAO.loginMember(this.authenticationToken);
-
-    if (response != null && !(response instanceof HttpErrorResponse)) {
+    if (response != null && !(response instanceof FitHttpError)) {
       this.accountManagementService.loginMember(response);
       this.router.navigate(['/konto']);
     } else {

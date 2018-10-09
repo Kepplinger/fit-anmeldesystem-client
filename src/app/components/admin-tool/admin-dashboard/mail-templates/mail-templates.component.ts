@@ -6,8 +6,6 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EmailVariable } from '../../../../core/model/email-variable';
 import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
 
-declare let $: any;
-
 @Component({
   selector: 'fit-mail-templates',
   templateUrl: './mail-templates.component.html',
@@ -63,6 +61,7 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
 
   public addVariable(variable: EmailVariable): void {
     this.quillEditor.insertText(this.currentIndex, '{{ ' + variable.value + ' }}');
+    this.quillEditor.setSelection(this.currentIndex + variable.value.length + 6, 0);
     this.emailChanged();
   }
 }

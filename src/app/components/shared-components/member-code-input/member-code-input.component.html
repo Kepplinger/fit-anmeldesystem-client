@@ -1,0 +1,13 @@
+<div class="position-relative">
+  <input type="text"
+         class="form-control text-center"
+         id="codeInput"
+         [ngClass]="{'is-invalid': hasFailed}"
+         [(ngModel)]="loginCode"
+         (input)="checkKeySignature($event)"
+         [ngModelOptions]="{standalone: true}"
+         placeholder="12-stelliger Code">
+  <div class="position-absolute input-loading-icon">
+    <i *ngIf="hasFailed" class="fa fa-times fa-1-3x text-danger"></i>
+  </div>
+</div>
