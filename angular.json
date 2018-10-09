@@ -36,7 +36,8 @@
               "node_modules/moment/locale/de-at.js",
               "node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js",
               "node_modules/file-saver/FileSaver.min.js",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+              "node_modules/jquery-autotab/js/jquery.autotab.min.js"
             ]
           },
           "configurations": {

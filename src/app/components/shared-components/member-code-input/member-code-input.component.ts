@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+declare let $: any;
 
 @Component({
   selector: 'fit-member-code-input',
   templateUrl: './member-code-input.component.html',
   styleUrls: ['./member-code-input.component.scss']
 })
-export class MemberCodeInputComponent {
+export class MemberCodeInputComponent implements OnInit {
 
   @Input()
   public loginCode: string;
@@ -16,29 +18,24 @@ export class MemberCodeInputComponent {
   @Output()
   public loginCodeChange: EventEmitter<string> = new EventEmitter<string>();
 
-  public checkKeySignature(event: any): void {
-    console.log('sadfasdf');
-    // setTimeout(() => {
-      let code = event.target.value;
-
-      if (this.noHyphenCodeLength(code) % 4 === 0 && code.length !== 0 && code.length < 12 && !code.endsWith('-')) {
-        this.loginCode = code + '-';
-      }
-    // }, 0);
-    this.loginCodeChange.emit(this.loginCode);
+  public constructor() {
   }
 
-  // noinspection JSMethodCanBeStatic
-  private noHyphenCodeLength(code: string): number {
-    let hyphenCount = 0;
-
-    for (let i = 0; i < code.length; i++) {
-      if (code[i] === '-') {
-        hyphenCount++;
-      }
-    }
-
-    return code.length - hyphenCount;
+  public ngOnInit(): void {
+    $('.code-part').autotab({
+      maxlength: 4,
+      format: 'custom', pattern: '[-]'
+    });
   }
 
+  public emitCode() {
+    setTimeout(() => {
+      let codePart1: string = $('#code-part1').val();
+      let codePart2: string = $('#code-part2').val();
+      let codePart3: string = $('#code-part3').val();
+
+      console.log(codePart1 + '-' + codePart2 + '-' + codePart3);
+      this.loginCodeChange.emit(codePart1 + '-' + codePart2 + '-' + codePart3);
+    }, 0);
+  }
 }

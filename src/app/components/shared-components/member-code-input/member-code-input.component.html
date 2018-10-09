@@ -1,13 +1,23 @@
-<div class="position-relative">
-  <input type="text"
-         class="form-control text-center"
-         id="codeInput"
+<div class="d-flex align-items-center">
+  <input type="text" id="code-part1" maxlength="4" title="codePart"
+         placeholder="XXXX"
          [ngClass]="{'is-invalid': hasFailed}"
-         [(ngModel)]="loginCode"
-         (input)="checkKeySignature($event)"
-         [ngModelOptions]="{standalone: true}"
-         placeholder="12-stelliger Code">
-  <div class="position-absolute input-loading-icon">
-    <i *ngIf="hasFailed" class="fa fa-times fa-1-3x text-danger"></i>
-  </div>
+         (keyup)="emitCode()"
+         class="code-part form-control text-center"/>
+
+  <span class="mx-1">—</span>
+
+  <input type="text" id="code-part2" maxlength="4" title="codePart"
+         placeholder="XXXX"
+         (keyup)="emitCode()"
+         [ngClass]="{'is-invalid': hasFailed}"
+         class="code-part form-control text-center"/>
+
+  <span class="mx-1">—</span>
+
+  <input type="text" id="code-part3" maxlength="4" title="codePart"
+         placeholder="XXXX"
+         (keyup)="emitCode()"
+         [ngClass]="{'is-invalid': hasFailed}"
+         class="code-part form-control text-center"/>
 </div>
