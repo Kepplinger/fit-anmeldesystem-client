@@ -15,6 +15,9 @@ export class MemberCodeInputComponent implements OnInit {
   @Input()
   public hasFailed: boolean;
 
+  @Input()
+  public disabled: boolean;
+
   @Output()
   public loginCodeChange: EventEmitter<string> = new EventEmitter<string>();
 

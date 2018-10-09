@@ -21,6 +21,8 @@ export class MainComponent extends BaseSubscriptionComponent implements OnInit {
   public hasFailed: boolean = false;
   public event: Event;
 
+  public isLoading: boolean = false;
+
   public constructor(private authenticationDAO: AuthenticationDAO,
                      private accountManagementService: AccountManagementService,
                      private eventService: EventService,
@@ -39,10 +41,14 @@ export class MainComponent extends BaseSubscriptionComponent implements OnInit {
 
   public async loginToBooking(): Promise<void> {
     this.hasFailed = false;
+
+    this.isLoading = true;
     let response = await this.authenticationDAO.loginMember(this.loginCode);
+    this.isLoading = false;
 
     if (response != null && !(response instanceof FitHttpError)) {
       if (this.accountManagementService.loginMember(response, true)) {
+        this.toastr.success('Eingelogged!');
         this.router.navigate(['/fit', 'anmelden']);
       } else {
         this.hasFailed = true;

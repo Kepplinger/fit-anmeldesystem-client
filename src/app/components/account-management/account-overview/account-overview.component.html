@@ -14,29 +14,31 @@
     </div>
   </div>
 
-  <div class="small-container account-form-background mt-2 mb-5">
+  <div class="bg-light">
+    <div class="small-container mb-5">
 
-    <div class="d-flex">
-      <button class="btn btn-link ml-auto mt-2"
-              (click)="logout()">
-        <i class="fa fa-sign-out"></i>
-        Ausloggen
-      </button>
-    </div>
+      <div class="d-flex">
+        <button class="btn btn-link ml-auto mt-2"
+                (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          Ausloggen
+        </button>
+      </div>
 
-    <div [ngSwitch]="isGraduate">
+      <div [ngSwitch]="isGraduate">
 
-      <fit-graduate-overview *ngSwitchCase="true"
-                             [graduate]="graduate"
-                             (editModeChanged)="editModeChanged($event)">
-      </fit-graduate-overview>
+        <fit-graduate-overview *ngSwitchCase="true"
+                               [graduate]="graduate"
+                               (editModeChanged)="editModeChanged($event)">
+        </fit-graduate-overview>
 
-      <fit-company-overview *ngSwitchCase="false"
-                            [booking]="booking"
-                            [company]="company"
-                            (editModeChanged)="editModeChanged($event)">
-      </fit-company-overview>
+        <fit-company-overview *ngSwitchCase="false"
+                              [booking]="booking"
+                              [company]="company"
+                              (editModeChanged)="editModeChanged($event)">
+        </fit-company-overview>
 
+      </div>
     </div>
   </div>
 </div>

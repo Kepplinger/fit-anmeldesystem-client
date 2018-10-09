@@ -12,7 +12,6 @@
     </p>
 
     <div class="tiny-container mb-8">
-
       <h2 class="text-bold">Anmeldung</h2>
 
       <div class="vertical-border pb-4 pt-1 mb-4">
@@ -26,13 +25,14 @@
             </label>
 
             <fit-member-code-input [(loginCode)]="loginCode"
-                                   [hasFailed]="hasFailed">
+                                   [hasFailed]="hasFailed"
+                                   [disabled]="isLoading">
             </fit-member-code-input>
           </div>
 
           <button class="btn btn-lg btn-block btn-primary"
                   id="btnFitRegister"
-                  [disabled]="loginCode.length < 14"
+                  [disabled]="loginCode.length < 14 || isLoading"
                   [ngClass]="{'cursor-not-allowed': loginCode.length < 14}"
                   (click)="loginToBooking()">
             Anmelden
