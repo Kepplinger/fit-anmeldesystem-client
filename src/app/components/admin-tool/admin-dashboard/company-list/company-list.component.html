@@ -52,7 +52,8 @@
     </tbody>
   </table>
 
-  <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-3x fa-spin fa-circle-o-notch"></i>
-  </div>
+  <fit-loading-spinner *ngIf="isLoading" class="mt-7"
+                       [message]="'Firmen werden geladen ...'">
+  </fit-loading-spinner>
+
 </div>

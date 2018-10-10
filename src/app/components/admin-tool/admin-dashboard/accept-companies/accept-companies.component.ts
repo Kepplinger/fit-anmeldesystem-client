@@ -23,6 +23,7 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
   public filterText: string = '';
   public isAssigning: boolean = false;
   public companyToAssign: Company;
+  public isLoading: boolean = false;
 
   public constructor(private companyDAO: CompanyDAO,
                      private companiesService: CompaniesService,
@@ -31,8 +32,14 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
   }
 
   public async ngOnInit(): Promise<void> {
+    this.companiesService.reloadCompanies();
     this.pendingCompanies = this.companiesService.pendingCompanies.getValue();
     this.companies = this.companiesService.companies.getValue();
+
+    if (this.companies.length === 0) {
+      this.isLoading = this.companiesService.isLoading.getValue();
+      this.addSub(this.companiesService.isLoading.subscribe(l => this.isLoading = l));
+    }
 
     this.addSub(this.companiesService.pendingCompanies.subscribe(c => this.pendingCompanies = c));
     this.addSub(this.companiesService.companies.subscribe(c => this.companies = c));
@@ -72,6 +79,7 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
     await this.companyDAO.assignCompany(pendingCompany, existingCompany);
     this.companiesService.deleteCompany(pendingCompany);
     this.companyToAssign = null;
+    this.isAssigning = false;
     this.toastr.success('Der Antrag wurde einer bestehenden Firma zugewiesen', 'Zuweisung erfolgreich!');
   }
 }

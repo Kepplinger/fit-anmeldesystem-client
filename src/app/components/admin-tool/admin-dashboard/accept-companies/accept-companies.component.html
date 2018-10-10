@@ -7,7 +7,11 @@
     </a>
   </div>
 
-  <div *ngIf="pendingCompanies.length == 0"
+  <fit-loading-spinner *ngIf="isLoading" class="mt-7"
+                       [message]="'Anträge werden geladen ...'">
+  </fit-loading-spinner>
+
+  <div *ngIf="pendingCompanies.length == 0 && !isLoading"
        class="text-center mt-7">
     <i class="fa fa-file-o fa-4x mb-3"></i>
     <h1 class="font-weight-light">Es sind keine Anträge mehr vorhanden</h1>
@@ -75,7 +79,7 @@
           <button class="btn btn-primary back-btn py-0 mr-2"
                   (click)="cancelAssiging()">
             <i class="fa fa-fw fa-mail-reply"></i>
-            Zurück
+            Abbrechen
           </button>
           <input type="text"
                  title="search"

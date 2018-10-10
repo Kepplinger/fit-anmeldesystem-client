@@ -12,6 +12,7 @@ import { GraduateOverviewComponent } from '../account-management/account-overvie
 import { CodeLostComponent } from './code-lost/code-lost.component';
 import { TruncatePipe } from './truncate-pipe/truncate.pipe';
 import { MemberCodeInputComponent } from './member-code-input/member-code-input.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { MemberCodeInputComponent } from './member-code-input/member-code-input.
     CompanyOverviewComponent,
     GraduateOverviewComponent,
     MemberCodeInputComponent,
+    LoadingSpinnerComponent,
     TruncatePipe
   ],
   exports: [
@@ -39,6 +41,7 @@ import { MemberCodeInputComponent } from './member-code-input/member-code-input.
     CompanyOverviewComponent,
     GraduateOverviewComponent,
     MemberCodeInputComponent,
+    LoadingSpinnerComponent,
     TruncatePipe
   ]
 })

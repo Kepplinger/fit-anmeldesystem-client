@@ -19,7 +19,7 @@ import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/ba
 export class CompanyListComponent extends BaseAdminRoleGuardComponent implements OnInit, OnDestroy {
 
   public companies: Company[];
-  public loading: boolean = true;
+  public isLoading: boolean = false;
 
   private sub: Subscription;
 
@@ -33,7 +33,11 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
   public async ngOnInit(): Promise<void> {
     this.companies = this.companiesService.companies.getValue();
     this.companiesService.reloadCompanies();
-    this.loading = false;
+
+    if (this.companies.length === 0) {
+      this.isLoading = this.companiesService.isLoading.getValue();
+      this.addSub(this.companiesService.isLoading.subscribe(l => this.isLoading = l));
+    }
 
     this.addSub(this.sub = this.companiesService.companies.subscribe(c => this.companies = c));
   }
