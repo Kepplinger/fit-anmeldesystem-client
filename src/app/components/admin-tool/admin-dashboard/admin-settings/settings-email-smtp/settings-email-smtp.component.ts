@@ -16,8 +16,9 @@ import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal
 export class SettingsEmailSmtpComponent extends BaseSettingsChangesComponent implements OnInit {
 
   public smtpConfig: SmtpConfig;
-
   public smtpConfigFormGroup: FormGroup;
+
+  public isLoading: boolean = false;
 
   public constructor(private smtpConfigDAO: SmtpConfigDAO,
                      private emailDAO: EmailDAO,
@@ -34,7 +35,9 @@ export class SettingsEmailSmtpComponent extends BaseSettingsChangesComponent imp
   }
 
   public async ngOnInit(): Promise<void> {
+    this.isLoading = true;
     this.smtpConfig = await this.smtpConfigDAO.fetchSmtpConfig();
+    this.isLoading = false;
 
     if (this.smtpConfig != null) {
       this.smtpConfigFormGroup.patchValue({
