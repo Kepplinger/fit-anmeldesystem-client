@@ -43,7 +43,7 @@
         </form>
 
         <div class="scrollable h-100 border-top">
-          <div [ngSwitch]="memberStati.length == 0" class="mt-2">
+          <div [ngSwitch]="!isLoading && memberStati.length == 0" class="mt-2">
             <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
               ... es wurden keine Member-Stati gefunden
             </div>
@@ -64,6 +64,12 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="isLoading"
+               class="text-very-small mt-5">
+            <fit-loading-spinner [message]="'Member Stati werden geladen ...'"></fit-loading-spinner>
+          </div>
+
         </div>
       </div>
     </div>
@@ -72,7 +78,7 @@
     <div class="col-md-6">
       <h3>Archivierte Member Stati</h3>
       <div class="fit-border member-status-container scrollable">
-        <div [ngSwitch]="archivedMemberStati.length == 0" class="mt-2">
+        <div [ngSwitch]="!isArchivedLoading && archivedMemberStati.length == 0" class="mt-2">
           <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
             ... es wurden keine archivierten Resourcen gefunden
           </div>
@@ -93,6 +99,12 @@
             </div>
           </div>
         </div>
+
+        <div *ngIf="isArchivedLoading"
+             class="text-very-small mt-5">
+          <fit-loading-spinner [message]="'Archivierte Member Stati werden geladen ...'"></fit-loading-spinner>
+        </div>
+
       </div>
     </div>
   </div>

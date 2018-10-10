@@ -1,11 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { Tag } from '../../../../../core/model/tag';
 import { TagDAO } from '../../../../../core/dao/tag.dao';
 import { CompanyTagService } from '../../../services/company-tag.service';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
-import { BaseOnDeactivateAlertComponent } from '../../../../../core/base-components/base-on-deactivate-alert.component';
 import { BaseSettingsChangesComponent } from '../../../../../core/base-components/base-settings-changes.component';
 
 @Component({
@@ -19,6 +18,8 @@ export class SettingsTagsComponent extends BaseSettingsChangesComponent implemen
   public archivedTags: Tag[] = [];
   public tagInput: string = '';
 
+  public isLoading: boolean = false;
+
   public constructor(private tagDAO: TagDAO,
                      private toastr: ToastrService,
                      private tagService: CompanyTagService) {
@@ -28,6 +29,9 @@ export class SettingsTagsComponent extends BaseSettingsChangesComponent implemen
   public ngOnInit(): void {
     this.tags = this.tagService.tags.getValue();
     this.archivedTags = this.tagService.archivedTags.getValue();
+
+    this.isLoading = this.tagService.isLoading.getValue();
+    this.addSub(this.tagService.isLoading.subscribe(l => this.isLoading = l));
 
     this.addSub(this.tagService.tags.subscribe(t => this.tags = t));
     this.addSub(this.tagService.archivedTags.subscribe(t => this.archivedTags = t));
