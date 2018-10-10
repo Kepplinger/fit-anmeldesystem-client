@@ -56,6 +56,7 @@ import { QuillModule } from 'ngx-quill';
 import { AdminHtmlEditorComponent } from './admin-html-editor/admin-html-editor.component';
 import { SendCustomMailModalComponent } from './admin-dashboard/send-mails/send-custom-mail-modal/send-custom-mail-modal.component';
 import { PresentationsService } from './services/presentations.service';
+import { EmailsService } from './services/emails.service';
 
 @NgModule({
   imports: [
@@ -119,6 +120,7 @@ import { PresentationsService } from './services/presentations.service';
     CompaniesService,
     GraduatesService,
     PresentationsService,
+    EmailsService,
     BookingsService
   ]
 })

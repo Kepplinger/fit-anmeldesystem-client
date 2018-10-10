@@ -24,7 +24,7 @@
           </div>
 
           <div class="d-flex">
-            <fit-admin-html-editor [(quillEditor)]="quillEditor"
+            <fit-admin-html-editor (quillEditorChange)="quillEditor = $event"
                                    [(currentIndex)]="currentIndex"
                                    [(value)]="customMail.template"
                                    [placeholder]="'E-Mail verfassen ...'"

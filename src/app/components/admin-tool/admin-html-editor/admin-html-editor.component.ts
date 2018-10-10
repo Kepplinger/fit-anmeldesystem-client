@@ -15,9 +15,6 @@ export class AdminHtmlEditorComponent {
   public currentIndex: number;
 
   @Input()
-  public quillEditor: any;
-
-  @Input()
   public style: any = {};
 
   @Input()
@@ -37,6 +34,8 @@ export class AdminHtmlEditorComponent {
 
   @Output()
   public selectionChanged: EventEmitter<any> = new EventEmitter();
+
+  public quillEditor: any;
 
   // public customOptions: any;
   // public quillModules: any;
@@ -80,11 +79,13 @@ export class AdminHtmlEditorComponent {
   }
 
   public updateCurrentIndex(): void {
-    let selection: any = this.quillEditor.getSelection();
+    if (this.quillEditor != null) {
+      let selection: any = this.quillEditor.getSelection();
 
-    if (selection != null) {
-      this.currentIndex = selection.index;
-      this.currentIndexChange.emit(this.currentIndex);
+      if (selection != null) {
+        this.currentIndex = selection.index;
+        this.currentIndexChange.emit(this.currentIndex);
+      }
     }
   }
 }

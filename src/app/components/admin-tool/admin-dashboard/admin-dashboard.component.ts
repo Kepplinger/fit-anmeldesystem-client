@@ -1,10 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';
-import { Subscription } from 'rxjs';
-import { GraduatesService } from '../services/graduates.service';
-import { CompaniesService } from '../services/companies.service';
-import { BookingsService } from '../services/bookings.service';
 import { BaseAdminRoleGuardComponent } from '../../../core/base-components/base-admin-role-guard.component';
 import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
 

@@ -4,12 +4,12 @@
   <h1 class="my-5 text-center">Dynamische Mailvorlagen</h1>
 
   <!--isLoading animation-->
-  <div *ngIf="emails.length == 0"
-       class="text-center">
-    <i class="fa fa-spin fa-circle-o-notch fa-3x"></i>
+  <div *ngIf="isLoading"
+       class="mt-7">
+    <fit-loading-spinner [message]="'E-Mails werden geladen ...'"></fit-loading-spinner>
   </div>
 
-  <div *ngIf="emails.length > 0">
+  <div *ngIf="!isLoading && selectedEmail != null">
 
     <!--mail dropdown-->
     <div class="d-flex justify-content-center align-items-center mt-3">
@@ -72,7 +72,7 @@
           </div>
 
           <fit-admin-html-editor (valueChange)="emailChanged()"
-                                 [(quillEditor)]="quillEditor"
+                                 (quillEditorChange)="quillEditor = $event"
                                  [(currentIndex)]="currentIndex"
                                  [(value)]="editableEmail.template"
                                  [style]="{height: '400px'}">

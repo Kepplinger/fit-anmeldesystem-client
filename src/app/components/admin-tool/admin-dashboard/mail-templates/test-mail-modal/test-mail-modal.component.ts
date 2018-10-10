@@ -21,8 +21,8 @@ export class TestMailModalComponent extends BaseSubscriptionComponent implements
 
   public entityType: string;
   public selectedId: number;
-  public companies: Company[];
-  public bookings: Booking[];
+  public companies: Company[] = [];
+  public bookings: Booking[] = [];
 
   public emailFormGroup: FormGroup;
   public isLoading: boolean = false;

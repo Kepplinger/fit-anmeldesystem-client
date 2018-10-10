@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SendMailFilter } from '../../../../core/app-helper/helper-model/send-mail-filter';
-import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { Company } from '../../../../core/model/company';
 import { BookingDAO } from '../../../../core/dao/booking.dao';
-import { EventService } from '../../../../core/app-services/event.service';
 import { CompaniesService } from '../../services/companies.service';
 import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 import { BookingsService } from '../../services/bookings.service';
@@ -20,6 +18,7 @@ export class SendMailsComponent extends BaseSubscriptionComponent implements OnI
   public mailTargetCompanies: Company[] = [];
 
   public isMailSelectionOpen: boolean = false;
+  public isLoading: boolean = false;
 
   public constructor(private companiesService: CompaniesService,
                      private bookingDAO: BookingDAO,
@@ -32,6 +31,20 @@ export class SendMailsComponent extends BaseSubscriptionComponent implements OnI
     this.filteredCompanies = this.companiesService.companies.getValue();
     this.addSub(this.companiesService.companies.subscribe(() => this.filterCompanies()));
     this.mailTargetCompanies = this.filteredCompanies;
+
+    this.isLoading = this.companiesService.isLoading.getValue();
+
+    this.addSub(this.companiesService.isLoading.subscribe(l => {
+      if (!this.filter.useCurrentFitOnly) {
+        this.isLoading = l;
+      }
+    }));
+
+    this.addSub(this.bookingsService.isLoading.subscribe(l => {
+      if (this.filter.useCurrentFitOnly) {
+        this.isLoading = l;
+      }
+    }));
   }
 
   public async filterCompanies(): Promise<void> {

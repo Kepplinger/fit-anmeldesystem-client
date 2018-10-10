@@ -27,3 +27,10 @@
                             [companiesHaveBooking]="filter.useCurrentFitOnly"
                             [ngClass]="{'show': isMailSelectionOpen}">
 </fit-send-mails-select-mail>
+
+<div *ngIf="isLoading"
+     class="loading-container">
+  <div class="centered-element">
+    <fit-loading-spinner [message]="'Firmen werden geladen ...'"></fit-loading-spinner>
+  </div>
+</div>
