@@ -52,8 +52,9 @@
     </tbody>
   </table>
 
-  <fit-loading-spinner *ngIf="isLoading" class="mt-7"
-                       [message]="'Firmen werden geladen ...'">
-  </fit-loading-spinner>
+  <div class="mt-5"
+       *ngIf="isLoading">
+    <fit-loading-spinner [message]="'Firmen werden geladen ...'"></fit-loading-spinner>
+  </div>
 
 </div>

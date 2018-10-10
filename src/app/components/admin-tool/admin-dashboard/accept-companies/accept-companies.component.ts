@@ -36,10 +36,8 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
     this.pendingCompanies = this.companiesService.pendingCompanies.getValue();
     this.companies = this.companiesService.companies.getValue();
 
-    if (this.companies.length === 0) {
-      this.isLoading = this.companiesService.isLoading.getValue();
-      this.addSub(this.companiesService.isLoading.subscribe(l => this.isLoading = l));
-    }
+    this.isLoading = this.companiesService.isLoading.getValue();
+    this.addSub(this.companiesService.isLoading.subscribe(l => this.isLoading = l));
 
     this.addSub(this.companiesService.pendingCompanies.subscribe(c => this.pendingCompanies = c));
     this.addSub(this.companiesService.companies.subscribe(c => this.companies = c));

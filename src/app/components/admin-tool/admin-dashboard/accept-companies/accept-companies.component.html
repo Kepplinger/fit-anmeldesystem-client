@@ -7,9 +7,10 @@
     </a>
   </div>
 
-  <fit-loading-spinner *ngIf="isLoading" class="mt-7"
-                       [message]="'Anträge werden geladen ...'">
-  </fit-loading-spinner>
+  <div *ngIf="isLoading"
+       class="mt-7">
+    <fit-loading-spinner [message]="'Anträge werden geladen ...'"></fit-loading-spinner>
+  </div>
 
   <div *ngIf="pendingCompanies.length == 0 && !isLoading"
        class="text-center mt-7">

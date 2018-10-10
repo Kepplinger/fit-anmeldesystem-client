@@ -11,6 +11,7 @@ import { DataUpdateNotifier } from '../../../core/app-services/data-update-notif
 export class BookingsService {
 
   public bookings: BehaviorSubject<Booking[]> = new BehaviorSubject([]);
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public event: Event;
 
   public constructor(private bookingDAO: BookingDAO,
@@ -27,7 +28,11 @@ export class BookingsService {
   }
 
   public async reloadBookings(): Promise<void> {
+    if (this.bookings.getValue().length == 0) {
+      this.isLoading.next(true);
+    }
     this.bookings.next(await this.bookingDAO.fetchBookingsForEvent(this.event));
+    this.isLoading.next(false);
   }
 
   public updateBooking(booking: Booking): void {

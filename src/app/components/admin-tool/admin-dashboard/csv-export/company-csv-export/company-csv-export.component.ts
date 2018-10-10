@@ -21,6 +21,7 @@ export class CompanyCsvExportComponent extends BaseSubscriptionComponent impleme
   public memberStati: any[] = [];
 
   public useAndCondition: boolean = false;
+  public isLoading: boolean = false;
 
   public csv: any = {
     isCompanyEnabled: true,
@@ -52,6 +53,9 @@ export class CompanyCsvExportComponent extends BaseSubscriptionComponent impleme
   }
 
   public async ngOnInit(): Promise<void> {
+
+    this.isLoading = this.csvCreatorService.areCompaniesLoading.getValue();
+    this.addSub(this.csvCreatorService.areCompaniesLoading.subscribe(l => this.isLoading = l));
 
     this.updateCompanies();
 

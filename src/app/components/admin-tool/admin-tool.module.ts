@@ -48,10 +48,6 @@ import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/set
 import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
 import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
 import { SettingsPackagesComponent } from './admin-dashboard/admin-settings/settings-packages/settings-packages.component';
-import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
-import { JwtModule } from '@auth0/angular-jwt';
-import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
-import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
 import { SettingsMemberStatusComponent } from './admin-dashboard/admin-settings/settings-member-status/settings-member-status.component';
 import { SendMailsFilterComponent } from './admin-dashboard/send-mails/send-mails-filter.component/send-mails-filter.component';
 import { SendMailsListComponent } from './admin-dashboard/send-mails/send-mails-list.component/send-mails-list.component';
@@ -59,6 +55,7 @@ import { SendMailsSelectMailComponent } from './admin-dashboard/send-mails/send-
 import { QuillModule } from 'ngx-quill';
 import { AdminHtmlEditorComponent } from './admin-html-editor/admin-html-editor.component';
 import { SendCustomMailModalComponent } from './admin-dashboard/send-mails/send-custom-mail-modal/send-custom-mail-modal.component';
+import { PresentationsService } from './services/presentations.service';
 
 @NgModule({
   imports: [
@@ -121,6 +118,7 @@ import { SendCustomMailModalComponent } from './admin-dashboard/send-mails/send-
     CompanyTagService,
     CompaniesService,
     GraduatesService,
+    PresentationsService,
     BookingsService
   ]
 })

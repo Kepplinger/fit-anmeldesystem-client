@@ -12,11 +12,13 @@ import { IsAccepted } from '../model/enums/is-accepted';
 @Injectable()
 export class PresentationDAO {
 
+
+
   public constructor(private appConfig: AppConfig,
                      private http: HttpClient) {
   }
 
-  public async fetchPresentations(id: number): Promise<any[]> {
+  public async fetchPresentations(id: number): Promise<CompanyPresentation[]> {
     return this.http.get<any[]>(this.appConfig.serverURL + '/presentation/' + id)
       .pipe(
         map((data: CompanyPresentation[]) => data.map(d => {

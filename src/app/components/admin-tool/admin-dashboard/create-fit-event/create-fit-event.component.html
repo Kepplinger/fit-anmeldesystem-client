@@ -3,7 +3,7 @@
 
   <div class="d-flex my-3">
     <button class="btn big-rounded-button btn-success text-bold mx-auto"
-         (click)="createNewFitEvent()">
+            (click)="createNewFitEvent()">
       <i class="fa fa-plus mr-2"></i>
       <span>Neuen FIT erstellen</span>
     </button>
@@ -34,4 +34,9 @@
       </td>
     </tr>
   </table>
+
+  <div class="mt-4"
+       *ngIf="isLoading">
+    <fit-loading-spinner [message]="'FITs werden geladen ...'"></fit-loading-spinner>
+  </div>
 </div>

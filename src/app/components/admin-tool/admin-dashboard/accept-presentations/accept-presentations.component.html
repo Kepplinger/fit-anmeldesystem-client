@@ -132,5 +132,20 @@
       </tr>
     </table>
 
+    <div *ngIf="isLoading"
+         class="mt-5">
+      <fit-loading-spinner [message]="'Vorträge werden geladen ...'"></fit-loading-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && getPresentations().length == 0"
+         class="mt-7">
+      <div [ngSwitch]="displayedList"
+           class="text-large text-muted text-center">
+        <div *ngSwitchCase="IsAccepted.Accepted">Es wurden noch keine Vorträge bestätigt</div>
+        <div *ngSwitchCase="IsAccepted.Pending">Es sind keine offenen Vorträge vorhanden</div>
+        <div *ngSwitchCase="IsAccepted.Rejected">Es wurden noch keine Vorträge abgelehnt</div>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -118,7 +118,14 @@
     </tbody>
   </table>
 
-  <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-3x fa-spin fa-circle-o-notch"></i>
+  <div *ngIf="isLoading"
+       class="mt-5">
+    <fit-loading-spinner [message]="'Anmeldungen werden geladen ...'"></fit-loading-spinner>
   </div>
+
+  <div *ngIf="!isLoading && bookings.length == 0"
+       class="text-large text-muted text-center mt-5">
+    Für diesen FIT gibt es keine Anmeldungen
+  </div>
+
 </div>

@@ -131,7 +131,7 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
 
           this.eventService.selectedEvent.next(EventHelper.clone(this.event));
           this.eventService.events.next(response.events);
-          this.eventService.updateEvents();
+          this.eventService.reloadEvents();
         }
       }
     } else {

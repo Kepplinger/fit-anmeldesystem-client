@@ -38,7 +38,7 @@
       <td>{{graduate?.email}}</td>
       <td>{{graduate?.address?.zipCode}} {{graduate?.address?.city}}</td>
       <td>{{graduate?.graduationYear}}</td>
-      <td  *ngIf="isWritableAdmin()">
+      <td *ngIf="isWritableAdmin()">
         <div class="icon-button"
              (click)="routeToGraduateDetails(graduate)">
           <i class="fa fa-pencil fa-1-5x"></i>
@@ -48,7 +48,8 @@
     </tbody>
   </table>
 
-  <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-3x fa-spin fa-circle-o-notch"></i>
+  <div *ngIf="isLoading"
+       class="mt-5">
+    <fit-loading-spinner [message]="'Absolventen werden geladen ...'"></fit-loading-spinner>
   </div>
 </div>

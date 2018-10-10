@@ -13,6 +13,7 @@ export class EventService {
   public currentEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
   public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
   public events: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   public eventToEdit: Event = null;
 
@@ -30,8 +31,12 @@ export class EventService {
     );
   }
 
-  public async updateEvents(): Promise<void> {
+  public async reloadEvents(): Promise<void> {
+    if (this.events.getValue().length === 0) {
+      this.isLoading.next(true);
+    }
     this.events.next(await this.eventDAO.fetchEvents());
+    this.isLoading.next(false);
   }
 
   private async fetchEvents(): Promise<void> {
@@ -56,7 +61,8 @@ export class EventService {
     }
 
     this.appLoadingService.endLoading();
-    this.events.next(await this.eventDAO.fetchEvents());
+
+    this.reloadEvents();
   }
 
   private fetchSelectedEventFromSessionStorage(): boolean {

@@ -186,7 +186,7 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-around mt-3">
+      <div class="d-flex justify-content-around mt-2">
         <button class="btn btn-primary" (click)="checkAllTags()">
           <i class="fa fa-check-square-o"></i> Alle auswählen
         </button>
@@ -207,5 +207,12 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading"
+     class="loading-container">
+  <div class="centered-element">
+    <fit-loading-spinner [message]="'Firmen werden geladen ...'"></fit-loading-spinner>
   </div>
 </div>

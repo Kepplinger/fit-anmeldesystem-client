@@ -14,6 +14,7 @@ import { BaseSubscriptionComponent } from '../../../../core/base-components/base
 export class CreateFitEventComponent extends BaseSubscriptionComponent implements OnInit, OnDestroy {
 
   public events: Event[];
+  public isLoading: boolean = false;
 
   public constructor(private eventService: EventService,
                      private router: Router) {
@@ -22,6 +23,9 @@ export class CreateFitEventComponent extends BaseSubscriptionComponent implement
 
   public ngOnInit(): void {
     this.events = this.eventService.events.getValue().sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
+
+    this.isLoading = this.eventService.isLoading.getValue();
+    this.addSub(this.eventService.isLoading.subscribe(l => this.isLoading = l));
 
     this.addSub(this.eventService.events.subscribe(
       (events: Event[]) => {

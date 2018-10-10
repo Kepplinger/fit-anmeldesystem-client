@@ -20,9 +20,14 @@ import { CompaniesService } from './companies.service';
 import { GraduatesService } from './graduates.service';
 import { BookingsService } from './bookings.service';
 import { MemberStatus } from '../../../core/model/member-status';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class CsvCreatorService {
+
+  public areBookingsLoading: BehaviorSubject<boolean>;
+  public areCompaniesLoading: BehaviorSubject<boolean>;
+  public areGraduatesLoading: BehaviorSubject<boolean>;
 
   private bookings: Booking[] = [];
   private companies: Company[] = [];
@@ -40,6 +45,10 @@ export class CsvCreatorService {
     this.bookings = this.bookingsService.bookings.getValue();
     this.graduates = this.graduatesService.graduates.getValue();
     this.companies = this.companiesService.companies.getValue();
+
+    this.areBookingsLoading = this.bookingsService.isLoading;
+    this.areCompaniesLoading = this.companiesService.isLoading;
+    this.areGraduatesLoading = this.graduatesService.isLoading;
 
     this.bookingsService.bookings.subscribe(b => this.bookings = b);
     this.graduatesService.graduates.subscribe(g => this.graduates = g);
