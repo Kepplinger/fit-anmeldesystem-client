@@ -16,6 +16,7 @@ import { AdminHeaderComponent } from './components/shared-elements/components/ad
 import { FitHeaderComponent } from './components/shared-elements/components/fit-header/header.component';
 import { FitFooterComponent } from './components/shared-elements/components/fit-footer/footer.component';
 import { RegistrationLockedComponent } from './components/main/registration-locked/registration-locked.component';
+import { RegistrationLockedResolver } from './core/resolver/registration-locked.resolver';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -37,7 +38,10 @@ registerLocaleData(localeDe, 'de-AT');
     FitHeaderComponent,
     FitFooterComponent
   ],
-  providers: [{provide: LOCALE_ID, useValue: 'de-AT'}],
+  providers: [
+    RegistrationLockedResolver,
+    {provide: LOCALE_ID, useValue: 'de-AT'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../../core/app-services/event.service';
 import { BaseSubscriptionComponent } from '../../../core/base-components/base-subscription.component';
 import { LockPage } from '../../../core/model/lock-page';
-import { LockPageDAO } from '../../../core/dao/lock-page.dao';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'fit-registration-locked',
@@ -15,14 +15,13 @@ export class RegistrationLockedComponent extends BaseSubscriptionComponent imple
   public isExpiredLockMode: boolean = false;
 
   public constructor(private eventService: EventService,
-                     private lockPageDAO: LockPageDAO) {
+                     private route: ActivatedRoute) {
     super();
+    this.lockPage = this.route.snapshot.data.lockPage;
   }
 
   public async ngOnInit(): Promise<void> {
     this.isExpiredLockMode = this.eventService.currentEvent.getValue().isExpiredLockMode;
     this.addSub(this.eventService.currentEvent.subscribe(e => this.isExpiredLockMode = e.isExpiredLockMode));
-
-    this.lockPage = await this.lockPageDAO.getLockPage();
   }
 }
