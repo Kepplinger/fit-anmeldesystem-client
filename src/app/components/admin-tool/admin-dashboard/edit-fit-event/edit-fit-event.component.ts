@@ -56,6 +56,10 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
     }
   }
 
+  public setExpiredLockMode(value: boolean): void {
+this.event.isExpiredLockMode = value;
+  }
+
   public selectArea(area: Area): void {
     this.isModalShown = true;
     setTimeout(() => {

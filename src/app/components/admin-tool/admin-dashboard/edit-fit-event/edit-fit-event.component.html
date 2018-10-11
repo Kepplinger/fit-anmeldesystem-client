@@ -4,7 +4,7 @@
                      *ngIf="isModalShown">
 </fit-edit-area-modal>
 
-<div class="small-container mt-8">
+<div class="container mt-8">
   <div class="card border-rounded" [ngClass]="{'disabled-element': isLoading}">
 
     <div class="card-header p-0">
@@ -13,7 +13,6 @@
       </div>
 
       <div class="card-body d-flex">
-
         <div class="mr-4">
           <span class="input-header">Der FIT findet statt am: </span>
           <fit-date-time-picker [placeholder]="'Datum des FIT'"
@@ -38,6 +37,24 @@
                                   [(date)]="event.registrationEnd"
                                   (dateChange)="onDateChange()">
             </fit-date-time-picker>
+          </div>
+        </div>
+
+        <div class="ml-4">
+          <div class="input-header">Gesperrt-Seite:</div>
+          <div class="d-flex">
+            <div class="btn-group">
+              <button class="btn btn-primary text-bold"
+                      [ngClass]="{'active': !event.isExpiredLockMode}"
+                      (click)="setExpiredLockMode(false)">
+                <i class="fa fa-step-forward mr-2"></i> Bevorstehend
+              </button>
+              <button class="btn btn-primary text-bold"
+                      [ngClass]="{'active': event.isExpiredLockMode}"
+                      (click)="setExpiredLockMode(true)">
+                Abgelaufen <i class="fa fa-step-backward ml-2"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>

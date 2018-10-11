@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../app-config/app-config.service';
 import { HttpClient } from '@angular/common/http';
 import { LockPage } from '../model/lock-page';
+import { publishLast, refCount } from 'rxjs/operators';
 
 @Injectable()
 export class LockPageDAO {
@@ -15,6 +16,7 @@ export class LockPageDAO {
   public async getLockPage(): Promise<LockPage> {
     if (this.lockPageCache == null) {
       this.lockPageCache = this.http.get<LockPage>(this.appConfig.serverURL + '/lockPage')
+        .pipe(publishLast(), refCount())
         .toPromise();
     }
 
