@@ -26,6 +26,7 @@ import { SendMailsComponent } from './admin-dashboard/send-mails/send-mails.comp
 import { IsAuthenticatedGuard } from '../../core/guards/is-authenticated.guard';
 import { IsRoleGrantedGuard } from '../../core/guards/is-role-granted.guard';
 import { FitUserRole } from '../../core/model/enums/fit-user-role';
+import { EditFitLockedPageComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/edit-fit-locked-page.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,13 @@ export const routes: Routes = [
   {
     path: 'einstellungen',
     component: AdminSettingsComponent,
+    canDeactivate: [CanDeactivateGuard],
+    canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
+    data: {roles: [FitUserRole.FitAdmin]}
+  },
+  {
+    path: 'einstellungen/gesperrt-seite/:type',
+    component: EditFitLockedPageComponent,
     canDeactivate: [CanDeactivateGuard],
     canActivate: [IsAuthenticatedGuard, IsRoleGrantedGuard],
     data: {roles: [FitUserRole.FitAdmin]}

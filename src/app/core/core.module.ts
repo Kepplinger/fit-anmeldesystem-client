@@ -31,6 +31,7 @@ import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
 import { IsRoleGrantedGuard } from './guards/is-role-granted.guard';
 import { MemberStatusDAO } from './dao/member-status.dao';
 import { EmailVariableDAO } from './dao/email-variable.dao';
+import { LockPageDAO } from './dao/lock-page.dao';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { EmailVariableDAO } from './dao/email-variable.dao';
     GraduateDAO,
     SmtpConfigDAO,
     MemberStatusDAO,
+    LockPageDAO,
     AppConfig,
     ApplicationStateService,
     AccountManagementService,

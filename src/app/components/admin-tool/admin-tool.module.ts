@@ -57,6 +57,10 @@ import { AdminHtmlEditorComponent } from './admin-html-editor/admin-html-editor.
 import { SendCustomMailModalComponent } from './admin-dashboard/send-mails/send-custom-mail-modal/send-custom-mail-modal.component';
 import { PresentationsService } from './services/presentations.service';
 import { EmailsService } from './services/emails.service';
+import { SettingsFitLockedPageComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/settings-fit-locked-page.component';
+import { EditFitLockedPageComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/edit-fit-locked-page.component';
+import { PageHtmlEditorComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/page-html-editor/page-html-editor.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 @NgModule({
   imports: [
@@ -69,7 +73,8 @@ import { EmailsService } from './services/emails.service';
     QuillModule,
     PapaParseModule,
     SharedModule,
-    FitRegistrationModule
+    FitRegistrationModule,
+    MonacoEditorModule.forRoot()
   ],
   declarations: [
     AdminLoginComponent,
@@ -109,7 +114,10 @@ import { EmailsService } from './services/emails.service';
     SettingsBranchesComponent,
     SettingsResourcesComponent,
     SettingsPackagesComponent,
-    SettingsMemberStatusComponent
+    SettingsMemberStatusComponent,
+    SettingsFitLockedPageComponent,
+    EditFitLockedPageComponent,
+    PageHtmlEditorComponent
   ],
   providers: [
     CsvCreatorService,

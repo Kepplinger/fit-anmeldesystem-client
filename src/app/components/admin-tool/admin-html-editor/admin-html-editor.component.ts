@@ -56,6 +56,7 @@ export class AdminHtmlEditorComponent {
   //       [{ 'align': [] }],
   //       [{'indent': '-1'}, {'indent': '+1'}],
   //       [{'list': 'ordered'}, {'list': 'bullet'}],
+  //       ['showHtml']
   //     ]
   //   };
   // }

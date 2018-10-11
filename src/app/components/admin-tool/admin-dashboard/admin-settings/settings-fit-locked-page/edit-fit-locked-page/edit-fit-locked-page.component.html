@@ -1,0 +1,21 @@
+<div>
+  <div class="p-3">
+    <a [routerLink]="['/admin-tool/einstellungen']">
+      <i class="fa fa-arrow-left mr-1"></i>Zurück
+    </a>
+  </div>
+
+  <div class="mx-3 mb-5 mt-2">
+
+    <div [ngSwitch]="isExpiredLockMode">
+      <div *ngSwitchCase="true">
+        <h3>FIT Gesperrt-Seite bearbeiten: "Abgelaufen"</h3>
+      </div>
+      <div *ngSwitchDefault>
+        <h3>FIT Gesperrt-Seite bearbeiten: "Bevorstehend"</h3>
+      </div>
+    </div>
+
+    <fit-page-html-editor></fit-page-html-editor>
+  </div>
+</div>
