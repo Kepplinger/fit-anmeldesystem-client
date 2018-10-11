@@ -11,10 +11,10 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app.routing.module';
 import { MainComponent } from './components/main/main.component';
-import { SharedModule } from './components/shared-components/shared.module';
-import { AdminHeaderComponent } from './components/shared-components/admin-header/admin-header.component';
-import { FitHeaderComponent } from './components/shared-components/fit-header/header.component';
-import { FitFooterComponent } from './components/shared-components/fit-footer/footer.component';
+import { SharedModule } from './components/shared-elements/shared.module';
+import { AdminHeaderComponent } from './components/shared-elements/components/admin-header/admin-header.component';
+import { FitHeaderComponent } from './components/shared-elements/components/fit-header/header.component';
+import { FitFooterComponent } from './components/shared-elements/components/fit-footer/footer.component';
 import { RegistrationLockedComponent } from './components/main/registration-locked/registration-locked.component';
 
 registerLocaleData(localeDe, 'de-AT');

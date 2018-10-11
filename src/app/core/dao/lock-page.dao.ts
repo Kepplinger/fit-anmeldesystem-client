@@ -13,7 +13,7 @@ export class LockPageDAO {
   }
 
   public async getLockPage(): Promise<LockPage> {
-    if (this.lockPageCache) {
+    if (this.lockPageCache == null) {
       this.lockPageCache = this.http.get<LockPage>(this.appConfig.serverURL + '/lockPage')
         .toPromise();
     }

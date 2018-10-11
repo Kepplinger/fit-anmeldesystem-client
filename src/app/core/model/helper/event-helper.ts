@@ -15,6 +15,7 @@ export class EventHelper {
       clone.registrationEnd = moment(event.registrationEnd);
       clone.eventDate = moment(event.eventDate);
       clone.registrationState = event.registrationState;
+      clone.isExpiredLockMode = event.isExpiredLockMode;
 
       clone.areas = [];
       event.areas.forEach(a => clone.areas.push(AreaHelper.clone(a)));
@@ -63,6 +64,7 @@ export class EventHelper {
       first.registrationState === second.registrationState &&
       first.registrationEnd.isSame(second.registrationEnd) &&
       first.registrationStart.isSame(second.registrationStart) &&
+      first.isExpiredLockMode === second.isExpiredLockMode &&
       first.eventDate.isSame(second.eventDate);
   }
 }

@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TagInputModule } from 'ngx-chips';
 
-import { HintIconComponent } from './hint-icon/hint-icon/hint-icon.component';
-import { TagInputComponent } from './tag-input/tag-input.component';
+import { HintIconComponent } from './components/hint-icon/hint-icon/hint-icon.component';
+import { TagInputComponent } from './components/tag-input/tag-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.component';
+import { CustomCheckboxComponent } from './components/custom-checkbox/custom-checkbox.component';
 import { CompanyOverviewComponent } from '../account-management/account-overview/company-overview/company-overview.component';
 import { GraduateOverviewComponent } from '../account-management/account-overview/graduate-overview/graduate-overview.component';
-import { CodeLostComponent } from './code-lost/code-lost.component';
-import { TruncatePipe } from './truncate-pipe/truncate.pipe';
-import { MemberCodeInputComponent } from './member-code-input/member-code-input.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { CodeLostComponent } from './components/code-lost/code-lost.component';
+import { TruncatePipe } from './pipes/truncate-pipe/truncate.pipe';
+import { MemberCodeInputComponent } from './components/member-code-input/member-code-input.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { HtmlSecurityBypassPipe } from './pipes/html-security-bypass-pipe/html-security-bypass.pipe';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     GraduateOverviewComponent,
     MemberCodeInputComponent,
     LoadingSpinnerComponent,
-    TruncatePipe
+    TruncatePipe,
+    HtmlSecurityBypassPipe
   ],
   exports: [
     HintIconComponent,
@@ -42,7 +44,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     GraduateOverviewComponent,
     MemberCodeInputComponent,
     LoadingSpinnerComponent,
-    TruncatePipe
+    TruncatePipe,
+    HtmlSecurityBypassPipe
   ]
 })
 export class SharedModule {

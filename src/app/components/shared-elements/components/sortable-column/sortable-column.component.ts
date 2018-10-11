@@ -1,8 +1,8 @@
 import { OnInit, Input, HostListener, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { SortService } from '../../../core/app-services/sort-service.service';
-import { BaseSubscriptionComponent } from '../../../core/base-components/base-subscription.component';
+import { SortService } from '../../../../core/app-services/sort-service.service';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-sortable-column',

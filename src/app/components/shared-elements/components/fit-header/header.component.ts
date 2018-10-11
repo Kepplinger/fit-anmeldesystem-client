@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../../core/app-services/event.service';
-import { Event } from '../../../core/model/event';
-import { BaseSubscriptionComponent } from '../../../core/base-components/base-subscription.component';
+import { EventService } from '../../../../core/app-services/event.service';
+import { Event } from '../../../../core/model/event';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-header',

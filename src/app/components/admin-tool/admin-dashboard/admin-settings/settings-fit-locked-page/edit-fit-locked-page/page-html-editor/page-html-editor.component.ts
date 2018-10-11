@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'fit-page-html-editor',
@@ -8,10 +8,10 @@ import { Component, Input } from '@angular/core';
 export class PageHtmlEditorComponent {
 
   @Input()
-  public html: string = `<input type="text"/>`;
+  public html: string;
 
-  @Input()
-  public htmlChange: string;
+  @Output()
+  public htmlChange: EventEmitter<string> = new EventEmitter();
 
   public editorOptions = {
     language: 'html',
@@ -19,4 +19,11 @@ export class PageHtmlEditorComponent {
       enabled: false
     }
   };
+
+  public constructor() {
+  }
+
+  public htmlChanged(): void {
+    this.htmlChange.emit(this.html);
+  }
 }

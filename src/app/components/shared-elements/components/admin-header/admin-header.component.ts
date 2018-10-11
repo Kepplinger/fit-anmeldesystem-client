@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
+import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
 import { Router } from '@angular/router';
-import { EventService } from '../../../core/app-services/event.service';
-import { Event } from '../../../core/model/event';
-import { BaseAdminRoleGuardComponent } from '../../../core/base-components/base-admin-role-guard.component';
+import { EventService } from '../../../../core/app-services/event.service';
+import { Event } from '../../../../core/model/event';
+import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
 
 @Component({
   selector: 'fit-admin-header',

@@ -2,15 +2,12 @@
   <div class="border flex-1 mr-2">
     <ngx-monaco-editor [options]="editorOptions"
                        [(ngModel)]="html"
-    class="h-100">
+                       (ngModelChange)="htmlChanged()"
+                       class="h-100">
     </ngx-monaco-editor>
   </div>
 
-  <div class="border flex-1">
-    <div [innerHtml]="html"></div>
+  <div class="output-container border flex-1">
+    <div [innerHtml]="html | fitHtmlSecurityBypass"></div>
   </div>
 </div>
-
-<pre>
-  {{html}}
-</pre>

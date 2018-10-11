@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { AuthenticationDAO } from '../../../core/dao/authentication.dao';
+import { AuthenticationDAO } from '../../../../core/dao/authentication.dao';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { BaseSubscriptionComponent } from '../../../core/base-components/base-subscription.component';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-code-lost',
