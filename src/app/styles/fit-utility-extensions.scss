@@ -128,6 +128,10 @@
   background-color: $main-background;
 }
 
+.bg-white {
+  background-color: white;
+}
+
 .bg-lighten-primary {
   background-color: lighten($primary, 20%);
 }

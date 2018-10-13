@@ -38,6 +38,6 @@ export class AdminDashboardComponent extends BaseAdminRoleGuardComponent impleme
 
   public selectEvent(event: Event): void {
     this.event = event;
-    this.eventService.selectedEvent.next(this.event);
+    this.eventService.selectEvent(this.event);
   }
 }

@@ -4,7 +4,7 @@
                      *ngIf="isModalShown">
 </fit-edit-area-modal>
 
-<div class="container mt-8">
+<div class="container mt-8 mb-7">
   <div class="card border-rounded" [ngClass]="{'disabled-element': isLoading}">
 
     <div class="card-header p-0">
@@ -68,11 +68,11 @@
         <button class="btn btn-primary text-bold mx-auto my-2"
                 (click)="addNewArea()">
           <i class="fa fa-plus"></i>
-          Neues Geschoss hinzufügen
+          Neues Geschoß hinzufügen
         </button>
       </div>
 
-      <div *ngFor="let area of event.areas" class="d-flex area-container border-top py-3 px-2">
+      <div *ngFor="let area of event.areas" class="d-flex area-container border-top py-3">
         <div class="my-auto">
           <div class="text-bold text-larger" title="area">{{area.designation}}</div>
           <div class="text-smaller">Plätze: {{area.locations?.length}}</div>
@@ -92,9 +92,9 @@
             <i class="fa fa-pencil centered-element"></i>
           </div>
         </div>
-        <div class="ml-2 mb-auto">
+        <div class="ml-2 mb-auto"
+             *ngIf="event.areas.length > 1">
           <i class="fa fa-1-3x fa-times text-danger icon-button"
-             *ngIf="event.areas.length > 1"
              (click)="removeArea(area)"></i>
         </div>
       </div>

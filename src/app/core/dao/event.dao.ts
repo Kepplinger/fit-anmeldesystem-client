@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppConfig } from '../app-config/app-config.service';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Event } from '../model/event';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { ErrorInterceptor } from './helper/error-interceptor';
@@ -55,6 +55,15 @@ export class EventDAO {
           catchError(() => {
             return null;
           })))
+      .toPromise();
+  }
+
+  public async getEvent(event: Event): Promise<Event> {
+    return this.http.get<Event>(this.appConfig.serverURL + '/event/' + event.id)
+      .pipe(
+        map((data: any) => {
+          return EventMapper.mapJsonToEvent(data);
+        }))
       .toPromise();
   }
 }

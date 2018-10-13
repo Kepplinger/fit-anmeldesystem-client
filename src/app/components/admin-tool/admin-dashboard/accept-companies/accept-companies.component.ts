@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
 
 import { Company } from '../../../../core/model/company';
 import { CompanyDAO } from '../../../../core/dao/company.dao';
-import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 import { CompaniesService } from '../../services/companies.service';
-import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
 import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
@@ -48,7 +45,7 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
     this.companyToAssign = company;
   }
 
-  public cancelAssiging(): void {
+  public cancelAssigning(): void {
     this.isAssigning = false;
     this.companyToAssign = null;
   }
@@ -74,8 +71,8 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
   }
 
   public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
-    await this.companyDAO.assignCompany(pendingCompany, existingCompany);
-    this.companiesService.deleteCompany(pendingCompany);
+    pendingCompany = await this.companyDAO.assignCompany(pendingCompany, existingCompany);
+    this.companiesService.updateCompany(pendingCompany);
     this.companyToAssign = null;
     this.isAssigning = false;
     this.toastr.success('Der Antrag wurde einer bestehenden Firma zugewiesen', 'Zuweisung erfolgreich!');

@@ -28,7 +28,7 @@ export class BookingsService {
   }
 
   public async reloadBookings(): Promise<void> {
-    if (this.bookings.getValue().length == 0) {
+    if (this.bookings.getValue().length === 0) {
       this.isLoading.next(true);
     }
     this.bookings.next(await this.bookingDAO.fetchBookingsForEvent(this.event));

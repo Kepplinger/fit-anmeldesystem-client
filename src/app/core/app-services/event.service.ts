@@ -4,8 +4,6 @@ import { Event } from '../model/event';
 import { BehaviorSubject } from 'rxjs';
 import { EventMapper } from '../model/mapper/event-mapper';
 import { AppLoadingService } from './app-loading.service';
-import { tick } from '@angular/core/testing';
-import { childOfKind } from 'tslint';
 
 @Injectable()
 export class EventService {
@@ -39,6 +37,18 @@ export class EventService {
     this.isLoading.next(false);
   }
 
+  public selectEvent(event: Event, reload: boolean = true): void {
+    this.selectedEvent.next(event);
+
+    if (reload) {
+      this.eventDAO.getEvent(event).then(
+        (e: Event) => {
+          this.selectedEvent.next(e);
+        }
+      );
+    }
+  }
+
   private async fetchEvents(): Promise<void> {
     this.appLoadingService.startLoading();
 
@@ -57,7 +67,7 @@ export class EventService {
     this.currentEvent.next(currentEvent);
 
     if (!this.fetchSelectedEventFromSessionStorage() || this.selectedEvent.getValue().id == null) {
-      this.selectedEvent.next(currentEvent);
+      this.selectEvent(currentEvent, false);
     }
 
     this.appLoadingService.endLoading();
@@ -68,7 +78,7 @@ export class EventService {
   private fetchSelectedEventFromSessionStorage(): boolean {
     let event = EventMapper.mapJsonToEvent(JSON.parse(sessionStorage.getItem('selectedEvent')));
     if (event != null) {
-      this.selectedEvent.next(event);
+      this.selectEvent(event);
       return true;
     } else {
       return false;

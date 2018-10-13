@@ -54,7 +54,7 @@ export class CompanyDAO {
       .toPromise();
   }
 
-  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
+  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<Company> {
 
     // Initialize Params Object
     let params = new HttpParams();
@@ -63,7 +63,7 @@ export class CompanyDAO {
     params = params.append('pendingCompanyId', String(pendingCompany.id));
     params = params.append('existingCompanyId', String(existingCompany.id));
 
-    this.http.delete<void>(this.appConfig.serverURL + '/company/assign', {params: params})
+    return this.http.delete<Company>(this.appConfig.serverURL + '/company/assign', {params: params})
       .toPromise();
   }
 }

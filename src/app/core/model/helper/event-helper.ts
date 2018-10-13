@@ -49,6 +49,7 @@ export class EventHelper {
               area.locations.forEach(l => {
                 delete l.id;
                 delete l.timestamp;
+                l.isOccupied = false;
               });
             }
           });
