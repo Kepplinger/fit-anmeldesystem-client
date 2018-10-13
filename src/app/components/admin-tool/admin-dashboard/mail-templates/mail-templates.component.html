@@ -1,7 +1,7 @@
 <fit-test-mail-modal [email]="selectedEmail"></fit-test-mail-modal>
 
 <div class="container mb-5">
-  <h1 class="my-5 text-center">Dynamische Mailvorlagen</h1>
+  <h1 class="mt-5 mb-3 text-center">Dynamische Mailvorlagen</h1>
 
   <!--isLoading animation-->
   <div *ngIf="isLoading"
@@ -75,7 +75,7 @@
                                  (quillEditorChange)="quillEditor = $event"
                                  [(currentIndex)]="currentIndex"
                                  [(value)]="editableEmail.template"
-                                 [style]="{height: '400px'}">
+                                 [style]="{height: '380px'}">
           </fit-admin-html-editor>
         </div>
 

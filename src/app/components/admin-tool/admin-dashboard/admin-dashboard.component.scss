@@ -18,3 +18,8 @@
 .dropdown-item:active > div{
   font-weight: bold;
 }
+
+.dropdown-menu {
+  max-height: 500px;
+  overflow: auto;
+}

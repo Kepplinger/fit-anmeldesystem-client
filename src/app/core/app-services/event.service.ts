@@ -43,7 +43,9 @@ export class EventService {
     if (reload) {
       this.eventDAO.getEvent(event).then(
         (e: Event) => {
-          this.selectedEvent.next(e);
+          if (e != null) {
+            this.selectedEvent.next(e);
+          }
         }
       );
     }

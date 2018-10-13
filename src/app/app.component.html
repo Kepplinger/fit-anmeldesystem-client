@@ -12,8 +12,7 @@
 
   <router-outlet></router-outlet>
 
-  <fit-footer *ngIf="showFitHeader()"
-              class="mt-auto">
+  <fit-footer *ngIf="showFitHeader()">
   </fit-footer>
 </div>
 
@@ -26,4 +25,3 @@
     <a [routerLink]="['/konto/login']">ACCOUNT</a> |
   </span>
 </div>
-

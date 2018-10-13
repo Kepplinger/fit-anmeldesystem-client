@@ -1,4 +1,4 @@
-<div class="m-5">
+<div class="m-5 d-flex flex-column">
 
   <div class="mb-2 pt-3 text-right">
     <a class="admin-tool-fancy-btn font-weight-normal"
@@ -18,106 +18,109 @@
     <h1 class="font-weight-light">Es sind keine Anträge mehr vorhanden</h1>
   </div>
 
-  <div class="row"
+  <div class="row flex-1"
        *ngIf="pendingCompanies.length > 0">
 
     <!--pending companies-->
-    <div class="col-md-6 p-3"
+    <div class="col-md-6 p-3 d-flex flex-column"
          [ngClass]="{'disabled-element': isAssigning}">
 
       <h2>Nicht bestätigte Firmen</h2>
 
-      <table class="table table-striped">
-        <tr>
-          <th></th>
-          <th>Firmenname</th>
-          <th>Adresse</th>
-          <th>Kontaktperson</th>
-          <th></th>
-        </tr>
+      <div class="overflow-y-auto">
+        <table class="table table-striped">
+          <tr>
+            <th></th>
+            <th>Firmenname</th>
+            <th>Adresse</th>
+            <th>Kontaktperson</th>
+            <th></th>
+          </tr>
 
-        <tr *ngFor="let company of pendingCompanies"
-            [ngClass]="{'selected-company': company == companyToAssign}">
-          <td class="align-middle d-flex flex-column">
-            <button class="btn btn-sm btn-success mb-0-5 py-0 px-1"
-                    (click)="acceptCompany(company)">
-              <i class="fa fa-fw fa-check"></i>
-            </button>
-            <button class="btn btn-sm btn-danger py-0 px-1"
-                    (click)="rejectCompany(company)">
-              <i class="fa fa-fw fa-times"></i>
-            </button>
-          </td>
-          <td class="text-bold align-middle">{{company.name}}</td>
-          <td>
-            <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
-            <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
-          </td>
-          <td>
-            <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
-            <span>{{company.contact.email}}</span>
-          </td>
-          <td class="align-middle">
-            <button class="btn btn-sm btn-primary my-auto ml-0-5"
-                    (click)="selectCompanyForAssigning(company)">
-              <i class="fa fa-fw fa-mail-forward"></i>
-            </button>
-          </td>
-        </tr>
-
-      </table>
+          <tr *ngFor="let company of pendingCompanies"
+              [ngClass]="{'selected-company': company == companyToAssign}">
+            <td class="align-middle d-flex flex-column">
+              <button class="btn btn-sm btn-success mb-0-5 py-0 px-1"
+                      (click)="acceptCompany(company)">
+                <i class="fa fa-fw fa-check"></i>
+              </button>
+              <button class="btn btn-sm btn-danger py-0 px-1"
+                      (click)="rejectCompany(company)">
+                <i class="fa fa-fw fa-times"></i>
+              </button>
+            </td>
+            <td class="text-bold align-middle">{{company.name}}</td>
+            <td>
+              <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
+              <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
+            </td>
+            <td>
+              <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
+              <span>{{company.contact.email}}</span>
+            </td>
+            <td class="align-middle">
+              <button class="btn btn-sm btn-primary my-auto ml-0-5"
+                      (click)="selectCompanyForAssigning(company)">
+                <i class="fa fa-fw fa-mail-forward"></i>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
 
     <!--companies in system-->
-    <div class="col-md-6 p-3"
+    <div class="col-md-6 p-3 d-flex flex-column"
          *ngIf="isAssigning"
          [ngClass]="{'disabled-element': !isAssigning}">
 
-      <div class="d-flex">
-        <h2>Firmenstamm</h2>
-        <div class="flex-2"></div>
-        <div class="flex-2 d-flex my-1">
-          <button class="btn btn-primary back-btn py-0 mr-2"
-                  (click)="cancelAssigning()">
-            <i class="fa fa-fw fa-mail-reply"></i>
-            Abbrechen
-          </button>
-          <input type="text"
-                 title="search"
-                 class="form-control search-bar py-0"
-                 [(ngModel)]="filterText"
-                 placeholder=" &#xf002; Suche">
+      <div>
+        <div class="d-flex">
+          <h2>Firmenstamm</h2>
+          <div class="flex-2"></div>
+          <div class="flex-2 d-flex my-1">
+            <button class="btn btn-primary back-btn py-0 mr-2"
+                    (click)="cancelAssigning()">
+              <i class="fa fa-fw fa-mail-reply"></i>
+              Abbrechen
+            </button>
+            <input type="text"
+                   title="search"
+                   class="form-control search-bar py-0"
+                   [(ngModel)]="filterText"
+                   placeholder=" &#xf002; Suche">
+          </div>
         </div>
       </div>
 
-      <table class="table table-striped">
+      <div class="overflow-y-auto">
+        <table class="table table-striped">
+          <tr>
+            <th></th>
+            <th>Firmenname</th>
+            <th>Adresse</th>
+            <th>Kontaktperson</th>
+          </tr>
 
-        <tr>
-          <th></th>
-          <th>Firmenname</th>
-          <th>Adresse</th>
-          <th>Kontaktperson</th>
-        </tr>
-
-        <tr *ngFor="let company of getFilteredCompanies()">
-          <td class="align-middle">
-            <button class="btn btn-sm btn-success"
-                    (click)="assignCompany(companyToAssign, company)">
-              <i class="fa fa-fw fa-download"></i>
-            </button>
-          </td>
-          <td class="text-bold align-middle">{{company.name}}</td>
-          <td>
-            <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
-            <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
-          </td>
-          <td>
-            <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
-            <span>{{company.contact.email}}</span>
-          </td>
-        </tr>
-
-      </table>
+          <tr *ngFor="let company of getFilteredCompanies()">
+            <td class="align-middle">
+              <button class="btn btn-sm btn-success"
+                      (click)="assignCompany(companyToAssign, company)">
+                <i class="fa fa-fw fa-download"></i>
+              </button>
+            </td>
+            <td class="text-bold align-middle">{{company.name}}</td>
+            <td>
+              <span>{{company.address.street + ' ' + company.address.streetNumber}}</span><br/>
+              <span>{{company.address.zipCode + ' ' + company.address.city}}</span>
+            </td>
+            <td>
+              <span class="text-bold">{{company.contact.firstName + ' ' + company.contact.lastName}}</span><br>
+              <span>{{company.contact.email}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
 
   </div>
