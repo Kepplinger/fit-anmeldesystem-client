@@ -53,6 +53,14 @@
   margin-top: 12rem;
 }
 
+.mh-100 {
+  max-height: 100%;
+}
+
+.pt-6 {
+  padding-top: 4rem;
+}
+
 .flex-1 {
   flex: 1;
 }
@@ -90,6 +98,11 @@
   max-width: 920px;
 }
 
+.modal-xxl {
+  width: auto;
+  max-width: 1080px;
+}
+
 .fa-1-3x {
   font-size: 1.3rem !important;
 }
@@ -119,8 +132,16 @@
   color: adjust_hue($danger, 15%) !important;
 }
 
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
 .bg-main {
   background-color: $main-background;
+}
+
+.bg-white {
+  background-color: white;
 }
 
 .bg-lighten-primary {

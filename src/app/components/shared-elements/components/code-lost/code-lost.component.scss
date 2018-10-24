@@ -1,0 +1,20 @@
+@import "../../../../styles/fit-global-styles";
+
+:host{
+  @extend .smaller-container;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.input-loading-icon {
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.message-container {
+  min-height: 18px;
+  max-height: 18px;
+}

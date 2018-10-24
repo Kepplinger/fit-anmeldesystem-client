@@ -18,6 +18,7 @@ import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { CompanyBranch } from '../../../../core/model/company-branch';
 import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-company-overview',
@@ -76,9 +77,9 @@ export class CompanyOverviewComponent extends BaseFormValidationComponent implem
     this.genders = this.appConfig.genders;
     this.event = this.eventService.currentEvent.getValue();
 
-    this.eventService.currentEvent.subscribe((event: Event) => {
+    this.addSub(this.eventService.currentEvent.subscribe((event: Event) => {
       this.event = event;
-    });
+    }));
   }
 
   public async ngOnInit(): Promise<void> {

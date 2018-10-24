@@ -18,14 +18,21 @@ export class SettingsBranchesComponent extends BaseSettingsChangesComponent impl
 
   public branchInput: string = '';
 
+  public isLoading: boolean = false;
+  public isArchivedLoading: boolean = false;
+
   public constructor(private branchDAO: BranchDAO,
                      private toastr: ToastrService) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+    this.isArchivedLoading = true;
     this.branches = await this.branchDAO.fetchBranches();
+    this.isLoading = false;
     this.archivedBranches = await this.branchDAO.fetchArchivedBranches();
+    this.isArchivedLoading = false;
   }
 
   public addBranch(): void {

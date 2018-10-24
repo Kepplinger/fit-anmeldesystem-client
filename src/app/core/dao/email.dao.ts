@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Email } from '../model/email';
 import { SmtpConfig } from '../model/smtp-config';
 import { Company } from '../model/company';
+import { FitEmailEntityType } from '../model/enums/fit-email-entity-type';
 
 @Injectable()
 export class EmailDAO {
@@ -29,16 +30,30 @@ export class EmailDAO {
       .toPromise();
   }
 
-  public sendCustomMail(subject: string, htmlBody: string, companies: Company[]): Promise<void> {
+  public sendCustomMail(email: Email, entityType: FitEmailEntityType, companies: Company[]): Promise<void> {
     let companyIds: number[] = companies.map(c => c.id);
 
     let json: any = {
-      subject: subject,
-      body: htmlBody,
+      subject: email.subject,
+      body: email.template,
+      entityType: entityType,
       companyIds: companyIds
     };
 
-    return this.http.post<void>(this.appConfig.serverURL + '/email', json)
+    return this.http.post<void>(this.appConfig.serverURL + '/email/custom', json)
+      .toPromise();
+  }
+
+  public sendCustomTestMail(email: Email, entityType: FitEmailEntityType, receiver: string, companyId: number): Promise<void> {
+    let json: any = {
+      subject: email.subject,
+      body: email.template,
+      entityType: entityType,
+      companyId: companyId,
+      receiver: receiver
+    };
+
+    return this.http.post<void>(this.appConfig.serverURL + '/email/custom/test', json)
       .toPromise();
   }
 

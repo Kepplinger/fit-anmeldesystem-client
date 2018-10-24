@@ -6,6 +6,7 @@ import { ErrorInterceptor } from './helper/error-interceptor';
 
 import { MemberLoginResponse } from '../app-helper/helper-model/member-login-response';
 import { catchError, map } from 'rxjs/operators';
+import { FitHttpError } from '../app-helper/helper-model/fit-http-error';
 
 @Injectable()
 export class AuthenticationDAO {
@@ -25,7 +26,7 @@ export class AuthenticationDAO {
       .toPromise();
   }
 
-  public async loginMember(token: string): Promise<MemberLoginResponse | HttpErrorResponse> {
+  public async loginMember(token: string): Promise<MemberLoginResponse | FitHttpError> {
     return this.http.post<MemberLoginResponse>(this.appConfig.serverURL + '/authentication/token', {token: token})
       .pipe(catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();

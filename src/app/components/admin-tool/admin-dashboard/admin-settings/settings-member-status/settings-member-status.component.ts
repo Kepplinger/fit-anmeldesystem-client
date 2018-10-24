@@ -4,7 +4,7 @@ import { MemberStatus } from '../../../../../core/model/member-status';
 import { MemberStatusDAO } from '../../../../../core/dao/member-status.dao';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
 import { ToastrService } from 'ngx-toastr';
-import { Tag } from '../../../../../core/model/tag';
+import { tokenReference } from '@angular/compiler';
 
 @Component({
   selector: 'fit-settings-member-status',
@@ -19,14 +19,21 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
   public memberStatusName: string = '';
   public memberStatusPrice: number = null;
 
+  public isLoading: boolean = false;
+  public isArchivedLoading: boolean = false;
+
   public constructor(private memberStatusDAO: MemberStatusDAO,
                      private toastr: ToastrService) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+    this.isArchivedLoading = true;
     this.memberStati = await this.memberStatusDAO.fetchMemberStati();
+    this.isLoading = false;
     this.archivedMemberStati = await this.memberStatusDAO.fetchArchivedMemberStati();
+    this.isArchivedLoading = false;
   }
 
   public addMemberStatus(): void {

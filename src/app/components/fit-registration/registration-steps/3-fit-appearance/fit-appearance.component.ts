@@ -49,10 +49,10 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
       this.addNewRepresentative();
     }
 
-    this.accountManagementService.bookingFilled.subscribe(
+    this.addSub(this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.resourceFormArray = <FormArray>this.formGroup.get('resources');
-      });
+      }));
 
     this.resources = await this.resourceDAO.fetchResources();
   }

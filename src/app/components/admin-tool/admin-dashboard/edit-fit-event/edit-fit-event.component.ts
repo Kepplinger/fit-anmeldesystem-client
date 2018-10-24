@@ -39,6 +39,7 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
 
   public ngOnInit(): void {
     this.event = EventHelper.clone(this.eventService.eventToEdit);
+    this.addSub(this.eventService.selectedEvent.subscribe(() => this.event = EventHelper.clone(this.eventService.eventToEdit)));
 
     if (this.event == null) {
       this.router.navigate(['/admin-tool', 'dash']);
@@ -54,6 +55,10 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
     } else {
       return 0;
     }
+  }
+
+  public setExpiredLockMode(value: boolean): void {
+    this.event.isExpiredLockMode = value;
   }
 
   public selectArea(area: Area): void {
@@ -80,17 +85,24 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
     this.event.areas.push(new Area());
   }
 
-  public removeArea(area: Area): void {
-
+  public async removeArea(area: Area): Promise<void> {
     if (area.locations.find(l => l.isOccupied) == null) {
-      ArrayUtils.deleteElement(this.event.areas, area);
-      if (this.selectedArea === area) {
-        this.selectedArea = null;
+      let result = await this.modalWindow.confirm(
+        'Geschoß löschen',
+        'Wollen Sie dieses Geschoß wirklich löschen?',
+        ModalTemplateCreatorHelper.getBasicModalOptions('Ja', 'Abbrechen')
+      );
+      if (result) {
+        ArrayUtils.deleteElement(this.event.areas, area);
+        if (this.selectedArea === area) {
+          this.selectedArea = null;
+        }
+        this.areAreasChanged = true;
       }
     } else {
       this.modalWindow.alert(
         'Kann nicht gelöscht werden!',
-        'Dieses Geschoss kann nicht mehr gelöscht werden, da mindestens ein Stand darin gebucht ist!',
+        'Dieses Geschoß kann nicht mehr gelöscht werden, da mindestens ein Stand darin gebucht ist!',
         {movable: false}
       );
     }
@@ -131,12 +143,12 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
 
           this.eventService.selectedEvent.next(EventHelper.clone(this.event));
           this.eventService.events.next(response.events);
-          this.eventService.updateEvents();
+          this.eventService.reloadEvents();
         }
       }
     } else {
       this.toastr.error(
-        'Nicht alle nötigen Daten wurden angegeben. Stellen Sie sicher, dass auch Plätze und Geschosse beschriftet sind.',
+        'Nicht alle nötigen Daten wurden angegeben. Stellen Sie sicher, dass auch Plätze und Geschoße beschriftet sind.',
         'FIT kann nicht gespeichert werden!'
       );
     }

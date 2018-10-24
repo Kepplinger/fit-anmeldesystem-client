@@ -1,6 +1,10 @@
 @import "../../styles/fit-variables";
 @import "../../styles/fit-global-styles";
 
+:host {
+  flex: 1;
+}
+
 .step-header {
   font-size: 14px;
 }

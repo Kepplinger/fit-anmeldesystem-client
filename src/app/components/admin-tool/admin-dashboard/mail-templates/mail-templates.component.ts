@@ -5,8 +5,7 @@ import { EmailHelper } from '../../../../core/model/helper/email-helper';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EmailVariable } from '../../../../core/model/email-variable';
 import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
-
-declare let $: any;
+import { EmailsService } from '../../services/emails.service';
 
 @Component({
   selector: 'fit-mail-templates',
@@ -24,23 +23,26 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   public editableEmail: Email;
 
   public quillEditor: any;
+  public currentIndex: number = 0;
 
-  private currentIndex: number = 0;
+  public isLoading: boolean = false;
 
-  public constructor(private emailDAO: EmailDAO) {
+  public constructor(private emailDAO: EmailDAO,
+                     private emailsService: EmailsService) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
-    this.emails = await this.emailDAO.fetchEmails();
+    this.emails = this.emailsService.emails.getValue();
+    this.isLoading = this.emailsService.isLoading.getValue();
+    this.addSub(this.emailsService.isLoading.subscribe(l => this.isLoading = l));
 
-    if (this.emails.length !== 0) {
-      this.selectEmail(this.emails[0]);
-    }
-  }
+    this.selectFirstMailIfEmpty();
 
-  public editorInit(quillEditor: any): void {
-    this.quillEditor = quillEditor;
+    this.addSub(this.emailsService.emails.subscribe(e => {
+      this.emails = e;
+      this.selectFirstMailIfEmpty();
+    }));
   }
 
   public selectEmail(email: Email): void {
@@ -68,14 +70,13 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
 
   public addVariable(variable: EmailVariable): void {
     this.quillEditor.insertText(this.currentIndex, '{{ ' + variable.value + ' }}');
+    this.quillEditor.setSelection(this.currentIndex + variable.value.length + 6, 0);
     this.emailChanged();
   }
 
-  public getSelection(): void {
-    let selection: any = this.quillEditor.getSelection();
-
-    if (selection != null) {
-      this.currentIndex = selection.index;
+  private selectFirstMailIfEmpty(): void {
+    if (this.selectedEmail == null && this.emails.length > 0) {
+      this.selectEmail(this.emails[0]);
     }
   }
 }

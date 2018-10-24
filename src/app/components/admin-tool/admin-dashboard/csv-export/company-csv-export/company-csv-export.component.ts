@@ -6,13 +6,14 @@ import { Company } from '../../../../../core/model/company';
 import { BranchDAO } from '../../../../../core/dao/branch.dao';
 import { Tag } from '../../../../../core/model/tag';
 import { MemberStatusDAO } from '../../../../../core/dao/member-status.dao';
+import { BaseSubscriptionComponent } from '../../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-company-csv-export',
   templateUrl: './company-csv-export.component.html',
   styleUrls: ['./company-csv-export.component.scss']
 })
-export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent {
+export class CompanyCsvExportComponent extends BaseSubscriptionComponent implements OnInit, BaseCsvExportComponent {
 
   public tags: any[] = [];
   public companies: Company[] = [];
@@ -20,6 +21,7 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
   public memberStati: any[] = [];
 
   public useAndCondition: boolean = false;
+  public isLoading: boolean = false;
 
   public csv: any = {
     isCompanyEnabled: true,
@@ -47,14 +49,18 @@ export class CompanyCsvExportComponent implements OnInit, BaseCsvExportComponent
                      private branchDAO: BranchDAO,
                      private memberStatusDAO: MemberStatusDAO,
                      private tagService: CompanyTagService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
 
+    this.isLoading = this.csvCreatorService.areCompaniesLoading.getValue();
+    this.addSub(this.csvCreatorService.areCompaniesLoading.subscribe(l => this.isLoading = l));
+
     this.updateCompanies();
 
     this.tags = this.mapTags(this.tagService.tags.getValue());
-    this.tagService.tags.subscribe(t => this.tags = this.mapTags(t));
+    this.addSub(this.tagService.tags.subscribe(t => this.tags = this.mapTags(t)));
 
     this.branches = (await this.branchDAO.fetchBranches()).map(b => {
       return {checked: false, branch: b};

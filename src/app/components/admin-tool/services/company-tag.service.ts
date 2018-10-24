@@ -9,6 +9,8 @@ export class CompanyTagService {
   public tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
   public archivedTags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
 
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   public constructor(private tagDAO: TagDAO) {
     if (!this.readTagsFromSessionStorage()) {
       this.loadTags();
@@ -32,9 +34,13 @@ export class CompanyTagService {
   }
 
   private async loadTags(): Promise<void> {
+    if (this.tags.getValue().length === 0) {
+      this.isLoading.next(true);
+    }
     let tags = await this.tagDAO.fetchTags();
     this.setTags(tags.filter(t => !t.isArchive));
     this.setArchivedTags(tags.filter(t => t.isArchive));
+    this.isLoading.next(false);
   }
 
   private readTagsFromSessionStorage(): boolean {

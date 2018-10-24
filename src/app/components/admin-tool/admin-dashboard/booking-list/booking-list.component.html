@@ -1,124 +1,136 @@
-<div class="m-5">
+<div class="d-flex flex-column mh-100 m-5">
 
-  <div class="d-flex mb-1">
-    <h1>Anmeldungen</h1>
+  <div>
+    <div class="d-flex mb-1">
+      <h1>Anmeldungen</h1>
 
-    <div class="flex-1"></div>
-    <a class="admin-tool-fancy-btn my-2 mr-2"
-       [routerLink]="['/admin-tool', 'csv-export', 'booking']">
-      <i class="fa fa-file-excel-o text-success mr-1"></i>
-      CSV-Export
-    </a>
-    <a class="admin-tool-fancy-btn my-2"
-       role="link"
-       [href]="imageDownloadLink">
-      <i class="fa fa-file-image-o text-primary mr-1"></i>
-      Bilder-Export
-    </a>
-  </div>
-
-  <div class="d-flex align-items-center">
-
-    <div class="d-flex align-items-center ml-2">
-      <label for="companyFilter"
-             class="text-bold m-0">
-        Firma:
-      </label>
-      <input type="text"
-             id="companyFilter"
-             class="form-control filter-input"
-             placeholder="Firmenname"
-             [(ngModel)]="companyFilter"
-             (input)="filterBookings()">
+      <div class="flex-1"></div>
+      <a class="admin-tool-fancy-btn my-2 mr-2"
+         [routerLink]="['/admin-tool', 'csv-export', 'booking']">
+        <i class="fa fa-file-excel-o text-success mr-1"></i>
+        CSV-Export
+      </a>
+      <a class="admin-tool-fancy-btn my-2"
+         role="link"
+         (click)="downloadImages()">
+        <i class="fa fa-file-image-o text-primary mr-1"></i>
+        Bilder-Export
+      </a>
     </div>
 
-    <div class="mx-2 d-flex align-items-center">
-      <div class="text-bold mr-2">Pakete:</div>
-      <fit-custom-checkbox class="mx-2"
-                           [value]="displayedPackages.indexOf(1) != -1"
-                           (valueChange)="togglePackage(1)"
-                           [message]="'Basis'"
-                           [preventMargins]="true">
-      </fit-custom-checkbox>
+    <div class="d-flex align-items-center">
 
-      <fit-custom-checkbox class="mx-2"
-                           [value]="displayedPackages.indexOf(2) != -1"
-                           (valueChange)="togglePackage(2)"
-                           [message]="'Sponsor'"
-                           [preventMargins]="true">
-      </fit-custom-checkbox>
+      <div class="d-flex align-items-center ml-2">
+        <label for="companyFilter"
+               class="text-bold m-0">
+          Firma:
+        </label>
+        <input type="text"
+               id="companyFilter"
+               class="form-control filter-input"
+               placeholder="Firmenname"
+               [(ngModel)]="companyFilter"
+               (input)="filterBookings()">
+      </div>
 
-      <fit-custom-checkbox class="mx-2"
-                           [value]="displayedPackages.indexOf(3) != -1"
-                           (valueChange)="togglePackage(3)"
-                           [message]="'Vortrag'"
-                           [preventMargins]="true">
-      </fit-custom-checkbox>
+      <div class="mx-2 d-flex align-items-center">
+        <div class="text-bold mr-2">Pakete:</div>
+        <fit-custom-checkbox class="mx-2"
+                             [value]="displayedPackages.indexOf(1) != -1"
+                             (valueChange)="togglePackage(1)"
+                             [message]="'Basis'"
+                             [preventMargins]="true">
+        </fit-custom-checkbox>
+
+        <fit-custom-checkbox class="mx-2"
+                             [value]="displayedPackages.indexOf(2) != -1"
+                             (valueChange)="togglePackage(2)"
+                             [message]="'Sponsor'"
+                             [preventMargins]="true">
+        </fit-custom-checkbox>
+
+        <fit-custom-checkbox class="mx-2"
+                             [value]="displayedPackages.indexOf(3) != -1"
+                             (valueChange)="togglePackage(3)"
+                             [message]="'Vortrag'"
+                             [preventMargins]="true">
+        </fit-custom-checkbox>
+      </div>
     </div>
   </div>
 
-  <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
-    <thead>
-    <tr>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'company.name'" [sortDirection]="'asc'">Firma</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'creationDate'" [sortDirection]="''">Datum</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'location.number'" [sortDirection]="''">Standplatz</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'company.contact.email'" [sortDirection]="''">Kontakt - E-Mail
-        </fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'fitPackage.name'" [sortDirection]="''">Paket</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'company.memberStatus'" [sortDirection]="''">Abs-Mitglied
-        </fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'isAccepted'" [sortDirection]="''">Status</fit-sortable-column>
-      </th>
-      <th *ngIf="isWritableFitAdmin()"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let booking of displayedBookings">
-      <td>{{booking.company?.name}}</td>
-      <td>{{booking.creationDate | date:'medium'}}</td>
-      <td>{{booking.location?.number}}</td>
-      <td>{{booking.company?.contact?.email}}</td>
-      <td>{{booking.fitPackage?.name}}</td>
-      <td>{{booking.company.memberStatus.name}}</td>
-      <td>
-        <div [ngSwitch]="booking.isAccepted">
-          <div *ngSwitchCase="IsAccepted.Pending" class="text-muted">
-            <i class="fa fa-clock-o"></i> Ausstehend
+  <div class="flex-1 overflow-y-auto">
+    <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
+      <thead>
+      <tr>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'company.name'" [sortDirection]="'asc'">Firma</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'creationDate'" [sortDirection]="''">Datum</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'location.number'" [sortDirection]="''">Standplatz
+          </fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'company.contact.email'" [sortDirection]="''">Kontakt - E-Mail
+          </fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'fitPackage.name'" [sortDirection]="''">Paket</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'company.memberStatus'" [sortDirection]="''">Abs-Mitglied
+          </fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'isAccepted'" [sortDirection]="''">Status</fit-sortable-column>
+        </th>
+        <th *ngIf="isWritableFitAdmin()"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let booking of displayedBookings">
+        <td>{{booking.company?.name}}</td>
+        <td>{{booking.creationDate | date:'medium'}}</td>
+        <td>{{booking.location?.number}}</td>
+        <td>{{booking.company?.contact?.email}}</td>
+        <td>{{booking.fitPackage?.name}}</td>
+        <td>{{booking.company.memberStatus.name}}</td>
+        <td>
+          <div [ngSwitch]="booking.isAccepted">
+            <div *ngSwitchCase="IsAccepted.Pending" class="text-muted">
+              <i class="fa fa-clock-o"></i> Ausstehend
+            </div>
+            <div *ngSwitchCase="IsAccepted.Accepted" class="text-success">
+              <i class="fa fa-check"></i> Akzeptiert
+            </div>
+            <div *ngSwitchCase="IsAccepted.Rejected" class="text-danger">
+              <i class="fa fa-times"></i> Abgelehnt
+            </div>
           </div>
-          <div *ngSwitchCase="IsAccepted.Accepted" class="text-success">
-            <i class="fa fa-check"></i> Akzeptiert
+        </td>
+        <td>
+          <div *ngIf="isWritableFitAdmin()"
+               class="icon-button"
+               (click)="routeToBookingDetail(booking)">
+            <i class="fa fa-pencil fa-1-5x"></i>
           </div>
-          <div *ngSwitchCase="IsAccepted.Rejected" class="text-danger">
-            <i class="fa fa-times"></i> Abgelehnt
-          </div>
-        </div>
-      </td>
-      <td>
-        <div *ngIf="isWritableFitAdmin()"
-             class="icon-button"
-             (click)="routeToBookingDetail(booking)">
-          <i class="fa fa-pencil fa-1-5x"></i>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-3x fa-spin fa-circle-o-notch"></i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+
+  <div *ngIf="isLoading"
+       class="mt-5">
+    <fit-loading-spinner [message]="'Anmeldungen werden geladen ...'"></fit-loading-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && bookings.length == 0"
+       class="text-large text-muted text-center mt-5">
+    Für diesen FIT gibt es keine Anmeldungen
+  </div>
+
 </div>

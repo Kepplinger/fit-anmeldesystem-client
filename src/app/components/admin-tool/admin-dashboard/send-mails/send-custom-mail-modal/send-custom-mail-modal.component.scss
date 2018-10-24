@@ -1,0 +1,23 @@
+@import "../../../../../styles/fit-global-styles";
+
+.variable-container {
+  min-width: 200px;
+  max-width: 300px;
+
+  .height-restriction{
+    max-height: 460px;
+  }
+
+  .variable-item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: whitesmoke;
+    }
+
+    &:active {
+      box-shadow: none;
+      background-color: lighten(lightgrey, 10%);
+    }
+  }
+}

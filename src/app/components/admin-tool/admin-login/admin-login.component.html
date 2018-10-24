@@ -4,7 +4,8 @@
     <h2 class="text-center text-light text-bold m-0">Admin Login</h2>
   </div>
 
-  <div class="card-body px-5 pb-4">
+  <div class="card-body px-5 pb-4"
+       [ngClass]="{'disabled-element': isLoading}">
     <form>
       <div>
         <label for="email">E-Mail:</label>

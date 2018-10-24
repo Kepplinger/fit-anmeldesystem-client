@@ -14,6 +14,7 @@ export class EventMapper {
       event.registrationEnd = moment.utc(eventJson.registrationEnd).startOf('day');
       event.eventDate = moment.utc(eventJson.eventDate).startOf('day');
       event.registrationState = eventJson.registrationState;
+      event.isExpiredLockMode = eventJson.isExpiredLockMode;
 
       return event;
     } else {

@@ -38,7 +38,7 @@
         </form>
 
         <div class="scrollable h-100 border-top">
-          <div [ngSwitch]="tags.length == 0" class="mt-2">
+          <div [ngSwitch]="!isLoading && tags.length == 0" class="mt-2">
             <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
               ... es wurden keine Tags gefunden
             </div>
@@ -59,6 +59,11 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="isLoading"
+               class="text-very-small mt-5">
+            <fit-loading-spinner [message]="'Tags werden geladen ...'"></fit-loading-spinner>
+          </div>
         </div>
       </div>
     </div>
@@ -67,7 +72,7 @@
     <div class="col-md-6">
       <h3>Archivierte Tags</h3>
       <div class="fit-border tag-container scrollable">
-        <div [ngSwitch]="archivedTags.length == 0" class="mt-2">
+        <div [ngSwitch]="!isLoading && archivedTags.length == 0" class="mt-2">
           <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
             ... es wurden keine archivierten Tags gefunden
           </div>
@@ -87,6 +92,11 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="isLoading"
+             class="text-very-small mt-5">
+          <fit-loading-spinner [message]="'Archivierte Tags werden geladen ...'"></fit-loading-spinner>
         </div>
       </div>
     </div>

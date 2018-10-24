@@ -13,6 +13,8 @@ export class AdminLoginComponent implements OnInit {
   public password: string;
   public hasLoginFailed: boolean = false;
 
+  public isLoading: boolean = false;
+
   public constructor(private router: Router,
                      private userAuthorizationService: UserAuthorizationService) {
   }
@@ -21,7 +23,11 @@ export class AdminLoginComponent implements OnInit {
   }
 
   public async loginAdmin(): Promise<void> {
-    if (await this.userAuthorizationService.loginAdmin(this.email, this.password)) {
+    this.isLoading = true;
+    let result: boolean = await this.userAuthorizationService.loginAdmin(this.email, this.password);
+    this.isLoading = false;
+
+    if (result) {
       this.router.navigate(['/admin-tool', 'dash']);
     } else {
       this.hasLoginFailed = true;

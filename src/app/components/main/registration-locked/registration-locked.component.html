@@ -1,14 +1,10 @@
-<div>
-
-  <p>Leider ist der Anmeldungszeitruam zum FIT leider schon vorüber. Die Ameldung kann nur in einen bestimmten Zeitraum
-    durchgeführt werden, und auch nur solange noch Plätze frei sind.</p>
-
-  <div class="alert alert-info" role="alert">
-    Die Anmeldung zum FIT ist erst <span class="text-bold">ab dem Versand der Einladungen</span> (Anfang Oktober)
-    möglich!
+<div *ngIf="lockPage != null">
+  <div [ngSwitch]="isExpiredLockMode">
+    <div *ngSwitchCase="true">
+      <div [innerHtml]="lockPage.expired | fitHtmlSecurityBypass"></div>
+    </div>
+    <div *ngSwitchDefault>
+      <div [innerHtml]="lockPage.incoming | fitHtmlSecurityBypass"></div>
+    </div>
   </div>
-
-  <p>Bei Fragen oder anderen Anliegen, können Sie sich gerne mit uns in Kontakt setzen: </p>
-
-  <!-- TODO Kontaktperson anzeigen? -->
 </div>

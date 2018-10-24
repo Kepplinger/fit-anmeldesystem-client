@@ -1,10 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../../core/app-services/event.service';
 import { Event } from '../../../core/model/event';
-import { Subscription } from 'rxjs';
-import { GraduatesService } from '../services/graduates.service';
-import { CompaniesService } from '../services/companies.service';
-import { BookingsService } from '../services/bookings.service';
 import { BaseAdminRoleGuardComponent } from '../../../core/base-components/base-admin-role-guard.component';
 import { UserAuthorizationService } from '../../../core/app-services/user-authorization.service';
 
@@ -13,12 +9,10 @@ import { UserAuthorizationService } from '../../../core/app-services/user-author
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent extends BaseAdminRoleGuardComponent implements OnInit, OnDestroy {
+export class AdminDashboardComponent extends BaseAdminRoleGuardComponent implements OnInit {
 
   public event: Event;
   public events: Event[];
-
-  private subscriptions: Subscription[] = [];
 
   public constructor(private eventService: EventService,
                      protected userAuthorizationService: UserAuthorizationService) {
@@ -29,29 +23,21 @@ export class AdminDashboardComponent extends BaseAdminRoleGuardComponent impleme
     this.event = this.eventService.currentEvent.getValue();
     this.events = this.eventService.events.getValue().sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
 
-    this.subscriptions.push(
-      this.eventService.events.subscribe(
-        (events: Event[]) => {
-          this.events = events.sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
-        }
-      )
-    );
+    this.addSub(this.eventService.events.subscribe(
+      (events: Event[]) => {
+        this.events = events.sort((a: Event, b: Event) => b.eventDate.diff(a.eventDate));
+      }
+    ));
 
-    this.subscriptions.push(
-      this.eventService.selectedEvent.subscribe(
-        (selectedEvent: Event) => {
-          this.event = selectedEvent;
-        }
-      )
-    );
-  }
-
-  public ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.addSub(this.eventService.selectedEvent.subscribe(
+      (selectedEvent: Event) => {
+        this.event = selectedEvent;
+      }
+    ));
   }
 
   public selectEvent(event: Event): void {
     this.event = event;
-    this.eventService.selectedEvent.next(this.event);
+    this.eventService.selectEvent(this.event);
   }
 }

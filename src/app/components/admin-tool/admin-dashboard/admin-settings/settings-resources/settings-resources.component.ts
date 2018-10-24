@@ -18,14 +18,21 @@ export class SettingsResourcesComponent extends BaseSettingsChangesComponent imp
 
   public resourceInput: string = '';
 
+  public isLoading: boolean = false;
+  public isArchivedLoading: boolean = false;
+
   public constructor(private resourceDAO: ResourceDAO,
                      private toastr: ToastrService) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+    this.isArchivedLoading = true;
     this.resources = await this.resourceDAO.fetchResources();
+    this.isLoading = false;
     this.archivedResources = await this.resourceDAO.fetchArchivedResources();
+    this.isArchivedLoading = false;
   }
 
   public addResource(): void {

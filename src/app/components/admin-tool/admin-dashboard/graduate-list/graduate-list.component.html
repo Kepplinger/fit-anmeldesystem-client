@@ -1,54 +1,60 @@
-<div class="m-5">
+<div class="m-5 d-flex flex-column">
 
-  <div class="d-flex">
-    <h1>Absolventen</h1>
-    <div class="flex-1"></div>
-    <a class="admin-tool-fancy-btn my-2"
-       [routerLink]="['/admin-tool', 'csv-export', 'absolventen']">
-      <i class="fa fa-file-excel-o text-success mr-1"></i>
-      CSV-Export
-    </a>
+  <div class="mb-2">
+    <div class="d-flex">
+      <h1>Absolventen</h1>
+      <div class="flex-1"></div>
+      <a class="admin-tool-fancy-btn my-2"
+         [routerLink]="['/admin-tool', 'csv-export', 'absolventen']">
+        <i class="fa fa-file-excel-o text-success mr-1"></i>
+        CSV-Export
+      </a>
+    </div>
   </div>
 
-  <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
-    <thead>
-    <tr>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'lastName'" [sortDirection]="'asc'">Nachname</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'firstName'" [sortDirection]="''">Vorname</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'email'" [sortDirection]="''">E-Mail</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'address.zipCode'" [sortDirection]="''">Ort</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'graduateYear'" [sortDirection]="''">Abschlussjahr</fit-sortable-column>
-      </th>
-      <th *ngIf="isWritableAdmin()"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let graduate of graduates">
-      <td>{{graduate?.lastName}}</td>
-      <td>{{graduate?.firstName}}</td>
-      <td>{{graduate?.email}}</td>
-      <td>{{graduate?.address?.zipCode}} {{graduate?.address?.city}}</td>
-      <td>{{graduate?.graduationYear}}</td>
-      <td  *ngIf="isWritableAdmin()">
-        <div class="icon-button"
-             (click)="routeToGraduateDetails(graduate)">
-          <i class="fa fa-pencil fa-1-5x"></i>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="flex-1 overflow-y-auto">
+    <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
+      <thead>
+      <tr>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'lastName'" [sortDirection]="'asc'">Nachname</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'firstName'" [sortDirection]="''">Vorname</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'email'" [sortDirection]="''">E-Mail</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'address.zipCode'" [sortDirection]="''">Ort</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'graduateYear'" [sortDirection]="''">Abschlussjahr
+          </fit-sortable-column>
+        </th>
+        <th *ngIf="isWritableAdmin()"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let graduate of graduates">
+        <td>{{graduate?.lastName}}</td>
+        <td>{{graduate?.firstName}}</td>
+        <td>{{graduate?.email}}</td>
+        <td>{{graduate?.address?.zipCode}} {{graduate?.address?.city}}</td>
+        <td>{{graduate?.graduationYear}}</td>
+        <td *ngIf="isWritableAdmin()">
+          <div class="icon-button"
+               (click)="routeToGraduateDetails(graduate)">
+            <i class="fa fa-pencil fa-1-5x"></i>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-3x fa-spin fa-circle-o-notch"></i>
+  <div *ngIf="isLoading"
+       class="mt-5">
+    <fit-loading-spinner [message]="'Absolventen werden geladen ...'"></fit-loading-spinner>
   </div>
 </div>

@@ -81,7 +81,7 @@ export class PackagesAndLocationComponent extends BaseFormValidationComponent im
       this.presentationFile = new DataFile('Datei auswählen ...', null);
     }
 
-    this.accountManagementService.bookingFilled.subscribe(
+    this.addSub(this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.selectedPackage = this.formGroup.value.fitPackage.discriminator;
         this.branchFormArray = <FormArray>this.formGroup.get('presentationBranches');
@@ -90,7 +90,7 @@ export class PackagesAndLocationComponent extends BaseFormValidationComponent im
           this.presentationFile = this.formGroup.value.presentationFile;
         }
       }
-    );
+    ));
 
     if (this.formGroup.value.fitPackage != null) {
       this.selectedPackage = this.formGroup.value.fitPackage.discriminator;

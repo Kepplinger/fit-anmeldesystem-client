@@ -1,3 +1,9 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .list-header {
   padding: 12px;
   font-weight: bold;

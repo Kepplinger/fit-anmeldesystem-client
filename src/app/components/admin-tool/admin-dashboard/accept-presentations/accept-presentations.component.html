@@ -1,9 +1,9 @@
 <fit-presentation-detail-modal [presentation]="openedPresentation"></fit-presentation-detail-modal>
 
-<div class="m-5">
+<div class="d-flex flex-column m-5">
 
   <!--pending companies-->
-  <div class="p-3">
+  <div class="pt-3">
 
     <div class="d-flex">
       <!--header-->
@@ -59,7 +59,9 @@
         </a>
       </li>
     </ul>
+  </div>
 
+  <div class="flex-1 overflow-y-auto">
     <!--list-->
     <table class="table">
       <tr>
@@ -131,6 +133,21 @@
         </td>
       </tr>
     </table>
+
+    <div *ngIf="isLoading"
+         class="mt-5">
+      <fit-loading-spinner [message]="'Vorträge werden geladen ...'"></fit-loading-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && getPresentations().length == 0"
+         class="mt-7">
+      <div [ngSwitch]="displayedList"
+           class="text-large text-muted text-center">
+        <div *ngSwitchCase="IsAccepted.Accepted">Es wurden noch keine Vorträge bestätigt</div>
+        <div *ngSwitchCase="IsAccepted.Pending">Es sind keine offenen Vorträge vorhanden</div>
+        <div *ngSwitchCase="IsAccepted.Rejected">Es wurden noch keine Vorträge abgelehnt</div>
+      </div>
+    </div>
 
   </div>
 </div>

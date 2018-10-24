@@ -18,7 +18,7 @@ export class GraduateListComponent extends BaseAdminRoleGuardComponent implement
 
   public graduates: Graduate[];
 
-  public loading: boolean = true;
+  public isLoading: boolean = false;
 
   public constructor(protected adminAuthenticationService: UserAuthorizationService,
                      private graduatesService: GraduatesService,
@@ -29,8 +29,12 @@ export class GraduateListComponent extends BaseAdminRoleGuardComponent implement
 
   public async ngOnInit(): Promise<void> {
     this.graduates = this.graduatesService.graduates.getValue();
-    this.graduatesService.graduates.subscribe(g => this.graduates = g);
-    this.loading = false;
+    this.graduatesService.reloadGraduates();
+
+    this.isLoading = this.graduatesService.isLoading.getValue();
+    this.addSub(this.graduatesService.isLoading.subscribe(l => this.isLoading = l));
+
+    this.addSub(this.graduatesService.graduates.subscribe(g => this.graduates = g));
   }
 
   public onSorted(criteria: ColumnSortCriteria): void {

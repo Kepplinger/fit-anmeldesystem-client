@@ -7,21 +7,22 @@ import {Company} from '../../../../../core/model/company';
 import {Booking} from '../../../../../core/model/booking';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import { BaseSubscriptionComponent } from '../../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-test-mail-modal',
   templateUrl: './test-mail-modal.component.html',
   styleUrls: ['./test-mail-modal.component.scss']
 })
-export class TestMailModalComponent implements OnInit, OnChanges {
+export class TestMailModalComponent extends BaseSubscriptionComponent implements OnInit, OnChanges {
 
   @Input()
   public email: Email;
 
   public entityType: string;
   public selectedId: number;
-  public companies: Company[];
-  public bookings: Booking[];
+  public companies: Company[] = [];
+  public bookings: Booking[] = [];
 
   public emailFormGroup: FormGroup;
   public isLoading: boolean = false;
@@ -31,14 +32,15 @@ export class TestMailModalComponent implements OnInit, OnChanges {
                      private fb: FormBuilder,
                      private toastr: ToastrService,
                      private bookingsService: BookingsService) {
+    super();
   }
 
   public ngOnInit(): void {
     this.companies = this.companiesService.companies.getValue();
     this.bookings = this.bookingsService.bookings.getValue();
 
-    this.companiesService.companies.subscribe(c => this.companies = c);
-    this.bookingsService.bookings.subscribe(b => this.bookings = b);
+    this.addSub(this.companiesService.companies.subscribe(c => this.companies = c));
+    this.addSub(this.bookingsService.bookings.subscribe(b => this.bookings = b));
 
     this.emailFormGroup = this.fb.group({
       emailAddress: this.fb.control('', Validators.email)

@@ -53,7 +53,7 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
       this.logo = new DataFile('Bild auswählen ...', null);
     }
 
-    this.accountManagementService.bookingFilled.subscribe(
+    this.addSub(this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.branchFormArray = <FormArray>this.formGroup.get('desiredBranches');
 
@@ -61,7 +61,7 @@ export class DetailedDataComponent extends BaseFormValidationComponent implement
           this.logo = this.formGroup.value.logo;
         }
       }
-    );
+    ));
 
     this.branches = await this.branchDAO.fetchBranches();
   }

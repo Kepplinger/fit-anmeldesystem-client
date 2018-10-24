@@ -4,7 +4,8 @@
 
 <div class="p-4">
 
-  <div class="card-deck">
+  <div *ngIf="!isLoading"
+       class="card-deck">
     <div class="card mr-0"
          *ngFor="let fitPackage of packages">
 
@@ -64,6 +65,11 @@
 
       </div>
     </div>
+  </div>
+
+  <div *ngIf="isLoading"
+       class="mt-4">
+    <fit-loading-spinner [message]="'Pakete werden geladen ...'"></fit-loading-spinner>
   </div>
 
 </div>

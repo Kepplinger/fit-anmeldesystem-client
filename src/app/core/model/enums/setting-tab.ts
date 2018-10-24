@@ -5,7 +5,8 @@ export enum SettingTab {
   DataMemberStatus = 'DMS',
   DataBranches = 'DB',
   DataResources = 'DS',
-  DataPackages = 'DP'
+  DataPackages = 'DP',
+  FitLockedPage = 'LP'
 }
 
 export function getSettingTabs() {
@@ -16,6 +17,7 @@ export function getSettingTabs() {
     SettingTab.DataMemberStatus,
     SettingTab.DataBranches,
     SettingTab.DataResources,
-    SettingTab.DataPackages
+    SettingTab.DataPackages,
+    SettingTab.FitLockedPage
   ];
 }

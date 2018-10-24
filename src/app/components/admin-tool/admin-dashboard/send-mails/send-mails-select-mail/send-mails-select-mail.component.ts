@@ -7,13 +7,16 @@ import { EmailDAO } from '../../../../../core/dao/email.dao';
 import { ToastrService } from 'ngx-toastr';
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal-template-creator-helper';
+import { BaseSubscriptionComponent } from '../../../../../core/base-components/base-subscription.component';
+
+declare let $: any;
 
 @Component({
   selector: 'fit-send-mails-select-mail',
   templateUrl: './send-mails-select-mail.component.html',
   styleUrls: ['./send-mails-select-mail.component.scss']
 })
-export class SendMailsSelectMailComponent implements OnInit {
+export class SendMailsSelectMailComponent extends BaseSubscriptionComponent implements OnInit {
 
   @Input()
   public companies: Company[] = [];
@@ -31,11 +34,12 @@ export class SendMailsSelectMailComponent implements OnInit {
                      private emailDAO: EmailDAO,
                      private modalWindowService: ModalWindowService,
                      private toastr: ToastrService) {
+    super();
   }
 
   public ngOnInit(): void {
     this.currentEvent = this.eventService.currentEvent.getValue();
-    this.eventService.currentEvent.subscribe(e => this.currentEvent = e);
+    this.addSub(this.eventService.currentEvent.subscribe(e => this.currentEvent = e));
   }
 
   @HostListener('document:keydown.escape')
@@ -47,17 +51,29 @@ export class SendMailsSelectMailComponent implements OnInit {
     this.close.emit();
   }
 
-  public async sendMailPerIdentifier(identifier: FitEmails): Promise<void> {
-    let result: boolean = await this.modalWindowService.confirm(
-      'Mails wirklich senden?',
-      `Wollen sie wirklich <span class="text-bold">` + this.companies.length + ` Mail(s)</span> versenden?`,
-      ModalTemplateCreatorHelper.getBasicModalOptions('Ja', 'Abbrechen')
-    );
+  public openCustomMailModal(): void {
+    if (this.companies.length > 0) {
+      $('#customMailModal').modal('show');
+    } else {
+      this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
+    }
+  }
 
-    if (result) {
-      await this.emailDAO.sendMails(identifier, this.companies);
-      this.toastr.success('Die E-Mails wurden erfolgreich versandt.', 'Mails versandt');
-      this.closeWindow();
+  public async sendMailPerIdentifier(identifier: FitEmails): Promise<void> {
+    if (this.companies.length > 0) {
+      let result: boolean = await this.modalWindowService.confirm(
+        'Mails wirklich senden?',
+        `Wollen sie wirklich <span class="text-bold">` + this.companies.length + ` Mail(s)</span> versenden?`,
+        ModalTemplateCreatorHelper.getBasicModalOptions('Ja', 'Abbrechen')
+      );
+
+      if (result) {
+        await this.emailDAO.sendMails(identifier, this.companies);
+        this.toastr.success('Die E-Mails wurden erfolgreich versandt.', 'Mails versandt');
+        this.closeWindow();
+      }
+    } else {
+      this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
     }
   }
 }

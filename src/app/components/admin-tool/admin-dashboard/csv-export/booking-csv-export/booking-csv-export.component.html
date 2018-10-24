@@ -254,3 +254,10 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="isLoading"
+     class="loading-container">
+  <div class="centered-element">
+    <fit-loading-spinner [message]="'Anmeldungen werden geladen ...'"></fit-loading-spinner>
+  </div>
+</div>

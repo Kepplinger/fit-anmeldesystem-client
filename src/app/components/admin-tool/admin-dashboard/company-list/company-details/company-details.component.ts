@@ -37,7 +37,7 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
   }
 
   public async ngOnInit(): Promise<void> {
-    this.activatedRoute.params.subscribe(
+    this.addSub(this.activatedRoute.params.subscribe(
       (params: Params) => {
         if (params.id != null) {
           this.company = this.companyTransferService.getCompany(Number(params.id));
@@ -45,10 +45,10 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
             this.router.navigate(['/admin-tool', 'firmen']);
           }
         }
-      });
+      }));
 
     this.tags = this.tagService.tags.getValue();
-    this.tagService.tags.subscribe(t => this.tags = t);
+    this.addSub(this.tagService.tags.subscribe(t => this.tags = t));
 
     this.memberStati = await this.memberStatusDAO.fetchMemberStati();
   }
