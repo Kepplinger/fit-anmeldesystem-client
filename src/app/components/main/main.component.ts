@@ -48,7 +48,7 @@ export class MainComponent extends BaseSubscriptionComponent implements OnInit {
 
     if (response != null && !(response instanceof FitHttpError)) {
       if (this.accountManagementService.loginMember(response, true)) {
-        this.toastr.success('Eingelogged!');
+        this.toastr.success('Angemeldet!');
         this.router.navigate(['/fit', 'anmelden']);
       } else {
         this.hasFailed = true;

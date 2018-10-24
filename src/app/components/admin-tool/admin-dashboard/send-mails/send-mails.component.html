@@ -2,14 +2,14 @@
                             [companiesHaveBooking]="filter.useCurrentFitOnly">
 </fit-send-custom-mail-modal>
 
-<div class="m-5"
+<div class="d-flex flex-column mh-100 m-5"
      [ngClass]="{'disabled-element': isMailSelectionOpen}">
 
   <h1>E-Mails versenden</h1>
 
-  <div class="row border-top mt-4">
+  <div class="row border-top border-bottom mt-3 flex-1">
 
-    <fit-send-mails-filter class="col-md-3 border-right pt-3"
+    <fit-send-mails-filter class="col-md-3 border-right overflow-y-auto pt-3"
                            [(filter)]="filter"
                            (filterChange)="filterCompanies()">
     </fit-send-mails-filter>

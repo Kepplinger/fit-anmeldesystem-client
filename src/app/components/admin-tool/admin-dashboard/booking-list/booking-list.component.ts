@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { Booking } from '../../../../core/model/booking';
 import { EventService } from '../../../../core/app-services/event.service';
-import { AppConfig } from '../../../../core/app-config/app-config.service';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { FitPackage } from '../../../../core/model/enums/fit-package';
@@ -14,6 +13,9 @@ import { IsAccepted } from '../../../../core/model/enums/is-accepted';
 import { BookingsService } from '../../services/bookings.service';
 import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/base-admin-role-guard.component';
 import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
+import { MediaDAO } from '../../../../core/dao/media.dao';
+import * as FileSaver from 'file-saver';
+import { Event } from '../../../../core/model/event';
 
 @Component({
   selector: 'fit-booking-list',
@@ -32,19 +34,17 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
   public bookings: Booking[];
 
   public isLoading: boolean = false;
-  public imageDownloadLink: string;
   public companyFilter: string = '';
 
   public displayedPackages: FitPackage[] = [FitPackage.BasicPack, FitPackage.SponsorPack, FitPackage.LecturePack];
 
   public constructor(protected adminAuthenticationService: UserAuthorizationService,
                      private eventService: EventService,
-                     private appConfig: AppConfig,
+                     private mediaDAO: MediaDAO,
                      private router: Router,
                      private bookingsService: BookingsService,
                      private accountManagementService: AccountManagementService) {
     super(adminAuthenticationService);
-    this.imageDownloadLink = this.appConfig.serverURL + '/media';
   }
 
   public async ngOnInit(): Promise<void> {
@@ -96,5 +96,11 @@ export class BookingListComponent extends BaseAdminRoleGuardComponent implements
 
         return condition;
       });
+  }
+
+  public async downloadImages(): Promise<void> {
+    let event: Event = this.eventService.selectedEvent.getValue();
+    let data = await this.mediaDAO.downloadImages(event);
+    FileSaver.saveAs(data, 'images.zip');
   }
 }

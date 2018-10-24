@@ -32,7 +32,7 @@ export class AccountLoginComponent {
 
     if (response != null && !(response instanceof FitHttpError)) {
       this.accountManagementService.loginMember(response);
-      this.toastr.success('Eingelogged!');
+      this.toastr.success('Angemeldet!');
       this.router.navigate(['/konto']);
     } else {
       this.hasFailed = true;
