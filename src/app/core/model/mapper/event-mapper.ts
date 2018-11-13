@@ -9,10 +9,12 @@ export class EventMapper {
 
       event.id = eventJson.id;
       event.areas = eventJson.areas;
+      event.presentationsLocked = eventJson.presentationsLocked;
       event.registrationStart = moment.utc(eventJson.registrationStart).startOf('day');
       event.registrationEnd = moment.utc(eventJson.registrationEnd).startOf('day');
       event.eventDate = moment.utc(eventJson.eventDate).startOf('day');
       event.registrationState = eventJson.registrationState;
+      event.isExpiredLockMode = eventJson.isExpiredLockMode;
 
       return event;
     } else {

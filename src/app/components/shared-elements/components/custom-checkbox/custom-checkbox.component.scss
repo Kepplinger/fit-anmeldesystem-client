@@ -1,0 +1,9 @@
+@import "../../../../styles/fit-global-styles";
+
+.disabled {
+  cursor: not-allowed !important;
+
+  span.cr {
+    background-color: #e9ecef;
+  }
+}

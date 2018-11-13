@@ -1,0 +1,23 @@
+@import "../../../../../styles/fit-badges";
+@import "../../../../../styles/fit-global-styles";
+
+.member-status-container {
+  height: 350px;
+  width: 100%;
+  border-width: 2px;
+
+  button {
+    border-radius: 0;
+  }
+
+  input {
+    border-radius: 0;
+    background-color: whitesmoke;
+    border-right: none;
+    border-top: none;
+  }
+}
+
+.header {
+  height: 75px;
+}

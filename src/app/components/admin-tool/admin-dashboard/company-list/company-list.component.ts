@@ -6,7 +6,6 @@ import { Company } from '../../../../core/model/company';
 import { ColumnSortCriteria } from '../../../../core/app-helper/helper-model/column-sort-criteria';
 import { SortHelper } from '../../../../core/app-helper/sort-helper';
 import { CompanyTransferService } from '../../../../core/app-services/transfer-services/company-transfer.service';
-import { getMemberStatusHTML, MemberStatus } from '../../../../core/model/enums/member-status';
 import { CompaniesService } from '../../services/companies.service';
 import { SubscriptionUtils } from '../../../../core/utils/subscription-utils';
 import { UserAuthorizationService } from '../../../../core/app-services/user-authorization.service';
@@ -20,7 +19,7 @@ import { BaseAdminRoleGuardComponent } from '../../../../core/base-components/ba
 export class CompanyListComponent extends BaseAdminRoleGuardComponent implements OnInit, OnDestroy {
 
   public companies: Company[];
-  public loading: boolean = true;
+  public isLoading: boolean = false;
 
   private sub: Subscription;
 
@@ -33,9 +32,14 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
 
   public async ngOnInit(): Promise<void> {
     this.companies = this.companiesService.companies.getValue();
-    this.loading = false;
+    this.companiesService.reloadCompanies();
 
-    this.sub = this.companiesService.companies.subscribe(c => this.companies = c);
+    if (this.companies.length === 0) {
+      this.isLoading = this.companiesService.isLoading.getValue();
+      this.addSub(this.companiesService.isLoading.subscribe(l => this.isLoading = l));
+    }
+
+    this.addSub(this.sub = this.companiesService.companies.subscribe(c => this.companies = c));
   }
 
   public ngOnDestroy(): void {
@@ -44,10 +48,6 @@ export class CompanyListComponent extends BaseAdminRoleGuardComponent implements
 
   public onSorted(criteria: ColumnSortCriteria): void {
     this.companies = this.companies.sort((a, b) => SortHelper.sortHandler(a, b, criteria));
-  }
-
-  public getMemberStatusHTML(status: MemberStatus): string {
-    return getMemberStatusHTML(status);
   }
 
   public routeToCompanyDetails(company: Company): void {

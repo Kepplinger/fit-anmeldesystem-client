@@ -1,58 +1,64 @@
-<div class="m-5">
+<div class="d-flex flex-column m-5">
 
-  <div class="d-flex">
-    <h1>Firmen</h1>
-    <div class="flex-1"></div>
-    <a class="admin-tool-fancy-btn my-2"
-       [routerLink]="['/admin-tool', 'csv-export', 'firmen']">
-      <i class="fa fa-file-excel-o text-success mr-1"></i>
-      CSV-Export
-    </a>
+  <div class="mb-2">
+    <div class="d-flex">
+      <h1>Firmen</h1>
+      <div class="flex-1"></div>
+      <a class="admin-tool-fancy-btn my-2"
+         [routerLink]="['/admin-tool', 'csv-export', 'firmen']">
+        <i class="fa fa-file-excel-o text-success mr-1"></i>
+        CSV-Export
+      </a>
+    </div>
   </div>
 
-  <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
-    <thead>
-    <tr>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'name'" [sortDirection]="'asc'">Name</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'address.street'" [sortDirection]="''">Straße</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'address.zipCode'" [sortDirection]="''">Ort</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'contact.firstName'" [sortDirection]="''">Kontaktperson
-        </fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'contact.email'" [sortDirection]="''">E-Mail</fit-sortable-column>
-      </th>
-      <th class="cursor-pointer p-0">
-        <fit-sortable-column [sortColumnName]="'memberStatus'" [sortDirection]="''">Abs-Mitglied</fit-sortable-column>
-      </th>
-      <th *ngIf="isWritableAdmin()"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let company of companies">
-      <td>{{company?.name}}</td>
-      <td>{{company?.address.street}} {{company?.address.streetNumber}}</td>
-      <td>{{company?.address.zipCode}} {{company?.address.city}}</td>
-      <td>{{company?.contact.firstName}} {{company?.contact.lastName}}</td>
-      <td>{{company?.contact.email}}</td>
-      <td [innerHtml]="getMemberStatusHTML(company.memberStatus)"></td>
-      <td *ngIf="isWritableAdmin()">
-        <div class="icon-button" (click)="routeToCompanyDetails(company)">
-          <i class="fa fa-pencil fa-1-5x"></i>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="loading" class="text-center mt-4">
-    <i class="fa fa-4x fa-pulse fa-spinner"></i>
+  <div class="flex-1 overflow-y-auto">
+    <table class="table table-striped" fitSortableTable (onListSorted)="onSorted($event)">
+      <thead>
+      <tr>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'name'" [sortDirection]="'asc'">Name</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'address.street'" [sortDirection]="''">Straße</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'address.zipCode'" [sortDirection]="''">Ort</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'contact.firstName'" [sortDirection]="''">Kontaktperson
+          </fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'contact.email'" [sortDirection]="''">E-Mail</fit-sortable-column>
+        </th>
+        <th class="cursor-pointer p-0">
+          <fit-sortable-column [sortColumnName]="'memberStatus'" [sortDirection]="''">Abs-Mitglied</fit-sortable-column>
+        </th>
+        <th *ngIf="isWritableAdmin()"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let company of companies">
+        <td>{{company?.name}}</td>
+        <td>{{company?.address.street}} {{company?.address.streetNumber}}</td>
+        <td>{{company?.address.zipCode}} {{company?.address.city}}</td>
+        <td>{{company?.contact.firstName}} {{company?.contact.lastName}}</td>
+        <td>{{company?.contact.email}}</td>
+        <td>{{company?.memberStatus?.name}}</td>
+        <td *ngIf="isWritableAdmin()">
+          <div class="icon-button" (click)="routeToCompanyDetails(company)">
+            <i class="fa fa-pencil fa-1-5x"></i>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+
+  <div class="mt-5"
+       *ngIf="isLoading">
+    <fit-loading-spinner [message]="'Firmen werden geladen ...'"></fit-loading-spinner>
+  </div>
+
 </div>

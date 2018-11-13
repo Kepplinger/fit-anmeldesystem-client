@@ -20,6 +20,9 @@
          [routerLink]="['/admin-tool','csv-export','booking']">
       <i class="fa fa-book dash-icon"></i>
       <div class="dash-text">FIT-Anmeldungen</div>
+      <div class="text-smaller text-muted">
+        für FIT am {{event.eventDate | date:'mediumDate'}}
+      </div>
     </div>
 
   </div>

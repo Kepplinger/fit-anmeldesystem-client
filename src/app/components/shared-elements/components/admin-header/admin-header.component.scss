@@ -1,0 +1,21 @@
+@import "../../../../styles/fit-global-styles";
+
+#header {
+  nav {
+    @extend .floating-effect;
+
+    .nav-item {
+      cursor: pointer;
+      margin-left: 1rem;
+      margin-right: 1rem;
+
+      &:hover {
+        background-color: #151515;
+      }
+
+      .nav-link {
+        color: white;
+      }
+    }
+  }
+}

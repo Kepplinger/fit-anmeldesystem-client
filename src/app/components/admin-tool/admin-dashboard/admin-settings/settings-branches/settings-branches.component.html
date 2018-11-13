@@ -38,7 +38,7 @@
         </form>
 
         <div class="scrollable h-100 border-top">
-          <div [ngSwitch]="branches.length == 0" class="mt-2">
+          <div [ngSwitch]="!isLoading && branches.length == 0" class="mt-2">
             <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
               ... es wurden keine Branchen gefunden
             </div>
@@ -59,6 +59,11 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="isLoading"
+               class="text-very-small mt-5">
+            <fit-loading-spinner [message]="'Branchen werden geladen ...'"></fit-loading-spinner>
+          </div>
         </div>
       </div>
     </div>
@@ -67,7 +72,7 @@
     <div class="col-md-6">
       <h3>Archivierte Branchen</h3>
       <div class="fit-border branch-container scrollable">
-        <div [ngSwitch]="archivedBranches.length == 0" class="mt-2">
+        <div [ngSwitch]="!isArchivedLoading && archivedBranches.length == 0" class="mt-2">
           <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
             ... es wurden keine archivierten Branchen gefunden
           </div>
@@ -78,7 +83,7 @@
               </div>
               <div *ngIf="branch.id == null"
                    class="middle-badge delete-badge text-light p-2 floating-effect"
-                   (click)="removeBranch(branches, branch)">
+                   (click)="removeBranch(archivedBranches, branch)">
                 <i class="fa fa-times"></i>
               </div>
               <div class="right-badge recover-badge p-2 floating-effect"
@@ -87,6 +92,11 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="isArchivedLoading"
+             class="text-very-small mt-5">
+          <fit-loading-spinner [message]="'Archivierte Branchen werden geladen ...'"></fit-loading-spinner>
         </div>
       </div>
     </div>

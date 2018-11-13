@@ -1,7 +1,7 @@
 <div *ngIf="isAppLoading()">
   <div class="text-center d-flex flex-column app-loading-container align-items-center justify-content-center">
     <h1 class="text-bold">Anwendung lädt ... </h1>
-    <h1><i class="fa fa-pulse fa-spinner"></i></h1>
+    <h1><i class="fa fa-spin fa-circle-o-notch"></i></h1>
   </div>
 </div>
 <div *ngIf="!isAppLoading()" class="main-page d-flex flex-column">
@@ -12,8 +12,7 @@
 
   <router-outlet></router-outlet>
 
-  <fit-footer *ngIf="showFitHeader()"
-              class="mt-auto">
+  <fit-footer *ngIf="showFitHeader()">
   </fit-footer>
 </div>
 
@@ -26,4 +25,3 @@
     <a [routerLink]="['/konto/login']">ACCOUNT</a> |
   </span>
 </div>
-

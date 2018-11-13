@@ -36,6 +36,12 @@ body {
   user-select: none;
 }
 
+.disabled-element-not-allowed {
+  opacity: .4;
+  user-select: none;
+  cursor: not-allowed !important;
+}
+
 .icon-button {
   @extend .no-outline-button;
   color: #000;
@@ -64,6 +70,17 @@ body {
 
 .flex-filler {
   flex: 1;
+}
+
+.loading-container {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  color: white;
+  background-color: rgba($dark, 0.5);
+  z-index: 1000;
+  user-select: none;
+  position: fixed;
 }
 
 .tiny-container {
@@ -162,6 +179,10 @@ body {
 
 .text-smaller {
   font-size: 0.8em;
+}
+
+.text-very-small {
+  font-size: 0.6em;
 }
 
 .input-group-append {
@@ -302,7 +323,7 @@ body {
 }
 
 .scroll-list-container {
-  max-height: 670px;
+  max-height: 630px;
   overflow-x: auto;
   border: $main-border;
   padding: 0.5rem 0.5rem 0;

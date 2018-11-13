@@ -126,7 +126,8 @@
   <!--main container-->
   <div class="py-3 mx-4 mt-4 mb-0 border-top">
     <fit-general-data [isVisible]="currentStep == Step.GeneralData"
-                      [stepFormGroup]="fitFormGroup.controls['generalData']">
+                      [stepFormGroup]="fitFormGroup.controls['generalData']"
+                      (onNavigateToAccount)="navigateToAccount()">
     </fit-general-data>
 
     <fit-detailed-data [isVisible]="currentStep == Step.DetailedData"
@@ -140,7 +141,8 @@
     </fit-fit-appearance>
 
     <fit-packages-and-location [isVisible]="currentStep == Step.PackagesAndLocation"
-                               [stepFormGroup]="fitFormGroup.controls['packagesAndLocation']"
+                               [formGroup]="fitFormGroup.controls['packagesAndLocation']"
+                               (onInput)="validateStepWhenTrue(Step.PackagesAndLocation)"
                                [event]="event">
     </fit-packages-and-location>
 
@@ -182,8 +184,4 @@
       <i class="fa fa-arrow-right ml-1"></i>
     </button>
   </div>
-
-  <!--<div style="overflow: hidden; max-width: inherit">-->
-  <!--<pre style="word-break: break-all">{{ fitFormGroup.value | json }}</pre>-->
-  <!--</div>-->
 </div>

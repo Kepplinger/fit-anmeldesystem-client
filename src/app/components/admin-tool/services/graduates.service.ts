@@ -8,6 +8,7 @@ import { DataUpdateNotifier } from '../../../core/app-services/data-update-notif
 export class GraduatesService {
 
   public graduates: BehaviorSubject<Graduate[]> = new BehaviorSubject([]);
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   public constructor(private graduateDAO: GraduateDAO,
                      private dataUpdateNotifier: DataUpdateNotifier) {
@@ -16,7 +17,11 @@ export class GraduatesService {
   }
 
   public async reloadGraduates(): Promise<void> {
+    if (this.graduates.getValue().length === 0) {
+      this.isLoading.next(true);
+    }
     this.graduates.next(await this.graduateDAO.fetchGraduates());
+    this.isLoading.next(false);
   }
 
   public updateGraduate(graduate: Graduate): void {

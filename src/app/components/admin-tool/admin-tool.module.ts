@@ -12,8 +12,7 @@ import { DateTimePickerComponent } from './admin-dashboard/edit-fit-event/date-t
 import { EditAreaModalComponent } from './admin-dashboard/edit-fit-event/edit-area-modal.component/edit-area-modal.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
 import { AcceptCompaniesComponent } from './admin-dashboard/accept-companies/accept-companies.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { SharedModule } from '../shared-components/shared.module';
+import { SharedModule } from '../shared-elements/shared.module';
 import { ChangelogComponent } from './admin-dashboard/changelog/changelog.component';
 import { MailTemplatesComponent } from './admin-dashboard/mail-templates/mail-templates.component';
 import { BookingCsvExportComponent } from './admin-dashboard/csv-export/booking-csv-export/booking-csv-export.component';
@@ -21,8 +20,8 @@ import { PapaParseModule } from 'ngx-papaparse';
 import { AcceptPresentationsComponent } from './admin-dashboard/accept-presentations/accept-presentations.component';
 import { CsvCreatorService } from './services/csv-creator.service';
 import { SortService } from '../../core/app-services/sort-service.service';
-import { SortableColumnComponent } from '../shared-components/sortable-column/sortable-column.component';
-import { SortableTableDirective } from '../shared-components/sortable-table/sortable-table.component';
+import { SortableColumnComponent } from '../shared-elements/components/sortable-column/sortable-column.component';
+import { SortableTableDirective } from '../shared-elements/components/sortable-table/sortable-table.component';
 import { GraduateListComponent } from './admin-dashboard/graduate-list/graduate-list.component';
 import { CompanyListComponent } from './admin-dashboard/company-list/company-list.component';
 import { GraduateDetailsComponent } from './admin-dashboard/graduate-list/graduate-details/graduate-details.component';
@@ -49,10 +48,19 @@ import { SettingsResourcesComponent } from './admin-dashboard/admin-settings/set
 import { SettingsTagsComponent } from './admin-dashboard/admin-settings/settings-tags/settings-tags.component';
 import { SettingsEmailSmtpComponent } from './admin-dashboard/admin-settings/settings-email-smtp/settings-email-smtp.component';
 import { SettingsPackagesComponent } from './admin-dashboard/admin-settings/settings-packages/settings-packages.component';
-import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
-import { JwtModule } from '@auth0/angular-jwt';
-import {IsAuthenticatedGuard} from '../../core/guards/is-authenticated.guard';
-import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
+import { SettingsMemberStatusComponent } from './admin-dashboard/admin-settings/settings-member-status/settings-member-status.component';
+import { SendMailsFilterComponent } from './admin-dashboard/send-mails/send-mails-filter.component/send-mails-filter.component';
+import { SendMailsListComponent } from './admin-dashboard/send-mails/send-mails-list.component/send-mails-list.component';
+import { SendMailsSelectMailComponent } from './admin-dashboard/send-mails/send-mails-select-mail/send-mails-select-mail.component';
+import { QuillModule } from 'ngx-quill';
+import { AdminHtmlEditorComponent } from './admin-html-editor/admin-html-editor.component';
+import { SendCustomMailModalComponent } from './admin-dashboard/send-mails/send-custom-mail-modal/send-custom-mail-modal.component';
+import { PresentationsService } from './services/presentations.service';
+import { EmailsService } from './services/emails.service';
+import { SettingsFitLockedPageComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/settings-fit-locked-page.component';
+import { EditFitLockedPageComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/edit-fit-locked-page.component';
+import { PageHtmlEditorComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/page-html-editor/page-html-editor.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 @NgModule({
   imports: [
@@ -61,17 +69,18 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     AngularDraggableModule,
     FilePickerModule,
     FormsModule,
-    FroalaEditorModule,
-    FroalaViewModule,
     ReactiveFormsModule,
+    QuillModule,
     PapaParseModule,
     SharedModule,
-    FitRegistrationModule
+    FitRegistrationModule,
+    MonacoEditorModule.forRoot()
   ],
   declarations: [
     AdminLoginComponent,
     AdminDashboardComponent,
     AdminSettingsComponent,
+    AdminHtmlEditorComponent,
     AcceptPresentationsComponent,
     BookingListComponent,
     GraduateListComponent,
@@ -95,12 +104,20 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     PresentationDetailModalComponent,
     TestMailModalComponent,
     SendMailsComponent,
+    SendMailsFilterComponent,
+    SendMailsListComponent,
+    SendMailsSelectMailComponent,
+    SendCustomMailModalComponent,
     SettingsTagsComponent,
     SettingsEmailSmtpComponent,
     SettingsAdminAccountsComponent,
     SettingsBranchesComponent,
     SettingsResourcesComponent,
-    SettingsPackagesComponent
+    SettingsPackagesComponent,
+    SettingsMemberStatusComponent,
+    SettingsFitLockedPageComponent,
+    EditFitLockedPageComponent,
+    PageHtmlEditorComponent
   ],
   providers: [
     CsvCreatorService,
@@ -110,6 +127,8 @@ import {IsRoleGrantedGuard} from '../../core/guards/is-role-granted.guard';
     CompanyTagService,
     CompaniesService,
     GraduatesService,
+    PresentationsService,
+    EmailsService,
     BookingsService
   ]
 })

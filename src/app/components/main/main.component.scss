@@ -1,5 +1,9 @@
 @import "../../styles/fit-variables";
 
+:host {
+  flex: 1;
+}
+
 .vertical-border {
   border-bottom: $main-border;
 }

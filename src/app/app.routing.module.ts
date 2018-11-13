@@ -1,11 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainComponent } from './components/main/main.component';
+import { RegistrationLockedResolver } from './core/resolver/registration-locked.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    resolve: {
+      lockPage: RegistrationLockedResolver
+    }
   },
   {
     path: 'fit',

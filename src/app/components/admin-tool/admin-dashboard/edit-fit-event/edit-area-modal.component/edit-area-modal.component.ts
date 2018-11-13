@@ -10,6 +10,7 @@ import { AreaHelper } from '../../../../../core/model/helper/area-helper';
 import { ArrayUtils } from '../../../../../core/utils/array-utils';
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { DataFile } from '../../../../../core/model/data-file';
+import { LocationHelper } from '../../../../../core/model/helper/location-helper';
 
 declare let $: any;
 
@@ -129,7 +130,7 @@ export class EditAreaModalComponent implements OnInit, OnChanges {
       cssClasses.push('badge-category-a');
     }
 
-    if (this.selectedLocation != null && location.id === this.selectedLocation.id) {
+    if (this.selectedLocation != null && LocationHelper.compare(location, this.selectedLocation)) {
       cssClasses.push('badge-selected');
     }
 

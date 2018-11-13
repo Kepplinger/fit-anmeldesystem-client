@@ -1,0 +1,48 @@
+<div>
+  <div class="p-3">
+    <a [routerLink]="['/admin-tool/einstellungen']">
+      <i class="fa fa-arrow-left mr-1"></i>Zurück
+    </a>
+  </div>
+
+  <div *ngIf="!isLoading"
+       class="mx-3 mb-5 mt-2">
+
+    <div class="d-flex mb-2">
+      <div [ngSwitch]="isExpiredLockMode">
+        <div *ngSwitchCase="true">
+          <h3>FIT Gesperrt-Seite bearbeiten: "Abgelaufen"</h3>
+        </div>
+        <div *ngSwitchDefault>
+          <h3>FIT Gesperrt-Seite bearbeiten: "Bevorstehend"</h3>
+        </div>
+      </div>
+
+      <div class="ml-auto">
+        <button class="btn btn-success big-rounded-button text-bold"
+                [disabled]="!doUnsavedChangesExist()"
+                (click)="updateLockPage()">
+          <i class="fa fa-download mr-1"></i> Speichern
+        </button>
+      </div>
+    </div>
+
+    <div [ngSwitch]="isExpiredLockMode"
+         [ngClass]="{'disabled-element': isSaving}">
+      <div *ngSwitchCase="true">
+        <fit-page-html-editor [(html)]="lockPage.expired"
+                              (htmlChange)="htmlChanged()">
+        </fit-page-html-editor>
+      </div>
+      <div *ngSwitchDefault>
+        <fit-page-html-editor [(html)]="lockPage.incoming"
+                              (htmlChange)="htmlChanged()">
+        </fit-page-html-editor>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="mt-10">
+    <fit-loading-spinner [message]="'Daten werden geladen ...'"></fit-loading-spinner>
+  </div>
+</div>

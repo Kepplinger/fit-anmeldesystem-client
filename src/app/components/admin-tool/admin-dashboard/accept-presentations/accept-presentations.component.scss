@@ -1,5 +1,11 @@
 @import "../../../../styles/fit-global-styles";
 
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .pending-tab {
   cursor: pointer;
 
@@ -7,6 +13,16 @@
     color: $primary;
     text-decoration: underline;
   }
+}
+
+.opened.active {
+  background-color: $success-color !important;
+  color: white !important;
+}
+
+.locked.active {
+  background-color: $danger-color !important;
+  color: white !important;
 }
 
 .badge-counter {

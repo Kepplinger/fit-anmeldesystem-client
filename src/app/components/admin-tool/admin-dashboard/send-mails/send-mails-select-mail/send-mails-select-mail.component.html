@@ -1,0 +1,44 @@
+<div class="m-3">
+  <div class="d-flex border-bottom mb-2 pb-3">
+    <div class="text-bold text-large">
+      <div *ngIf="companies.length == 1">Mail an {{companies[0].name}} senden</div>
+      <div *ngIf="companies.length != 1">Mails an {{companies.length}} Firmen senden</div>
+    </div>
+
+    <button class="btn-link ml-auto mb-2"
+            (click)="closeWindow()">
+      <i class="fa fa-times"></i> Schließen
+    </button>
+  </div>
+
+  <div>
+    <div class="text-bold text-large">E-Mail Auswählmöglichkeiten</div>
+
+    <div class="d-flex flex-column align-items-center mt-3">
+
+      <button class="btn big-rounded-button btn-primary text-bold w-75 my-2"
+              (click)="openCustomMailModal()">
+        Custom-Mail
+      </button>
+
+      <button class="btn big-rounded-button btn-primary text-bold w-75 my-2"
+              (click)="sendMailPerIdentifier(FitEmails.FitInvitation)">
+        FIT-Einladung <span>({{ currentEvent.eventDate | date:'shortDate'}})</span>
+      </button>
+
+      <button class="btn big-rounded-button btn-primary text-bold w-75 mt-2 mb-1"
+              (click)="sendMailPerIdentifier(FitEmails.BookingDataReminder)"
+              [disabled]="!companiesHaveBooking">
+        Erinnerung (FIT-Daten)
+      </button>
+      <div *ngIf="!companiesHaveBooking"
+           class="text-muted text-center w-75">
+        Kann nur verwendet werden, wenn ausschließlich Firmen mit Anmeldung ausgewählt sind!
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

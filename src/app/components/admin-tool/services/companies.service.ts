@@ -21,11 +21,13 @@ export class CompaniesService {
                      private dataUpdateNotifier: DataUpdateNotifier) {
     this.reloadCompanies();
     this.dataUpdateNotifier.companyUpdated.subscribe(c => this.updateCompany(c));
-    this.dataUpdateNotifier.companyAdded.subscribe(c =>  this.addCompany(c));
+    this.dataUpdateNotifier.companyAdded.subscribe(c => this.addCompany(c));
   }
 
   public async reloadCompanies(): Promise<void> {
-    this.isLoading.next(true);
+    if (this.companies.getValue().length === 0) {
+      this.isLoading.next(true);
+    }
     this.allCompanies = await this.companyDAO.fetchCompanies();
     this.isLoading.next(false);
     this.filterCompanies();

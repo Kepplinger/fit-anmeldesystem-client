@@ -12,9 +12,8 @@ import { ContactAndRemarksComponent } from './registration-steps/5-contact-and-r
 import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 import { PackagesAndLocationComponent } from './registration-steps/4-packages-and-locations/packages-and-location.component';
 import { FilePickerModule } from '../../libs/file-picker/file-picker.module';
-import { SharedModule } from '../shared-components/shared.module';
+import { SharedModule } from '../shared-elements/shared.module';
 import { LocationPickerModalComponent } from './registration-steps/4-packages-and-locations/location-picker-modal/location-picker-modal.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { UpdateSuccessComponent } from './update-success/update-success.component';
 
 @NgModule({
@@ -24,8 +23,6 @@ import { UpdateSuccessComponent } from './update-success/update-success.componen
     FormsModule,
     ReactiveFormsModule,
     FilePickerModule,
-    FroalaEditorModule,
-    FroalaViewModule,
     SharedModule
   ],
   declarations: [

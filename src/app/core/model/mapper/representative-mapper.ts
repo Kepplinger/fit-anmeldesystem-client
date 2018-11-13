@@ -10,6 +10,8 @@ export class RepresentativeMapper {
 
     formGroup.controls['name'].setValidators(Validators.required);
     formGroup.controls['email'].setValidators([Validators.required, Validators.email]);
+    formGroup.controls['name'].updateValueAndValidity();
+    formGroup.controls['email'].updateValueAndValidity();
 
     return formGroup;
   }

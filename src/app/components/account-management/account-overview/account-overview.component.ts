@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { Event } from '../../../core/model/event';
@@ -9,7 +9,6 @@ import { EventService } from '../../../core/app-services/event.service';
 import { AccountManagementService } from '../../../core/app-services/account-managenment.service';
 import { Graduate } from '../../../core/model/graduate';
 import { ModalWindowService } from '../../../core/app-services/modal-window.service';
-import { PlatformLocation } from '@angular/common';
 import { BaseOnDeactivateAlertComponent } from '../../../core/base-components/base-on-deactivate-alert.component';
 
 @Component({
@@ -30,17 +29,12 @@ export class AccountOverviewComponent extends BaseOnDeactivateAlertComponent imp
                      private fb: FormBuilder,
                      private eventService: EventService,
                      private modalWindowService: ModalWindowService,
-                     private platformLocation: PlatformLocation,
                      private router: Router) {
     super();
   }
 
   public ngOnInit(): void {
     this.isGraduate = this.accountManagementService.isGraduate;
-
-    this.platformLocation.onPopState(() => {
-      this.accountManagementService.logoutMember();
-    });
 
     if (this.isGraduate) {
       this.graduate = this.accountManagementService.graduate;

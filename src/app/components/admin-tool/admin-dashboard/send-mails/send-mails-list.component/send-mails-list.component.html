@@ -1,0 +1,439 @@
+<div>
+  <div class="list-header d-flex align-items-center">
+    <div>Anzahl der gefunden Firmen: {{ companies.length }}</div>
+
+    <button class="btn btn-primary text-bold ml-auto"
+            (click)="openMailSelection(companies)">
+      <i class="fa fa-mail-forward"></i> Mail an alle diese Firmen senden
+    </button>
+  </div>
+</div>
+
+<div class="overflow-y-auto flex-1">
+  <table class="table table-striped">
+    <tr>
+      <th>Firma</th>
+      <th>Kontakt</th>
+      <th>Mitgliedsstatus</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+    <tr *ngFor="let company of companies">
+      <td>{{ company.name }}</td>
+      <td>{{ company.contact.firstName }} {{ company.contact.lastName }}</td>
+      <td>{{ company.memberStatus.name }}</td>
+      <td class="column-min text-right">
+        <button class="btn-link"
+                (click)="openMailSelection([company])">
+          <i class="fa fa-mail-forward"></i> Mail an diese Firma senden
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

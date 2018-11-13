@@ -1,0 +1,23 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav {
+  height: 100%;
+  width: 500px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: -500px;
+  overflow-x: hidden;
+  background-color: white;
+  padding-top: 60px;
+  transition: 0.5s;
+  border-left: solid 1px lightgrey;
+
+  &.show {
+    right: 0;
+  }
+}

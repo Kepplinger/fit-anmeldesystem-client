@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { Form, FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 export class FormHelper {
   public static isEmpty(formName: string, formGroup: FormGroup): boolean {
@@ -74,29 +74,35 @@ export class FormHelper {
    * @param {FormGroup} formGroup
    */
   public static touchAllFormFields(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({onlySelf: true});
-      } else if (control instanceof FormGroup) {
-        this.touchAllFormFields(control);
-      }
-    });
+    if (formGroup != null && formGroup.controls != null) {
+      Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+        if (control instanceof FormControl) {
+          control.markAsTouched({onlySelf: true});
+        } else if (control instanceof FormGroup) {
+          this.touchAllFormFields(control);
+        } else if (control instanceof FormArray) {
+          control.controls.forEach((c: FormGroup) => this.touchAllFormFields(c));
+        }
+      });
+    }
   }
 
   public static getErrorCount(formGroup: FormGroup): number {
     let errorCount: number = 0;
 
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        if (!control.valid) {
-          errorCount++;
+    if (formGroup != null && formGroup.controls != null) {
+      Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+        if (control instanceof FormControl) {
+          if (!control.valid) {
+            errorCount++;
+          }
+        } else if (control instanceof FormGroup) {
+          errorCount += this.getErrorCount(control);
         }
-      } else if (control instanceof FormGroup) {
-        errorCount += this.getErrorCount(control);
-      }
-    });
+      });
+    }
 
     return errorCount;
   }

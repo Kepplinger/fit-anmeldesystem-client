@@ -13,13 +13,12 @@ import { Address } from '../../../../core/model/address';
 import { DisplayedValue } from '../../../../core/app-helper/helper-model/displayed-value';
 import { Event } from '../../../../core/model/event';
 import { AccountManagementService } from '../../../../core/app-services/account-managenment.service';
-import { ModalWindowService } from '../../../../core/app-services/modal-window.service';
-import { CompaniesService } from '../../../admin-tool/services/companies.service';
 import { DataUpdateNotifier } from '../../../../core/app-services/data-update-notifier';
 import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { CompanyBranch } from '../../../../core/model/company-branch';
 import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-company-overview',
@@ -78,9 +77,9 @@ export class CompanyOverviewComponent extends BaseFormValidationComponent implem
     this.genders = this.appConfig.genders;
     this.event = this.eventService.currentEvent.getValue();
 
-    this.eventService.currentEvent.subscribe((event: Event) => {
+    this.addSub(this.eventService.currentEvent.subscribe((event: Event) => {
       this.event = event;
-    });
+    }));
   }
 
   public async ngOnInit(): Promise<void> {
@@ -98,7 +97,7 @@ export class CompanyOverviewComponent extends BaseFormValidationComponent implem
 
       if (this.formGroup.touched) {
         this.updateCompanyFromForm();
-        this.company = await this.companyDAO.updateCompany(this.company, this.isAdminVersion);
+        this.company = await this.companyDAO.updateCompany(this.company);
         this.companyChange.emit(this.company);
         this.dataUpdateNotifier.updateCompany(this.company);
         if (!this.isAdminVersion) {
@@ -179,8 +178,6 @@ export class CompanyOverviewComponent extends BaseFormValidationComponent implem
   }
 
   private isBranchSelected(branch: Branch): boolean {
-    console.log(this.company.branches);
-
     if (this.company != null && this.company.branches != null && branch != null) {
       return this.company.branches.find(b => b.branch.id === branch.id) != null;
     } else {

@@ -28,6 +28,14 @@
       <div class="border-bottom">
         <div class="text-bold py-1 px-2">Daten pflegen</div>
         <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataMemberStatus)}"
+             (click)="setSelectedSettingTab(SettingTab.DataMemberStatus)">
+          <i class="fa fa-fw fa-users mr-1"></i>Member Status
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.DataMemberStatus)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="py-1 px-2 menu-tab"
              [ngClass]="{'selected': isSelectedSettingTab(SettingTab.DataBranches)}"
              (click)="setSelectedSettingTab(SettingTab.DataBranches)">
           <i class="fa fa-fw fa-code-fork mr-1"></i>Branchen
@@ -61,6 +69,18 @@
         </div>
       </div>
 
+      <div class="border-bottom">
+        <div class="text-bold py-1 px-2">Weitere Einstellungen</div>
+        <div class="py-1 px-2 menu-tab"
+             [ngClass]="{'selected': isSelectedSettingTab(SettingTab.FitLockedPage)}"
+             (click)="setSelectedSettingTab(SettingTab.FitLockedPage)">
+          <i class="fa fa-fw fa-lock mr-1"></i>FIT Gesperrt-Seite
+          <div class="ml-auto text-smaller" *ngIf="hasSettingTabChanges(SettingTab.FitLockedPage)">
+            <i class="fa fa-exclamation-triangle"></i>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="w-100 h-100">
       <div [hidden]="selectedSettingTab !== SettingTab.EmailSMTP">
@@ -72,6 +92,9 @@
       <div [hidden]="selectedSettingTab !== SettingTab.DataTags">
         <fit-settings-tags (changeHappened)="setChangesOnTab(SettingTab.DataTags, $event)"></fit-settings-tags>
       </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.DataMemberStatus">
+        <fit-settings-member-status (changeHappened)="setChangesOnTab(SettingTab.DataMemberStatus, $event)"></fit-settings-member-status>
+      </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataResources">
         <fit-settings-resources (changeHappened)="setChangesOnTab(SettingTab.DataResources, $event)"></fit-settings-resources>
       </div>
@@ -80,6 +103,9 @@
       </div>
       <div [hidden]="selectedSettingTab !== SettingTab.DataPackages">
         <fit-settings-packages (changeHappened)="setChangesOnTab(SettingTab.DataPackages, $event)"></fit-settings-packages>
+      </div>
+      <div [hidden]="selectedSettingTab !== SettingTab.FitLockedPage">
+        <fit-settings-locked-page (changeHappened)="setChangesOnTab(SettingTab.FitLockedPage, $event)"></fit-settings-locked-page>
       </div>
     </div>
   </div>

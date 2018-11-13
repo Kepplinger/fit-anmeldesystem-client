@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ChangeProtocol } from '../../../../core/model/change-protocol';
 import { ChangeProtocolDAO } from '../../../../core/dao/change-protocol.dao';
 import { Company } from '../../../../core/model/company';
-import { CompanyDAO } from '../../../../core/dao/company.dao';
 import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { CompaniesService } from '../../services/companies.service';
+import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-changelog',
   templateUrl: './changelog.component.html',
   styleUrls: ['./changelog.component.scss']
 })
-export class ChangelogComponent implements OnInit {
+export class ChangelogComponent extends BaseSubscriptionComponent implements OnInit {
 
   public changelog: ChangeProtocol[] = [];
   public companies: Company[] = [];
@@ -19,16 +19,21 @@ export class ChangelogComponent implements OnInit {
 
   public showCompanies: boolean = true;
   public showPendingOnly: boolean = true;
+  public isLoading: boolean = false;
 
   public openedChange: ChangeProtocol = null;
 
   public constructor(private changeProtocolDAO: ChangeProtocolDAO,
                      private companiesService: CompaniesService) {
+    super();
   }
 
   public async ngOnInit(): Promise<void> {
     this.companies = this.companiesService.companies.getValue();
-    this.companiesService.companies.subscribe(c => this.companies = c);
+    this.addSub(this.companiesService.companies.subscribe(c => this.companies = c));
+
+    this.isLoading = this.companiesService.isLoading.getValue();
+    this.addSub(this.companiesService.isLoading.subscribe(l => this.isLoading = l));
 
     this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
 

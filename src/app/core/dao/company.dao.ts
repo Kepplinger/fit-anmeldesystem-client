@@ -4,8 +4,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppConfig } from '../app-config/app-config.service';
 import { Company } from '../model/company';
 import { CompanyMapper } from '../model/mapper/company-mapper';
-import { map } from 'rxjs/operators';
+import { catchError, map, publishLast, refCount } from 'rxjs/operators';
 import { IsAccepted } from '../model/enums/is-accepted';
+import { ErrorInterceptor } from './helper/error-interceptor';
+import { FitHttpError } from '../app-helper/helper-model/fit-http-error';
 
 @Injectable()
 export class CompanyDAO {
@@ -20,22 +22,22 @@ export class CompanyDAO {
         map((data: any[]) => {
           return CompanyMapper.mapJsonToCompanyList(data);
         }))
+      .pipe(publishLast(), refCount())
       .toPromise();
   }
 
-  public async persistCompany(company: Company): Promise<Company> {
+  public async persistCompany(company: Company): Promise<Company | FitHttpError> {
     return this.http.post<any>(this.appConfig.serverURL + '/company', company)
       .pipe(
         map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
-        }))
+        }),
+        catchError(ErrorInterceptor.catchErrorMessage))
       .toPromise();
   }
 
-  public async updateCompany(company: Company, isAdminChange = false): Promise<Company> {
-    let params = new HttpParams().set('isAdminChange', String(isAdminChange));
-
-    return this.http.put<any>(this.appConfig.serverURL + '/company', company, {params: params})
+  public async updateCompany(company: Company): Promise<Company> {
+    return this.http.put<any>(this.appConfig.serverURL + '/company', company)
       .pipe(
         map((data: any) => {
           return CompanyMapper.mapJsonToCompany(data);
@@ -52,7 +54,7 @@ export class CompanyDAO {
       .toPromise();
   }
 
-  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<void> {
+  public async assignCompany(pendingCompany: Company, existingCompany: Company): Promise<Company> {
 
     // Initialize Params Object
     let params = new HttpParams();
@@ -61,7 +63,7 @@ export class CompanyDAO {
     params = params.append('pendingCompanyId', String(pendingCompany.id));
     params = params.append('existingCompanyId', String(existingCompany.id));
 
-    this.http.delete<void>(this.appConfig.serverURL + '/company/assign', {params: params})
+    return this.http.delete<Company>(this.appConfig.serverURL + '/company/assign', {params: params})
       .toPromise();
   }
 }

@@ -11,57 +11,65 @@
   </div>
 </div>
 
-<div class="px-5 py-3">
+<div class="position-relative">
+  <div class="px-5 py-3"
+       [ngClass]="{'disabled-element': isLoading}">
 
-  <form [formGroup]="smtpConfigFormGroup" autocomplete="off">
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Host: </label>
-      <div class="col-sm-10">
-        <input type="text"
-               class="form-control"
-               formControlName="host"
-               placeholder="Host">
+    <form [formGroup]="smtpConfigFormGroup" autocomplete="off">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Host: </label>
+        <div class="col-sm-10">
+          <input type="text"
+                 class="form-control"
+                 formControlName="host"
+                 placeholder="Host">
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Port: </label>
-      <div class="col-sm-10">
-        <input type="text"
-               class="form-control"
-               formControlName="port"
-               placeholder="Port">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Port: </label>
+        <div class="col-sm-10">
+          <input type="text"
+                 class="form-control"
+                 formControlName="port"
+                 placeholder="Port">
+        </div>
       </div>
-    </div>
 
-    <div class="border-bottom my-4"></div>
+      <div class="border-bottom my-4"></div>
 
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">E-Mail: </label>
-      <div class="col-sm-10">
-        <input type="email"
-               class="form-control"
-               formControlName="eMail"
-               placeholder="E-Mail Adresse">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">E-Mail: </label>
+        <div class="col-sm-10">
+          <input type="email"
+                 class="form-control"
+                 formControlName="eMail"
+                 placeholder="E-Mail Adresse">
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Passwort: </label>
-      <div class="col-sm-10">
-        <input type="password"
-               class="form-control"
-               formControlName="password"
-               placeholder="Passwort">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Passwort: </label>
+        <div class="col-sm-10">
+          <input type="password"
+                 class="form-control"
+                 formControlName="password"
+                 placeholder="Passwort">
+        </div>
       </div>
-    </div>
 
-    <div class="d-flex mt-4">
-      <button class="btn btn-primary big-rounded-button text-bold mx-auto"
-              type="submit"
-              (click)="sendTestMail()">
-        <i class="fa fa-envelope"></i> Test-Mail verschicken
-      </button>
-    </div>
-  </form>
+      <div class="d-flex mt-4">
+        <button class="btn btn-primary big-rounded-button text-bold mx-auto"
+                type="submit"
+                (click)="sendTestMail()">
+          <i class="fa fa-envelope"></i> Test-Mail verschicken
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="isLoading"
+       class="centered-element">
+    <fit-loading-spinner [message]="'SMTP-Einstellungen werden geladen ...'"></fit-loading-spinner>
+  </div>
 </div>

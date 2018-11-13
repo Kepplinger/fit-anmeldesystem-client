@@ -49,10 +49,10 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
       this.addNewRepresentative();
     }
 
-    this.accountManagementService.bookingFilled.subscribe(
+    this.addSub(this.accountManagementService.bookingFilled.subscribe(
       () => {
         this.resourceFormArray = <FormArray>this.formGroup.get('resources');
-      });
+      }));
 
     this.resources = await this.resourceDAO.fetchResources();
   }
@@ -126,9 +126,9 @@ export class FitAppearanceComponent extends BaseFormValidationComponent implemen
   }
 
   private addNewRepresentative(): void {
-    let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
-    representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
-      new Representative('', '', null)
-    ));
+      let representativeArray: FormArray = <FormArray>this.formGroup.get('representatives');
+      representativeArray.push(RepresentativeMapper.mapRepresentativeToFormGroup(
+        new Representative('', '', null)
+      ));
   }
 }

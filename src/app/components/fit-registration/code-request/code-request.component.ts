@@ -10,13 +10,14 @@ import { CompanyDAO } from '../../../core/dao/company.dao';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../../core/app-helper/form-helper';
-import { CompaniesService } from '../../admin-tool/services/companies.service';
 import { DataUpdateNotifier } from '../../../core/app-services/data-update-notifier';
 import { Branch } from '../../../core/model/branch';
 import { BranchDAO } from '../../../core/dao/branch.dao';
 import { FormArrayUtils } from '../../../core/utils/form-array-utils';
 import { BaseFormValidationComponent } from '../../../core/base-components/base-form-validation.component';
 import { CompanyBranch } from '../../../core/model/company-branch';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FitHttpError } from '../../../core/app-helper/helper-model/fit-http-error';
 
 @Component({
   selector: 'fit-code-request',
@@ -67,11 +68,15 @@ export class CodeRequestComponent extends BaseFormValidationComponent implements
       let company = this.getCompanyFromForm();
 
       this.isLoading = true;
-      company = await this.company.persistCompany(company);
+      let response = await this.company.persistCompany(company);
       this.isLoading = false;
-      this.dataUpdateNotifier.addCompany(company);
-      this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
-      this.router.navigate(['']);
+
+      if (!(response instanceof FitHttpError)) {
+        company = response as Company;
+        this.dataUpdateNotifier.addCompany(company);
+        this.toastr.success('Antrag erfolgreich versendet.', 'Firmen Antrag erfolgreich!');
+        this.router.navigate(['']);
+      }
     } else {
       FormHelper.touchAllFormFields(this.formGroup);
       this.toastr.error('Ihre Eingaben sind fehlerhaft.', 'Firmen Antrag fehlgeschalgen!');

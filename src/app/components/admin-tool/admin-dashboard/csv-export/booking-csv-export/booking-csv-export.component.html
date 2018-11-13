@@ -129,93 +129,135 @@
         </div>
       </div>
 
-      <div class="card mb-3" style="width: 18rem;">
-        <div class="card-header text-bold">
-          <fit-custom-checkbox
-            [preventMargins]="true"
-            [message]="'Folder-Info'"
-            [(value)]="csv.isBookingEnabled">
-          </fit-custom-checkbox>
+      <div>
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-header text-bold">
+            <fit-custom-checkbox
+              [preventMargins]="true"
+              [message]="'Folder-Info'"
+              [(value)]="csv.isBookingEnabled">
+            </fit-custom-checkbox>
+          </div>
+          <div class="card-body"
+               [ngClass]="{'disabled-element': !csv.isBookingEnabled}">
+
+            <fit-custom-checkbox
+              [message]="'Branch'"
+              [(value)]="csv.booking.branch">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Telefon'"
+              [(value)]="csv.booking.phone">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'E-Mail'"
+              [(value)]="csv.booking.email">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Homepage'"
+              [(value)]="csv.booking.homepage">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Niederlassungen'"
+              [(value)]="csv.booking.establishments">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Sonstige Anmerkungen'"
+              [(value)]="csv.booking.additionalInfo">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Firmenbeschreibung'"
+              [(value)]="csv.booking.companyDescription">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Ist akzeptiert?'"
+              [(value)]="csv.booking.isAccepted">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Paket'"
+              [(value)]="csv.booking.package">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Vergeben (Ferial)'"
+              [(value)]="csv.booking.providesSummerJob">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Vergeben (Diplomarbeit)'"
+              [(value)]="csv.booking.providesThesis">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Vertreter'"
+              [(value)]="csv.booking.representatives">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Standplatz'"
+              [(value)]="csv.booking.location">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Wunsch-Abteilungen'"
+              [(value)]="csv.booking.desiredBranches">
+            </fit-custom-checkbox>
+
+            <fit-custom-checkbox
+              [message]="'Benötigte Gegenstände'"
+              [(value)]="csv.booking.resources">
+            </fit-custom-checkbox>
+          </div>
         </div>
-        <div class="card-body"
-             [ngClass]="{'disabled-element': !csv.isBookingEnabled}">
 
-          <fit-custom-checkbox
-            [message]="'Branch'"
-            [(value)]="csv.booking.branch">
-          </fit-custom-checkbox>
+        <div class="card mb-3" style="width: 18rem;">
+          <div class="card-header text-bold">
+            <fit-custom-checkbox
+              [preventMargins]="true"
+              [message]="'Präsentation'"
+              [(value)]="csv.isPresentationEnabled">
+            </fit-custom-checkbox>
+          </div>
+          <div class="card-body"
+               [ngClass]="{'disabled-element': !csv.isPresentationEnabled}">
 
-          <fit-custom-checkbox
-            [message]="'Telefon'"
-            [(value)]="csv.booking.phone">
-          </fit-custom-checkbox>
+            <fit-custom-checkbox
+              [message]="'Titel'"
+              [(value)]="csv.presentation.title">
+            </fit-custom-checkbox>
 
-          <fit-custom-checkbox
-            [message]="'E-Mail'"
-            [(value)]="csv.booking.email">
-          </fit-custom-checkbox>
+            <fit-custom-checkbox
+              [message]="'Beschreibung'"
+              [(value)]="csv.presentation.description">
+            </fit-custom-checkbox>
 
-          <fit-custom-checkbox
-            [message]="'Homepage'"
-            [(value)]="csv.booking.homepage">
-          </fit-custom-checkbox>
+            <fit-custom-checkbox
+              [message]="'Bestätigt?'"
+              [(value)]="csv.presentation.isAccepted">
+            </fit-custom-checkbox>
 
-          <fit-custom-checkbox
-            [message]="'Niederlassungen'"
-            [(value)]="csv.booking.establishments">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Sonstige Anmerkungen'"
-            [(value)]="csv.booking.additionalInfo">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Firmenbeschreibung'"
-            [(value)]="csv.booking.companyDescription">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Ist akzeptiert?'"
-            [(value)]="csv.booking.isAccepted">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Paket'"
-            [(value)]="csv.booking.package">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Vergeben (Ferial)'"
-            [(value)]="csv.booking.providesSummerJob">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Vergeben (Diplomarbeit)'"
-            [(value)]="csv.booking.providesThesis">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Vertreter'"
-            [(value)]="csv.booking.representatives">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Standplatz'"
-            [(value)]="csv.booking.location">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Wunsch-Abteilungen'"
-            [(value)]="csv.booking.desiredBranches">
-          </fit-custom-checkbox>
-
-          <fit-custom-checkbox
-            [message]="'Benötigte Gegenstände'"
-            [(value)]="csv.booking.resources">
-          </fit-custom-checkbox>
+            <fit-custom-checkbox
+              [message]="'Branchen'"
+              [(value)]="csv.presentation.branches">
+            </fit-custom-checkbox>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading"
+     class="loading-container">
+  <div class="centered-element">
+    <fit-loading-spinner [message]="'Anmeldungen werden geladen ...'"></fit-loading-spinner>
   </div>
 </div>

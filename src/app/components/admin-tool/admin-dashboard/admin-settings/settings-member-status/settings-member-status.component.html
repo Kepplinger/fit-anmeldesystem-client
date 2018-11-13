@@ -1,0 +1,112 @@
+<div class="d-flex header w-100 bg-whitesmoke border-bottom border-right p-2">
+  <h3 class="my-auto ml-2">Member Status <i class="fa fa-users"></i></h3>
+
+  <div class="d-flex flex-column ml-auto">
+    <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto"
+            (click)="updateMemberStati()"
+            [disabled]="!unsavedChangesExist">
+      <i class="fa fa-download"></i>
+      Speichern
+    </button>
+  </div>
+</div>
+
+<div class="px-5 py-3">
+  <div class="row">
+
+    <!--tags-->
+    <div class="col-md-6">
+      <h3>Member Stati</h3>
+      <div class="fit-border member-status-container d-flex flex-column">
+        <form>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-success text-bold"
+                      type="submit"
+                      [disabled]="memberStatusName == '' && memberStatusPrice == null"
+                      (click)="addMemberStatus()">
+                <i class="fa fa-plus"></i>
+                Add
+              </button>
+            </div>
+            <input type="text"
+                   class="form-control"
+                   [(ngModel)]="memberStatusName"
+                   [ngModelOptions]="{standalone: true}"
+                   placeholder="Name ...">
+            <input type="number"
+                   class="form-control"
+                   [(ngModel)]="memberStatusPrice"
+                   [ngModelOptions]="{standalone: true}"
+                   placeholder="Preis ...">
+          </div>
+        </form>
+
+        <div class="scrollable h-100 border-top">
+          <div [ngSwitch]="!isLoading && memberStati.length == 0" class="mt-2">
+            <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+              ... es wurden keine Member-Stati gefunden
+            </div>
+            <div *ngSwitchDefault>
+              <div *ngFor="let memberStatus of memberStati" class="d-flex m-2">
+                <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                  {{memberStatus.name}} - {{memberStatus.defaultPrice}} €
+                </div>
+                <div *ngIf="memberStatus.id == null"
+                     class="middle-badge delete-badge text-light p-2 floating-effect"
+                     (click)="removeMemberStatus(memberStati, memberStatus)">
+                  <i class="fa fa-times"></i>
+                </div>
+                <div class="right-badge archive-badge p-2 floating-effect"
+                     (click)="archiveMemberStatus(memberStatus)">
+                  <i class="fa fa-arrow-right text-light"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="isLoading"
+               class="text-very-small mt-5">
+            <fit-loading-spinner [message]="'Member Stati werden geladen ...'"></fit-loading-spinner>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--archived tags-->
+    <div class="col-md-6">
+      <h3>Archivierte Member Stati</h3>
+      <div class="fit-border member-status-container scrollable">
+        <div [ngSwitch]="!isArchivedLoading && archivedMemberStati.length == 0" class="mt-2">
+          <div *ngSwitchCase="true" class="text-muted text-center user-select-none">
+            ... es wurden keine archivierten Resourcen gefunden
+          </div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let memberStatus of archivedMemberStati" class="d-flex m-2 floating-effect">
+              <div class="left-badge bg-light text-dark flex-1 flex-line-breaks text-left p-2 floating-effect">
+                <span>{{memberStatus.name}} - {{memberStatus.defaultPrice}} €</span>
+              </div>
+              <div *ngIf="memberStatus.id == null"
+                   class="middle-badge delete-badge text-light p-2 floating-effect"
+                   (click)="removeMemberStatus(archivedMemberStati, memberStatus)">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="right-badge recover-badge p-2 floating-effect"
+                   (click)="recoverMemberStatus(memberStatus)">
+                <i class="fa fa-arrow-left text-light"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isArchivedLoading"
+             class="text-very-small mt-5">
+          <fit-loading-spinner [message]="'Archivierte Member Stati werden geladen ...'"></fit-loading-spinner>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

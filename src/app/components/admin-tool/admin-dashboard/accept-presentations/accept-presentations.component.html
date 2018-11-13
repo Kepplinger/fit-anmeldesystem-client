@@ -1,16 +1,35 @@
 <fit-presentation-detail-modal [presentation]="openedPresentation"></fit-presentation-detail-modal>
 
-<div class="m-5">
+<div class="d-flex flex-column m-5">
 
   <!--pending companies-->
-  <div class="p-3">
+  <div class="pt-3">
 
-    <!--header-->
-    <div [ngSwitch]="displayedList"
-         class="mb-4">
-      <h2 *ngSwitchCase="IsAccepted.Accepted">Bestätigte Vorträge</h2>
-      <h2 *ngSwitchCase="IsAccepted.Pending">Offene Vorträge</h2>
-      <h2 *ngSwitchCase="IsAccepted.Rejected">Abgelehnte Vorträge</h2>
+    <div class="d-flex">
+      <!--header-->
+      <div [ngSwitch]="displayedList"
+           class="mb-4">
+        <h2 *ngSwitchCase="IsAccepted.Accepted">Bestätigte Vorträge</h2>
+        <h2 *ngSwitchCase="IsAccepted.Pending">Offene Vorträge</h2>
+        <h2 *ngSwitchCase="IsAccepted.Rejected">Abgelehnte Vorträge</h2>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center ml-auto mb-3">
+        <div class="text-bold mr-2">Anmeldestatus:</div>
+
+        <div class="btn-group">
+          <button class="btn btn-light border-0 opened"
+                  [ngClass]="{'active': !presentationLocked}"
+                  (click)="setPresentationsOpen()">
+            <i class="fa fa-forward"></i> Offen
+          </button>
+          <button class="btn btn-light border-0 locked"
+                  [ngClass]="{'active': presentationLocked}"
+                  (click)="setPresentationsLocked()">
+            <i class="fa fa-lock"></i> Gesperrt
+          </button>
+        </div>
+      </div>
     </div>
 
     <!--tabs-->
@@ -40,7 +59,9 @@
         </a>
       </li>
     </ul>
+  </div>
 
+  <div class="flex-1 overflow-y-auto">
     <!--list-->
     <table class="table">
       <tr>
@@ -83,7 +104,7 @@
         <td>
           <a *ngIf="cp.presentation.file != null"
              target="_blank" rel="noopener noreferrer"
-             [href]="serverUrl + '/' + cp.presentation.file?.dataUrl">
+             [href]="cp.presentation.file?.dataUrl">
             <i class="fa fa-download"></i> {{cp.presentation.file?.name}}
           </a>
         </td>
@@ -112,6 +133,21 @@
         </td>
       </tr>
     </table>
+
+    <div *ngIf="isLoading"
+         class="mt-5">
+      <fit-loading-spinner [message]="'Vorträge werden geladen ...'"></fit-loading-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && getPresentations().length == 0"
+         class="mt-7">
+      <div [ngSwitch]="displayedList"
+           class="text-large text-muted text-center">
+        <div *ngSwitchCase="IsAccepted.Accepted">Es wurden noch keine Vorträge bestätigt</div>
+        <div *ngSwitchCase="IsAccepted.Pending">Es sind keine offenen Vorträge vorhanden</div>
+        <div *ngSwitchCase="IsAccepted.Rejected">Es wurden noch keine Vorträge abgelehnt</div>
+      </div>
+    </div>
 
   </div>
 </div>

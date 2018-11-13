@@ -1,0 +1,16 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-header {
+  padding: 12px;
+  font-weight: bold;
+  background-color: rgba(118, 188, 255, 0.12);
+}
+
+td.column-min {
+  width: 1%;
+  white-space: nowrap;
+}

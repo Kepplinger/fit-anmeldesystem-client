@@ -17,16 +17,20 @@ export class SettingsPackagesComponent extends BaseSettingsChangesComponent impl
   public packages: Package[] = [];
   public editingPackage: Package;
 
+  public isLoading: boolean = false;
+
   public constructor(private packageDAO: PackageDAO,
                      private toastr: ToastrService) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
+    this.isLoading = true;
     this.packages = (await this.packageDAO.fetchPackages()).sort(
       (a: Package, b: Package) => {
         return a.discriminator - b.discriminator;
       });
+    this.isLoading = false;
   }
 
   public setEditingPackage(fitPackage: Package): void {
