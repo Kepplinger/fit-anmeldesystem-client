@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://10.0.0.10:8181/api'
+  apiUrl: 'http://loclahost:8181/api'
 };
