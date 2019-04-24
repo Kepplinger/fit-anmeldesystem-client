@@ -1,4 +1,4 @@
-<div>
+<div class="p-3">
   <div class="d-flex align-items-center mb-3">
     <div class="text-bold mr-2">Name:</div>
 
@@ -7,9 +7,8 @@
            (keyup)="this.filterChanged()"
            [(ngModel)]="filter.searchText"
            placeholder="Suche"
-           class="form-control w-75"/>
+           class="form-control"/>
   </div>
-
 
   <div>
     <div class="text-bold mb-2">FIT-Filter</div>
@@ -48,5 +47,12 @@
                          (valueChange)="filterChanged()"
                          [message]="tag.tag.value">
     </fit-custom-checkbox>
+  </div>
+</div>
+
+<div *ngIf="isDataLoading"
+     class="absolute-loading-container">
+  <div class="centered-element">
+    <fit-loading-spinner [message]="'Daten werden geladen'"></fit-loading-spinner>
   </div>
 </div>

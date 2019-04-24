@@ -8,6 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal-template-creator-helper';
 import { BaseSubscriptionComponent } from '../../../../../core/base-components/base-subscription.component';
+import { BookingsService } from '../../../services/bookings.service';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { CompanyBookingsUtilsService } from '../../../services/company-bookings-utils.service';
 
 declare let $: any;
 
@@ -32,6 +35,8 @@ export class SendMailsSelectMailComponent extends BaseSubscriptionComponent impl
 
   public constructor(private eventService: EventService,
                      private emailDAO: EmailDAO,
+                     private bookingsService: BookingsService,
+                     private companyBookingUtils: CompanyBookingsUtilsService,
                      private modalWindowService: ModalWindowService,
                      private toastr: ToastrService) {
     super();
@@ -59,6 +64,10 @@ export class SendMailsSelectMailComponent extends BaseSubscriptionComponent impl
     }
   }
 
+  public isReminderMailAvailable(): boolean {
+    return this.companyBookingUtils.isReminderMailAvailable(this.companies);
+  }
+
   public async sendMailPerIdentifier(identifier: FitEmails): Promise<void> {
     if (this.companies.length > 0) {
       let result: boolean = await this.modalWindowService.confirm(
@@ -76,4 +85,6 @@ export class SendMailsSelectMailComponent extends BaseSubscriptionComponent impl
       this.toastr.warning('Es können keine Mails gesendet werden, wenn keine Firmen ausgewählt sind', 'Senden nicht möglich!');
     }
   }
+
+
 }

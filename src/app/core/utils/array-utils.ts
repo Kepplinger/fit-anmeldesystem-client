@@ -3,7 +3,7 @@ export class ArrayUtils {
     return array.splice(array.indexOf(element), 1);
   }
 
-  public static getFirstElement(elements: any[]): any {
+  public static getFirstElement<T>(elements: T[]): T {
     if (elements.length > 0) {
       return elements[0];
     } else {

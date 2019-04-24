@@ -23,6 +23,7 @@ export class BookingMapper {
       booking.location = bookingJson.location;
       booking.contact = bookingJson.contact;
       booking.fitPackage = bookingJson.fitPackage;
+      booking.isComplete = bookingJson.isComplete;
 
       booking.resources = bookingJson.resources.map(r => {
         if (r.resource != null) {

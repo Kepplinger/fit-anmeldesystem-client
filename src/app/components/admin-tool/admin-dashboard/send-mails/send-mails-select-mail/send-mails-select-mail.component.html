@@ -28,14 +28,20 @@
 
       <button class="btn big-rounded-button btn-primary text-bold w-75 mt-2 mb-1"
               (click)="sendMailPerIdentifier(FitEmails.BookingDataReminder)"
-              [disabled]="!companiesHaveBooking">
+              [disabled]="!companiesHaveBooking || !isReminderMailAvailable()">
         Erinnerung (FIT-Daten)
       </button>
-      <div *ngIf="!companiesHaveBooking"
+      <div *ngIf="!companiesHaveBooking; else second"
            class="text-muted text-center w-75">
         Kann nur verwendet werden, wenn ausschließlich Firmen mit Anmeldung ausgewählt sind!
       </div>
 
+      <ng-template #second>
+        <div *ngIf="!isReminderMailAvailable()"
+                      class="text-muted text-center w-75">
+          Kann nur gesendet werden, wenn auch wirklich ausstehende FIT-Daten vorhanden sind.
+        </div>
+      </ng-template>
     </div>
 
 

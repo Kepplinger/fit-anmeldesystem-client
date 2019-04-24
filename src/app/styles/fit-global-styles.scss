@@ -72,7 +72,19 @@ body {
   flex: 1;
 }
 
-.loading-container {
+.absolute-loading-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  color: white;
+  top: 0;
+  left: 0;
+  background-color: rgba($dark, 0.5);
+  z-index: 1000;
+  user-select: none;
+}
+
+.full-screen-loading-container {
   height: 100vh;
   width: 100vw;
   top: 0;
@@ -203,6 +215,7 @@ body {
   font-size: 0.75em;
   color: $danger;
 }
+
 .muted-message {
   margin-top: 0.25rem;
   font-size: 0.75em;
@@ -292,7 +305,7 @@ body {
   -webkit-text-stroke-width: 0.35px;
 }
 
-.big-rounded-button{
+.big-rounded-button {
   min-width: 200px;
   border-radius: 40px;
   font-size: 1.2rem;

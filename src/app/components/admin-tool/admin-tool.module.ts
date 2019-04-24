@@ -61,6 +61,7 @@ import { SettingsFitLockedPageComponent } from './admin-dashboard/admin-settings
 import { EditFitLockedPageComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/edit-fit-locked-page.component';
 import { PageHtmlEditorComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/page-html-editor/page-html-editor.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { CompanyBookingsUtilsService } from './services/company-bookings-utils.service';
 
 @NgModule({
   imports: [
@@ -129,7 +130,8 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
     GraduatesService,
     PresentationsService,
     EmailsService,
-    BookingsService
+    BookingsService,
+    CompanyBookingsUtilsService
   ]
 })
 export class AdminToolModule {

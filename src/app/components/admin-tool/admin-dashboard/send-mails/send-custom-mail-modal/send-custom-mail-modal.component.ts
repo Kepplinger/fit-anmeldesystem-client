@@ -9,6 +9,8 @@ import { ModalTemplateCreatorHelper } from '../../../../../core/app-helper/modal
 import { ModalWindowService } from '../../../../../core/app-services/modal-window.service';
 import { EmailVariable } from '../../../../../core/model/email-variable';
 import { EmailVariableDAO } from '../../../../../core/dao/email-variable.dao';
+import { ArrayUtils } from '../../../../../core/utils/array-utils';
+import { CompanyBookingsUtilsService } from '../../../services/company-bookings-utils.service';
 
 declare let $: any;
 
@@ -18,6 +20,8 @@ declare let $: any;
   styleUrls: ['./send-custom-mail-modal.component.scss']
 })
 export class SendCustomMailModalComponent implements OnInit, OnChanges {
+
+  public readonly REQUIRED_DATA_VALUE: string = 'Booking.REQUIRED_DATA';
 
   @Input()
   public companies: Company[] = [];
@@ -36,6 +40,7 @@ export class SendCustomMailModalComponent implements OnInit, OnChanges {
   public constructor(private emailDAO: EmailDAO,
                      private emailVariableDAO: EmailVariableDAO,
                      private toastr: ToastrService,
+                     private companyBookingUtils: CompanyBookingsUtilsService,
                      private modalWindowService: ModalWindowService,
                      private fb: FormBuilder) {
     this.emailFormGroup = this.fb.group({
@@ -90,10 +95,29 @@ export class SendCustomMailModalComponent implements OnInit, OnChanges {
   public addVariable(variable: EmailVariable): void {
     this.quillEditor.insertText(this.currentIndex, '{{ ' + variable.value + ' }}');
     this.quillEditor.setSelection(this.currentIndex + variable.value.length + 6, 0);
+    this.customMail.template = this.quillEditor.getText();
   }
 
   public getFilteredEmailVariables(): EmailVariable[] {
-    return this.emailVariables.filter(v => v.entity === this.getEntityType());
+    let variables: EmailVariable[] = this.emailVariables.filter(v => v.entity === this.getEntityType());
+    variables = this.removeRequiredDataIfNecessary(variables);
+    return variables;
+  }
+
+  private removeRequiredDataIfNecessary(variables: EmailVariable[]): EmailVariable[] {
+    if (this.companies.length === 1 && this.companiesHaveBooking) {
+      if (!this.companyBookingUtils.isReminderMailAvailable(this.companies)) {
+        variables = this.removeRequiredData(variables);
+      }
+    } else {
+      variables = this.removeRequiredData(variables);
+    }
+
+    return variables;
+  }
+
+  private removeRequiredData(variables: EmailVariable[]): EmailVariable[] {
+    return variables.filter(e => e.value !== this.REQUIRED_DATA_VALUE);
   }
 
   private getEntityType(): FitEmailEntityType {

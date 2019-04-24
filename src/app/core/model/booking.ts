@@ -26,6 +26,7 @@ export class Booking {
   public resources: Resource[];
 
   public isAccepted: IsAccepted;
+  public isComplete: boolean;
   public remarks: string;
   public additionalInfo: string;
   public companyDescription: string;
@@ -70,6 +71,7 @@ export class Booking {
                      establishmentsAut?: string[],
                      isAccepted?: IsAccepted,
                      creationDate?: Moment,
+                     isComplete?: boolean,
                      id?: number) {
     this.id = id;
     this.event = event;
@@ -81,6 +83,7 @@ export class Booking {
     this.representatives = representatives;
     this.branches = branches;
     this.resources = resources;
+    this.isComplete = isComplete;
     this.isAccepted = isAccepted;
     this.remarks = remarks;
     this.additionalInfo = additionalInfo;

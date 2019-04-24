@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SendMailFilter } from '../../../../../core/app-helper/helper-model/send-mail-filter';
-import { BranchDAO } from '../../../../../core/dao/branch.dao';
-import { MemberStatusDAO } from '../../../../../core/dao/member-status.dao';
-import { TagDAO } from '../../../../../core/dao/tag.dao';
-import { EventService } from '../../../../../core/app-services/event.service';
-import { Event } from '../../../../../core/model/event';
-import { BaseSubscriptionComponent } from '../../../../../core/base-components/base-subscription.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SendMailFilter} from '../../../../../core/app-helper/helper-model/send-mail-filter';
+import {BranchDAO} from '../../../../../core/dao/branch.dao';
+import {MemberStatusDAO} from '../../../../../core/dao/member-status.dao';
+import {TagDAO} from '../../../../../core/dao/tag.dao';
+import {EventService} from '../../../../../core/app-services/event.service';
+import {Event} from '../../../../../core/model/event';
+import {BaseSubscriptionComponent} from '../../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-send-mails-filter',
@@ -25,6 +25,9 @@ export class SendMailsFilterComponent extends BaseSubscriptionComponent implemen
   public tags: any[] = [];
 
   public fitFilterHtml: string;
+  public isDataLoading: boolean = true;
+
+  private loadingPromises: Promise<void>[] = [];
 
   public constructor(private branchDAO: BranchDAO,
                      private eventService: EventService,
@@ -37,15 +40,13 @@ export class SendMailsFilterComponent extends BaseSubscriptionComponent implemen
     this.createFitFilterHtml(this.eventService.currentEvent.getValue());
     this.addSub(this.eventService.currentEvent.subscribe(e => this.createFitFilterHtml(e)));
 
-    this.branches = (await this.branchDAO.fetchBranches()).map(b => {
-      return {branch: b, checked: false};
-    });
-    this.memberStati = (await this.memberStatusDAO.fetchMemberStati()).map(m => {
-      return {memberStatus: m, checked: false};
-    });
-    this.tags = (await this.tagDAO.fetchTags()).map(t => {
-      return {tag: t, checked: false};
-    });
+    this.loadingPromises.push(this.loadBranches());
+    this.loadingPromises.push(this.loadMemberStati());
+    this.loadingPromises.push(this.loadTags());
+
+    Promise.all(this.loadingPromises)
+      .then(() => this.isDataLoading = false)
+      .catch(() => this.isDataLoading = false);
   }
 
   public filterChanged(): void {
@@ -58,5 +59,23 @@ export class SendMailsFilterComponent extends BaseSubscriptionComponent implemen
 
   private createFitFilterHtml(event: Event): void {
     this.fitFilterHtml = `Nur mit FIT Anmeldung <span class="text-smaller text-muted">(am ` + event.eventDate.format('DD.MM.YYYY') + `)</span>`;
+  }
+
+  private async loadBranches(): Promise<void> {
+    this.branches = (await this.branchDAO.fetchBranches()).map(b => {
+      return {branch: b, checked: false};
+    });
+  }
+
+  private async loadMemberStati(): Promise<void> {
+    this.memberStati = (await this.memberStatusDAO.fetchMemberStati()).map(m => {
+      return {memberStatus: m, checked: false};
+    });
+  }
+
+  private async loadTags(): Promise<void> {
+    this.tags = (await this.tagDAO.fetchTags()).map(t => {
+      return {tag: t, checked: false};
+    });
   }
 }
