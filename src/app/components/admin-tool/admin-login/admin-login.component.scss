@@ -1,3 +1,16 @@
 .card {
   border: none;
 }
+
+.alert {
+  max-height: 0;
+  padding: 0 10px;
+  border: none;
+  overflow: hidden;
+  transition: max-height 500ms linear, padding 500ms linear;
+}
+
+.show-alert {
+  max-height: 200px;
+  padding: 10px;
+}

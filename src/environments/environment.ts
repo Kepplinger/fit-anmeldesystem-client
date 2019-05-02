@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   // apiUrl: 'http://loclahost:8181/api'
-  apiUrl: 'http://10.0.0.5:8181/api',
-  // apiUrl: 'http://10.144.144.99:8181/api'
+  // apiUrl: 'http://10.0.0.14:8181/api',
+  // apiUrl: 'http://10.144.144.88:8181/api'
+  apiUrl: 'http://192.168.0.106:8181/api'
 };

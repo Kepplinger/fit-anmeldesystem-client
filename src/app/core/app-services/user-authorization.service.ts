@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {FitUserDAO} from '../dao/fit-user.dao';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {FitUserRole} from '../model/enums/fit-user-role';
+import * as moment from 'moment';
 
 @Injectable()
 export class UserAuthorizationService {
 
-  private jwtService  = new JwtHelperService();
+  private jwtService = new JwtHelperService();
   private token: string = null;
 
   public constructor(private authDAO: FitUserDAO) {
@@ -30,7 +31,6 @@ export class UserAuthorizationService {
     sessionStorage.setItem('token', this.token);
   }
 
-  // noinspection JSMethodCanBeStatic
   public logoutUser(): void {
     this.token = null;
     sessionStorage.removeItem('token');
@@ -56,6 +56,8 @@ export class UserAuthorizationService {
 
   public isUserAuthenticated(): boolean {
     if (this.token != null && this.token !== '') {
+
+      let token: any = this.jwtService.decodeToken(this.token);
       return !this.jwtService.isTokenExpired(this.token);
     } else {
       return false;

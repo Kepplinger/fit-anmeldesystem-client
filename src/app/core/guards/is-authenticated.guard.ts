@@ -12,9 +12,11 @@ export class IsAuthenticatedGuard implements CanActivate {
 
   public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.userAuthorizationService.isUserAuthenticated()) {
-      this.router.navigate(['/admin-tool', 'login']);
+      this.router.navigate(['/admin-tool', 'login'], {queryParams: {origin: 'tokenExpired'}});
       return false;
+    } else {
+      return true;
     }
-    return true;
+
   }
 }
