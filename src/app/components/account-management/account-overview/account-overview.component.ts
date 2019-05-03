@@ -10,6 +10,7 @@ import { AccountManagementService } from '../../../core/app-services/account-man
 import { Graduate } from '../../../core/model/graduate';
 import { ModalWindowService } from '../../../core/app-services/modal-window.service';
 import { BaseOnDeactivateAlertComponent } from '../../../core/base-components/base-on-deactivate-alert.component';
+import { ReauthService } from '../../admin-tool/services/reauth.service';
 
 @Component({
   selector: 'fit-account-overview',
@@ -29,8 +30,9 @@ export class AccountOverviewComponent extends BaseOnDeactivateAlertComponent imp
                      private fb: FormBuilder,
                      private eventService: EventService,
                      private modalWindowService: ModalWindowService,
-                     private router: Router) {
-    super();
+                     private router: Router,
+                     reauthService: ReauthService) {
+    super(reauthService);
   }
 
   public ngOnInit(): void {

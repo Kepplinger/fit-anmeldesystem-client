@@ -6,6 +6,7 @@ import { ArrayUtils } from '../../../../core/utils/array-utils';
 import { EmailVariable } from '../../../../core/model/email-variable';
 import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
 import { EmailsService } from '../../services/emails.service';
+import { ReauthService } from '../../services/reauth.service';
 
 @Component({
   selector: 'fit-mail-templates',
@@ -28,8 +29,9 @@ export class MailTemplatesComponent extends BaseOnDeactivateAlertComponent imple
   public isLoading: boolean = false;
 
   public constructor(private emailDAO: EmailDAO,
-                     private emailsService: EmailsService) {
-    super();
+                     private emailsService: EmailsService,
+                     reauthService: ReauthService) {
+    super(reauthService);
   }
 
   public async ngOnInit(): Promise<void> {

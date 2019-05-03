@@ -1,22 +1,22 @@
-import {Injectable} from '@angular/core';
-import {CanActivate, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {UserAuthorizationService} from '../app-services/user-authorization.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { UserAuthorizationService } from '../app-services/user-authorization.service';
+import { ReauthService } from '../../components/admin-tool/services/reauth.service';
 
 @Injectable()
 export class IsAuthenticatedGuard implements CanActivate {
 
   public constructor(private userAuthorizationService: UserAuthorizationService,
-                     private router: Router) {
+                     private reauthService: ReauthService) {
   }
 
-  public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.userAuthorizationService.isUserAuthenticated()) {
-      this.router.navigate(['/admin-tool', 'login'], {queryParams: {origin: 'tokenExpired'}});
+      this.reauthService.redirectAccordingly(state.url);
       return false;
     } else {
       return true;
     }
-
   }
 }

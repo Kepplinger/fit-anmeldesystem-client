@@ -6,11 +6,6 @@
 
   <div class="card-body px-5 pb-4"
        [ngClass]="{'disabled-element': isLoading}">
-    <div [ngClass]="{'show-alert': hasTokenExpired}"
-         class="alert text-smaller alert-danger" role="alert">
-      Die Sitzung ist abgelaufen erneuter Login erforderlich.
-    </div>
-
     <form>
       <div>
         <label for="email">E-Mail:</label>

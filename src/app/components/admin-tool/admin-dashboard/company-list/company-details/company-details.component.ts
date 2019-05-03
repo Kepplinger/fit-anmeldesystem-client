@@ -11,6 +11,7 @@ import { CompaniesService } from '../../../services/companies.service';
 import { BaseOnDeactivateAlertComponent } from '../../../../../core/base-components/base-on-deactivate-alert.component';
 import { MemberStatusDAO } from '../../../../../core/dao/member-status.dao';
 import { MemberStatus } from '../../../../../core/model/member-status';
+import { ReauthService } from '../../../services/reauth.service';
 
 @Component({
   selector: 'fit-company-details',
@@ -32,8 +33,9 @@ export class CompanyDetailsComponent extends BaseOnDeactivateAlertComponent impl
                      private memberStatusDAO: MemberStatusDAO,
                      private companiesService: CompaniesService,
                      private tagService: CompanyTagService,
-                     private companyTransferService: CompanyTransferService) {
-    super();
+                     private companyTransferService: CompanyTransferService,
+                     reauthService: ReauthService) {
+    super(reauthService);
   }
 
   public async ngOnInit(): Promise<void> {

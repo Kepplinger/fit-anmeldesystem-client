@@ -1,12 +1,13 @@
 import { HostListener } from '@angular/core';
 import { CanComponentDeactivate } from '../guards/can-deactivate.guard';
 import { BaseSubscriptionComponent } from './base-subscription.component';
+import { ReauthService } from '../../components/admin-tool/services/reauth.service';
 
 export abstract class BaseOnDeactivateAlertComponent extends BaseSubscriptionComponent implements CanComponentDeactivate {
 
   protected unsavedChangesExist: boolean = false;
 
-  protected constructor() {
+  protected constructor(protected reauthService: ReauthService) {
     super();
   }
 
@@ -16,11 +17,11 @@ export abstract class BaseOnDeactivateAlertComponent extends BaseSubscriptionCom
   }
 
   public async canDeactivate(): Promise<boolean> {
-    if (this.unsavedChangesExist) {
+    if (this.unsavedChangesExist && !this.reauthService.isReauthNecessary) {
       return confirm('Webseite verlassen? Ihre Änderungen werden eventuell nicht gespeichert.');
+    } else {
+      return true;
     }
-
-    return true;
   }
 
   public doUnsavedChangesExist(): boolean {

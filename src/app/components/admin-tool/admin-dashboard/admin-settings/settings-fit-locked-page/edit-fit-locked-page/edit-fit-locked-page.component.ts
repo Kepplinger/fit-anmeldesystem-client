@@ -5,6 +5,7 @@ import { LockPage } from '../../../../../../core/model/lock-page';
 import { BaseSettingsChangesComponent } from '../../../../../../core/base-components/base-settings-changes.component';
 import { BaseOnDeactivateAlertComponent } from '../../../../../../core/base-components/base-on-deactivate-alert.component';
 import { ToastrService } from 'ngx-toastr';
+import { ReauthService } from '../../../../services/reauth.service';
 
 @Component({
   selector: 'fit-edit-locked-page',
@@ -21,8 +22,9 @@ export class EditFitLockedPageComponent extends BaseOnDeactivateAlertComponent i
 
   public constructor(private route: ActivatedRoute,
                      private toastr: ToastrService,
-                     private lockPageDAO: LockPageDAO) {
-    super();
+                     private lockPageDAO: LockPageDAO,
+                     reauthService: ReauthService) {
+    super(reauthService);
     this.addSub(this.route.params.subscribe(params => {
       let type: string = params['type'];
 

@@ -11,6 +11,7 @@ import { ModalWindowService } from '../../../../core/app-services/modal-window.s
 import { EventHelper } from '../../../../core/model/helper/event-helper';
 import { ModalTemplateCreatorHelper } from '../../../../core/app-helper/modal-template-creator-helper';
 import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
+import { ReauthService } from '../../services/reauth.service';
 
 declare let $: any;
 
@@ -33,8 +34,9 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
                      private router: Router,
                      private modalWindow: ModalWindowService,
                      private eventService: EventService,
-                     private eventDAO: EventDAO) {
-    super();
+                     private eventDAO: EventDAO,
+                     reauthService: ReauthService) {
+    super(reauthService);
   }
 
   public ngOnInit(): void {

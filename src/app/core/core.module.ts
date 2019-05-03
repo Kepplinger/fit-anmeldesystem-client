@@ -33,6 +33,8 @@ import { MemberStatusDAO } from './dao/member-status.dao';
 import { EmailVariableDAO } from './dao/email-variable.dao';
 import { LockPageDAO } from './dao/lock-page.dao';
 import { MediaDAO } from './dao/media.dao';
+import { TokenExpiredInterceptor } from './interceptors/token-expired.interceptor';
+import { ReauthService } from '../components/admin-tool/services/reauth.service';
 
 @NgModule({
   imports: [
@@ -71,7 +73,9 @@ import { MediaDAO } from './dao/media.dao';
     UserAuthorizationService,
     IsAuthenticatedGuard,
     IsRoleGrantedGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: UserAuthenticationInterceptor, multi: true}
+    ReauthService,
+    {provide: HTTP_INTERCEPTORS, useClass: UserAuthenticationInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenExpiredInterceptor, multi: true}
   ]
 })
 export class CoreModule {

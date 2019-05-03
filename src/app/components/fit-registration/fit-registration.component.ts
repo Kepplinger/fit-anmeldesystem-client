@@ -27,6 +27,7 @@ import { DataUpdateNotifier } from '../../core/app-services/data-update-notifier
 import { Representative } from '../../core/model/representative';
 import { BaseOnDeactivateAlertComponent } from '../../core/base-components/base-on-deactivate-alert.component';
 import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
+import { ReauthService } from '../admin-tool/services/reauth.service';
 
 interface FitStep {
   step: FitRegistrationStep;
@@ -68,8 +69,9 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
                      private dataUpdateNotifier: DataUpdateNotifier,
                      private accountManagementService: AccountManagementService,
                      private modalWindowService: ModalWindowService,
-                     private fb: FormBuilder) {
-    super();
+                     private fb: FormBuilder,
+                     reauthService: ReauthService) {
+    super(reauthService);
 
     // creates a FitStep Array out of the ordered steps
     this.steps = getOrderedFitRegistrationSteps().map(s => {
@@ -484,24 +486,24 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
       });
     }
 
-    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+    (<FormGroup>this.fitFormGroup.controls['detailedData'])
       .setControl('establishmentsAut', this.fb.array(this.booking.establishmentsAut));
 
-    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+    (<FormGroup>this.fitFormGroup.controls['detailedData'])
       .setControl('establishmentsInt', this.fb.array(this.booking.establishmentsInt));
 
-    (<FormGroup> this.fitFormGroup.controls['detailedData'])
+    (<FormGroup>this.fitFormGroup.controls['detailedData'])
       .setControl('desiredBranches', this.fb.array(this.booking.branches));
 
-    (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
+    (<FormGroup>this.fitFormGroup.controls['fitAppearance'])
       .setControl('representatives', this.fb.array(this.booking.representatives
         .map(r => RepresentativeMapper.mapRepresentativeToFormGroup(r))));
 
-    (<FormGroup> this.fitFormGroup.controls['fitAppearance'])
+    (<FormGroup>this.fitFormGroup.controls['fitAppearance'])
       .setControl('resources', this.fb.array(this.booking.resources));
 
     if (this.booking.presentation != null) {
-      (<FormGroup> this.fitFormGroup.controls['packagesAndLocation'])
+      (<FormGroup>this.fitFormGroup.controls['packagesAndLocation'])
         .setControl('presentationBranches', this.fb.array(this.booking.presentation.branches));
     }
 

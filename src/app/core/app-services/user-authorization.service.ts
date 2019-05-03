@@ -56,8 +56,6 @@ export class UserAuthorizationService {
 
   public isUserAuthenticated(): boolean {
     if (this.token != null && this.token !== '') {
-
-      let token: any = this.jwtService.decodeToken(this.token);
       return !this.jwtService.isTokenExpired(this.token);
     } else {
       return false;

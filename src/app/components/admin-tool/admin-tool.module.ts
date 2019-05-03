@@ -132,8 +132,7 @@ import {ReauthService} from './services/reauth.service';
     PresentationsService,
     EmailsService,
     BookingsService,
-    CompanyBookingsUtilsService,
-    ReauthService
+    CompanyBookingsUtilsService
   ]
 })
 export class AdminToolModule {

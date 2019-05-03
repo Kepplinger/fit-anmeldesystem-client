@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { getSettingTabs, SettingTab } from '../../../../core/model/enums/setting-tab';
 import { BaseOnDeactivateAlertComponent } from '../../../../core/base-components/base-on-deactivate-alert.component';
+import { ReauthService } from '../../services/reauth.service';
 
 @Component({
   selector: 'fit-admin-settings',
@@ -15,8 +16,8 @@ export class AdminSettingsComponent extends BaseOnDeactivateAlertComponent imple
   public selectedSettingTab: SettingTab = SettingTab.EmailSMTP;
   public settingTabs: SettingTabWithChanges[];
 
-  public constructor() {
-    super();
+  public constructor(reauthService: ReauthService) {
+    super(reauthService);
     this.settingTabs = getSettingTabs().map(st => {
       return { tab: st, hasChanges: false } as SettingTabWithChanges;
     });
