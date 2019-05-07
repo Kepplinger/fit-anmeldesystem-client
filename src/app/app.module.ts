@@ -17,6 +17,7 @@ import { FitHeaderComponent } from './components/shared-elements/components/fit-
 import { FitFooterComponent } from './components/shared-elements/components/fit-footer/footer.component';
 import { RegistrationLockedComponent } from './components/main/registration-locked/registration-locked.component';
 import { RegistrationLockedResolver } from './core/resolver/registration-locked.resolver';
+import { AppLoadingSpinnerComponent } from './components/main/app-loading-spinner/app-loading-spinner.component';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -36,7 +37,8 @@ registerLocaleData(localeDe, 'de-AT');
     RegistrationLockedComponent,
     AdminHeaderComponent,
     FitHeaderComponent,
-    FitFooterComponent
+    FitFooterComponent,
+    AppLoadingSpinnerComponent
   ],
   providers: [
     RegistrationLockedResolver,

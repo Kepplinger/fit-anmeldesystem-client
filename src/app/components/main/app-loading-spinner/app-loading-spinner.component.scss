@@ -1,0 +1,65 @@
+.app-loading-container {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  background-color: whitesmoke;
+  background-image: url("../../../../assets/leonding-logo-transparent.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 250px 250px;
+}
+
+/* Basic styling */
+svg {
+  margin: 0 auto;
+  text-align: center;
+  width: 750px;
+}
+
+.filled-heading {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 5em;
+  line-height: 0.9;
+}
+
+/* Animate the background shapes */
+#background path {
+  animation: pulse 4s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite;
+
+  /* Necessary to keep the SVG objects in place while scaling */
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+}
+
+/* Reveal the desired lines of text in the desired order */
+#textClip text:nth-of-type(n + 1):nth-of-type(-n + 3) {
+  animation: showFirst 8s infinite;
+}
+#textClip text:nth-of-type(n + 4):nth-of-type(-n + 6) {
+  animation: showSecond 8s infinite;
+}
+
+@keyframes pulse {
+  /* Rotating it along with the scale makes it a little bit more fancy */
+  0%, 100% { transform: scale(0) rotate(33deg); }
+  35%, 65% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes showFirst {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.0001%, 100% { opacity: 0; }
+}
+
+@keyframes showSecond {
+  50.0001%, 100% {
+    opacity: 1;
+  }
+  0%, 50% { opacity: 0; }
+}
