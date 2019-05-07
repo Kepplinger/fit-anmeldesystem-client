@@ -1,5 +1,5 @@
 <div class="container mt-3 p-3">
-  <h2 class="text-bold">Anmeldung zum Firmeninformationstag</h2>
+  <h1 class="small-caps text-bold text-center border-bottom">Herzlich Willkommen zum Firmeninformationstag</h1>
 
   <fit-registration-locked *ngIf="event.registrationState.isLocked"></fit-registration-locked>
 
@@ -11,15 +11,15 @@
       kann jederzeit beantragt werden, welchen Sie dann nach einer Verifizierung ihrer Daten erhalten.
     </p>
 
-    <div class="tiny-container mb-8">
-      <h2 class="text-bold">Anmeldung</h2>
+    <div class="tiny-container login-container">
+      <h4 class="small-caps text-bold text-center mb-3">Firmen Anmeldung</h4>
 
-      <div class="vertical-border pb-4 pt-1 mb-4">
+      <div class="vertical-border pb-4 pt-1 mb-3">
         <form autocomplete="off">
           <div class="form-group">
 
             <label class="d-flex text-bold">
-              Code Eingabe:
+              <span>Code Eingabe:</span>
               <a class="ml-auto cursor-pointer"
                  [routerLink]="['/fit/code-vergessen']">Code vergessen?</a>
             </label>
@@ -30,7 +30,7 @@
             </fit-member-code-input>
           </div>
 
-          <button class="btn btn-lg btn-block btn-primary"
+          <button class="btn btn-lg btn-block btn-primary small-caps"
                   id="btnFitRegister"
                   [disabled]="loginCode.length < 14 || isLoading"
                   [ngClass]="{'cursor-not-allowed': loginCode.length < 14}"
@@ -40,9 +40,9 @@
         </form>
       </div>
 
-      <h3>Sie haben keinen Code?</h3>
+      <h4 class="small-caps text-bold text-center">Sie haben keinen Code?</h4>
       <div>
-        <button class="btn btn-lg btn-block btn-dark"
+        <button class="btn btn-lg btn-block btn-dark small-caps"
                 [routerLink]="['/fit/code-beantragen']">
           Neuen Code beantragen
         </button>

@@ -1,6 +1,6 @@
 <div *ngIf="isVisible">
   <div class="mb-4">
-    <h2 class="text-bold">Details zur Firma</h2>
+    <h3 class="text-bold caps">Details zur Firma</h3>
     <p>Diese detaillierteren Angaben zu Ihrer Firma helfen unseren Besuchern, die passenden Firmen zu finden und Kontakt
       aufzunehmen. Bitte seien Sie bei den gesuchten Berufen so spezifisch wie möglich.</p>
   </div>
@@ -9,7 +9,7 @@
 
     <!--general-->
     <div class="mb-4">
-      <h5 class="text-bold mb-3">Allgemeine Infos</h5>
+      <h4 class="text-bold mb-3 small-caps">Allgemeine Infos</h4>
 
       <!--phoneNumber-->
       <div class="form-group row mb-1">
@@ -113,11 +113,11 @@
 
     <!--establishments-->
     <div class="mb-4">
-      <h5 class="text-bold mb-3">Ihre Niederlassungen
+      <h4 class="text-bold mb-3 small-caps">Ihre Niederlassungen
         <fit-hint-icon class="ml-1"
                        [message]="'Geben Sie hier bitte die Orte Ihrer Niederlassungen ein (z.B. Linz, Wien, etc.). Sollte Ihr Unternehmen sehr viele Standplätze besitzen, dann können Sie auch einfach nur die Anzahl angeben.'">
         </fit-hint-icon>
-      </h5>
+      </h4>
 
       <div class="form-group ">
         <div class="d-flex mb-1">
@@ -173,7 +173,7 @@
 
       <!--desiredBranches-->
       <div class="col-6">
-        <h5 class="text-bold mb-3">Gesuchte Fachrichtungen</h5>
+        <h4 class="text-bold mb-3 small-caps">Gesuchte Fachrichtungen</h4>
 
         <div *ngFor="let branch of branches; let index = index"
              class="checkbox mx-2">
@@ -189,7 +189,7 @@
 
       <!--provide-->
       <div class="col-6">
-        <h5 class="text-bold mb-3">Vergeben Sie ...</h5>
+        <h4 class="text-bold mb-3 small-caps">Vergeben Sie ...</h4>
 
         <div class="checkbox mx-2">
           <label id="providesSummerJob">
@@ -211,7 +211,7 @@
       </div>
     </div>
 
-    <h5 class="text-bold mt-3">Logo</h5>
+    <h4 class="text-bold mt-3 small-caps">Logo</h4>
 
     <!--logo-->
     <div class="form-group row mb-3">
@@ -228,13 +228,13 @@
                placeholder="Logo auswählen..."
                disabled>
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">Durchsuchen</button>
+          <button class="btn btn-primary small-caps" type="button">Durchsuchen</button>
         </div>
       </div>
     </div>
 
     <!--image and dropzone-->
-    <div class="row mb-2" style="height: 100px; max-height: 100px">
+    <div class="row mb-2 logo-row">
       <div class="col-md-3">
         <img *ngIf="logo != undefined && logo.dataUrl != undefined"
              [src]="logo?.dataUrl"

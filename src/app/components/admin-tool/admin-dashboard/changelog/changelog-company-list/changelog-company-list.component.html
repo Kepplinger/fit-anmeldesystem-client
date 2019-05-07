@@ -1,0 +1,22 @@
+<div *ngIf="showCompanies" class="mh-100 pr-0 overflow-y-hidden">
+  <table class="table mh-100 overflow-y-hidden">
+    <thead>
+    <tr>
+      <th>Firma</th>
+      <th>Kontakt</th>
+      <th class="text-center">offene Änderungen</th>
+    </tr>
+    </thead>
+
+    <tbody class="overflow-y-auto mh-100 h-100">
+    <tr *ngFor="let company of orderedCompanies"
+        class="company-row"
+        [ngClass]="{'selected-company': company == selectedCompany}"
+        (click)="emitSelectedCompany(company)">
+      <td>{{company.name}}</td>
+      <td>{{company.contact.firstName}} {{company.contact.lastName}}</td>
+      <td class="text-center">{{getChangeCountForCompany(company)}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

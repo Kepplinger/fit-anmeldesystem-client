@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-$fa-font-path: '~font-awesome/fonts' !default;
+$fa-font-path: '~font-awesome/fonts' !default
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~ngx-toastr/toastr";
 @import "app/styles/fit-global-styles";

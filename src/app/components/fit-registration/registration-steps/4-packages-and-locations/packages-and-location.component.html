@@ -6,21 +6,21 @@
   </fit-location-picker-modal>
 
   <div class="mb-4">
-    <h2 class="text-bold">Pakete und Standort</h2>
+    <h3 class="text-bold caps">Pakete und Standort</h3>
     <p>Entscheiden Sie sich für eines unserer drei FIT-Pakete und wählen Sie dann ihren gewünschten Standort aus.</p>
   </div>
 
   <form [formGroup]="formGroup">
 
     <div class="mb-4">
-      <h5 class="text-bold m-0">Wählen Sie Ihr FIT-Paket</h5>
+      <h4 class="text-bold m-0 small-caps">Wählen Sie Ihr FIT-Paket</h4>
 
       <div class="card-deck">
 
         <!--basic fitPackage-->
         <div class="pointer card text-white bg-info m-3 enabled" id="basicPack"
              (click)="togglePackage(Package.BasicPack)">
-          <div class="card-header text-center">
+          <div class="card-header text-center small-caps">
             <div class="stars">
               <i class="fa fa-star"></i>
               <i class="fa fa-star-o"></i>
@@ -53,7 +53,7 @@
         <div class="pointer card text-white bg-danger  m-3" id="sponsorPack"
              [ngClass]="{'enabled': isPackageSelected(Package.SponsorPack)}"
              (click)="togglePackage(Package.SponsorPack)">
-          <div class="card-header text-center">
+          <div class="card-header text-center small-caps">
             <div class="stars">
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
@@ -75,7 +75,7 @@
           </ul>
 
           <div class="card-footer d-flex">
-        <span class="flex-filler  my-auto">
+        <span class="flex-filler my-auto">
           <i class="fa fa-2x"
              [ngClass]="{'fa-square-o': !isPackageSelected(Package.SponsorPack),
                          'fa-check-square': isPackageSelected(Package.SponsorPack)}">
@@ -92,7 +92,7 @@
                       'disabled-element-not-allowed': presentationsLocked && !isPackageSelected(Package.LecturePack)}"
              (click)="togglePackage(Package.LecturePack)">
 
-          <div class="card-header text-center">
+          <div class="card-header text-center small-caps">
             <div class="stars">
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
@@ -137,7 +137,7 @@
     </div>
 
     <div class="mb-4">
-      <h5 class="text-bold mb-2">Wählen Sie Ihren Standplatz</h5>
+      <h4 class="text-bold mb-2 small-caps">Wählen Sie Ihren Standplatz</h4>
 
       <div class="d-flex align-items-center">
 
@@ -154,7 +154,7 @@
 
         <button type="button"
                 id="btnLocationModal"
-                class="btn btn-primary"
+                class="btn btn-primary small-caps"
                 data-toggle="modal"
                 data-target="#locationPickerModal">
           <i class="fa fa-map-marker mr-1"></i>
@@ -167,7 +167,7 @@
     </div>
 
     <div class="mb-4">
-      <h5 class="text-bold mb-2">Kostenübersicht:</h5>
+      <h4 class="text-bold mb-2 small-caps">Kostenübersicht:</h4>
 
       <table>
         <tr>
@@ -190,14 +190,13 @@
           <th>Gesamt</th>
         </tr>
       </table>
-
     </div>
 
     <div class="mb-4" *ngIf="isPackageSelected(Package.LecturePack)">
-      <h5 class="text-bold mb-3">
+      <h4 class="text-bold mb-3 small-caps">
         Ihr Vortrag
         <span class="sub-text">(nur beim {{lecturePackage?.name}} notwendig)</span>
-      </h5>
+      </h4>
 
       <div class="form-group d-flex align-items-center mb-0 mt-2">
         <div>
@@ -218,7 +217,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label for="otherNotes" class="mb-1">Kurzbeschreibung:</label>
         <textarea class="form-control"
                   formControlName="presentationDescription"
@@ -234,9 +233,9 @@
       </div>
 
       <div>Zielgruppe(n):</div>
-      <div class="d-flex mt-2">
+      <div class="d-flex justify-content-around mt-2">
         <div *ngFor="let branch of branches; let index = index"
-             class="checkbox mx-2">
+             class="checkbox">
           <label [id]="'checkboxBranch' + index">
             <input type="checkbox"
                    (change)="branchChanged(branch, $event)"
@@ -261,7 +260,7 @@
                  placeholder="Logo auswählen..."
                  disabled>
           <span class="input-group-append">
-            <button class="btn btn-primary" type="button">Durchsuchen</button>
+            <button class="btn btn-primary small-caps" type="button">Durchsuchen</button>
           </span>
         </div>
       </div>

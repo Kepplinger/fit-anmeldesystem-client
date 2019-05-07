@@ -371,3 +371,14 @@ body {
   white-space: normal;
 }
 
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 2px;
+}
+
+.caps {
+  //text-transform: uppercase;
+  font-variant: small-caps;
+  letter-spacing: 2px;
+  text-align: center;
+}

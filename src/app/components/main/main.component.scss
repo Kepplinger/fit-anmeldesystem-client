@@ -1,4 +1,5 @@
 @import "../../styles/fit-variables";
+@import "../../styles/fit-global-styles";
 
 :host {
   flex: 1;
@@ -6,4 +7,18 @@
 
 .vertical-border {
   border-bottom: $main-border;
+}
+
+
+.login-container {
+  @extend .floating-effect, .mb-8;
+  border-radius: 10px;
+  margin-top: 3em;
+  padding: 1.3em 2.5em 2.5em;
+}
+
+.btn {
+  border-radius: 10px !important;
+  font-size: 1.1em;
+  padding: 12px;
 }

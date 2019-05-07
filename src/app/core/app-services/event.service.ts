@@ -8,7 +8,7 @@ import { AppLoadingService } from './app-loading.service';
 @Injectable()
 export class EventService {
 
-  public currentEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
+  public currentEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event());
   public selectedEvent: BehaviorSubject<Event> = new BehaviorSubject<Event>(null);
   public events: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
   public isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);

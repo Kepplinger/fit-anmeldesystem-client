@@ -1,12 +1,12 @@
-<h2 class="text-bold">Code zurücksetzten</h2>
-<p class="mb-1">
+<h2 class="small-caps text-bold text-center border-bottom">Code zurücksetzten</h2>
+<p class="mb-1" [ngClass]="{'text-center': !fitOnlyMode}">
   Geben Sie in das untere Textfeld Ihre registrierte E-Mail Adresse ein, und wir schicken Ihnen dann den
   neuen Code per Email.
 </p>
 
-<div class="w-60 mx-auto mt-5">
-
-  <h4 class="text-bold text-center mb-1">E-Mail Eingabe</h4>
+<div class="code-lost-container mx-auto "
+     [ngClass]="{'floating-effect w-60 mt-5': fitOnlyMode}">
+  <h4 class="small-caps text-bold text-center mb-2">E-Mail Eingabe</h4>
 
   <div class="message-container">
     <div *ngIf="isValid()"
@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <button class="btn btn-primary w-100 text-bold"
+  <button class="btn btn-primary w-100 text-bold small-caps"
           [disabled]="!isExisting || !isChecked"
           [ngClass]="{'cursor-not-allowed': !isExisting || !isChecked}"
           (click)="sendMail()">

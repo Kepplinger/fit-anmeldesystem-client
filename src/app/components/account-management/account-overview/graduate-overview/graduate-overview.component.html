@@ -1,5 +1,5 @@
 <div>
-  <h1>Absolventen-Konto</h1>
+  <h2 class="small-caps">Absolventen-Konto</h2>
   <form [formGroup]="graduateFormGroup">
 
     <!--gender-->
@@ -159,21 +159,21 @@
   </form>
 
   <div class="d-flex">
-    <button class="btn btn-primary text-bold ml-auto"
+    <button class="btn btn-primary text-bold ml-auto small-caps"
             *ngIf="!isEditing"
             (click)="enableEditing()">
       <i class="fa fa-pencil mr-1"></i>
       <span>Daten bearbeiten</span>
     </button>
 
-    <button class="btn btn-danger text-bold ml-auto"
+    <button class="btn btn-danger text-bold ml-auto small-caps"
             *ngIf="isEditing"
             (click)="cancel()">
       <i class="fa fa-times mr-1"></i>
       <span>Abbrechen</span>
     </button>
 
-    <button class="btn btn-success text-bold ml-2"
+    <button class="btn btn-success text-bold ml-2 small-caps"
             *ngIf="isEditing"
             (click)="updateGraduate()">
       <i class="fa fa-download mr-1"></i>

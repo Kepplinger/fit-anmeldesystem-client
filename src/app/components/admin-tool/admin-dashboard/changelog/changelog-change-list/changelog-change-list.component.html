@@ -1,0 +1,78 @@
+<div class="d-flex flex-column">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item pending-tab">
+      <a class="nav-link"
+         [ngClass]="{'active': showPendingOnly}"
+         (click)="setShowPendingOnly(true)">
+        offene Änderungen
+      </a>
+    </li>
+    <li class="nav-item pending-tab">
+      <a class="nav-link"
+         [ngClass]="{'active': !showPendingOnly}"
+         (click)="setShowPendingOnly(false)">
+        alle Änderungen
+      </a>
+    </li>
+  </ul>
+
+  <div class="flex-1 overflow-y-auto">
+    <div *ngFor="let change of changelog"
+         class="change-container p-3 mb-2 cursor-pointer"
+         (click)="emitOpenedChange(change)"
+         [ngClass]="{'selected': change == openedChange}">
+      <div class="d-flex">
+        <div class="mr-1">
+          <i *ngIf="change != openedChange"
+             class="fa fa-fw fa-chevron-right"></i>
+          <i *ngIf="change == openedChange"
+             class="fa fa-fw fa-chevron-down"></i>
+        </div>
+        <div class="flex-3">
+          <span class="text-bold">{{change.creationDate | date:'longDate'}}</span>
+          {{change.creationDate | date:'mediumTime'}}
+          <span class="text-muted text-smaller">
+                  von <span *ngIf="change.isAdminChange">Admin</span>
+                  <span *ngIf="!change.isAdminChange">Firma</span>
+                </span>
+        </div>
+        <div class="flex-3">
+          <span>{{change.tableName}}.</span>
+          <span class="text-bold">{{change.columnName}}</span>
+        </div>
+        <div class="flex-5 overflow-text mr-1">
+                <span class="text-danger"
+                      [ngClass]="{'text-bold text-underline': !change.isPending && change.isReverted}">
+                  {{change.oldValue}}
+                </span>
+          <i class="fa fa-long-arrow-right mx-1"></i>
+          <span class="text-success"
+                [ngClass]="{'text-bold text-underline': !change.isPending && !change.isReverted}">
+                  {{change.newValue}}
+                </span>
+        </div>
+
+        <!--reject and accept-->
+        <div class="flex-1"
+             [ngSwitch]="change.isPending">
+          <div *ngSwitchCase="true" class="d-flex justify-content-center">
+            <button class="btn btn-sm btn-success py-0 px-1 mr-1"
+                    (click)="applyChange(change)">
+              <i class="fa fa-fw fa-check"></i>
+            </button>
+            <button class="btn btn-sm btn-danger py-0 px-1"
+                    (click)="revertChange(change)">
+              <i class="fa fa-fw fa-times"></i>
+            </button>
+          </div>
+
+          <div *ngSwitchCase="false" class="text-center">
+            <i class="fa fa-times text-danger" *ngIf="change.isReverted"></i>
+            <i class="fa fa-check text-success" *ngIf="!change.isReverted"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

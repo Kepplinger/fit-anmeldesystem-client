@@ -6,24 +6,10 @@
   flex-direction: column;
 }
 
-.company-row {
-  cursor: pointer;
-
-  &:hover:not(.selected-company) {
-    background-color: whitesmoke;
-  }
-}
-
 .overflow-text {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.selected-company {
-  background-color: $primary;
-  color: white;
-  font-weight: bold;
 }
 
 .selected {
@@ -38,24 +24,4 @@
   }
 }
 
-.change-container {
-  @extend .floating-effect;
 
-  .change-detail-container {
-    max-height: 0;
-    overflow: hidden;
-
-    transition: max-height 100ms ease-out;
-    -webkit-transition: max-height 100ms ease-out;
-  }
-
-  .show-change {
-    max-height: 1000px;
-    transition: max-height 1000ms ease-in;
-    -webkit-transition: max-height 1000ms ease-in;
-  }
-
-  &:hover:not(.selected) {
-    background-color: whitesmoke;
-  }
-}

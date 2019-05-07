@@ -136,6 +136,10 @@
   overflow-y: auto;
 }
 
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
 .bg-main {
   background-color: $main-background;
 }

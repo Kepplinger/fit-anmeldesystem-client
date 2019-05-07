@@ -62,7 +62,9 @@ import { EditFitLockedPageComponent } from './admin-dashboard/admin-settings/set
 import { PageHtmlEditorComponent } from './admin-dashboard/admin-settings/settings-fit-locked-page/edit-fit-locked-page/page-html-editor/page-html-editor.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { CompanyBookingsUtilsService } from './services/company-bookings-utils.service';
-import {ReauthService} from './services/reauth.service';
+import { ChangelogCompanyListComponent } from './admin-dashboard/changelog/changelog-company-list/changelog-company-list.component';
+import { ChangelogChangeListComponent } from './admin-dashboard/changelog/changelog-change-list/changelog-change-list.component';
+import { ChangelogDisplayedChangeComponent } from './admin-dashboard/changelog/changelog-displayed-change/changelog-displayed-change.component';
 
 @NgModule({
   imports: [
@@ -119,7 +121,10 @@ import {ReauthService} from './services/reauth.service';
     SettingsMemberStatusComponent,
     SettingsFitLockedPageComponent,
     EditFitLockedPageComponent,
-    PageHtmlEditorComponent
+    PageHtmlEditorComponent,
+    ChangelogCompanyListComponent,
+    ChangelogChangeListComponent,
+    ChangelogDisplayedChangeComponent
   ],
   providers: [
     CsvCreatorService,
