@@ -24,4 +24,13 @@
   }
 }
 
+.changelog-grid {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 70% 30%;
+}
 
+.change-display {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}

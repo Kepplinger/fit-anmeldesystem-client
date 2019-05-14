@@ -1,6 +1,6 @@
-<div class="change-detail-container">
-  <h5 class="mb-2 mt-3">Änderung:</h5>
-  <div class="d-flex">
+<div class="change-detail-container p-3">
+  <h5 class="m-0">Änderung:</h5>
+  <div class="d-flex mt-2">
     <div class="flex-1 text-danger mr-1"
          [ngClass]="{'text-bold text-underline': !change.isPending && change.isReverted}">
       {{change.oldValue}}

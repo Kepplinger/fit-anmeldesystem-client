@@ -7,9 +7,9 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    // resolve: {
-    //   lockPage: RegistrationLockedResolver
-    // }
+    resolve: {
+      lockPage: RegistrationLockedResolver
+    }
   },
   {
     path: 'fit',

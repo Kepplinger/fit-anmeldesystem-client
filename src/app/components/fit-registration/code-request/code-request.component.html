@@ -1,6 +1,6 @@
 <div class="smaller-container my-5">
 
-  <h2 class="text-bold">Firmen-Code beantragen</h2>
+  <h2 class="text-bold text-center border-bottom small-caps">Firmen-Code beantragen</h2>
   <p class="text-justify">Wenn Sie sich zum ersten Mal beim FIT anmelden wollen können Sie hier einen Code für die
     Anmeldung beantragen. Sollten Sie schon einmal beim FIT teilgenommen haben, können Sie auch
     <button class="btn btn-link" [routerLink]="['/fit','code-vergessen']">hier</button>
@@ -10,7 +10,7 @@
   <form [formGroup]="formGroup"
         [ngClass]="{'disabled-element': isLoading}">
 
-    <h4>Firma</h4>
+    <h4 class="small-caps">Firma</h4>
 
     <!--company name-->
     <div class="form-group row mb-0">
@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <h4>Kontaktperson</h4>
+    <h4 class="small-caps">Kontaktperson</h4>
 
     <!--gender-->
     <div class="form-row row mb-3">
@@ -189,7 +189,7 @@
       </div>
     </div>
 
-    <button class="btn btn-block btn-lg text-bold btn-primary mt-2"
+    <button class="btn btn-block btn-lg text-bold btn-primary mt-2 small-caps"
             (click)="persistCompany()">
       Abschicken
     </button>

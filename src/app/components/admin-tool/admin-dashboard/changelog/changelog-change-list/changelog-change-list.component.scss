@@ -1,0 +1,19 @@
+:host {
+  height: 100%;
+}
+
+.change-container {
+  overflow: hidden;
+
+  &:hover:not(.selected) {
+    background-color: whitesmoke;
+  }
+
+  &.selected {
+    background-color: rgba(118, 188, 255, 0.35);
+  }
+}
+
+.date-col {
+  line-height: 1.2;
+}

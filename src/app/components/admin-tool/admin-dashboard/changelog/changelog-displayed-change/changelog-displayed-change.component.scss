@@ -1,13 +1,8 @@
 @import "../../../../../styles/fit-global-styles";
 
-.change-container {
-  @extend .floating-effect;
-
-  .change-detail-container {
-    overflow: hidden;
-  }
-
-  &:hover:not(.selected) {
-    background-color: whitesmoke;
-  }
+.change-detail-container {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  height: 100%;
+  border: solid 1px lightgray;
 }

@@ -17,6 +17,6 @@ export class AppLoadingService {
   }
 
   public isAppLoading(): boolean {
-    return true;
+    return this.loadingBuffer.length > 0;
   }
 }

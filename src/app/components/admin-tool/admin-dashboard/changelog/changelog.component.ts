@@ -18,38 +18,36 @@ export class ChangelogComponent extends BaseSubscriptionComponent implements OnI
   public selectedCompany: Company;
 
   public showCompanies: boolean = true;
-  public showPendingOnly: boolean = true;
   public isLoading: boolean = false;
 
-  public openedChange: ChangeProtocol = null;
+  public openedChange: ChangeProtocol = new ChangeProtocol();
 
-  public constructor(private changeProtocolDAO: ChangeProtocolDAO,
-                     private companiesService: CompaniesService) {
+  public constructor(private changeProtocolDAO: ChangeProtocolDAO) {
     super();
   }
 
   public async ngOnInit(): Promise<void> {
     this.changelog = await this.changeProtocolDAO.fetchChangeProtocol();
-    this.filteredChangelog = this.getFilteredChangelog();
+    this.setFilteredChangelog();
   }
 
   public setOpenedChange(change: ChangeProtocol): void {
     this.openedChange = change;
   }
 
-  public setShowPending(value: boolean): void {
-    this.showPendingOnly = value;
+  public setFilteredChangelog(): void {
+    this.filteredChangelog = this.getFilteredChangelog();
   }
 
   public getFilteredChangelog(): ChangeProtocol[] {
     if (this.showCompanies) {
       if (this.selectedCompany != null && this.changelog != null) {
-        return this.changelog.filter(c => c.companyId === this.selectedCompany.id && (c.isPending || !this.showPendingOnly));
+        return this.changelog.filter(c => c.companyId === this.selectedCompany.id && (c.isPending));
       } else {
         return [];
       }
     } else if (this.changelog != null) {
-      return this.changelog.filter(c => c.isPending || !this.showPendingOnly);
+      return this.changelog.filter(c => c.isPending);
     } else {
       return [];
     }

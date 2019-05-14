@@ -20,12 +20,6 @@ export class ChangelogChangeListComponent implements OnInit {
   @Output()
   public openedChangeChange: EventEmitter<ChangeProtocol> = new EventEmitter<ChangeProtocol>();
 
-  @Input()
-  public showPendingOnly: boolean = false;
-
-  @Output()
-  public showPendingOnlyChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   public constructor(private changeProtocolDAO: ChangeProtocolDAO,
                      private companiesService: CompaniesService) {
   }
@@ -34,12 +28,11 @@ export class ChangelogChangeListComponent implements OnInit {
   }
 
   public emitOpenedChange(change: ChangeProtocol): void {
+    if (this.openedChange === change) {
+      change = null;
+    }
+    this.openedChange = change;
     this.openedChangeChange.emit(change);
-  }
-
-  public setShowPendingOnly(value: boolean): void {
-    this.showPendingOnly = value;
-    this.showPendingOnlyChange.emit(value);
   }
 
   public async applyChange(change: ChangeProtocol): Promise<void> {
