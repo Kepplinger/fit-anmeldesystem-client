@@ -298,7 +298,7 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.company.location, 'Ort', data);
       this.addColumn(csvFilter.company.addition, 'Adresszusatz', data);
       this.addColumn(csvFilter.company.memberPaymentAmount, 'Mitgliedsbeitrag', data);
-      this.addColumn(csvFilter.company.memberStatus, 'Mitgliedsstatus', data);
+      this.addColumn(csvFilter.company.memberStatus.name, 'Mitgliedsstatus', data);
     }
 
     if (csvFilter.isContactEnabled) {
