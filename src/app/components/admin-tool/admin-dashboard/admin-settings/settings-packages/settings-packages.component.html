@@ -34,7 +34,7 @@
           <div class="my-2">
             <label class="m-0">Preis: </label>
             <div class="input-group">
-              <input type="text" class="form-control" title="price"
+              <input type="number" min="0" step="10" class="form-control" title="price"
                      (keydown)="packageChanged()"
                      [disabled]="!isPackageEditing(fitPackage)"
                      [(ngModel)]="fitPackage.price">
