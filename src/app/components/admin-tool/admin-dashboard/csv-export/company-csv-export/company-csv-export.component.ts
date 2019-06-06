@@ -34,7 +34,6 @@ export class CompanyCsvExportComponent extends BaseSubscriptionComponent impleme
       location: true,
       addition: true,
       memberPaymentAmount: true,
-      memberSince: true,
       memberStatus: true,
     },
     contact: {

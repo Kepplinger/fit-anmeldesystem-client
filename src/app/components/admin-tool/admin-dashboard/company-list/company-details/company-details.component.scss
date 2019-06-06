@@ -3,8 +3,8 @@
 
 .tag-scroll-container {
   @extend .scroll-list-container;
-  min-height: 280px;
-  max-height: 280px;
+  min-height: 200px;
+  max-height: 200px;
   overflow-y: auto;
   border: none;
 
@@ -13,6 +13,9 @@
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+    width: 48%;
+    font-size: .9em;
+    margin: 0 1%;
 
     &:hover {
       background-color: whitesmoke;
@@ -33,7 +36,6 @@
 }
 
 .tag-search-container {
-  max-width: 300px;
   width: 100%;
 
   .search-bar {

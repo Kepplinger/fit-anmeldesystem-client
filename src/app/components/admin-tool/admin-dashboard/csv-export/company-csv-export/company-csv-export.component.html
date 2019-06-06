@@ -68,11 +68,6 @@
               </fit-custom-checkbox>
 
               <fit-custom-checkbox
-                [message]="'Mitglied seit'"
-                [(value)]="csv.company.memberSince">
-              </fit-custom-checkbox>
-
-              <fit-custom-checkbox
                 [message]="'Mitgliedsstatus'"
                 [(value)]="csv.company.memberStatus">
               </fit-custom-checkbox>
@@ -197,12 +192,12 @@
 
     </div>
 
-    <div class="flex-1">
+    <div class="flex-2">
       <h4 class="text-bold">Ergebnis-Liste ({{getEntryCount()}})</h4>
 
       <div class="scroll-list-container">
         <div *ngFor="let company of companies"
-             class="floating-effect p-3 mb-2 rounded text-bold">
+             class="floating-effect p-2 mb-2 rounded text-bold">
           {{company.name}}
         </div>
       </div>

@@ -37,17 +37,19 @@
             <th></th>
           </tr>
 
-          <tr *ngFor="let company of pendingCompanies"
+          <tr *ngFor="let company of pendingCompanies" class="company-row"
               [ngClass]="{'selected-company': company == companyToAssign}">
-            <td class="align-middle d-flex flex-column">
-              <button class="btn btn-sm btn-success mb-0-5 py-0 px-1"
-                      (click)="acceptCompany(company)">
-                <i class="fa fa-fw fa-check"></i>
-              </button>
-              <button class="btn btn-sm btn-danger py-0 px-1"
-                      (click)="rejectCompany(company)">
-                <i class="fa fa-fw fa-times"></i>
-              </button>
+            <td class="align-middle">
+              <div class="d-flex flex-column">
+                <button class="btn btn-sm btn-success mb-0-5 py-0 px-1"
+                        (click)="acceptCompany(company)">
+                  <i class="fa fa-fw fa-check"></i>
+                </button>
+                <button class="btn btn-sm btn-danger py-0 px-1"
+                        (click)="rejectCompany(company)">
+                  <i class="fa fa-fw fa-times"></i>
+                </button>
+              </div>
             </td>
             <td class="text-bold align-middle">{{company.name}}</td>
             <td>
@@ -79,10 +81,10 @@
           <h2>Firmenstamm</h2>
           <div class="flex-2"></div>
           <div class="flex-2 d-flex my-1">
-            <button class="btn btn-primary back-btn py-0 mr-2"
+            <button class="btn btn-primary back-btn d-flex align-items-center py-0 mr-2"
                     (click)="cancelAssigning()">
-              <i class="fa fa-fw fa-mail-reply"></i>
-              Abbrechen
+              <i class="fa fa-fw fa-mail-reply mr-2"></i>
+              <span>Abbrechen</span>
             </button>
             <input type="text"
                    title="search"
@@ -102,7 +104,7 @@
             <th>Kontaktperson</th>
           </tr>
 
-          <tr *ngFor="let company of getFilteredCompanies()">
+          <tr *ngFor="let company of getFilteredCompanies()" class="company-row">
             <td class="align-middle">
               <button class="btn btn-sm btn-success"
                       (click)="assignCompany(companyToAssign, company)">

@@ -44,15 +44,15 @@
           <div class="input-header">Gesperrt-Seite:</div>
           <div class="d-flex">
             <div class="btn-group">
-              <button class="btn btn-primary text-bold"
+              <button class="btn btn-primary text-bold d-flex align-items-center"
                       [ngClass]="{'active': !event.isExpiredLockMode}"
                       (click)="setExpiredLockMode(false)">
-                <i class="fa fa-step-forward mr-2"></i> Bevorstehend
+                <i class="fa fa-step-forward mr-2"></i> <span>Bevorstehend</span>
               </button>
-              <button class="btn btn-primary text-bold"
+              <button class="btn btn-primary text-bold d-flex align-items-center"
                       [ngClass]="{'active': event.isExpiredLockMode}"
                       (click)="setExpiredLockMode(true)">
-                Abgelaufen <i class="fa fa-step-backward ml-2"></i>
+                <span>Abgelaufen</span> <i class="fa fa-step-backward ml-2"></i>
               </button>
             </div>
           </div>

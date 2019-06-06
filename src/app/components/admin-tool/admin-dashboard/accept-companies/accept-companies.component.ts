@@ -64,7 +64,7 @@ export class AcceptCompaniesComponent extends BaseSubscriptionComponent implemen
 
   public getFilteredCompanies(): Company[] {
     if (this.filterText !== '') {
-      return this.companies.filter(c => c.name.includes(this.filterText));
+      return this.companies.filter(c => c.name.toUpperCase().includes(this.filterText.toUpperCase()));
     } else {
       return this.companies;
     }

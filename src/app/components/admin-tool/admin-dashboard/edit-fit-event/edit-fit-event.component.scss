@@ -18,9 +18,10 @@
 }
 
 .area-container {
-
   .area-img-container {
     width: 220px;
+    min-height: 80px;
+    border-radius: 5px;
     position: relative;
     border: solid 2px $primary-color;
 
@@ -28,6 +29,7 @@
       @extend .img-keep-ratio;
       @extend .floating-effect;
       max-width: 100%;
+      min-height: 100%;
     }
 
     .img-overlay {

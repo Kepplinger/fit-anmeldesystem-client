@@ -298,7 +298,7 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.company.location, 'Ort', data);
       this.addColumn(csvFilter.company.addition, 'Adresszusatz', data);
       this.addColumn(csvFilter.company.memberPaymentAmount, 'Mitgliedsbeitrag', data);
-      this.addColumn(csvFilter.company.memberStatus.name, 'Mitgliedsstatus', data);
+      this.addColumn(csvFilter.company.memberStatus, 'Mitgliedsstatus', data);
     }
 
     if (csvFilter.isContactEnabled) {
@@ -342,7 +342,7 @@ export class CsvCreatorService {
       this.addColumn(csvFilter.company.location, company.address.city, data);
       this.addColumn(csvFilter.company.addition, company.address.addition, data);
       this.addColumn(csvFilter.company.memberPaymentAmount, company.memberPaymentAmount, data);
-      this.addColumn(csvFilter.company.memberStatus, company.memberStatus, data);
+      this.addColumn(csvFilter.company.memberStatus, company.memberStatus.name, data);
     }
 
     if (csvFilter.isContactEnabled) {
