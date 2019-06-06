@@ -46,6 +46,7 @@ export class EditFitEventComponent extends BaseOnDeactivateAlertComponent implem
     if (this.event == null) {
       this.router.navigate(['/admin-tool', 'dash']);
     } else if (this.event.areas == null || this.event.areas.length === 0) {
+      this.event.areas = [];
       this.event.areas.push(new Area());
     }
   }

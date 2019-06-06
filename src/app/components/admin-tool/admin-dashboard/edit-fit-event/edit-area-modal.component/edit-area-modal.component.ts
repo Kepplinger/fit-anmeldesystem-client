@@ -1,5 +1,14 @@
 import {
-  ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { Area } from '../../../../../core/model/area';
@@ -18,6 +27,7 @@ declare let $: any;
   selector: 'fit-edit-area-modal',
   templateUrl: './edit-area-modal.component.html',
   styleUrls: ['./edit-area-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditAreaModalComponent implements OnInit, OnChanges {
 
