@@ -58,8 +58,8 @@ svg {
 }
 
 @keyframes showSecond {
+  0%, 50% { opacity: 0; }
   50.0001%, 100% {
     opacity: 1;
   }
-  0%, 50% { opacity: 0; }
 }

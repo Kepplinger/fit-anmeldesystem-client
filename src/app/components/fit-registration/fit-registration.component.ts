@@ -18,7 +18,6 @@ import { ToastrService } from 'ngx-toastr';
 import { FormHelper } from '../../core/app-helper/form-helper';
 import { AccountManagementService } from '../../core/app-services/account-managenment.service';
 import { fitCompanyDescriptionValidator } from '../../core/form-validators/fit-company-description';
-import { DataFile } from '../../core/model/data-file';
 import { ModalTemplateCreatorHelper } from '../../core/app-helper/modal-template-creator-helper';
 import { RepresentativeMapper } from '../../core/model/mapper/representative-mapper';
 import { FormWarnings } from '../../core/app-helper/helper-model/form-warnings';
@@ -26,7 +25,6 @@ import { IsAccepted } from '../../core/model/enums/is-accepted';
 import { DataUpdateNotifier } from '../../core/app-services/data-update-notifier';
 import { Representative } from '../../core/model/representative';
 import { BaseOnDeactivateAlertComponent } from '../../core/base-components/base-on-deactivate-alert.component';
-import { UserAuthorizationService } from '../../core/app-services/user-authorization.service';
 import { ReauthService } from '../admin-tool/services/reauth.service';
 
 interface FitStep {
@@ -152,8 +150,13 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
   public async ngOnInit(): Promise<void> {
     this.unsavedChangesExist = !this.isAdminMode;
 
-    this.event = this.eventService.currentEvent.getValue();
-    this.addSub(this.eventService.currentEvent.subscribe((event: Event) => this.event = event));
+    if (this.isAdminMode) {
+      this.event = this.eventService.selectedEvent.getValue();
+      this.addSub(this.eventService.selectedEvent.subscribe((event: Event) => this.event = event));
+    } else {
+      this.event = this.eventService.currentEvent.getValue();
+      this.addSub(this.eventService.currentEvent.subscribe((event: Event) => this.event = event));
+    }
 
     let useOldBooking: boolean = false;
 
@@ -345,6 +348,13 @@ export class FitRegistrationComponent extends BaseOnDeactivateAlertComponent imp
 
         try {
           booking = await this.bookingDAO.persistBooking(booking);
+
+          if (this.isAdminMode) {
+            this.eventService.selectedEvent.next(booking.event);
+          } else {
+            this.eventService.currentEvent.next(booking.event);
+          }
+
         } finally {
           this.isBookingTransmitting = false;
         }

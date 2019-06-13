@@ -19,6 +19,7 @@ export class SettingsTagsComponent extends BaseSettingsChangesComponent implemen
   public tagInput: string = '';
 
   public isLoading: boolean = false;
+  public isSaving: boolean = false;
 
   public constructor(private tagDAO: TagDAO,
                      private toastr: ToastrService,
@@ -76,6 +77,7 @@ export class SettingsTagsComponent extends BaseSettingsChangesComponent implemen
   }
 
   public async updateTags(): Promise<void> {
+    this.isSaving = true;
     let tags: Tag[] = await this.tagDAO.syncTags([...this.tags, ...this.archivedTags]);
 
     this.tags = tags.filter(t => !t.isArchive);
@@ -85,6 +87,7 @@ export class SettingsTagsComponent extends BaseSettingsChangesComponent implemen
     this.tagService.setArchivedTags(this.archivedTags);
     this.toastr.success('Die Tags wurden erfolgreich gespeichert!', 'Update erfolgreich!');
     this.sortTags();
+    this.isSaving = false;
     this.setUnsavedChanges(false);
   }
 

@@ -54,11 +54,13 @@
 
         <div *ngIf="isPackageEditing(fitPackage)" class="mt-4">
           <button class="btn btn-success w-50 text-bold no-border-radius"
-                  (click)="updatePackage(fitPackage)">
+                  (click)="updatePackage(fitPackage)"
+                  [disabled]="isSaving">
             <i class="fa fa-download"></i> Speichern
           </button>
           <button class="btn btn-danger w-50 text-bold no-border-radius"
-                  (click)="cancelEditing(fitPackage)">
+                  (click)="cancelEditing(fitPackage)"
+                  [disabled]="isSaving">
             <i class="fa fa-times"></i> Abbrechen
           </button>
         </div>

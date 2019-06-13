@@ -20,6 +20,7 @@ export class SettingsResourcesComponent extends BaseSettingsChangesComponent imp
 
   public isLoading: boolean = false;
   public isArchivedLoading: boolean = false;
+  public isSaving: boolean = false;
 
   public constructor(private resourceDAO: ResourceDAO,
                      private toastr: ToastrService) {
@@ -67,11 +68,13 @@ export class SettingsResourcesComponent extends BaseSettingsChangesComponent imp
   }
 
   public async updateResources(): Promise<void> {
+    this.isSaving = true;
     let resources: Resource[] = await this.resourceDAO.updateResources([...this.resources, ...this.archivedResources]);
-
     this.resources = resources.filter(t => !t.isArchive);
+
     this.archivedResources = resources.filter(t => t.isArchive);
     this.toastr.success('Die Resourcen wurden erfolgreich gespeichert!', 'Update erfolgreich!');
+    this.isSaving = false;
     this.setUnsavedChanges(false);
   }
 }

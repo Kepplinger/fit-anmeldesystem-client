@@ -21,6 +21,7 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
 
   public isLoading: boolean = false;
   public isArchivedLoading: boolean = false;
+  public isSaving: boolean = false;
 
   public constructor(private memberStatusDAO: MemberStatusDAO,
                      private toastr: ToastrService) {
@@ -71,11 +72,13 @@ export class SettingsMemberStatusComponent extends BaseSettingsChangesComponent 
   }
 
   public async updateMemberStati(): Promise<void> {
+    this.isSaving = true;
     let memberStati: MemberStatus[] = await this.memberStatusDAO.updateMemberStati([...this.memberStati, ...this.archivedMemberStati]);
 
     this.memberStati = memberStati.filter(t => !t.isArchive);
     this.archivedMemberStati = memberStati.filter(t => t.isArchive);
     this.toastr.success('Die MemberStatusen wurden erfolgreich gespeichert!', 'Update erfolgreich!');
+    this.isSaving = false;
     this.setUnsavedChanges(false);
   }
 

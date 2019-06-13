@@ -49,7 +49,7 @@ export class EditFitLockedPageComponent extends BaseOnDeactivateAlertComponent i
   public async updateLockPage(): Promise<void> {
     this.unsavedChangesExist = false;
     this.isSaving = true;
-    await this.lockPageDAO.updateLockPage(this.lockPage);
+    this.lockPage = await this.lockPageDAO.updateLockPage(this.lockPage);
     this.isSaving = false;
     this.toastr.success('Die Seite wurde gespeichert.', 'Speichern erfolgreich!');
   }

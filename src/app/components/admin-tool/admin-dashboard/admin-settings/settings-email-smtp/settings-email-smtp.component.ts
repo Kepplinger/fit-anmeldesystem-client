@@ -19,6 +19,7 @@ export class SettingsEmailSmtpComponent extends BaseSettingsChangesComponent imp
   public smtpConfigFormGroup: FormGroup;
 
   public isLoading: boolean = false;
+  public isSaving: boolean = false;
 
   public constructor(private smtpConfigDAO: SmtpConfigDAO,
                      private emailDAO: EmailDAO,
@@ -54,9 +55,11 @@ export class SettingsEmailSmtpComponent extends BaseSettingsChangesComponent imp
   }
 
   public async updateSmtpConfig(): Promise<void> {
+    this.isSaving = true;
     this.smtpConfig = this.updateSmtpConfigFromForm(this.smtpConfig);
-    await this.smtpConfigDAO.updateSmtpConfig(this.smtpConfig);
+    this.smtpConfig = await this.smtpConfigDAO.updateSmtpConfig(this.smtpConfig);
     this.toastr.success('Die Einstellungen wurden erfolgreich gespeichert.', 'SMTP - Einstellungen gespeichert');
+    this.isSaving = false;
     this.setUnsavedChanges(false);
   }
 

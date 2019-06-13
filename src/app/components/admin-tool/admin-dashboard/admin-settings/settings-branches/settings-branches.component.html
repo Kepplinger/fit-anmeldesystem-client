@@ -4,7 +4,7 @@
   <div class="d-flex flex-column ml-auto">
     <button class="btn btn-success big-rounded-button my-2 text-bold ml-auto"
             (click)="updateBranches()"
-            [disabled]="!unsavedChangesExist">
+            [disabled]="!unsavedChangesExist || isSaving">
       <i class="fa fa-download"></i>
       Speichern
     </button>

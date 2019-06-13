@@ -38,7 +38,7 @@ export class LocationPickerModalComponent implements OnInit {
         let firstArea = ArrayUtils.getFirstElement(this.event.areas);
 
         if (firstArea != null) {
-          this.toggleCollapse(firstArea.id)
+          this.toggleCollapse(firstArea.id);
         }
 
         for (let area of this.event.areas) {

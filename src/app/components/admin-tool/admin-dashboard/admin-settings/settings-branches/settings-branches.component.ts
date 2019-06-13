@@ -20,6 +20,7 @@ export class SettingsBranchesComponent extends BaseSettingsChangesComponent impl
 
   public isLoading: boolean = false;
   public isArchivedLoading: boolean = false;
+  public isSaving: boolean = false;
 
   public constructor(private branchDAO: BranchDAO,
                      private toastr: ToastrService) {
@@ -67,11 +68,13 @@ export class SettingsBranchesComponent extends BaseSettingsChangesComponent impl
   }
 
   public async updateBranches(): Promise<void> {
+    this.isSaving = true;
     let branches: Branch[] = await this.branchDAO.updateBranches([...this.branches, ...this.archivedBranches]);
-
     this.branches = branches.filter(t => !t.isArchive);
+
     this.archivedBranches = branches.filter(t => t.isArchive);
     this.toastr.success('Die Branchen wurden erfolgreich gespeichert!', 'Update erfolgreich!');
+    this.isSaving = false;
     this.setUnsavedChanges(false);
   }
 }

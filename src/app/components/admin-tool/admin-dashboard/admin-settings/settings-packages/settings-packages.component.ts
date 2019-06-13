@@ -18,6 +18,7 @@ export class SettingsPackagesComponent extends BaseSettingsChangesComponent impl
   public editingPackage: Package;
 
   public isLoading: boolean = false;
+  public isSaving: boolean = false;
 
   public constructor(private packageDAO: PackageDAO,
                      private toastr: ToastrService) {
@@ -52,9 +53,11 @@ export class SettingsPackagesComponent extends BaseSettingsChangesComponent impl
   }
 
   public async updatePackage(fitPackage: Package): Promise<void> {
+    this.isSaving = true;
     this.packages = await this.packageDAO.updatePackage(fitPackage);
     this.setUnsavedChanges(false);
     this.toastr.success('Das Paket wurde erfolgreich geändert.', 'Paket gespeichert');
+    this.isSaving = false;
     this.editingPackage = null;
   }
 

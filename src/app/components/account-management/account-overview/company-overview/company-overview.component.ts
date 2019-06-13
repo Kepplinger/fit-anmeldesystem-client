@@ -18,7 +18,6 @@ import { Branch } from '../../../../core/model/branch';
 import { BranchDAO } from '../../../../core/dao/branch.dao';
 import { CompanyBranch } from '../../../../core/model/company-branch';
 import { BaseFormValidationComponent } from '../../../../core/base-components/base-form-validation.component';
-import { BaseSubscriptionComponent } from '../../../../core/base-components/base-subscription.component';
 
 @Component({
   selector: 'fit-company-overview',
