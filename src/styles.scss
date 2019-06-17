@@ -22,3 +22,7 @@ $fa-font-path: '~font-awesome/fonts' !default
 .ajs-input {
   @extend .form-control;
 }
+
+#toast-container > div {
+  opacity:1;
+}
