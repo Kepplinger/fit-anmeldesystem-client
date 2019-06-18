@@ -36,5 +36,6 @@ export class TagInputComponent {
 
   public removeItem(index: number): void {
     this.tags.splice(index, 1);
+    this.updatedTags();
   }
 }
