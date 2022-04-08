@@ -31,7 +31,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "jquery-autotab": "^1.9.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngx-chips": "^1.9.8",
     "ngx-ellipsis": "^1.1.3",
     "ngx-monaco-editor": "^6.0.0",
